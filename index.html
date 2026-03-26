@@ -1,601 +1,922 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vision Multiroom PRO</title>
+  <title>Vision Multiroom - Demonstração</title>
   <style>
-    :root{
-      --bg:#08131f;
-      --panel:#102233;
-      --panel2:#13283b;
-      --line:rgba(255,255,255,.10);
-      --text:#eef6ff;
-      --muted:#b7c7d8;
-      --blue:#159dff;
-      --green:#28c76f;
-      --orange:#ff8a1d;
-      --red:#ff3b30;
-      --purple:#5f48ff;
-      --cyan:#16c6d8;
-    }
+    :root {
+      --bg: #0b1220;
+      --panel: rgba(15, 23, 42, 0.92);
+      --panel-2: rgba(30, 41, 59, 0.9);
+      --stroke: rgba(148, 163, 184, 0.18);
+      --text: #e5eefc;
+      --muted: #94a3b8;
+      --green: #22c55e;
+      --green-soft: rgba(34, 197, 94, 0.18);
+      --red: #ef4444;
+      --red-soft: rgba(239, 68, 68, 0.18);
+      --amber: #f59e0b;
+      --blue: #38bdf8;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+    }* { box-sizing: border-box; }
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(21,157,255,.18), transparent 20%),
-        radial-gradient(circle at bottom right, rgba(95,72,255,.16), transparent 22%),
-        linear-gradient(160deg,#07111b,#0b1826 55%,#0f2031);
-      color:var(--text);
-      min-height:100vh;
-      padding:14px;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.10), transparent 22%),
+    linear-gradient(135deg, #020617 0%, #0f172a 52%, #111827 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
 
-    .app{
-      max-width:1400px;
-      margin:0 auto;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:24px;
-      overflow:hidden;
-      background:rgba(8,19,31,.96);
-      box-shadow:0 20px 60px rgba(0,0,0,.35);
-    }
+.tablet {
+  width: min(1366px, 100%);
+  min-height: min(860px, calc(100vh - 44px));
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.96));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 34px;
+  box-shadow: var(--shadow);
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
 
-    .topbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:16px;
-      padding:18px 22px;
-      background:linear-gradient(180deg,#17324a,#12283c);
-      border-bottom:1px solid var(--line);
-    }
+.tablet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), transparent 16%);
+}
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:14px;
-    }
+.layout {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1.1fr 0.92fr;
+  gap: 18px;
+}
 
-    .logo{
-      width:50px;
-      height:50px;
-      border-radius:50%;
-      background:
-        radial-gradient(circle at 35% 35%, #1fd2ff, transparent 28%),
-        radial-gradient(circle at 70% 70%, #003d9f, transparent 34%),
-        linear-gradient(145deg, #0e4673, #0b2238);
-      position:relative;
-      box-shadow:0 0 18px rgba(21,157,255,.25);
-    }
+.card {
+  background: var(--panel);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-xl);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
 
-    .logo::after{
-      content:"";
-      position:absolute;
-      inset:9px;
-      border-radius:50%;
-      border:3px solid rgba(255,255,255,.7);
-      border-top-color:transparent;
-      transform:rotate(30deg);
-    }
+.main {
+  padding: 18px;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 16px;
+}
 
-    .brand h1{
-      margin:0;
-      font-size:20px;
-      font-weight:800;
-      letter-spacing:.5px;
-    }
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px 4px;
+}
 
-    .brand small{
-      display:block;
-      color:#d6e6f7;
-      margin-top:3px;
-      font-size:13px;
-      font-weight:700;
-    }
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-    .top-info{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
+.logo {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(56,189,248,.22), rgba(34,197,94,.2));
+  border: 1px solid rgba(255,255,255,.08);
+  font-weight: 700;
+  letter-spacing: .5px;
+}
 
-    .chip{
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.05);
-      font-size:13px;
-      font-weight:700;
-    }
+.brand h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
 
-    .chip.online{background:rgba(40,199,111,.18); color:#c6f4d7}
-    .chip.scene{background:rgba(21,157,255,.16); color:#d9efff}
+.brand p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
 
-    .content{
-      display:grid;
-      grid-template-columns:230px 1fr;
-      gap:16px;
-      padding:16px;
-    }
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
 
-    .sidebar{
-      background:linear-gradient(180deg,#122536,#0d1d2d);
-      border:1px solid var(--line);
-      border-radius:20px;
-      padding:16px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
+.pill {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,.03);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+}
 
-    .sidebtn{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      width:100%;
-      border:none;
-      border-radius:14px;
-      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
-      color:#fff;
-      padding:16px 14px;
-      font-size:18px;
-      font-weight:700;
-      text-align:left;
-      cursor:pointer;
-      border:1px solid rgba(255,255,255,.08);
-      transition:.2s ease;
-    }
+.pill.online { background: rgba(34,197,94,.14); color: #bbf7d0; border-color: rgba(34,197,94,.24); }
+.pill.warning { background: rgba(245,158,11,.14); color: #fde68a; border-color: rgba(245,158,11,.24); }
 
-    .sidebtn:hover{filter:brightness(1.08); transform:translateY(-1px)}
-    .sideicon{
-      width:40px;
-      height:40px;
-      display:grid;
-      place-items:center;
-      border-radius:12px;
-      background:rgba(255,255,255,.08);
-      font-size:22px;
-      flex:0 0 auto;
-    }
+.scene-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
 
-    .main{
-      background:linear-gradient(180deg,#102233,#0b1b2a);
-      border:1px solid var(--line);
-      border-radius:20px;
-      padding:16px;
-    }
+.scene {
+  border: 1px solid var(--stroke);
+  background: linear-gradient(180deg, rgba(30,41,59,.72), rgba(15,23,42,.92));
+  border-radius: var(--radius-md);
+  padding: 14px;
+  min-height: 90px;
+  cursor: pointer;
+  transition: .18s ease;
+}
 
-    .main-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      margin-bottom:12px;
-      flex-wrap:wrap;
-    }
+.scene:hover { transform: translateY(-1px); border-color: rgba(56,189,248,.28); }
+.scene.active { box-shadow: 0 0 0 1px rgba(56,189,248,.32) inset; background: linear-gradient(180deg, rgba(14, 116, 144, .26), rgba(15,23,42,.94)); }
+.scene strong { display: block; font-size: 14px; margin-bottom: 6px; }
+.scene span { color: var(--muted); font-size: 12px; }
 
-    .main-head h2{
-      margin:0;
-      font-size:18px;
-    }
+.map-card {
+  background: linear-gradient(180deg, rgba(15,23,42,.9), rgba(2,6,23,.9));
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-xl);
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+  min-height: 440px;
+}
 
-    .stats{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
+.map-grid {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, minmax(56px, 1fr));
+  gap: 12px;
+}
 
-    .stat{
-      padding:10px 12px;
-      border-radius:12px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-      font-size:13px;
-      font-weight:700;
-    }
+.zone {
+  border-radius: 18px;
+  border: 1px solid var(--stroke);
+  background: linear-gradient(180deg, rgba(30,41,59,.72), rgba(15,23,42,.96));
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: .18s ease;
+  user-select: none;
+  min-height: 100px;
+}
 
-    .map-wrap{
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)),
-        linear-gradient(145deg,#294359,#12283b);
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      padding:14px;
-      min-height:500px;
-    }
+.zone:hover { transform: translateY(-1px); }
+.zone .title { font-size: 15px; font-weight: 700; }
+.zone .sub { color: var(--muted); font-size: 12px; }
+.zone .state {
+  align-self: flex-start;
+  margin-top: 10px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,.03);
+  color: var(--muted);
+}
 
-    .school{
-      position:relative;
-      min-height:470px;
-      border-radius:16px;
-      overflow:hidden;
-      background:
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(145deg,#8f8c7a,#c3b8a3 40%,#9b907d);
-      background-size:28px 28px, 28px 28px, auto;
-      border:6px solid #dfe6ea;
-      box-shadow:inset 0 0 0 2px rgba(0,0,0,.08);
-    }
+.zone.music {
+  background: linear-gradient(180deg, rgba(34,197,94,.18), rgba(15,23,42,.98));
+  border-color: rgba(34,197,94,.28);
+  box-shadow: inset 0 0 0 1px rgba(34,197,94,.08);
+}
+.zone.music .state { background: var(--green-soft); color: #bbf7d0; border-color: rgba(34,197,94,.2); }
 
-    .zone{
-      position:absolute;
-      border-radius:10px;
-      border:3px solid rgba(255,255,255,.85);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      font-weight:800;
-      font-size:18px;
-      color:white;
-      cursor:pointer;
-      overflow:hidden;
-      transition:.18s ease;
-      box-shadow:0 8px 18px rgba(0,0,0,.18);
-      padding:8px;
-    }
+.zone.mic {
+  background: linear-gradient(180deg, rgba(239,68,68,.18), rgba(15,23,42,.98));
+  border-color: rgba(239,68,68,.28);
+  box-shadow: inset 0 0 0 1px rgba(239,68,68,.08);
+}
+.zone.mic .state { background: var(--red-soft); color: #fecaca; border-color: rgba(239,68,68,.2); }
 
-    .zone:hover{transform:scale(1.02)}
-    .zone.blue{background:linear-gradient(145deg,#2196f3,#1565c0)}
-    .zone.green{background:linear-gradient(145deg,#3ac76d,#1d9f4d)}
-    .zone.orange{background:linear-gradient(145deg,#ff9738,#e46f10)}
-    .zone.red{background:linear-gradient(145deg,#ef5350,#d72f2f)}
-    .zone.sand{background:linear-gradient(145deg,#d7a35d,#ad7234)}
-    .zone.gray{background:linear-gradient(145deg,#6c7887,#4a5664)}
+.controls-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr;
+  gap: 12px;
+}
 
-    .zone.active-music{
-      box-shadow:0 0 0 4px rgba(21,157,255,.30),0 0 22px rgba(21,157,255,.45);
-    }
+.big-action, .small-action {
+  border: 1px solid var(--stroke);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(30,41,59,.85), rgba(15,23,42,.95));
+  padding: 16px;
+  cursor: pointer;
+  transition: .18s ease;
+  color: var(--text);
+}
 
-    .zone.active-mic{
-      box-shadow:0 0 0 4px rgba(255,59,48,.30),0 0 22px rgba(255,59,48,.48);
-    }
+.big-action:hover, .small-action:hover, .zone:hover {
+  border-color: rgba(255,255,255,.14);
+}
 
-    .icon-badge{
-      position:absolute;
-      width:62px;
-      height:62px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      color:#fff;
-      font-size:30px;
-      right:16px;
-      top:16px;
-      border:3px solid rgba(255,255,255,.75);
-      box-shadow:0 10px 20px rgba(0,0,0,.25);
-      pointer-events:none;
-    }
+.big-action strong, .small-action strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
 
-    .music-badge{background:linear-gradient(145deg,#19b5ff,#005bcc)}
-    .mic-badge{background:linear-gradient(145deg,#ff7438,#d62d0a)}
-    .bell-badge{background:linear-gradient(145deg,#18c2d8,#0077a9)}
+.big-action span, .small-action span {
+  color: var(--muted);
+  font-size: 12px;
+}
 
-    .footer{
-      display:grid;
-      grid-template-columns:220px 1fr;
-      gap:16px;
-      padding:0 16px 16px;
-    }
+.primary { background: linear-gradient(180deg, rgba(34,197,94,.22), rgba(15,23,42,.98)); }
+.secondary { background: linear-gradient(180deg, rgba(56,189,248,.18), rgba(15,23,42,.98)); }
+.danger { background: linear-gradient(180deg, rgba(239,68,68,.18), rgba(15,23,42,.98)); }
 
-    .clockbox,
-    .actions{
-      background:linear-gradient(180deg,#102233,#0b1b2a);
-      border:1px solid var(--line);
-      border-radius:20px;
-    }
+.side {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 18px;
+  padding: 18px;
+}
 
-    .clockbox{
-      padding:18px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      min-height:110px;
-    }
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
 
-    .time{
-      font-size:42px;
-      font-weight:900;
-      line-height:1;
-      margin-bottom:8px;
-    }
+.section-title h2 {
+  margin: 0;
+  font-size: 18px;
+}
 
-    .date{
-      color:var(--muted);
-      font-size:15px;
-      font-weight:700;
-    }
+.section-title span {
+  color: var(--muted);
+  font-size: 12px;
+}
 
-    .actions{
-      padding:14px;
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:12px;
-    }
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
 
-    .action{
-      border:none;
-      border-radius:14px;
-      color:#fff;
-      font-size:16px;
-      font-weight:800;
-      padding:18px 12px;
-      cursor:pointer;
-      box-shadow:0 10px 20px rgba(0,0,0,.18);
-      transition:.18s ease;
-    }
+.metric {
+  background: var(--panel-2);
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  padding: 14px;
+}
 
-    .action:hover{transform:translateY(-1px); filter:brightness(1.06)}
-    .recreio{background:linear-gradient(145deg,#6d49ff,#4f2fe7)}
-    .emergencia{background:linear-gradient(145deg,#ff4f42,#db2218)}
-    .musica{background:linear-gradient(145deg,#16c6d8,#0896a5)}
-    .silenciar{background:linear-gradient(145deg,#5f6b7a,#3f4a58)}
+.metric .label { color: var(--muted); font-size: 12px; }
+.metric .value { margin-top: 6px; font-size: 26px; font-weight: 800; }
 
-    .legend{
-      margin-top:12px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:700;
-    }
+.master-controls, .schedule, .log-panel, .audio-panel {
+  padding: 18px;
+}
 
-    .legend span{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      padding:8px 10px;
-      border-radius:999px;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.07);
-    }
+.master-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
 
-    .dot{
-      width:11px;height:11px;border-radius:50%;
-      display:inline-block;
-    }
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(148,163,184,.12);
+}
+.toggle-row:last-child { border-bottom: none; }
 
-    .blue-dot{background:#19b5ff}
-    .red-dot{background:#ff4f42}
-    .green-dot{background:#28c76f}
+.toggle-label strong { display: block; font-size: 14px; }
+.toggle-label span { color: var(--muted); font-size: 12px; }
 
-    @media (max-width: 980px){
-      .content,.footer{grid-template-columns:1fr}
-      .actions{grid-template-columns:repeat(2,1fr)}
-    }
+.switch {
+  width: 58px;
+  height: 32px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid var(--stroke);
+  position: relative;
+  cursor: pointer;
+  transition: .18s ease;
+}
 
-    @media (max-width: 700px){
-      .content{padding:10px}
-      .footer{padding:0 10px 10px}
-      .actions{grid-template-columns:1fr}
-      .topbar{padding:14px}
-      .school{min-height:620px}
-      .zone{font-size:15px}
-      .icon-badge{width:52px;height:52px;font-size:24px}
-    }
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  transition: .18s ease;
+}
+
+.switch.on { background: rgba(34,197,94,.24); border-color: rgba(34,197,94,.24); }
+.switch.on::after { left: 28px; background: #dcfce7; }
+
+.schedule-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(148,163,184,.12);
+}
+.schedule-item:last-child { border-bottom: none; }
+
+.time {
+  width: 68px;
+  padding: 10px 0;
+  border-radius: 14px;
+  text-align: center;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--stroke);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.badge {
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,.04);
+  color: var(--muted);
+}
+.badge.green { background: var(--green-soft); color: #bbf7d0; border-color: rgba(34,197,94,.2); }
+.badge.red { background: var(--red-soft); color: #fecaca; border-color: rgba(239,68,68,.2); }
+.badge.blue { background: rgba(56,189,248,.16); color: #bae6fd; border-color: rgba(56,189,248,.2); }
+
+.audio-card {
+  background: var(--panel-2);
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.slider {
+  width: 100%;
+  margin-top: 12px;
+  appearance: none;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  cursor: pointer;
+}
+
+.log-list {
+  display: grid;
+  gap: 10px;
+}
+
+.log-item {
+  background: var(--panel-2);
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  padding: 12px 14px;
+}
+
+.log-item strong { display: block; font-size: 13px; margin-bottom: 3px; }
+.log-item span { color: var(--muted); font-size: 12px; }
+
+.footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 6px 4px;
+}
+
+.footer-bar .left, .footer-bar .right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mini-btn {
+  padding: 11px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+@media (max-width: 1120px) {
+  .layout { grid-template-columns: 1fr; }
+  .scene-row, .controls-row, .metrics, .master-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 720px) {
+  body { padding: 10px; }
+  .tablet { border-radius: 24px; padding: 10px; }
+  .scene-row, .controls-row, .metrics, .master-grid { grid-template-columns: 1fr; }
+  .topbar, .footer-bar { flex-direction: column; align-items: flex-start; }
+  .status-bar { justify-content: flex-start; }
+  .map-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+  .zone { grid-column: auto !important; grid-row: auto !important; min-height: 110px; }
+}
+
   </style>
 </head>
 <body>
-  <div class="app">
-    <div class="topbar">
-      <div class="brand">
-        <div class="logo"></div>
+  <div class="tablet">
+    <div class="layout">
+      <section class="card main">
+        <div class="topbar">
+          <div class="brand">
+            <div class="logo">VM</div>
+            <div>
+              <h1>Vision Multiroom</h1>
+              <p>Demonstração interativa do sistema setorizado escolar</p>
+            </div>
+          </div>
+          <div class="status-bar">
+            <div class="pill online">● Sistema online</div>
+            <div class="pill">Escola modelo</div>
+            <div class="pill warning" id="currentScene">Cena: Operação normal</div>
+          </div>
+        </div><div class="scene-row">
+      <button class="scene active" data-scene="normal">
+        <strong>Operação normal</strong>
+        <span>Música ambiente em áreas selecionadas</span>
+      </button>
+      <button class="scene" data-scene="entrada">
+        <strong>Entrada de alunos</strong>
+        <span>Pátio + corredores + recepção</span>
+      </button>
+      <button class="scene" data-scene="aula">
+        <strong>Início de aula</strong>
+        <span>Campainha e mensagem automática</span>
+      </button>
+      <button class="scene" data-scene="emergencia">
+        <strong>Emergência</strong>
+        <span>Microfone prioritário em todas as zonas</span>
+      </button>
+    </div>
+
+    <div class="map-card">
+      <div class="section-title">
+        <h2>Mapa de zonas</h2>
+        <span>Toque para ativar música ou segure o modo microfone</span>
+      </div>
+      <div class="map-grid">
+        <div class="zone music" data-zone="recepcao" style="grid-column: 1 / span 3; grid-row: 1 / span 2;">
+          <div>
+            <div class="title">Recepção</div>
+            <div class="sub">Entrada principal</div>
+          </div>
+          <div class="state">MÚSICA</div>
+        </div>
+
+        <div class="zone" data-zone="corredor1" style="grid-column: 4 / span 3; grid-row: 1 / span 2;">
+          <div>
+            <div class="title">Corredor 01</div>
+            <div class="sub">Bloco A</div>
+          </div>
+          <div class="state">DESLIGADO</div>
+        </div>
+
+        <div class="zone" data-zone="corredor2" style="grid-column: 7 / span 3; grid-row: 1 / span 2;">
+          <div>
+            <div class="title">Corredor 02</div>
+            <div class="sub">Bloco B</div>
+          </div>
+          <div class="state">DESLIGADO</div>
+        </div>
+
+        <div class="zone music" data-zone="patio" style="grid-column: 10 / span 3; grid-row: 1 / span 3;">
+          <div>
+            <div class="title">Pátio</div>
+            <div class="sub">Recreação</div>
+          </div>
+          <div class="state">MÚSICA</div>
+        </div>
+
+        <div class="zone" data-zone="sala1" style="grid-column: 1 / span 3; grid-row: 3 / span 2;">
+          <div>
+            <div class="title">Sala 01</div>
+            <div class="sub">Ensino fundamental</div>
+          </div>
+          <div class="state">DESLIGADO</div>
+        </div>
+
+        <div class="zone" data-zone="sala2" style="grid-column: 4 / span 3; grid-row: 3 / span 2;">
+          <div>
+            <div class="title">Sala 02</div>
+            <div class="sub">Ensino fundamental</div>
+          </div>
+          <div class="state">DESLIGADO</div>
+        </div>
+
+        <div class="zone" data-zone="sala3" style="grid-column: 7 / span 3; grid-row: 3 / span 2;">
+          <div>
+            <div class="title">Sala 03</div>
+            <div class="sub">Ensino médio</div>
+          </div>
+          <div class="state">DESLIGADO</div>
+        </div>
+
+        <div class="zone music" data-zone="quadra" style="grid-column: 1 / span 6; grid-row: 5 / span 3;">
+          <div>
+            <div class="title">Quadra</div>
+            <div class="sub">Som esportivo / eventos</div>
+          </div>
+          <div class="state">MÚSICA</div>
+        </div>
+
+        <div class="zone" data-zone="administracao" style="grid-column: 7 / span 3; grid-row: 5 / span 3;">
+          <div>
+            <div class="title">Administração</div>
+            <div class="sub">Direção / coordenação</div>
+          </div>
+          <div class="state">DESLIGADO</div>
+        </div>
+
+        <div class="zone" data-zone="biblioteca" style="grid-column: 10 / span 3; grid-row: 4 / span 2;">
+          <div>
+            <div class="title">Biblioteca</div>
+            <div class="sub">Leitura / estudo</div>
+          </div>
+          <div class="state">DESLIGADO</div>
+        </div>
+
+        <div class="zone" data-zone="lab" style="grid-column: 10 / span 3; grid-row: 6 / span 2;">
+          <div>
+            <div class="title">Laboratório</div>
+            <div class="sub">Informática</div>
+          </div>
+          <div class="state">DESLIGADO</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls-row">
+      <button class="big-action primary" id="btnAllMusic">
+        <strong>Ativar música em todas</strong>
+        <span>Distribuição geral para todo o colégio</span>
+      </button>
+      <button class="small-action secondary" id="btnBell">
+        <strong>Campainha</strong>
+        <span>Toque programado</span>
+      </button>
+      <button class="small-action danger" id="btnEmergency">
+        <strong>Modo emergência</strong>
+        <span>Prioridade total no microfone</span>
+      </button>
+      <button class="small-action" id="btnOff">
+        <strong>Desligar sistema</strong>
+        <span>Zera todas as zonas</span>
+      </button>
+    </div>
+
+    <div class="footer-bar">
+      <div class="left">
+        <button class="mini-btn" id="btnMessage">Mensagem pré-gravada</button>
+        <button class="mini-btn" id="btnMicAdmin">Microfone administração</button>
+        <button class="mini-btn" id="btnDemo">Rodar demonstração</button>
+      </div>
+      <div class="right">
+        <div class="pill">Projeto personalizado por escola</div>
+      </div>
+    </div>
+  </section>
+
+  <aside class="side">
+    <section class="card metrics" style="padding: 18px;">
+      <div class="metric">
+        <div class="label">Zonas ativas</div>
+        <div class="value" id="metricZones">3</div>
+      </div>
+      <div class="metric">
+        <div class="label">Microfone</div>
+        <div class="value" id="metricMic">0</div>
+      </div>
+      <div class="metric">
+        <div class="label">Volume geral</div>
+        <div class="value"><span id="volumeValue">72</span>%</div>
+      </div>
+    </section>
+
+    <section class="card master-controls">
+      <div class="section-title">
+        <h2>Controle geral</h2>
+        <span>Comandos principais</span>
+      </div>
+      <div class="master-grid">
+        <div class="audio-card">
+          <strong>Música ambiente</strong>
+          <span style="color: var(--muted); font-size: 12px;">Reprodução automática por agenda</span>
+          <div class="toggle-row" style="padding-bottom: 0; border-bottom: none;">
+            <div class="toggle-label"></div>
+            <div class="switch on" data-switch="music"></div>
+          </div>
+        </div>
+        <div class="audio-card">
+          <strong>Campainha automática</strong>
+          <span style="color: var(--muted); font-size: 12px;">Horários configurados</span>
+          <div class="toggle-row" style="padding-bottom: 0; border-bottom: none;">
+            <div class="toggle-label"></div>
+            <div class="switch on" data-switch="bell"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-label">
+          <strong>Mensagens automáticas</strong>
+          <span>Recados pré-gravados em horários definidos</span>
+        </div>
+        <div class="switch on" data-switch="message"></div>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-label">
+          <strong>Supervisão remota</strong>
+          <span>Acompanhamento por tablet / computador</span>
+        </div>
+        <div class="switch on" data-switch="remote"></div>
+      </div>
+    </section>
+
+    <section class="card schedule">
+      <div class="section-title">
+        <h2>Automação do dia</h2>
+        <span>Programações simuladas</span>
+      </div>
+      <div class="schedule-item">
+        <div class="time">07:00</div>
         <div>
-          <h1>VISION MULTIROOM</h1>
-          <small>by Ética Educativos</small>
+          <strong>Entrada de alunos</strong>
+          <div style="color: var(--muted); font-size: 12px;">Recepção, corredores e pátio</div>
+        </div>
+        <div class="badge green">ATIVO</div>
+      </div>
+      <div class="schedule-item">
+        <div class="time">07:20</div>
+        <div>
+          <strong>Campainha digital</strong>
+          <div style="color: var(--muted); font-size: 12px;">Início da primeira aula</div>
+        </div>
+        <div class="badge blue">AGENDADO</div>
+      </div>
+      <div class="schedule-item">
+        <div class="time">09:30</div>
+        <div>
+          <strong>Mensagem institucional</strong>
+          <div style="color: var(--muted); font-size: 12px;">Recado automático por setores</div>
+        </div>
+        <div class="badge">PENDENTE</div>
+      </div>
+      <div class="schedule-item">
+        <div class="time">17:30</div>
+        <div>
+          <strong>Encerramento</strong>
+          <div style="color: var(--muted); font-size: 12px;">Desligamento programado</div>
+        </div>
+        <div class="badge red">STANDBY</div>
+      </div>
+    </section>
+
+    <section class="card audio-panel">
+      <div class="section-title">
+        <h2>Áudio</h2>
+        <span>Ajuste em tempo real</span>
+      </div>
+      <div class="audio-card">
+        <strong>Volume geral</strong>
+        <input class="slider" id="volumeSlider" type="range" min="0" max="100" value="72" />
+      </div>
+      <div class="audio-card">
+        <strong>Fonte ativa</strong>
+        <div style="margin-top: 8px; color: var(--muted); font-size: 13px;">Playlist ambiente · Servidor central</div>
+      </div>
+    </section>
+
+    <section class="card log-panel">
+      <div class="section-title">
+        <h2>Eventos do sistema</h2>
+        <span>Registro de demonstração</span>
+      </div>
+      <div class="log-list" id="logList">
+        <div class="log-item">
+          <strong>Sistema iniciado com sucesso</strong>
+          <span>Conexão ativa com controlador central</span>
+        </div>
+        <div class="log-item">
+          <strong>Cena operacional carregada</strong>
+          <span>Recepção, pátio e quadra com música ambiente</span>
         </div>
       </div>
-      <div class="top-info">
-        <div class="chip online">● Sistema Online</div>
-        <div class="chip scene" id="sceneText">Modo: Operação normal</div>
-      </div>
-    </div>
+    </section>
+  </aside>
+</div>
 
-    <div class="content">
-      <div class="sidebar">
-        <button class="sidebtn" onclick="acaoLateral('Campainha acionada')"><span class="sideicon">🔔</span>Campainha</button>
-        <button class="sidebtn" onclick="acaoLateral('Mensagens abertas')"><span class="sideicon">💬</span>Mensagens</button>
-        <button class="sidebtn" onclick="acaoLateral('Rádio Escola ativada')"><span class="sideicon">📻</span>Rádio Escola</button>
-        <button class="sidebtn" onclick="acaoLateral('Horários exibidos')"><span class="sideicon">🕒</span>Horários</button>
-      </div>
+  </div>  <script>
+    const zones = document.querySelectorAll('.zone');
+    const scenes = document.querySelectorAll('.scene');
+    const metricZones = document.getElementById('metricZones');
+    const metricMic = document.getElementById('metricMic');
+    const currentScene = document.getElementById('currentScene');
+    const logList = document.getElementById('logList');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const volumeValue = document.getElementById('volumeValue');
 
-      <div class="main">
-        <div class="main-head">
-          <h2>Mapa interativo da unidade escolar</h2>
-          <div class="stats">
-            <div class="stat" id="statMusic">Música: 0 zonas</div>
-            <div class="stat" id="statMic">Microfone: 0 zonas</div>
-            <div class="stat">Perfil: Premium</div>
-          </div>
-        </div>
+    const zoneNames = {
+      recepcao: 'Recepção', corredor1: 'Corredor 01', corredor2: 'Corredor 02', patio: 'Pátio',
+      sala1: 'Sala 01', sala2: 'Sala 02', sala3: 'Sala 03', quadra: 'Quadra',
+      administracao: 'Administração', biblioteca: 'Biblioteca', lab: 'Laboratório'
+    };
 
-        <div class="map-wrap">
-          <div class="school">
-            <div class="zone blue" data-zone="salas" style="left:4%;top:4%;width:40%;height:31%;" onclick="toggleZone(this,'music')">
-              Salas de Aula
-              <div class="icon-badge music-badge">♫</div>
-            </div>
-
-            <div class="zone green" data-zone="patio" style="left:47%;top:4%;width:33%;height:31%;" onclick="toggleZone(this,'music')">
-              Pátio
-              <div class="icon-badge music-badge">♫</div>
-            </div>
-
-            <div class="zone sand" data-zone="direcao" style="left:80.5%;top:4%;width:15.5%;height:31%;" onclick="toggleZone(this,'mic')">
-              Direção
-              <div class="icon-badge mic-badge">🎤</div>
-            </div>
-
-            <div class="zone red" data-zone="auditorio" style="left:40%;top:46%;width:27%;height:25%;" onclick="toggleZone(this,'music')">
-              Auditório
-            </div>
-
-            <div class="zone orange" data-zone="recepcao" style="left:69%;top:46%;width:27%;height:25%;" onclick="toggleZone(this,'mic')">
-              Recepção
-            </div>
-
-            <div class="zone gray" data-zone="quadra" style="left:4%;top:72%;width:26%;height:18%;" onclick="toggleZone(this,'music')">
-              Quadra
-            </div>
-
-            <div class="zone sand" data-zone="entrada" style="left:32%;top:72%;width:18%;height:18%;" onclick="toggleZone(this,'bell')">
-              Entrada
-              <div class="icon-badge bell-badge">🔊</div>
-            </div>
-
-            <div class="zone gray" data-zone="secretaria" style="left:52%;top:72%;width:20%;height:18%;" onclick="toggleZone(this,'mic')">
-              Secretaria
-            </div>
-
-            <div class="zone gray" data-zone="corredor" style="left:74%;top:72%;width:22%;height:18%;" onclick="toggleZone(this,'music')">
-              Corredor
-            </div>
-          </div>
-
-          <div class="legend">
-            <span><i class="dot blue-dot"></i> Música ambiente</span>
-            <span><i class="dot red-dot"></i> Microfone prioritário</span>
-            <span><i class="dot green-dot"></i> Sistema online</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <div class="clockbox">
-        <div class="time" id="clock">10:35</div>
-        <div class="date" id="dateText">Quarta-feira</div>
-      </div>
-
-      <div class="actions">
-        <button class="action recreio" onclick="modoRecreio()">Recreio</button>
-        <button class="action emergencia" onclick="modoEmergencia()">Aviso Emergência</button>
-        <button class="action musica" onclick="musicaAmbiente()">Música Ambiente</button>
-        <button class="action silenciar" onclick="silenciarTudo()">Silenciar</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    function atualizarRelogio(){
-      const agora = new Date();
-      const horas = String(agora.getHours()).padStart(2,'0');
-      const minutos = String(agora.getMinutes()).padStart(2,'0');
-      const dias = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
-      document.getElementById('clock').textContent = `${horas}:${minutos}`;
-      document.getElementById('dateText').textContent = dias[agora.getDay()];
+    function setZoneState(zone, state) {
+      zone.classList.remove('music', 'mic');
+      const badge = zone.querySelector('.state');
+      if (state === 'music') {
+        zone.classList.add('music');
+        badge.textContent = 'MÚSICA';
+      } else if (state === 'mic') {
+        zone.classList.add('mic');
+        badge.textContent = 'MICROFONE';
+      } else {
+        badge.textContent = 'DESLIGADO';
+      }
     }
-    setInterval(atualizarRelogio,1000);
-    atualizarRelogio();
 
-    function limparEstados(){
-      document.querySelectorAll('.zone').forEach(z=>{
-        z.classList.remove('active-music','active-mic');
-        z.dataset.state = '';
+    function getZoneState(zone) {
+      if (zone.classList.contains('mic')) return 'mic';
+      if (zone.classList.contains('music')) return 'music';
+      return 'off';
+    }
+
+    function updateMetrics() {
+      let active = 0;
+      let mic = 0;
+      zones.forEach(zone => {
+        const state = getZoneState(zone);
+        if (state !== 'off') active++;
+        if (state === 'mic') mic++;
       });
-      atualizarStats();
+      metricZones.textContent = active;
+      metricMic.textContent = mic;
     }
 
-    function toggleZone(el, tipo){
-      if(tipo === 'music'){
-        if(el.dataset.state === 'music'){
-          el.classList.remove('active-music');
-          el.dataset.state = '';
-        } else {
-          el.classList.remove('active-mic');
-          el.classList.add('active-music');
-          el.dataset.state = 'music';
-        }
-      }
-      if(tipo === 'mic'){
-        if(el.dataset.state === 'mic'){
-          el.classList.remove('active-mic');
-          el.dataset.state = '';
-        } else {
-          el.classList.remove('active-music');
-          el.classList.add('active-mic');
-          el.dataset.state = 'mic';
-        }
-      }
-      if(tipo === 'bell'){
-        el.classList.add('active-music');
-        el.dataset.state = 'music';
-      }
-      atualizarStats();
+    function addLog(title, detail) {
+      const item = document.createElement('div');
+      item.className = 'log-item';
+      item.innerHTML = `<strong>${title}</strong><span>${detail}</span>`;
+      logList.prepend(item);
+      while (logList.children.length > 5) logList.removeChild(logList.lastChild);
     }
 
-    function atualizarStats(){
-      const music = document.querySelectorAll('.zone[data-state="music"]').length;
-      const mic = document.querySelectorAll('.zone[data-state="mic"]').length;
-      document.getElementById('statMusic').textContent = `Música: ${music} zonas`;
-      document.getElementById('statMic').textContent = `Microfone: ${mic} zonas`;
-    }
-
-    function setScene(txt){
-      document.getElementById('sceneText').textContent = `Modo: ${txt}`;
-    }
-
-    function modoRecreio(){
-      limparEstados();
-      ativar('patio','music');
-      ativar('salas','music');
-      ativar('entrada','music');
-      ativar('quadra','music');
-      setScene('Recreio');
-    }
-
-    function modoEmergencia(){
-      limparEstados();
-      document.querySelectorAll('.zone').forEach(z=>{
-        z.classList.add('active-mic');
-        z.dataset.state = 'mic';
+    zones.forEach(zone => {
+      zone.addEventListener('click', () => {
+        const current = getZoneState(zone);
+        const next = current === 'off' ? 'music' : current === 'music' ? 'mic' : 'off';
+        setZoneState(zone, next);
+        updateMetrics();
+        addLog(`Zona alterada: ${zoneNames[zone.dataset.zone]}`, `Novo estado: ${next === 'off' ? 'desligado' : next === 'music' ? 'música ambiente' : 'microfone prioritário'}`);
       });
-      setScene('Emergência');
-      atualizarStats();
+    });
+
+    function clearScenes() {
+      scenes.forEach(s => s.classList.remove('active'));
     }
 
-    function musicaAmbiente(){
-      limparEstados();
-      ativar('salas','music');
-      ativar('patio','music');
-      ativar('auditorio','music');
-      ativar('quadra','music');
-      ativar('corredor','music');
-      setScene('Música Ambiente');
-    }
+    function activateScene(sceneName) {
+      clearScenes();
+      document.querySelector(`[data-scene="${sceneName}"]`)?.classList.add('active');
 
-    function silenciarTudo(){
-      limparEstados();
-      setScene('Silenciado');
-    }
+      zones.forEach(zone => setZoneState(zone, 'off'));
 
-    function acaoLateral(texto){
-      setScene(texto);
-    }
-
-    function ativar(nome,tipo){
-      const el = document.querySelector(`.zone[data-zone="${nome}"]`);
-      if(!el) return;
-      if(tipo === 'music'){
-        el.classList.add('active-music');
-        el.classList.remove('active-mic');
-        el.dataset.state = 'music';
+      if (sceneName === 'normal') {
+        ['recepcao','patio','quadra'].forEach(id => setZoneState(document.querySelector(`[data-zone="${id}"]`), 'music'));
+        currentScene.textContent = 'Cena: Operação normal';
+        addLog('Cena ativada', 'Operação normal em recepção, pátio e quadra');
       }
-      if(tipo === 'mic'){
-        el.classList.add('active-mic');
-        el.classList.remove('active-music');
-        el.dataset.state = 'mic';
+      if (sceneName === 'entrada') {
+        ['recepcao','corredor1','corredor2','patio'].forEach(id => setZoneState(document.querySelector(`[data-zone="${id}"]`), 'music'));
+        currentScene.textContent = 'Cena: Entrada de alunos';
+        addLog('Cena ativada', 'Entrada de alunos com áreas de circulação ativas');
       }
-      atualizarStats();
+      if (sceneName === 'aula') {
+        ['corredor1','corredor2','sala1','sala2','sala3'].forEach(id => setZoneState(document.querySelector(`[data-zone="${id}"]`), 'music'));
+        currentScene.textContent = 'Cena: Início de aula';
+        addLog('Campainha simulada', 'Transmissão de início de aula para blocos pedagógicos');
+      }
+      if (sceneName === 'emergencia') {
+        zones.forEach(zone => setZoneState(zone, 'mic'));
+        currentScene.textContent = 'Cena: Emergência';
+        addLog('Modo emergência ativado', 'Microfone prioritário liberado para todas as zonas');
+      }
+      updateMetrics();
     }
 
-    musicaAmbiente();
-  </script>
-</body>
+    scenes.forEach(scene => scene.addEventListener('click', () => activateScene(scene.dataset.scene)));
+
+    document.getElementById('btnAllMusic').addEventListener('click', () => {
+      zones.forEach(zone => setZoneState(zone, 'music'));
+      clearScenes();
+      currentScene.textContent = 'Cena: Música geral';
+      updateMetrics();
+      addLog('Comando geral', 'Música ambiente ativada em todas as zonas');
+    });
+
+    document.getElementById('btnBell').addEventListener('click', () => {
+      addLog('Campainha disparada', 'Toque programado executado com sucesso');
+      activateScene('aula');
+    });
+
+    document.getElementById('btnEmergency').addEventListener('click', () => activateScene('emergencia'));
+
+    document.getElementById('btnOff').addEventListener('click', () => {
+      zones.forEach(zone => setZoneState(zone, 'off'));
+      clearScenes();
+      currentScene.textContent = 'Cena: Sistema em espera';
+      updateMetrics();
+      addLog('Sistema desligado', 'Todas as zonas foram desativadas');
+    });
+
+    document.getElementById('btnMessage').addEventListener('click', () => {
+      addLog('Mensagem pré-gravada', 'Recado institucional enviado aos setores ativos');
+    });
+
+    document.getElementById('btnMicAdmin').addEventListener('click', () => {
+      const admin = document.querySelector('[data-zone="administracao"]');
+      setZoneState(admin, 'mic');
+      updateMetrics();
+      addLog('Microfone manual', 'Administração assumiu prioridade de fala');
+    });
+
+    document.getElementById('btnDemo').addEventListener('click', async () => {
+      activateScene('entrada');
+      await wait(1000);
+      activateScene('aula');
+      await wait(1000);
+      document.getElementById('btnAllMusic').click();
+    });
+
+    document.querySelectorAll('.switch').forEach(sw => {
+      sw.addEventListener('click', () => {
+        sw.classList.toggle('on');
+        const name = sw.dataset.switch;
+        addLog('Automação alterada', `${name} ${sw.classList.contains('on') ? 'ativado' : 'desativado'} no painel`);
+      });
+    });
+
+    volumeSlider.addEventListener('input', e => {
+      volumeValue.textContent = e.target.value;
+    });
+
+    function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+    updateMetrics();
+  </script></body>
 </html>
