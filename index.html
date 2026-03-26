@@ -147,9 +147,10 @@
       text-align:left;
       cursor:pointer;
       border:1px solid rgba(255,255,255,.08);
+      transition:.2s ease;
     }
 
-    .sidebtn:hover{filter:brightness(1.08)}
+    .sidebtn:hover{filter:brightness(1.08); transform:translateY(-1px)}
     .sideicon{
       width:40px;
       height:40px;
@@ -236,6 +237,7 @@
       overflow:hidden;
       transition:.18s ease;
       box-shadow:0 8px 18px rgba(0,0,0,.18);
+      padding:8px;
     }
 
     .zone:hover{transform:scale(1.02)}
@@ -244,6 +246,7 @@
     .zone.orange{background:linear-gradient(145deg,#ff9738,#e46f10)}
     .zone.red{background:linear-gradient(145deg,#ef5350,#d72f2f)}
     .zone.sand{background:linear-gradient(145deg,#d7a35d,#ad7234)}
+    .zone.gray{background:linear-gradient(145deg,#6c7887,#4a5664)}
 
     .zone.active-music{
       box-shadow:0 0 0 4px rgba(21,157,255,.30),0 0 22px rgba(21,157,255,.45);
@@ -266,6 +269,7 @@
       top:16px;
       border:3px solid rgba(255,255,255,.75);
       box-shadow:0 10px 20px rgba(0,0,0,.25);
+      pointer-events:none;
     }
 
     .music-badge{background:linear-gradient(145deg,#19b5ff,#005bcc)}
@@ -323,8 +327,10 @@
       padding:18px 12px;
       cursor:pointer;
       box-shadow:0 10px 20px rgba(0,0,0,.18);
+      transition:.18s ease;
     }
 
+    .action:hover{transform:translateY(-1px); filter:brightness(1.06)}
     .recreio{background:linear-gradient(145deg,#6d49ff,#4f2fe7)}
     .emergencia{background:linear-gradient(145deg,#ff4f42,#db2218)}
     .musica{background:linear-gradient(145deg,#16c6d8,#0896a5)}
@@ -410,7 +416,7 @@
         </div>
 
         <div class="map-wrap">
-          <div class="school" id="school">
+          <div class="school">
             <div class="zone blue" data-zone="salas" style="left:4%;top:4%;width:40%;height:31%;" onclick="toggleZone(this,'music')">
               Salas de Aula
               <div class="icon-badge music-badge">♫</div>
@@ -434,9 +440,21 @@
               Recepção
             </div>
 
-            <div class="zone sand" data-zone="entrada" style="left:4%;top:72%;width:18%;height:18%;" onclick="toggleZone(this,'bell')">
+            <div class="zone gray" data-zone="quadra" style="left:4%;top:72%;width:26%;height:18%;" onclick="toggleZone(this,'music')">
+              Quadra
+            </div>
+
+            <div class="zone sand" data-zone="entrada" style="left:32%;top:72%;width:18%;height:18%;" onclick="toggleZone(this,'bell')">
               Entrada
               <div class="icon-badge bell-badge">🔊</div>
+            </div>
+
+            <div class="zone gray" data-zone="secretaria" style="left:52%;top:72%;width:20%;height:18%;" onclick="toggleZone(this,'mic')">
+              Secretaria
+            </div>
+
+            <div class="zone gray" data-zone="corredor" style="left:74%;top:72%;width:22%;height:18%;" onclick="toggleZone(this,'music')">
+              Corredor
             </div>
           </div>
 
@@ -528,6 +546,7 @@
       ativar('patio','music');
       ativar('salas','music');
       ativar('entrada','music');
+      ativar('quadra','music');
       setScene('Recreio');
     }
 
@@ -546,6 +565,8 @@
       ativar('salas','music');
       ativar('patio','music');
       ativar('auditorio','music');
+      ativar('quadra','music');
+      ativar('corredor','music');
       setScene('Música Ambiente');
     }
 
