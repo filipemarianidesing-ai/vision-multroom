@@ -3,8 +3,8 @@
   "short_name": "Vision Control",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#09111b",
-  "theme_color": "#09111b",
+  "background_color": "#08111b",
+  "theme_color": "#08111b",
   "orientation": "landscape",
   "icons": [
     {
