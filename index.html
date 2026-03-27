@@ -7,153 +7,427 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Vision Multiroom" />
-  <title>Vision Multiroom - Tela de Teste</title>
+  <title>Vision Multiroom Premium</title>
   <style>
-    :root{
-      --bg:#08131f;
-      --panel:#102233;
-      --line:rgba(255,255,255,.10);
-      --text:#eef6ff;
-      --muted:#b7c7d8;
-      --green:#28c76f;
-      --blue:#159dff;
-      --red:#ff3b30;
-      --yellow:#f5c542;
-      --gray:#5f6b7a;
-      --purple:#6d49ff;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      background:linear-gradient(160deg,#07111b,#0b1826 55%,#0f2031);
-      color:var(--text);
-      min-height:100vh;
-      padding:16px;
-    }
-    .app{
-      max-width:1100px;
-      margin:0 auto;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:24px;
-      overflow:hidden;
-      background:rgba(8,19,31,.96);
-      box-shadow:0 20px 60px rgba(0,0,0,.35);
-    }
-    .topbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-      padding:18px 22px;
-      background:linear-gradient(180deg,#17324a,#12283c);
-      border-bottom:1px solid var(--line);
-    }
-    .title h1{margin:0;font-size:22px}
-    .title p{margin:4px 0 0;color:#d6e6f7;font-size:13px;font-weight:700}
-    .top-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    .chip{
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.05);
-      font-size:13px;
-      font-weight:700;
-      color:#fff;
-    }
-    .online{background:rgba(40,199,111,.18); color:#c6f4d7}
-    .offline{background:rgba(255,59,48,.16); color:#ffd3cf}
-    .install{background:rgba(109,73,255,.18); color:#e5ddff; cursor:pointer}
-    .install-banner{display:none; margin:16px; padding:14px 16px; border:1px solid var(--line); border-radius:16px; background:linear-gradient(180deg,#17324a,#12283c); align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
-    .install-banner.show{display:flex}
-    .install-text{font-size:14px; color:#dce8f3; font-weight:700}
-    .mini-btn{border:none; border-radius:12px; padding:12px 14px; font-size:14px; font-weight:800; cursor:pointer; color:#fff; background:linear-gradient(145deg,#6d49ff,#4f2fe7)}
-    .mini-btn.secondary{background:linear-gradient(145deg,#5f6b7a,#3f4a58)}
-    .ios-tip{display:none; margin:0 16px 16px; padding:14px 16px; border:1px dashed rgba(255,255,255,.18); border-radius:16px; color:#dce8f3; background:rgba(255,255,255,.04); font-size:14px; line-height:1.5}
-    .body{
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:16px;
-      padding:16px;
-    }
-    .card{
-      background:linear-gradient(180deg,#102233,#0b1b2a);
-      border:1px solid var(--line);
-      border-radius:20px;
-      padding:16px;
-    }
-    .card h2{margin:0 0 14px;font-size:18px}
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:12px;
-    }
-    .zone{
-      border:none;
-      border-radius:16px;
-      padding:18px;
-      color:#fff;
-      font-size:18px;
-      font-weight:800;
-      cursor:pointer;
-      min-height:90px;
-      transition:.18s ease;
-    }
-    .zone:hover,.action:hover{transform:translateY(-1px);filter:brightness(1.05)}
-    .zone.music{background:linear-gradient(145deg,#2196f3,#1565c0)}
-    .zone.mic{background:linear-gradient(145deg,#ff7b42,#d62d0a)}
-    .zone.neutral{background:linear-gradient(145deg,#6c7887,#4a5664)}
-    .actions{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:12px;
-      margin-top:14px;
-    }
-    .action{
-      border:none;
-      border-radius:14px;
-      padding:16px 12px;
-      color:#fff;
-      font-weight:800;
-      font-size:15px;
-      cursor:pointer;
-    }
-    .a-green{background:linear-gradient(145deg,#28c76f,#159b51)}
-    .a-blue{background:linear-gradient(145deg,#16c6d8,#0896a5)}
-    .a-red{background:linear-gradient(145deg,#ff4f42,#db2218)}
-    .a-gray{background:linear-gradient(145deg,#5f6b7a,#3f4a58)}
-    .field{margin-bottom:12px}
-    .field label{display:block;margin-bottom:6px;color:var(--muted);font-size:13px;font-weight:700}
-    .field input{
-      width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);
-      background:rgba(255,255,255,.04);color:#fff;font-size:15px;
-    }
-    .status-box{
-      padding:14px;border-radius:14px;border:1px solid var(--line);
-      background:rgba(255,255,255,.04);margin-top:8px;font-size:14px;
-    }
-    .log-list{display:grid;gap:8px;margin-top:12px}
-    .log-item{
-      padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.06);font-size:13px;color:#dce8f3;
-    }
-    @media (max-width: 860px){
-      .body{grid-template-columns:1fr}
-      .grid,.actions{grid-template-columns:1fr}
-    }
+    :root {
+      --bg1: #07111b;
+      --bg2: #102233;
+      --panel: rgba(16, 34, 51, 0.92);
+      --panel2: rgba(21, 39, 58, 0.96);
+      --line: rgba(255,255,255,.10);
+      --text: #eef6ff;
+      --muted: #b8c8d9;
+      --blue: #1ea7ff;
+      --blue2: #0c69da;
+      --green: #29c86f;
+      --green2: #14995c;
+      --red: #ff4a3d;
+      --red2: #d92318;
+      --orange: #ff932e;
+      --orange2: #df6a11;
+      --purple: #694bff;
+      --purple2: #4d30e6;
+      --cyan: #16c6d8;
+      --cyan2: #0a95a8;
+      --shadow: 0 24px 60px rgba(0,0,0,.38);
+    }* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(30,167,255,.16), transparent 20%),
+    radial-gradient(circle at bottom right, rgba(105,75,255,.14), transparent 20%),
+    linear-gradient(145deg, var(--bg1), #0b1826 52%, #102335 100%);
+  padding: 14px;
+}
+
+.app {
+  max-width: 1480px;
+  margin: 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+  background: rgba(8, 18, 29, 0.97);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: var(--shadow);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  background: linear-gradient(180deg, #17324a, #12283c);
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 35%, #1fd2ff, transparent 30%),
+    radial-gradient(circle at 70% 70%, #0047b8, transparent 35%),
+    linear-gradient(145deg, #0b4a7c, #0a2338);
+  position: relative;
+  box-shadow: 0 0 20px rgba(30,167,255,.25);
+  flex: 0 0 auto;
+}
+
+.logo::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,.74);
+  border-top-color: transparent;
+  transform: rotate(28deg);
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: .3px;
+}
+
+.brand p {
+  margin: 5px 0 0;
+  color: #d6e6f7;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.top-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.chip, .install-chip {
+  padding: 11px 15px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.05);
+  font-size: 13px;
+  font-weight: 800;
+  color: white;
+}
+
+.chip.online { background: rgba(41,200,111,.16); color: #cbf4dc; }
+.chip.scene { background: rgba(245,197,66,.14); color: #ffebb3; }
+.install-chip { background: rgba(105,75,255,.18); color: #e5ddff; cursor: pointer; }
+
+.install-banner {
+  display: none;
+  margin: 16px;
+  margin-bottom: 0;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, #17324a, #12283c);
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.install-banner.show { display: flex; }
+.install-text { color: #dce8f3; font-size: 14px; font-weight: 700; }
+
+.mini-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(145deg, var(--purple), var(--purple2));
+}
+
+.mini-btn.secondary { background: linear-gradient(145deg, #607081, #425060); }
+
+.ios-tip {
+  display: none;
+  margin: 16px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255,255,255,.18);
+  background: rgba(255,255,255,.04);
+  color: #dce8f3;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
+  padding: 16px;
+}
+
+.sidebar, .main, .footer-card {
+  background: linear-gradient(180deg, rgba(16,34,51,.98), rgba(11,27,42,.98));
+  border: 1px solid var(--line);
+  border-radius: 22px;
+}
+
+.sidebar {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.side-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 14px;
+  text-align: left;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 800;
+  border: 1px solid rgba(255,255,255,.08);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  transition: .18s ease;
+}
+
+.side-btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+
+.side-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  background: rgba(255,255,255,.08);
+  flex: 0 0 auto;
+}
+
+.main { padding: 16px; }
+
+.main-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.main-head h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.hero-scenes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.scene-card {
+  border-radius: 18px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+  min-height: 95px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  transition: .18s ease;
+}
+
+.scene-card:hover { transform: translateY(-1px); filter: brightness(1.05); }
+.scene-card strong { font-size: 17px; }
+.scene-card span { margin-top: 6px; color: var(--muted); font-size: 13px; font-weight: 700; }
+
+.map-wrap {
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.10);
+  padding: 14px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)),
+    linear-gradient(145deg, #294359, #12283b);
+}
+
+.map-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.map-head h3 { margin: 0; font-size: 18px; }
+.map-head p { margin: 0; color: var(--muted); font-size: 13px; font-weight: 700; }
+
+.zone-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.zone-card {
+  position: relative;
+  min-height: 150px;
+  border-radius: 20px;
+  padding: 16px;
+  border: 2px solid rgba(255,255,255,.10);
+  cursor: pointer;
+  overflow: hidden;
+  transition: .18s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.zone-card:hover { transform: translateY(-2px); }
+.zone-card.green { background: linear-gradient(145deg, #28c86f, #148f58); }
+.zone-card.blue { background: linear-gradient(145deg, #1ea7ff, #115fc7); }
+.zone-card.gray { background: linear-gradient(145deg, #5f6f80, #425061); }
+.zone-card.red { background: linear-gradient(145deg, #ff5c50, #d62319); }
+.zone-card.orange { background: linear-gradient(145deg, #ff9938, #df6911); }
+
+.zone-title { font-size: 26px; font-weight: 900; line-height: 1; }
+.zone-sub { margin-top: 6px; font-size: 14px; font-weight: 700; opacity: .92; }
+
+.zone-tag {
+  align-self: flex-start;
+  margin-top: 16px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 900;
+  background: rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.18);
+}
+
+.zone-card.music-active { box-shadow: 0 0 0 4px rgba(30,167,255,.28), 0 0 26px rgba(30,167,255,.32); }
+.zone-card.mic-active { box-shadow: 0 0 0 4px rgba(255,74,61,.25), 0 0 26px rgba(255,74,61,.30); }
+.zone-card.bell-active { box-shadow: 0 0 0 4px rgba(245,197,66,.28), 0 0 26px rgba(245,197,66,.30); }
+
+.footer {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 16px;
+  padding: 0 16px 16px;
+}
+
+.footer-card { padding: 16px; }
+
+.time {
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.date { color: var(--muted); font-size: 15px; font-weight: 700; }
+
+.action-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.action-btn {
+  border: none;
+  border-radius: 16px;
+  padding: 18px 12px;
+  color: white;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: .18s ease;
+  box-shadow: 0 10px 20px rgba(0,0,0,.18);
+}
+
+.action-btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+.recreio { background: linear-gradient(145deg, var(--purple), var(--purple2)); }
+.emergencia { background: linear-gradient(145deg, var(--red), var(--red2)); }
+.musica { background: linear-gradient(145deg, var(--cyan), var(--cyan2)); }
+.silenciar { background: linear-gradient(145deg, #607081, #425060); }
+
+.logs { grid-column: 1 / -1; }
+.logs h3 { margin: 0 0 12px; font-size: 17px; }
+.log-list { display: grid; gap: 8px; }
+.log-item {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.06);
+  font-size: 13px;
+  color: #dce8f3;
+}
+
+@media (max-width: 1100px) {
+  .content, .footer { grid-template-columns: 1fr; }
+  .zone-grid { grid-template-columns: repeat(2, 1fr); }
+  .action-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 720px) {
+  .hero-scenes, .zone-grid, .action-row { grid-template-columns: 1fr; }
+  .brand h1 { font-size: 22px; }
+  .zone-title { font-size: 22px; }
+  .time { font-size: 40px; }
+}
+
   </style>
 </head>
 <body>
   <div class="app">
     <div class="topbar">
-      <div class="title">
-        <h1>Vision Multiroom - Tela de Teste</h1>
-        <p>Painel simples para validar comunicação com ESP32</p>
+      <div class="brand">
+        <div class="logo"></div>
+        <div>
+          <h1>Vision Multiroom</h1>
+          <p>Sistema premium instalável com visual do painel principal</p>
+        </div>
       </div>
       <div class="top-actions">
-        <button class="chip install" onclick="instalarApp()">Instalar app</button>
-        <div id="ctrlStatus" class="chip offline">● Controlador não testado</div>
+        <button class="install-chip" onclick="instalarApp()">Instalar app</button>
+        <div class="chip online" id="onlineChip">● Sistema online</div>
+        <div class="chip scene" id="sceneChip">Cena: Operação normal</div>
       </div>
     </div><div class="install-banner" id="installBanner">
   <div class="install-text">Instale o Vision Multiroom na tela inicial para usar como aplicativo.</div>
@@ -167,53 +441,172 @@
   No iPhone/iPad: toque em <b>Compartilhar</b> no Safari e escolha <b>Adicionar à Tela de Início</b>.
 </div>
 
-<div class="body">
-  <section class="card">
-    <h2>Zonas de teste</h2>
-    <div class="grid">
-      <button class="zone music" onclick="acionarZona('salas','on')">Ligar Salas</button>
-      <button class="zone neutral" onclick="acionarZona('salas','off')">Desligar Salas</button>
-      <button class="zone music" onclick="acionarZona('patio','on')">Ligar Pátio</button>
-      <button class="zone neutral" onclick="acionarZona('patio','off')">Desligar Pátio</button>
-      <button class="zone music" onclick="acionarZona('quadra','on')">Ligar Quadra</button>
-      <button class="zone neutral" onclick="acionarZona('quadra','off')">Desligar Quadra</button>
-      <button class="zone mic" onclick="acionarZona('recepcao','on')">Ligar Recepção</button>
-      <button class="zone neutral" onclick="acionarZona('recepcao','off')">Desligar Recepção</button>
+<div class="content">
+  <aside class="sidebar">
+    <button class="side-btn" onclick="setScene('Campainha manual')"><span class="side-icon">🔔</span>Campainha</button>
+    <button class="side-btn" onclick="setScene('Mensagens abertas')"><span class="side-icon">💬</span>Mensagens</button>
+    <button class="side-btn" onclick="setScene('Rádio escola ativa')"><span class="side-icon">📻</span>Rádio Escola</button>
+    <button class="side-btn" onclick="setScene('Horários exibidos')"><span class="side-icon">🕒</span>Horários</button>
+  </aside>
+
+  <main class="main">
+    <div class="main-head">
+      <h2>Central de operação premium</h2>
+      <div class="stats">
+        <div class="stat" id="musicStat">Música: 0 zonas</div>
+        <div class="stat" id="micStat">Microfone: 0 zonas</div>
+        <div class="stat" id="bellStat">Campainha: 0 zonas</div>
+        <div class="stat">Perfil: Premium</div>
+      </div>
     </div>
 
-    <div class="actions">
-      <button class="action a-blue" onclick="campainha()">Campainha</button>
-      <button class="action a-red" onclick="emergencia()">Emergência</button>
-      <button class="action a-green" onclick="musica()">Música Geral</button>
-      <button class="action a-gray" onclick="silenciar()">Silenciar Tudo</button>
+    <div class="hero-scenes">
+      <div class="scene-card" onclick="modoMusica()">
+        <strong>Modo de recreio</strong>
+        <span>Música ambiente em áreas selecionadas</span>
+      </div>
+      <div class="scene-card" onclick="setScene('Entrada de alunos')">
+        <strong>Entrada de alunos</strong>
+        <span>Pátio + corredores + recepção</span>
+      </div>
+      <div class="scene-card" onclick="setScene('Início de aula')">
+        <strong>Início de aula</strong>
+        <span>Campainha e mensagem automática</span>
+      </div>
+      <div class="scene-card" onclick="modoEmergencia()">
+        <strong>Emergência</strong>
+        <span>Microfone prioritário em todas as zonas</span>
+      </div>
     </div>
-  </section>
 
-  <section class="card">
-    <h2>Configuração</h2>
-    <div class="field">
-      <label for="ip">IP do ESP32</label>
-      <input id="ip" value="192.168.0.120" />
+    <div class="map-wrap">
+      <div class="map-head">
+        <div>
+          <h3>Mapa de zonas</h3>
+          <p>Toque na zona para alternar entre música, microfone e desligado.</p>
+        </div>
+      </div>
+
+      <div class="zone-grid" id="zoneGrid">
+        <div class="zone-card green music-active" data-zone="recepcao" data-mode="music" onclick="alternarZona(this)">
+          <div>
+            <div class="zone-title">Recepção</div>
+            <div class="zone-sub">Entrada principal</div>
+          </div>
+          <div class="zone-tag">MÚSICA</div>
+        </div>
+
+        <div class="zone-card gray" data-zone="corredor1" data-mode="off" onclick="alternarZona(this)">
+          <div>
+            <div class="zone-title">Corredor 01</div>
+            <div class="zone-sub">Bloco A</div>
+          </div>
+          <div class="zone-tag">DESLIGADO</div>
+        </div>
+
+        <div class="zone-card gray" data-zone="corredor2" data-mode="off" onclick="alternarZona(this)">
+          <div>
+            <div class="zone-title">Corredor 02</div>
+            <div class="zone-sub">Bloco B</div>
+          </div>
+          <div class="zone-tag">DESLIGADO</div>
+        </div>
+
+        <div class="zone-card green music-active" data-zone="patio" data-mode="music" onclick="alternarZona(this)">
+          <div>
+            <div class="zone-title">Pátio</div>
+            <div class="zone-sub">Recreação</div>
+          </div>
+          <div class="zone-tag">MÚSICA</div>
+        </div>
+
+        <div class="zone-card blue" data-zone="sala1" data-mode="off" onclick="alternarZona(this)">
+          <div>
+            <div class="zone-title">Sala 01</div>
+            <div class="zone-sub">Ensino fundamental</div>
+          </div>
+          <div class="zone-tag">DESLIGADO</div>
+        </div>
+
+        <div class="zone-card blue" data-zone="sala2" data-mode="off" onclick="alternarZona(this)">
+          <div>
+            <div class="zone-title">Sala 02</div>
+            <div class="zone-sub">Ensino fundamental</div>
+          </div>
+          <div class="zone-tag">DESLIGADO</div>
+        </div>
+
+        <div class="zone-card blue" data-zone="sala3" data-mode="off" onclick="alternarZona(this)">
+          <div>
+            <div class="zone-title">Sala 03</div>
+            <div class="zone-sub">Ensino médio</div>
+          </div>
+          <div class="zone-tag">DESLIGADO</div>
+        </div>
+
+        <div class="zone-card gray" data-zone="biblioteca" data-mode="off" onclick="alternarZona(this)">
+          <div>
+            <div class="zone-title">Biblioteca</div>
+            <div class="zone-sub">Leitura / estudo</div>
+          </div>
+          <div class="zone-tag">DESLIGADO</div>
+        </div>
+
+        <div class="zone-card green music-active" data-zone="quadra" data-mode="music" onclick="alternarZona(this)">
+          <div>
+            <div class="zone-title">Quadra</div>
+            <div class="zone-sub">Som esportivo / eventos</div>
+          </div>
+          <div class="zone-tag">MÚSICA</div>
+        </div>
+
+        <div class="zone-card gray" data-zone="administracao" data-mode="off" onclick="alternarZona(this)">
+          <div>
+            <div class="zone-title">Administração</div>
+            <div class="zone-sub">Direção / coordenação</div>
+          </div>
+          <div class="zone-tag">DESLIGADO</div>
+        </div>
+
+        <div class="zone-card gray" data-zone="laboratorio" data-mode="off" onclick="alternarZona(this)">
+          <div>
+            <div class="zone-title">Laboratório</div>
+            <div class="zone-sub">Informática</div>
+          </div>
+          <div class="zone-tag">DESLIGADO</div>
+        </div>
+      </div>
     </div>
-    <div class="field">
-      <label for="token">Token</label>
-      <input id="token" value="vision123" />
+  </main>
+</div>
+
+<div class="footer">
+  <div class="footer-card">
+    <div class="time" id="clock">10:28</div>
+    <div class="date" id="dateText">Quinta-feira</div>
+  </div>
+
+  <div class="footer-card">
+    <div class="action-row">
+      <button class="action-btn recreio" onclick="modoMusica()">Ativar música em todas</button>
+      <button class="action-btn musica" onclick="setScene('Campainha')">Campainha</button>
+      <button class="action-btn emergencia" onclick="modoEmergencia()">Emergência</button>
+      <button class="action-btn silenciar" onclick="silenciarTudo()">Silenciar tudo</button>
     </div>
-    <div class="actions" style="margin-top:0">
-      <button class="action a-blue" onclick="testarConexao()">Testar conexão</button>
-      <button class="action a-gray" onclick="lerStatus()">Ler status</button>
-    </div>
-    <div class="status-box" id="statusBox">Aguardando teste...</div>
+  </div>
+
+  <div class="footer-card logs">
+    <h3>Eventos do sistema</h3>
     <div class="log-list" id="logList"></div>
-  </section>
+  </div>
 </div>
 
   </div>  <script>
     let deferredPrompt = null;
     const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    const isInStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
-    (function configurarManifesto(){
+    (function criarManifesto(){
       const manifest = {
         name: 'Vision Multiroom',
         short_name: 'Vision Multiroom',
@@ -239,7 +632,7 @@
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      if(!isInStandalone) document.getElementById('installBanner').classList.add('show');
+      if(!isStandalone) document.getElementById('installBanner').classList.add('show');
     });
 
     function instalarApp(){
@@ -251,7 +644,7 @@
         });
         return;
       }
-      if(isIOS && !isInStandalone){
+      if(isIOS && !isStandalone){
         document.getElementById('iosTip').style.display = 'block';
         addLog('Exibida instrução de instalação no iPhone/iPad');
         return;
@@ -263,20 +656,9 @@
       document.getElementById('installBanner').classList.remove('show');
     }
 
-    if(isIOS && !isInStandalone){
+    if(isIOS && !isStandalone){
       document.getElementById('iosTip').style.display = 'block';
     }
-
-    function getIp(){ return document.getElementById('ip').value.trim(); }
-    function getToken(){ return document.getElementById('token').value.trim(); }
-
-    function setCtrlStatus(ok, text){
-      const el = document.getElementById('ctrlStatus');
-      el.className = 'chip ' + (ok ? 'online' : 'offline');
-      el.textContent = '● ' + text;
-    }
-
-    function setStatusBox(text){ document.getElementById('statusBox').textContent = text; }
 
     function addLog(text){
       const list = document.getElementById('logList');
@@ -291,113 +673,81 @@
       while(list.children.length > 8) list.removeChild(list.lastChild);
     }
 
-    async function postCommand(path, params = null){
-      let url = `http://${getIp()}${path}`;
-      if(params) url += '?' + new URLSearchParams(params).toString();
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'X-Token': getToken() }
+    function atualizarRelogio(){
+      const agora = new Date();
+      const horas = String(agora.getHours()).padStart(2,'0');
+      const minutos = String(agora.getMinutes()).padStart(2,'0');
+      const dias = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+      document.getElementById('clock').textContent = `${horas}:${minutos}`;
+      document.getElementById('dateText').textContent = dias[agora.getDay()];
+    }
+    setInterval(atualizarRelogio, 1000);
+    atualizarRelogio();
+
+    function setScene(texto){
+      document.getElementById('sceneChip').textContent = `Cena: ${texto}`;
+      addLog(texto);
+    }
+
+    function pintarZona(card, mode){
+      card.classList.remove('music-active','mic-active','bell-active');
+      card.dataset.mode = mode;
+      const tag = card.querySelector('.zone-tag');
+      if(mode === 'music'){
+        card.classList.add('music-active');
+        tag.textContent = 'MÚSICA';
+      } else if(mode === 'mic'){
+        card.classList.add('mic-active');
+        tag.textContent = 'MIC';
+      } else if(mode === 'bell'){
+        card.classList.add('bell-active');
+        tag.textContent = 'CAMPAINHA';
+      } else {
+        tag.textContent = 'DESLIGADO';
+      }
+      atualizarStats();
+    }
+
+    function alternarZona(card){
+      const atual = card.dataset.mode || 'off';
+      let proximo = 'music';
+      if(atual === 'music') proximo = 'mic';
+      else if(atual === 'mic') proximo = 'off';
+      else if(atual === 'off') proximo = 'music';
+      pintarZona(card, proximo);
+      addLog(`${card.dataset.zone} → ${proximo}`);
+    }
+
+    function atualizarStats(){
+      const all = [...document.querySelectorAll('.zone-card')];
+      const music = all.filter(c => c.dataset.mode === 'music').length;
+      const mic = all.filter(c => c.dataset.mode === 'mic').length;
+      const bell = all.filter(c => c.dataset.mode === 'bell').length;
+      document.getElementById('musicStat').textContent = `Música: ${music} zonas`;
+      document.getElementById('micStat').textContent = `Microfone: ${mic} zonas`;
+      document.getElementById('bellStat').textContent = `Campainha: ${bell} zonas`;
+    }
+
+    function silenciarTudo(){
+      document.querySelectorAll('.zone-card').forEach(c => pintarZona(c, 'off'));
+      setScene('Silenciado');
+    }
+
+    function modoMusica(){
+      document.querySelectorAll('.zone-card').forEach(c => pintarZona(c, 'off'));
+      ['recepcao','patio','quadra'].forEach(nome => {
+        const el = document.querySelector(`[data-zone="${nome}"]`);
+        if(el) pintarZona(el, 'music');
       });
-      if(!res.ok) throw new Error(`HTTP ${res.status}`);
-      return await res.json();
+      setScene('Música ambiente');
     }
 
-    async function getCommand(path){
-      const url = `http://${getIp()}${path}`;
-      const res = await fetch(url);
-      if(!res.ok) throw new Error(`HTTP ${res.status}`);
-      return await res.json();
+    function modoEmergencia(){
+      document.querySelectorAll('.zone-card').forEach(c => pintarZona(c, 'mic'));
+      setScene('Emergência');
     }
 
-    async function testarConexao(){
-      try{
-        const data = await getCommand('/status');
-        setCtrlStatus(true, 'Controlador online');
-        setStatusBox(`Conectado com sucesso. IP retornado: ${data.ip || getIp()}`);
-        addLog('Conexão com ESP32 validada');
-      }catch(e){
-        setCtrlStatus(false, 'Controlador offline');
-        setStatusBox('Falha na conexão. Confira IP, token e rede Wi‑Fi.');
-        addLog('Falha ao testar conexão');
-      }
-    }
-
-    async function lerStatus(){
-      try{
-        const data = await getCommand('/status');
-        setCtrlStatus(true, 'Controlador online');
-        setStatusBox(JSON.stringify(data));
-        addLog('Status do ESP32 lido com sucesso');
-      }catch(e){
-        setCtrlStatus(false, 'Controlador offline');
-        setStatusBox('Não foi possível ler o status do ESP32.');
-        addLog('Falha ao ler status');
-      }
-    }
-
-    async function acionarZona(zona, state){
-      try{
-        await postCommand('/zone', { zone: zona, state });
-        setCtrlStatus(true, 'Controlador online');
-        setStatusBox(`Zona ${zona} enviada: ${state}`);
-        addLog(`Comando enviado: ${zona} → ${state}`);
-      }catch(e){
-        setCtrlStatus(false, 'Controlador offline');
-        setStatusBox(`Falha ao enviar comando para ${zona}`);
-        addLog(`Falha no comando: ${zona} → ${state}`);
-      }
-    }
-
-    async function campainha(){
-      try{
-        await postCommand('/bell');
-        setCtrlStatus(true, 'Controlador online');
-        setStatusBox('Campainha acionada com sucesso');
-        addLog('Campainha acionada');
-      }catch(e){
-        setCtrlStatus(false, 'Controlador offline');
-        setStatusBox('Falha ao acionar campainha');
-        addLog('Falha ao acionar campainha');
-      }
-    }
-
-    async function emergencia(){
-      try{
-        await postCommand('/panic');
-        setCtrlStatus(true, 'Controlador online');
-        setStatusBox('Modo emergência ativado');
-        addLog('Modo emergência ativado');
-      }catch(e){
-        setCtrlStatus(false, 'Controlador offline');
-        setStatusBox('Falha ao ativar emergência');
-        addLog('Falha ao ativar emergência');
-      }
-    }
-
-    async function musica(){
-      try{
-        await postCommand('/music');
-        setCtrlStatus(true, 'Controlador online');
-        setStatusBox('Música geral ativada');
-        addLog('Música geral ativada');
-      }catch(e){
-        setCtrlStatus(false, 'Controlador offline');
-        setStatusBox('Falha ao ativar música');
-        addLog('Falha ao ativar música');
-      }
-    }
-
-    async function silenciar(){
-      try{
-        await postCommand('/silence');
-        setCtrlStatus(true, 'Controlador online');
-        setStatusBox('Sistema silenciado');
-        addLog('Sistema silenciado');
-      }catch(e){
-        setCtrlStatus(false, 'Controlador offline');
-        setStatusBox('Falha ao silenciar sistema');
-        addLog('Falha ao silenciar sistema');
-      }
-    }
+    atualizarStats();
+    addLog('Aplicativo premium inicializado');
   </script></body>
 </html>
