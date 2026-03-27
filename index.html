@@ -772,5 +772,39 @@ body{
     tick();
     refreshSelection();
     updateStats();
+  </script>  <!-- MODAL MENSAGEM -->  <div class="modal" id="msgModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>Enviar mensagem por voz</h3>
+        <button class="close-btn" onclick="closeMsg()">×</button>
+      </div>
+      <div class="modal-body">
+        <textarea id="msgText" placeholder="Digite a mensagem..." style="width:100%;height:120px;border-radius:12px;padding:10px;font-size:14px;border:none;"></textarea>
+        <button class="modal-btn" onclick="falarMensagem()">🔊 Gerar áudio</button>
+      </div>
+    </div>
+  </div>  <script>
+    function openMsg(){
+      document.getElementById('msgModal').classList.add('show');
+    }
+
+    function closeMsg(){
+      document.getElementById('msgModal').classList.remove('show');
+    }
+
+    function falarMensagem(){
+      const texto = document.getElementById('msgText').value;
+      if(!texto){ alert('Digite uma mensagem'); return; }
+
+      const speech = new SpeechSynthesisUtterance(texto);
+      speech.lang = 'pt-BR';
+      speech.rate = 1;
+      speech.pitch = 1;
+
+      window.speechSynthesis.speak(speech);
+    }
+
+    // substituir botão mensagem
+    document.querySelectorAll('.nav-btn')[1].onclick = openMsg;
   </script></body>
 </html>
