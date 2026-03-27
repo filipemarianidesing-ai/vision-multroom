@@ -1,172 +1,1294 @@
-<!DOCTYPE html><html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ética Vision Control PRO</title><style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ética Vision Control PRO</title>
 
-body{
-  margin:0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
-  background:#0b0f14;
-  color:#fff;
-}
+<style>
+  :root{
+    --bg:#0b0f14;
+    --panel:#0f1720;
+    --panel2:#111b26;
+    --card:#141c25;
+    --card2:#1c2631;
+    --line:rgba(255,255,255,.08);
+    --text:#ffffff;
+    --muted:#b6c2cf;
+    --blue:#2563eb;
+    --green:#22c55e;
+    --purple:#a855f7;
+    --red:#ef4444;
+    --gray:#6b7280;
+    --shadow:0 20px 60px rgba(0,0,0,.35);
+  }
 
-.container{
-  display:flex;
-  height:100vh;
-}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;margin:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+    background:
+      radial-gradient(circle at top left, rgba(37,99,235,.10), transparent 20%),
+      radial-gradient(circle at bottom right, rgba(168,85,247,.08), transparent 20%),
+      linear-gradient(145deg,#08111b,#0b0f14 52%,#0d1825 100%);
+    color:var(--text);
+  }
 
-.sidebar{
-  width:280px;
-  background:linear-gradient(180deg,#0f1720,#0b0f14);
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
+  .container{
+    display:flex;
+    height:100vh;
+    gap:10px;
+    padding:10px;
+  }
 
-.btn{
-  padding:18px;
-  border-radius:14px;
-  background:#141c25;
-  cursor:pointer;
-  text-align:left;
-  font-weight:600;
-  transition:.2s;
-}
+  .sidebar{
+    width:250px;
+    background:linear-gradient(180deg,var(--panel),#0b0f14);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:14px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    box-shadow:var(--shadow);
+  }
 
-.btn:hover{
-  background:#1c2631;
-  transform:scale(1.02);
-}
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:6px 4px 10px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:2px;
+  }
 
-.main{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  padding:20px;
-  gap:10px;
-}
+  .logo{
+    width:42px;
+    height:42px;
+    border-radius:14px;
+    background:conic-gradient(from 120deg,#18b7ff,#0b63d7,#18c8d8,#18b7ff);
+    box-shadow:0 0 24px rgba(24,183,255,.25);
+    flex:0 0 42px;
+  }
 
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
+  .brand h1{
+    margin:0;
+    font-size:18px;
+    line-height:1.05;
+  }
 
-.status{
-  display:flex;
-  gap:10px;
-}
+  .brand p{
+    margin:3px 0 0;
+    font-size:11px;
+    color:var(--muted);
+  }
 
-.chip{
-  padding:8px 14px;
-  border-radius:999px;
-  background:#141c25;
-  font-size:12px;
-}
+  .btn{
+    padding:16px;
+    border-radius:16px;
+    background:linear-gradient(180deg,var(--card),#10161e);
+    cursor:pointer;
+    text-align:left;
+    font-weight:700;
+    transition:.2s;
+    border:1px solid rgba(255,255,255,.06);
+    user-select:none;
+  }
 
-.map-area{
-  flex:1;
-  background:#0e141b;
-  border-radius:20px;
-  position:relative;
-  overflow:hidden;
-}
+  .btn:hover{
+    background:linear-gradient(180deg,var(--card2),#141c25);
+    transform:translateY(-1px);
+  }
 
-.plan{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%) scale(1);
-  transition:.3s;
-}
+  .guide{
+    margin-top:4px;
+    padding:12px;
+    border-radius:16px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.07);
+  }
 
-.plan img{
-  width:1200px;
-}
+  .guide .title{
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
 
-.zone{
-  position:absolute;
-  border-radius:12px;
-  transition:.3s;
-}
+  .guide label{
+    display:block;
+    font-size:12px;
+    color:var(--muted);
+    margin:8px 0 6px;
+    font-weight:700;
+  }
 
-.zone.active{
-  animation:pulse 1.5s infinite;
-}
+  .guide select{
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.08);
+    background:#111821;
+    color:#fff;
+    font-weight:700;
+  }
 
-.zone.blue{background:rgba(37,99,235,.3);}
-.zone.green{background:rgba(34,197,94,.3);}
-.zone.purple{background:rgba(168,85,247,.3);}
-.zone.red{background:rgba(239,68,68,.3);}
+  .mini-actions{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+    margin-top:10px;
+  }
 
-@keyframes pulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.03)}
-  100%{transform:scale(1)}
-}
+  .mini-btn{
+    padding:10px 8px;
+    border-radius:12px;
+    border:none;
+    color:#fff;
+    font-weight:800;
+    cursor:pointer;
+  }
 
-.controls{
-  display:flex;
-  gap:10px;
-}
+  .mini-btn.blue{background:var(--blue)}
+  .mini-btn.green{background:var(--green)}
+  .mini-btn.purple{background:var(--purple)}
+  .mini-btn.red{background:var(--red)}
 
-.control-btn{
-  flex:1;
-  padding:16px;
-  border-radius:14px;
-  text-align:center;
-  font-weight:700;
-  cursor:pointer;
-  transition:.2s;
-}
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+    margin-top:10px;
+  }
 
-.control-btn:hover{transform:scale(1.05)}
+  .stat{
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;
+    padding:10px;
+    font-size:12px;
+    font-weight:700;
+    text-align:center;
+  }
 
-.blue{background:#2563eb}
-.green{background:#22c55e}
-.purple{background:#a855f7}
-.red{background:#ef4444}
-.gray{background:#6b7280}
+  .main{
+    flex:1;
+    display:grid;
+    grid-template-rows:auto 1fr;
+    min-width:0;
+    gap:8px;
+  }
 
-</style></head><body><div class="container"><div class="sidebar">
-<div class="btn">🔔 Campainha</div>
-<div class="btn">💬 Mensagens</div>
-<div class="btn">📻 Rádio Escola</div>
-<div class="btn">⏰ Horários</div>
-</div><div class="main"><div class="topbar">
-<h2>Ética Vision Control PRO</h2>
-<div class="status">
-<div class="chip">Sistema Online</div>
-<div class="chip" id="scene">Modo Normal</div>
-</div>
-</div><div class="map-area" id="map"><div class="plan" id="plan">
-<img src="terreo.png"><div class="zone" style="left:10%;top:20%;width:15%;height:20%"></div>
-<div class="zone" style="left:30%;top:20%;width:15%;height:20%"></div>
-<div class="zone" style="left:50%;top:20%;width:15%;height:20%"></div></div></div><div class="controls">
-<div class="control-btn blue" onclick="setMode('blue')">🎵 Música</div>
-<div class="control-btn green" onclick="setMode('green')">🔔 Campainha</div>
-<div class="control-btn purple" onclick="setMode('purple')">🎤 Microfone</div>
-<div class="control-btn red" onclick="setMode('red')">🚨 Emergência</div>
-<div class="control-btn gray" onclick="setMode('off')">🔇 Silenciar</div>
-</div></div>
-</div><script>
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:10px 14px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:linear-gradient(180deg,#152230,#0f1720);
+    box-shadow:var(--shadow);
+  }
 
-let currentMode = 'off'
+  .topbar h2{
+    margin:0;
+    font-size:17px;
+    line-height:1;
+  }
 
-function setMode(mode){
-  currentMode = mode
-  document.getElementById('scene').innerText = mode.toUpperCase()
+  .topbar small{
+    display:block;
+    margin-top:4px;
+    color:var(--muted);
+    font-size:11px;
+  }
 
-  document.querySelectorAll('.zone').forEach(z=>{
-    z.className = 'zone'
-    if(mode !== 'off'){
-      z.classList.add(mode)
-      z.classList.add('active')
+  .status{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+  .chip{
+    padding:8px 12px;
+    border-radius:999px;
+    background:#141c25;
+    border:1px solid rgba(255,255,255,.08);
+    font-size:12px;
+    font-weight:800;
+    white-space:nowrap;
+  }
+
+  .chip.online{
+    background:rgba(34,197,94,.14);
+    color:#d2ffe0;
+  }
+
+  .screen{
+    display:grid;
+    grid-template-rows:auto auto 1fr;
+    min-height:0;
+    border:1px solid var(--line);
+    border-radius:22px;
+    overflow:hidden;
+    background:linear-gradient(180deg,#13202d,#0e141b);
+    box-shadow:var(--shadow);
+  }
+
+  .screen-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:8px 12px;
+    background:linear-gradient(180deg,#22384d,#192c40);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+
+  .screen-top .title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .dot{
+    width:28px;
+    height:28px;
+    border-radius:999px;
+    background:conic-gradient(from 120deg,#18b7ff,#0b63d7,#18c8d8,#18b7ff);
+    box-shadow:0 0 20px rgba(24,183,255,.25);
+    flex:0 0 28px;
+  }
+
+  .screen-top h3{
+    margin:0;
+    font-size:14px;
+    line-height:1;
+  }
+
+  .screen-top p{
+    margin:2px 0 0;
+    font-size:10px;
+    color:#dbe9f7;
+    font-weight:700;
+  }
+
+  .floorbar{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    justify-content:flex-end;
+    padding:6px 10px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    flex-wrap:wrap;
+  }
+
+  .btn-top{
+    padding:8px 12px;
+    border:none;
+    border-radius:999px;
+    background:#1a2430;
+    color:#fff;
+    font-weight:800;
+    cursor:pointer;
+    font-size:12px;
+  }
+
+  .btn-top:hover{filter:brightness(1.08)}
+
+  .screen-body{
+    min-height:0;
+    padding:4px;
+  }
+
+  .map-wrap{
+    position:relative;
+    height:100%;
+    min-height:640px;
+    border-radius:18px;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at top left, rgba(255,255,255,.18), transparent 25%),
+      linear-gradient(180deg,#d7dde4,#cfd6dd);
+    touch-action:none;
+    cursor:grab;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08), 0 24px 60px rgba(0,0,0,.25);
+  }
+
+  .map-wrap.dragging{cursor:grabbing}
+
+  .map-canvas{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) scale(1);
+    transform-origin:center center;
+    transition:transform .25s ease, opacity .25s ease;
+    user-select:none;
+    max-width:none;
+  }
+
+  .map-canvas.floor-transition{
+    opacity:.38;
+    transform:translate(-50%,-50%) scale(.96);
+  }
+
+  .plan-img{
+    display:block;
+    width:1480px;
+    height:auto;
+    pointer-events:none;
+    filter:drop-shadow(0 12px 24px rgba(0,0,0,.12)) saturate(1.02) contrast(1.02);
+  }
+
+  .overlay{
+    position:absolute;
+    inset:0;
+  }
+
+  .zone{
+    position:absolute;
+    border-radius:14px;
+    transition:.25s ease;
+    overflow:hidden;
+    border:2px solid rgba(0,0,0,.08);
+  }
+
+  .zone:hover{
+    background:rgba(37,99,235,.10);
+    transform:scale(1.01);
+  }
+
+  .zone.selected{
+    outline:3px solid rgba(255,255,255,.9);
+  }
+
+  .zone-label{
+    position:absolute;
+    left:6px;
+    top:6px;
+    max-width:calc(100% - 12px);
+    padding:5px 8px;
+    border-radius:10px;
+    background:rgba(8,17,27,.78);
+    color:#fff;
+    font-size:10px;
+    line-height:1.1;
+    font-weight:800;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    backdrop-filter:blur(4px);
+  }
+
+  .zone-icon{
+    position:absolute;
+    right:8px;
+    bottom:8px;
+    width:36px;
+    height:36px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    font-size:18px;
+    background:rgba(8,17,27,.78);
+    color:#fff;
+    border:1px solid rgba(255,255,255,.12);
+    opacity:0;
+    transform:scale(.8);
+    transition:.25s ease;
+  }
+
+  .zone.active .zone-icon{
+    opacity:1;
+    transform:scale(1);
+    animation:iconBreath 1.8s ease-in-out infinite;
+  }
+
+  .zone.active::after{
+    content:'';
+    position:absolute;
+    inset:-8px;
+    border-radius:18px;
+    pointer-events:none;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
+    transform:translateX(-120%);
+    animation:scanLine 2.8s linear infinite;
+    mix-blend-mode:screen;
+    opacity:.65;
+  }
+
+  .zone.music{
+    background:linear-gradient(145deg,rgba(37,99,235,.34),rgba(29,78,216,.20));
+    box-shadow:0 0 0 4px rgba(37,99,235,.18),0 0 22px rgba(37,99,235,.20), inset 0 0 30px rgba(255,255,255,.08);
+    animation:cinemaPulseBlue 2.2s ease-in-out infinite;
+  }
+
+  .zone.bell{
+    background:linear-gradient(145deg,rgba(34,197,94,.34),rgba(21,128,61,.20));
+    box-shadow:0 0 0 4px rgba(34,197,94,.18),0 0 22px rgba(34,197,94,.20), inset 0 0 30px rgba(255,255,255,.08);
+    animation:cinemaPulseGreen 2.2s ease-in-out infinite;
+  }
+
+  .zone.mic{
+    background:linear-gradient(145deg,rgba(168,85,247,.34),rgba(126,34,206,.20));
+    box-shadow:0 0 0 4px rgba(168,85,247,.18),0 0 22px rgba(168,85,247,.20), inset 0 0 30px rgba(255,255,255,.08);
+    animation:cinemaPulsePurple 2.2s ease-in-out infinite;
+  }
+
+  .zone.alert{
+    background:linear-gradient(145deg,rgba(239,68,68,.34),rgba(185,28,28,.20));
+    box-shadow:0 0 0 4px rgba(239,68,68,.18),0 0 22px rgba(239,68,68,.24), inset 0 0 30px rgba(255,255,255,.08);
+    animation:cinemaPulseRed 1.2s ease-in-out infinite;
+  }
+
+  .float-menu{
+    position:fixed;
+    display:none;
+    z-index:70;
+    min-width:190px;
+    padding:10px;
+    border-radius:18px;
+    background:linear-gradient(180deg,#152536,#0f1b28);
+    border:1px solid rgba(255,255,255,.10);
+    box-shadow:var(--shadow);
+    gap:8px;
+  }
+
+  .float-menu.show{display:grid}
+
+  .float-menu-title{
+    font-size:12px;
+    font-weight:800;
+    color:#dbe8f5;
+    padding:2px 4px 6px;
+  }
+
+  .float-btn{
+    border:none;
+    border-radius:12px;
+    padding:12px 10px;
+    font-size:13px;
+    text-align:left;
+    color:#fff;
+    font-weight:900;
+    cursor:pointer;
+  }
+
+  .fm-music{background:linear-gradient(145deg,var(--blue),#1d4ed8)}
+  .fm-bell{background:linear-gradient(145deg,var(--green),#15803d)}
+  .fm-mic{background:linear-gradient(145deg,var(--purple),#7e22ce)}
+  .fm-alert{background:linear-gradient(145deg,var(--red),#b91c1c)}
+  .fm-off{background:linear-gradient(145deg,var(--gray),#4b5563)}
+
+  .controls{
+    display:flex;
+    gap:10px;
+    padding-top:8px;
+  }
+
+  .control-btn{
+    flex:1;
+    padding:15px;
+    border-radius:14px;
+    text-align:center;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s;
+    border:none;
+    color:#fff;
+  }
+
+  .control-btn:hover{transform:translateY(-1px) scale(1.02)}
+  .blue{background:var(--blue)}
+  .green{background:var(--green)}
+  .purple{background:var(--purple)}
+  .red{background:var(--red)}
+  .gray{background:var(--gray)}
+
+  .modal{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(4,10,16,.68);
+    backdrop-filter:blur(6px);
+    z-index:60;
+    padding:20px;
+  }
+
+  .modal.show{display:flex}
+
+  .modal-card{
+    width:min(700px,100%);
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,.10);
+    background:linear-gradient(180deg,#152536,#0f1b28);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+
+  .modal-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:14px 16px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    background:linear-gradient(180deg,#22384d,#192c40);
+  }
+
+  .modal-head h3{
+    margin:0;
+    font-size:18px;
+  }
+
+  .close-btn{
+    border:none;
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:20px;
+    font-weight:900;
+  }
+
+  .modal-body{
+    padding:16px;
+    display:grid;
+    gap:14px;
+  }
+
+  .slider-row{display:grid;gap:8px}
+  .slider-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    font-size:14px;
+    font-weight:800;
+  }
+
+  .slider{
+    width:100%;
+    appearance:none;
+    height:10px;
+    border-radius:999px;
+    background:rgba(255,255,255,.10);
+    outline:none;
+  }
+
+  .slider::-webkit-slider-thumb{
+    appearance:none;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:#fff;
+  }
+
+  textarea, input, select{
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.08);
+    background:#111821;
+    color:#fff;
+    font-size:14px;
+  }
+
+  @keyframes cinemaPulseBlue{
+    0%,100%{transform:scale(1);filter:brightness(1)}
+    50%{transform:scale(1.015);filter:brightness(1.08)}
+  }
+
+  @keyframes cinemaPulseGreen{
+    0%,100%{transform:scale(1);filter:brightness(1)}
+    50%{transform:scale(1.015);filter:brightness(1.08)}
+  }
+
+  @keyframes cinemaPulsePurple{
+    0%,100%{transform:scale(1);filter:brightness(1)}
+    50%{transform:scale(1.015);filter:brightness(1.08)}
+  }
+
+  @keyframes cinemaPulseRed{
+    0%,100%{transform:scale(1);filter:brightness(1)}
+    50%{transform:scale(1.02);filter:brightness(1.16)}
+  }
+
+  @keyframes iconBreath{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.08)}
+  }
+
+  @keyframes scanLine{
+    0%{transform:translateX(-120%)}
+    100%{transform:translateX(120%)}
+  }
+
+  @keyframes barGlow{
+    0%,100%{box-shadow:0 0 0 rgba(0,0,0,0)}
+    50%{box-shadow:0 0 20px rgba(24,183,255,.22)}
+  }
+
+  @media (max-width:1100px){
+    .container{padding:8px}
+    .sidebar{width:220px}
+    .map-wrap{min-height:520px}
+  }
+
+  @media (max-width:840px){
+    body{overflow:auto}
+    .container{
+      display:grid;
+      grid-template-columns:1fr;
+      height:auto;
+      min-height:100vh;
+      padding:8px;
     }
-  })
+    .sidebar{width:auto}
+    .topbar{flex-direction:column;align-items:flex-start}
+    .status{width:100%;justify-content:flex-start}
+    .controls{flex-wrap:wrap}
+    .control-btn{min-width:calc(50% - 5px)}
+    .map-wrap{min-height:420px}
+    .plan-img{width:1180px}
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <div class="sidebar">
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <h1>Ética Vision Control</h1>
+        <p>Colégio Sizenando Pechincha · by Filipe Mariani</p>
+      </div>
+    </div>
+
+    <div class="btn" onclick="modoAula()">🔔 Campainha</div>
+    <div class="btn" onclick="openMsg()">💬 Mensagens</div>
+    <div class="btn" onclick="modoMusica()">📻 Rádio Escola</div>
+    <div class="btn" onclick="openSchedule()">⏰ Horários</div>
+
+    <div class="guide">
+      <div class="title">Operação guiada</div>
+      <label>Ambiente</label>
+      <select id="envSelect" onchange="syncSelectedEnv(this.value)"></select>
+
+      <div class="mini-actions">
+        <button class="mini-btn blue" onclick="aplicarFonteRapida('music')">📻 Rádio</button>
+        <button class="mini-btn green" onclick="aplicarFonteRapida('bell')">🔔 Campainha</button>
+        <button class="mini-btn purple" onclick="aplicarFonteRapida('mic')">🎤 Microfone</button>
+        <button class="mini-btn red" onclick="aplicarFonteRapida('alert')">🚨 Emergência</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat" id="musicStat">Rádio: 0</div>
+        <div class="stat" id="bellStat">Campainha: 0</div>
+        <div class="stat" id="micStat">Microfone: 0</div>
+        <div class="stat" id="offStat">Desligado: 0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <h2>Ética Vision Control PRO</h2>
+        <small>Versão final de venda · visual cinema · planta interativa</small>
+      </div>
+      <div class="status">
+        <button class="chip" onclick="openVolumes()">Volumes</button>
+        <div class="chip" id="selectedChip">Ambiente: Nenhum</div>
+        <div class="chip online">• Sistema online</div>
+        <div class="chip" id="sceneChip">Cena: Operação normal</div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="screen-top">
+        <div class="title">
+          <div class="dot"></div>
+          <div>
+            <h3>VISION MULTIROOM</h3>
+            <p>by Filipe Mariani</p>
+          </div>
+        </div>
+        <div class="chip" id="screenScene">Operação normal</div>
+      </div>
+
+      <div class="floorbar">
+        <button class="btn-top" onclick="setFloor('terreo')">Térreo</button>
+        <button class="btn-top" onclick="setFloor('superior')">Pavimento Superior</button>
+        <button class="btn-top" onclick="zoomOut()">− Zoom</button>
+        <button class="btn-top" onclick="zoomIn()">+ Zoom</button>
+        <button class="btn-top" onclick="resetView()">Centralizar</button>
+        <div class="chip" id="floorChip">Térreo</div>
+      </div>
+
+      <div class="screen-body">
+        <div class="map-wrap" id="mapWrap">
+          <div class="map-canvas" id="mapCanvas">
+            <img class="plan-img" id="floorImg" src="terreo.png" alt="Planta do colégio">
+            <div class="overlay" id="overlay"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="control-btn blue" onclick="modoMusica()">🎵 Música</button>
+      <button class="control-btn green" onclick="modoAula()">🔔 Campainha</button>
+      <button class="control-btn purple" onclick="modoEvento()">🎤 Microfone</button>
+      <button class="control-btn red" onclick="modoEmergencia()">🚨 Emergência</button>
+      <button class="control-btn gray" onclick="silenciarTudo()">🔇 Silenciar</button>
+    </div>
+  </div>
+</div>
+
+<div class="float-menu" id="floatMenu">
+  <div class="float-menu-title" id="floatMenuTitle">Selecionar fonte</div>
+  <button class="float-btn fm-music" onclick="applyFromMenu('music')">📻 Rádio Escola</button>
+  <button class="float-btn fm-bell" onclick="applyFromMenu('bell')">🔔 Campainha</button>
+  <button class="float-btn fm-mic" onclick="applyFromMenu('mic')">🎤 Microfone</button>
+  <button class="float-btn fm-alert" onclick="applyFromMenu('alert')">🚨 Emergência</button>
+  <button class="float-btn fm-off" onclick="applyFromMenu('off')">⏹ Desligar</button>
+</div>
+
+<div class="modal" id="volumesModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Controle de volumes</h3>
+      <button class="close-btn" onclick="closeVolumes()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="slider-row">
+        <div class="slider-head"><span>Rádio Escola</span><span id="volMusicValue">72%</span></div>
+        <input class="slider" type="range" min="0" max="100" value="72" oninput="updateVolume('volMusicValue',this.value)">
+      </div>
+      <div class="slider-row">
+        <div class="slider-head"><span>Campainha</span><span id="volBellValue">100%</span></div>
+        <input class="slider" type="range" min="0" max="100" value="100" oninput="updateVolume('volBellValue',this.value)">
+      </div>
+      <div class="slider-row">
+        <div class="slider-head"><span>Microfone</span><span id="volMicValue">88%</span></div>
+        <input class="slider" type="range" min="0" max="100" value="88" oninput="updateVolume('volMicValue',this.value)">
+      </div>
+      <div class="slider-row">
+        <div class="slider-head"><span>Emergência</span><span id="volAlertValue">100%</span></div>
+        <input class="slider" type="range" min="0" max="100" value="100" oninput="updateVolume('volAlertValue',this.value)">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="msgModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Enviar mensagem por voz</h3>
+      <button class="close-btn" onclick="closeMsg()">×</button>
+    </div>
+    <div class="modal-body">
+      <textarea id="msgText" rows="5" placeholder="Digite a mensagem..."></textarea>
+      <button class="control-btn blue" onclick="falarMensagem()">🔊 Gerar áudio</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="scheduleModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Programação automática</h3>
+      <button class="close-btn" onclick="closeSchedule()">×</button>
+    </div>
+    <div class="modal-body">
+      <select id="tipoAcao">
+        <option>Campainha</option>
+        <option>Mensagem</option>
+        <option>Rádio Escola</option>
+        <option>Emergência</option>
+      </select>
+      <select id="diasSemana">
+        <option>Segunda a Sexta</option>
+        <option>Todos os dias</option>
+        <option>Personalizado</option>
+      </select>
+      <input type="time" id="horario">
+      <input type="date" id="dataEspecial">
+      <select id="fonteAudio">
+        <option>Música padrão</option>
+        <option>Gravação personalizada</option>
+        <option>Mensagem automática</option>
+      </select>
+      <input type="text" id="audioRef" placeholder="Ex: pasta 01 / áudio 03">
+      <button class="control-btn blue" onclick="salvarProgramacao()">💾 Salvar programação</button>
+      <div id="listaProgramacoes"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const floorImages = {
+  terreo: 'terreo.png',
+  superior: 'superior.png'
+};
+
+const floorMaps = {
+  terreo: [
+    {id:'entrada', name:'Entrada', x:34.6, y:2.0, w:29.0, h:9.2},
+    {id:'sala02', name:'Sala 02', x:2.9, y:16.8, w:13.9, h:28.2},
+    {id:'planejamento', name:'Sala de Planejamento', x:3.0, y:46.1, w:7.8, h:12.0},
+    {id:'corredorTerreo', name:'Corredor Térreo', x:10.9, y:43.8, w:18.1, h:14.0},
+    {id:'sala01', name:'Sala 01', x:3.0, y:59.2, w:13.9, h:28.0},
+    {id:'aee', name:'AEE', x:16.9, y:59.2, w:8.5, h:28.0},
+    {id:'almox', name:'Almoxarifado', x:16.9, y:16.8, w:6.8, h:28.2},
+    {id:'patioAlimentacao', name:'Pátio Alimentação', x:23.8, y:16.8, w:26.4, h:44.9},
+    {id:'cozinha', name:'Cozinha', x:50.3, y:16.8, w:11.9, h:27.5},
+    {id:'biblioteca', name:'Biblioteca', x:62.3, y:16.8, w:12.8, h:27.5},
+    {id:'coordenacao', name:'Coordenação', x:49.2, y:57.2, w:8.6, h:16.4},
+    {id:'secretaria', name:'Secretaria', x:57.8, y:57.2, w:8.0, h:23.0},
+    {id:'arquivoTerreo', name:'Arquivo Permanente', x:65.8, y:57.2, w:7.2, h:23.0},
+    {id:'professores', name:'Sala dos Professores', x:73.0, y:57.2, w:7.5, h:23.0},
+    {id:'patioExterno', name:'Pátio Externo', x:78.2, y:11.2, w:19.0, h:53.8}
+  ],
+  superior: [
+    {id:'sala04', name:'Sala 04', x:5.0, y:10.4, w:15.6, h:28.0},
+    {id:'sala05', name:'Sala 05', x:20.8, y:10.4, w:15.6, h:28.0},
+    {id:'sala06', name:'Sala 06', x:36.7, y:10.4, w:17.6, h:28.0},
+    {id:'sala07', name:'Sala 07', x:54.5, y:10.4, w:17.6, h:28.0},
+    {id:'sala08', name:'Sala 08', x:72.3, y:10.4, w:16.9, h:28.0},
+    {id:'arquivoSup', name:'Arquivo Permanente', x:5.0, y:40.0, w:11.7, h:13.5},
+    {id:'corredorSup', name:'Corredor Pavimento Superior', x:16.8, y:40.0, w:57.0, h:13.5},
+    {id:'apoio', name:'Sala de Apoio', x:74.0, y:40.0, w:15.0, h:13.5},
+    {id:'sala03', name:'Sala 03', x:5.0, y:55.3, w:15.8, h:27.6},
+    {id:'auditorio', name:'Auditório', x:20.9, y:55.3, w:26.4, h:27.6},
+    {id:'sala10', name:'Sala 10', x:53.7, y:55.3, w:15.0, h:27.6},
+    {id:'sala09', name:'Sala 09', x:72.9, y:55.3, w:16.2, h:27.6}
+  ]
+};
+
+let currentFloor = 'terreo';
+let selectedEnv = '';
+let menuEnv = '';
+let programacoes = [];
+let panX = 0, panY = 40, zoom = 1.18, isDragging = false, startX = 0, startY = 0, startPanX = 0, startPanY = 0;
+const zoneStates = {};
+
+const mapWrap = document.getElementById('mapWrap');
+const mapCanvas = document.getElementById('mapCanvas');
+const floorImg = document.getElementById('floorImg');
+const overlay = document.getElementById('overlay');
+const envSelect = document.getElementById('envSelect');
+
+function setScene(text){
+  document.getElementById('sceneChip').textContent = `Cena: ${text}`;
+  document.getElementById('screenScene').textContent = text;
+  document.getElementById('sceneChip').style.animation = 'barGlow 1.2s ease';
+  setTimeout(()=>document.getElementById('sceneChip').style.animation='',1300);
 }
 
-</script></body>
+function capitalize(v){
+  const f = Object.values(floorMaps).flat().find(i=>i.id===v);
+  return f ? f.name : v;
+}
+
+function iconFor(mode){
+  return mode==='music'?'📻':mode==='bell'?'🔔':mode==='mic'?'🎤':mode==='alert'?'🚨':'⏹';
+}
+
+function renderSelect(){
+  envSelect.innerHTML = '<option value="">Selecione o ambiente</option>';
+  floorMaps[currentFloor].forEach(item=>{
+    const opt = document.createElement('option');
+    opt.value = item.id;
+    opt.textContent = item.name;
+    envSelect.appendChild(opt);
+  });
+  if(selectedEnv && !floorMaps[currentFloor].some(i=>i.id===selectedEnv)) selectedEnv = '';
+  envSelect.value = selectedEnv;
+}
+
+function renderFloor(){
+  floorImg.src = floorImages[currentFloor];
+  document.getElementById('floorChip').textContent = currentFloor === 'terreo' ? 'Térreo' : 'Pavimento Superior';
+  overlay.innerHTML = '';
+  floorMaps[currentFloor].forEach(item=>{
+    if(!(item.id in zoneStates)) zoneStates[item.id] = 'off';
+    const div = document.createElement('div');
+    div.className = `zone ${zoneStates[item.id]} ${zoneStates[item.id] !== 'off' ? 'active' : ''}`;
+    div.dataset.zone = item.id;
+    div.dataset.name = item.name;
+    div.style.left = item.x + '%';
+    div.style.top = item.y + '%';
+    div.style.width = item.w + '%';
+    div.style.height = item.h + '%';
+    div.innerHTML = `<div class="zone-label">${item.name}</div><div class="zone-icon">${iconFor(zoneStates[item.id])}</div>`;
+    div.onclick = (e)=>selectZone(e, div);
+    overlay.appendChild(div);
+  });
+  renderSelect();
+  refreshSelection();
+  updateStats();
+}
+
+function setFloor(f){
+  currentFloor = f;
+  mapCanvas.classList.add('floor-transition');
+  setTimeout(()=>{
+    renderFloor();
+    mapCanvas.classList.remove('floor-transition');
+  },180);
+}
+
+function syncSelectedEnv(env){
+  selectedEnv = env;
+  refreshSelection();
+}
+
+function refreshSelection(){
+  document.getElementById('selectedChip').textContent = `Ambiente: ${selectedEnv ? capitalize(selectedEnv) : 'Nenhum'}`;
+  envSelect.value = selectedEnv;
+  document.querySelectorAll('.zone').forEach(z=>z.classList.toggle('selected', z.dataset.zone===selectedEnv));
+}
+
+function selectZone(e, el){
+  selectedEnv = el.dataset.zone;
+  menuEnv = el.dataset.zone;
+  refreshSelection();
+  openFloatMenuAt(e.clientX, e.clientY, capitalize(menuEnv));
+}
+
+function animateAudioFlow(id, mode){
+  if(mode === 'off') return;
+  const zone = document.querySelector(`.zone[data-zone="${id}"]`);
+  const wrap = document.getElementById('mapWrap');
+  if(!zone || !wrap) return;
+
+  const z = zone.getBoundingClientRect();
+  const w = wrap.getBoundingClientRect();
+  const dot = document.createElement('div');
+  const colors = { music:'#2563eb', bell:'#22c55e', mic:'#a855f7', alert:'#ef4444' };
+
+  dot.style.position = 'absolute';
+  dot.style.left = '50%';
+  dot.style.top = '12%';
+  dot.style.width = '14px';
+  dot.style.height = '14px';
+  dot.style.borderRadius = '999px';
+  dot.style.background = colors[mode] || '#fff';
+  dot.style.boxShadow = `0 0 16px ${colors[mode] || '#fff'}`;
+  dot.style.zIndex = '5';
+  dot.style.pointerEvents = 'none';
+
+  wrap.appendChild(dot);
+
+  const dx = (z.left + z.width/2) - (w.left + w.width/2);
+  const dy = (z.top + z.height/2) - (w.top + w.height*0.12);
+
+  dot.animate([
+    { transform:'translate(-50%, -50%) scale(.8)', opacity:.2 },
+    { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1)`, opacity:1 }
+  ], { duration:650, easing:'cubic-bezier(.2,.8,.2,1)' });
+
+  setTimeout(()=>dot.remove(),700);
+}
+
+function applyModeToZone(id, mode){
+  zoneStates[id] = mode;
+  const el = document.querySelector(`.zone[data-zone="${id}"]`);
+  if(el){
+    el.className = `zone ${mode} ${mode !== 'off' ? 'active' : ''}`;
+    el.querySelector('.zone-icon').textContent = iconFor(mode);
+    el.animate(
+      [
+        { transform:'scale(1)', offset:0 },
+        { transform:'scale(1.035)', offset:.5 },
+        { transform:'scale(1)', offset:1 }
+      ],
+      { duration:420, easing:'ease-out' }
+    );
+  }
+  updateStats();
+  animateAudioFlow(id, mode);
+}
+
+function aplicarFonteRapida(mode){
+  if(!selectedEnv){
+    alert('Selecione um ambiente na planta.');
+    return;
+  }
+  applyModeToZone(selectedEnv, mode);
+  setScene(`Comando em ${capitalize(selectedEnv)}`);
+}
+
+function applyFromMenu(mode){
+  if(!menuEnv) return;
+  applyModeToZone(menuEnv, mode);
+  setScene(`Comando em ${capitalize(menuEnv)}`);
+  closeFloatMenu();
+}
+
+function idsByNames(names){
+  return Object.values(floorMaps).flat().filter(i=>names.includes(i.name)).map(i=>i.id);
+}
+
+function resetAll(){
+  Object.keys(zoneStates).forEach(id=>zoneStates[id]='off');
+  renderFloor();
+}
+
+function modoMusica(){
+  resetAll();
+  idsByNames(['Pátio Alimentação','Pátio Externo','Corredor Térreo','Corredor Pavimento Superior']).forEach(id=>zoneStates[id]='music');
+  renderFloor();
+  setScene('Modo recreio');
+}
+
+function modoAula(){
+  resetAll();
+  idsByNames(['Sala 01','Sala 02','Sala 03','Sala 04','Sala 05','Sala 06','Sala 07','Sala 08','Sala 09','Sala 10']).forEach(id=>zoneStates[id]='bell');
+  renderFloor();
+  setScene('Início de aula');
+}
+
+function modoEvento(){
+  resetAll();
+  idsByNames(['Auditório','Recepção','Coordenação']).forEach(id=>zoneStates[id]='mic');
+  renderFloor();
+  setScene('Evento institucional');
+}
+
+function modoEmergencia(){
+  Object.keys(zoneStates).forEach(id=>zoneStates[id]='alert');
+  renderFloor();
+  setScene('Emergência ativa');
+}
+
+function silenciarTudo(){
+  Object.keys(zoneStates).forEach(id=>zoneStates[id]='off');
+  renderFloor();
+  setScene('Sistema silenciado');
+}
+
+function updateStats(){
+  const vals = Object.values(zoneStates);
+  document.getElementById('musicStat').textContent = `Rádio: ${vals.filter(v=>v==='music').length}`;
+  document.getElementById('bellStat').textContent = `Campainha: ${vals.filter(v=>v==='bell').length}`;
+  document.getElementById('micStat').textContent = `Microfone: ${vals.filter(v=>v==='mic').length}`;
+  document.getElementById('offStat').textContent = `Desligado: ${vals.filter(v=>v==='off').length}`;
+}
+
+function updateTransform(){
+  mapCanvas.style.transform = `translate(calc(-50% + ${panX}px), calc(-50% + ${panY}px)) scale(${zoom})`;
+}
+
+function zoomIn(){
+  zoom = Math.min(3, zoom + 0.1);
+  updateTransform();
+}
+
+function zoomOut(){
+  zoom = Math.max(0.5, zoom - 0.1);
+  updateTransform();
+}
+
+function resetView(){
+  panX = 0;
+  panY = 40;
+  zoom = 1.18;
+  updateTransform();
+}
+
+mapWrap.addEventListener('pointerdown',(e)=>{
+  if(e.target.closest('.zone')) return;
+  isDragging = true;
+  mapWrap.classList.add('dragging');
+  startX = e.clientX;
+  startY = e.clientY;
+  startPanX = panX;
+  startPanY = panY;
+});
+
+window.addEventListener('pointermove',(e)=>{
+  if(!isDragging) return;
+  panX = startPanX + (e.clientX - startX);
+  panY = startPanY + (e.clientY - startY);
+  updateTransform();
+});
+
+window.addEventListener('pointerup',()=>{
+  isDragging = false;
+  mapWrap.classList.remove('dragging');
+});
+
+mapWrap.addEventListener('wheel',(e)=>{
+  e.preventDefault();
+  zoom += e.deltaY > 0 ? -0.08 : 0.08;
+  zoom = Math.max(0.5, Math.min(3, zoom));
+  updateTransform();
+},{passive:false});
+
+let pinchStartDist = 0;
+let pinchStartZoom = 1;
+
+mapWrap.addEventListener('touchstart',(e)=>{
+  if(e.touches.length === 2){
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    pinchStartDist = Math.hypot(dx,dy);
+    pinchStartZoom = zoom;
+  }
+},{passive:true});
+
+mapWrap.addEventListener('touchmove',(e)=>{
+  if(e.touches.length === 2){
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    const dist = Math.hypot(dx,dy);
+    zoom = Math.max(0.5, Math.min(3, pinchStartZoom * (dist / pinchStartDist)));
+    updateTransform();
+  }
+},{passive:true});
+
+function openFloatMenuAt(x,y,title){
+  const m = document.getElementById('floatMenu');
+  document.getElementById('floatMenuTitle').textContent = title;
+  m.style.left = Math.min(x+12, window.innerWidth-220) + 'px';
+  m.style.top = Math.min(y+12, window.innerHeight-320) + 'px';
+  m.classList.add('show');
+}
+
+function closeFloatMenu(){
+  document.getElementById('floatMenu').classList.remove('show');
+}
+
+document.addEventListener('click',e=>{
+  const m = document.getElementById('floatMenu');
+  if(m.classList.contains('show') && !m.contains(e.target) && !e.target.closest('.zone')) closeFloatMenu();
+});
+
+function openVolumes(){ document.getElementById('volumesModal').classList.add('show'); }
+function closeVolumes(){ document.getElementById('volumesModal').classList.remove('show'); }
+function updateVolume(id,v){ document.getElementById(id).textContent = `${v}%`; }
+
+function openMsg(){ document.getElementById('msgModal').classList.add('show'); }
+function closeMsg(){ document.getElementById('msgModal').classList.remove('show'); }
+
+function falarMensagem(){
+  const t = document.getElementById('msgText').value;
+  if(!t){
+    alert('Digite uma mensagem');
+    return;
+  }
+  const s = new SpeechSynthesisUtterance(t);
+  s.lang = 'pt-BR';
+  window.speechSynthesis.speak(s);
+  setScene('Mensagem por voz em demonstração');
+}
+
+function openSchedule(){ document.getElementById('scheduleModal').classList.add('show'); }
+function closeSchedule(){ document.getElementById('scheduleModal').classList.remove('show'); }
+
+function salvarProgramacao(){
+  const tipo = document.getElementById('tipoAcao').value;
+  const dias = document.getElementById('diasSemana').value;
+  const hora = document.getElementById('horario').value;
+  const data = document.getElementById('dataEspecial').value;
+  const fonte = document.getElementById('fonteAudio').value;
+  const ref = document.getElementById('audioRef').value;
+
+  if(!hora){
+    alert('Defina um horário.');
+    return;
+  }
+
+  programacoes.push({id:Date.now().toString(),tipo,dias,hora,data,fonte,ref,lastRunKey:''});
+  renderProgramacoes();
+  setScene('Programação criada');
+}
+
+function renderProgramacoes(){
+  const lista = document.getElementById('listaProgramacoes');
+  lista.innerHTML = '';
+  programacoes.slice().sort((a,b)=>a.hora.localeCompare(b.hora)).forEach(p=>{
+    const txt = `🔔 ${p.tipo} · ${p.hora} · ${p.dias}${p.data?' · '+p.data:''} · ${p.fonte}${p.ref?' · '+p.ref:''}`;
+    const d = document.createElement('div');
+    d.style.padding = '8px';
+    d.style.borderBottom = '1px solid rgba(255,255,255,.08)';
+    d.textContent = txt;
+    lista.appendChild(d);
+  });
+}
+
+function diaCombina(p,n){
+  const d = n.getDay();
+  if(p.dias === 'Todos os dias') return true;
+  if(p.dias === 'Segunda a Sexta') return d >= 1 && d <= 5;
+  return true;
+}
+
+function dataCombina(p,n){
+  if(!p.data) return true;
+  const yyyy = n.getFullYear();
+  const mm = String(n.getMonth()+1).padStart(2,'0');
+  const dd = String(n.getDate()).padStart(2,'0');
+  return p.data === `${yyyy}-${mm}-${dd}`;
+}
+
+function executarProgramacao(p){
+  const t = p.tipo.toLowerCase();
+  if(t.includes('campainha')) modoAula();
+  else if(t.includes('mensagem')){
+    setScene(`Mensagem automática ${p.hora}`);
+    if(p.ref){
+      const s = new SpeechSynthesisUtterance(`Mensagem automática programada. Referência ${p.ref}`);
+      s.lang = 'pt-BR';
+      window.speechSynthesis.speak(s);
+    }
+  } else if(t.includes('rádio') || t.includes('radio')) modoMusica();
+  else if(t.includes('emerg')) modoEmergencia();
+}
+
+function verificarProgramacoes(){
+  const n = new Date();
+  const hh = String(n.getHours()).padStart(2,'0');
+  const mm = String(n.getMinutes()).padStart(2,'0');
+  const hoje = n.toISOString().slice(0,10);
+  const chave = `${hoje}-${hh}:${mm}`;
+
+  programacoes.forEach(p=>{
+    if(p.hora === `${hh}:${mm}` && diaCombina(p,n) && dataCombina(p,n)){
+      const run = `${p.id}-${chave}`;
+      if(p.lastRunKey !== run){
+        p.lastRunKey = run;
+        executarProgramacao(p);
+      }
+    }
+  });
+}
+
+['volumesModal','msgModal','scheduleModal'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',e=>{
+    if(e.target === e.currentTarget) e.currentTarget.classList.remove('show');
+  });
+});
+
+renderFloor();
+renderProgramacoes();
+updateTransform();
+setInterval(verificarProgramacoes,1000);
+</script>
+</body>
 </html>
