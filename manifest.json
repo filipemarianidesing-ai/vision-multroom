@@ -1,10 +1,10 @@
 {
-  "name": "Vision Multroom",
-  "short_name": "Vision",
+  "name": "Ética Vision Control PRO",
+  "short_name": "Vision Control",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0b0f1a",
-  "theme_color": "#0b0f1a",
+  "background_color": "#09111b",
+  "theme_color": "#09111b",
   "orientation": "landscape",
   "icons": [
     {
