@@ -1627,5 +1627,13 @@
       }
     });
   </script>
-</body>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("APP PRONTO - Service Worker OK"))
+      .catch(err => console.log("Erro SW:", err));
+  });
+}
+</script> </body>
 </html>
