@@ -240,6 +240,36 @@ body{
 .corridor.h{left:18%;right:18%;top:51%;height:4.4%;transform:translateY(-50%)}
 .corridor.v{top:14%;bottom:15%;left:50%;width:3.4%;transform:translateX(-50%)}
 
+@keyframes zonePulse{
+  0%{transform:translateY(0) scale(1);}
+  50%{transform:translateY(-2px) scale(1.015);}
+  100%{transform:translateY(0) scale(1);}
+}
+
+@keyframes iconFloat{
+  0%{transform:translateY(0px) scale(1);}
+  50%{transform:translateY(-4px) scale(1.06);}
+  100%{transform:translateY(0px) scale(1);}
+}
+
+@keyframes glowMusic{
+  0%{box-shadow:0 0 0 4px rgba(21,200,216,.18),0 0 12px rgba(21,200,216,.20),0 16px 28px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.18);}
+  50%{box-shadow:0 0 0 6px rgba(21,200,216,.28),0 0 24px rgba(21,200,216,.28),0 18px 30px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.18);}
+  100%{box-shadow:0 0 0 4px rgba(21,200,216,.18),0 0 12px rgba(21,200,216,.20),0 16px 28px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.18);}
+}
+
+@keyframes glowBell{
+  0%{box-shadow:0 0 0 4px rgba(109,77,255,.18),0 0 12px rgba(109,77,255,.18),0 16px 28px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.18);}
+  50%{box-shadow:0 0 0 6px rgba(109,77,255,.28),0 0 24px rgba(109,77,255,.26),0 18px 30px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.18);}
+  100%{box-shadow:0 0 0 4px rgba(109,77,255,.18),0 0 12px rgba(109,77,255,.18),0 16px 28px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.18);}
+}
+
+@keyframes glowMic{
+  0%{box-shadow:0 0 0 4px rgba(239,77,67,.18),0 0 12px rgba(239,77,67,.18),0 16px 28px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.18);}
+  50%{box-shadow:0 0 0 6px rgba(239,77,67,.28),0 0 24px rgba(239,77,67,.26),0 18px 30px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.18);}
+  100%{box-shadow:0 0 0 4px rgba(239,77,67,.18),0 0 12px rgba(239,77,67,.18),0 16px 28px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.18);}
+}
+
 .zone{
   position:absolute;
   padding:12px;
@@ -259,7 +289,7 @@ body{
   content:"";position:absolute;left:10px;right:10px;top:8px;height:14px;border-radius:12px;
   background:rgba(255,255,255,.35);filter:blur(2px);pointer-events:none;
 }
-.zone.selected{outline:3px solid rgba(26,39,52,.95)}
+.zone.selected{outline:3px solid rgba(26,39,52,.95);transform:translateY(-2px) scale(1.01)}
 .zone h3,.zone p,.zone .state,.zone .audio-icon{position:relative;z-index:1}
 .zone h3{margin:0;font-size:clamp(13px,1.2vw,19px);line-height:1.05}
 .zone p{margin:5px 0 0;font-size:clamp(8px,.68vw,11px);font-weight:700;color:#33485b}
@@ -283,24 +313,27 @@ body{
 
 .zone.music{
   color:#fff;background:linear-gradient(145deg,var(--music),var(--music2));border-color:rgba(255,255,255,.18);
-  box-shadow:0 0 0 4px rgba(21,200,216,.24),0 0 18px rgba(21,200,216,.24),0 16px 28px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.18);
+  animation:glowMusic 2.2s infinite ease-in-out, zonePulse 2.6s infinite ease-in-out;
 }
 .zone.music p,.zone.music .state,.zone.music .audio-icon{color:#fff}
 .zone.music .state,.zone.music .audio-icon{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.18)}
+.zone.music .audio-icon{animation:iconFloat 1.8s infinite ease-in-out;}
 
 .zone.bell{
   color:#fff;background:linear-gradient(145deg,var(--bell),var(--bell2));border-color:rgba(255,255,255,.18);
-  box-shadow:0 0 0 4px rgba(109,77,255,.24),0 0 18px rgba(109,77,255,.24),0 16px 28px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.18);
+  animation:glowBell 2.2s infinite ease-in-out, zonePulse 2.8s infinite ease-in-out;
 }
 .zone.bell p,.zone.bell .state,.zone.bell .audio-icon{color:#fff}
 .zone.bell .state,.zone.bell .audio-icon{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.18)}
+.zone.bell .audio-icon{animation:iconFloat 1.8s infinite ease-in-out;}
 
 .zone.mic{
   color:#fff;background:linear-gradient(145deg,var(--mic),var(--mic2));border-color:rgba(255,255,255,.18);
-  box-shadow:0 0 0 4px rgba(239,77,67,.24),0 0 18px rgba(239,77,67,.24),0 16px 28px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.18);
+  animation:glowMic 2.2s infinite ease-in-out, zonePulse 2.5s infinite ease-in-out;
 }
 .zone.mic p,.zone.mic .state,.zone.mic .audio-icon{color:#fff}
 .zone.mic .state,.zone.mic .audio-icon{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.18)}
+.zone.mic .audio-icon{animation:iconFloat 1.8s infinite ease-in-out;}
 
 .zone.off{opacity:1}
 
