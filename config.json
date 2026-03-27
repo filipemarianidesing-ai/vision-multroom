@@ -66,4 +66,7 @@
       { "id": "bell-saida", "dias": "Segunda a Sexta", "hora": "12:00", "zona": "todas", "tipo": "Saída" }
     ],
     "radio": [
-      { "id": "radio-manha", "dias": "Segunda a Sexta", "inicio": "06:40", "fim": "06:58", "origem": "Pendrive", "zona": "patios", "
+      { "id": "radio-manha", "dias": "Segunda a Sexta", "inicio": "06:40", "fim": "06:58", "origem": "Pendrive", "zona": "patios", "volume": 70 }
+    ]
+  }
+}
