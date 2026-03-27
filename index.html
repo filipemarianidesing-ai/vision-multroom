@@ -7,39 +7,30 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Ética Vision Control" />
-  <title>Ética Vision Control Adaptive Premium</title>
+  <title>Ética Vision Control Premium</title>
   <style>
     :root{
       --bg:#08111b;
-      --bg-2:#0b1724;
-      --panel:#101d2c;
-      --panel-2:#16273a;
-      --card:#1a2d42;
+      --bg2:#0d1825;
+      --panel:#111e2d;
+      --panel2:#182a3d;
+      --card:#1b3046;
       --line:rgba(255,255,255,.08);
       --text:#eef6ff;
-      --muted:#a9bfd3;
-      --blue:#1ea7ff;
-      --blue-2:#0f62d0;
-      --green:#26c86e;
-      --green-2:#14995d;
-      --purple:#6f4dff;
-      --purple-2:#4e33df;
-      --red:#ef4b40;
-      --red-2:#c41e16;
-      --cyan:#18c8d8;
-      --cyan-2:#0896a5;
-      --gray:#718193;
-      --gray-2:#516173;
-      --yellow:#f0c544;
-      --yellow-2:#c59308;
-      --shadow:0 20px 50px rgba(0,0,0,.34);
-      --radius-xl:26px;
-      --radius-lg:20px;
-      --radius-md:16px;
-      --radius-sm:12px;
-      --header-h:76px;
-      --safe-top: env(safe-area-inset-top, 0px);
-      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --muted:#aebfd0;
+      --music:#15c8d8;
+      --music2:#0c95a4;
+      --bell:#6d4dff;
+      --bell2:#4b31db;
+      --mic:#ef4d43;
+      --mic2:#c51e16;
+      --off:#cfd7df;
+      --off2:#aeb7c0;
+      --gray:#647385;
+      --gray2:#495666;
+      --shadow:0 24px 60px rgba(0,0,0,.34);
+      --safe-bottom:env(safe-area-inset-bottom,0px);
+      --safe-top:env(safe-area-inset-top,0px);
     }*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;margin:0}
 body{
@@ -48,24 +39,23 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   color:var(--text);
   background:
-    radial-gradient(circle at top left, rgba(30,167,255,.10), transparent 20%),
-    radial-gradient(circle at bottom right, rgba(111,77,255,.08), transparent 20%),
-    linear-gradient(145deg,var(--bg),#0a1623 52%,var(--bg-2) 100%);
+    radial-gradient(circle at top left, rgba(21,200,216,.10), transparent 20%),
+    radial-gradient(circle at bottom right, rgba(109,77,255,.10), transparent 20%),
+    linear-gradient(145deg,var(--bg),#0a1622 52%,var(--bg2) 100%);
   padding:10px;
 }
 
 .app{
   height:calc(100dvh - 20px);
-  min-height:560px;
   max-width:1600px;
   margin:0 auto;
-  border-radius:var(--radius-xl);
-  overflow:hidden;
-  border:1px solid var(--line);
-  background:linear-gradient(180deg,#101c2a,#09131d);
-  box-shadow:var(--shadow);
   display:grid;
   grid-template-rows:auto 1fr;
+  background:linear-gradient(180deg,#101c2a,#09131d);
+  border:1px solid var(--line);
+  border-radius:26px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
 }
 
 .topbar{
@@ -74,62 +64,45 @@ body{
   justify-content:space-between;
   gap:12px;
   padding:12px 18px;
-  min-height:var(--header-h);
   background:linear-gradient(180deg,#182a3c,#101c2b);
   border-bottom:1px solid var(--line);
 }
 
 .brand{display:flex;align-items:center;gap:12px;min-width:0}
 .logo{
-  width:52px;
-  height:52px;
-  flex:0 0 52px;
-  border-radius:16px;
-  background:linear-gradient(145deg,#1db7ff,#0d4e97);
-  display:grid;
-  place-items:center;
-  font-weight:900;
-  font-size:14px;
-  box-shadow:0 10px 24px rgba(30,167,255,.22);
+  width:54px;height:54px;flex:0 0 54px;border-radius:16px;
+  background:conic-gradient(from 120deg,#18b7ff,#0b63d7,#18c8d8,#18b7ff);
+  box-shadow:0 10px 24px rgba(24,183,255,.25);
 }
 .brand-copy{min-width:0}
 .brand h1{margin:0;font-size:26px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .brand p{margin:4px 0 0;color:#d6e6f6;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-.top-actions{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
-}
-.chip,.btn-install{
+.top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.chip,.btn-top{
   padding:9px 12px;
   border-radius:999px;
   border:1px solid var(--line);
   background:rgba(255,255,255,.05);
+  color:#fff;
   font-size:12px;
   font-weight:800;
-  color:#fff;
-  line-height:1;
   white-space:nowrap;
 }
 .chip.online{background:rgba(38,200,110,.15);color:#d4f6e1}
-.chip.scene{background:rgba(30,167,255,.14);color:#dff1ff}
-.chip.env{background:rgba(240,197,68,.14);color:#fff0b4}
-.btn-install{background:rgba(111,77,255,.18);color:#eadfff;cursor:pointer}
+.chip.scene{background:rgba(21,200,216,.14);color:#ddfbff}
+.chip.env{background:rgba(109,77,255,.14);color:#ece6ff}
+.btn-top{background:rgba(255,255,255,.07);cursor:pointer}
 
 .layout{
   display:grid;
-  grid-template-columns:minmax(250px,300px) 1fr;
+  grid-template-columns:220px 1fr;
   gap:12px;
   padding:12px;
   min-height:0;
-  height:100%;
 }
 
-.sidebar,
-.main{
+.sidebar,.main{
   min-height:0;
   border-radius:22px;
   border:1px solid var(--line);
@@ -139,110 +112,63 @@ body{
 .sidebar{
   padding:12px;
   display:grid;
-  grid-template-rows:auto auto auto 1fr;
+  grid-template-rows:auto auto 1fr auto;
   gap:10px;
-  overflow:auto;
-  scrollbar-width:none;
 }
-.sidebar::-webkit-scrollbar{display:none}
 
-.menu-btn,
-.source-btn,
-.scene-btn,
-.bottom-btn{
+.nav-btn,.scene-btn,.bottom-btn,.modal-btn,.quick-btn{
   border:none;
   cursor:pointer;
   color:#fff;
-  transition:.18s ease;
   font-weight:900;
+  transition:.18s ease;
 }
-.menu-btn:hover,.source-btn:hover,.scene-btn:hover,.bottom-btn:hover,.zone:hover{transform:translateY(-1px);filter:brightness(1.05)}
+.nav-btn:hover,.scene-btn:hover,.bottom-btn:hover,.modal-btn:hover,.quick-btn:hover,.zone:hover{transform:translateY(-1px);filter:brightness(1.05)}
 
-.menu-btn{
-  width:100%;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:14px;
-  border-radius:16px;
-  text-align:left;
+.nav-btn{
+  display:flex;align-items:center;gap:10px;
+  width:100%;padding:14px;border-radius:16px;
+  text-align:left;font-size:16px;
   background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
   border:1px solid rgba(255,255,255,.08);
-  font-size:17px;
 }
-.menu-icon{
-  width:42px;height:42px;flex:0 0 42px;
-  border-radius:14px;
-  background:rgba(255,255,255,.08);
-  display:grid;place-items:center;
-  font-size:22px;
+.nav-icon{
+  width:42px;height:42px;flex:0 0 42px;border-radius:14px;
+  background:rgba(255,255,255,.08);display:grid;place-items:center;font-size:22px;
 }
 
 .card{
-  padding:12px;
-  border-radius:16px;
-  background:rgba(255,255,255,.04);
+  padding:12px;border-radius:16px;background:rgba(255,255,255,.04);
   border:1px solid rgba(255,255,255,.07);
 }
-.kicker{
-  color:var(--muted);
-  font-size:11px;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:.6px;
-}
+.kicker{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
 .card h3{margin:6px 0 10px;font-size:15px}
 
-.field{margin-bottom:8px}
-.field:last-child{margin-bottom:0}
-.field label{display:block;margin-bottom:5px;color:var(--muted);font-size:12px;font-weight:800}
-.select{
-  width:100%;
-  padding:11px 12px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.05);
-  color:#fff;
-  font-size:14px;
-  font-weight:700;
-}
+.quick-grid,.stats-grid,.scene-grid{display:grid;gap:8px}
+.quick-grid,.stats-grid{grid-template-columns:repeat(2,1fr)}
+.scene-grid{grid-template-columns:1fr}
 
-.source-grid,.stats-grid,.scene-grid,.quick-grid{
-  display:grid;
-  gap:8px;
-}
-.source-grid,.stats-grid,.quick-grid{grid-template-columns:repeat(2,1fr)}
-.scene-grid{grid-template-columns:repeat(2,1fr)}
-
-.source-btn,
-.scene-btn{
-  border-radius:14px;
-  padding:12px 10px;
-  font-size:12px;
-  min-height:54px;
-}
-.music-btn{background:linear-gradient(145deg,var(--cyan),var(--cyan-2))}
-.bell-btn{background:linear-gradient(145deg,var(--purple),var(--purple-2))}
-.mic-btn{background:linear-gradient(145deg,var(--red),var(--red-2))}
-.mute-btn{background:linear-gradient(145deg,var(--gray),var(--gray-2))}
-.scene-a{background:linear-gradient(145deg,var(--purple),var(--purple-2))}
-.scene-b{background:linear-gradient(145deg,var(--blue),var(--blue-2))}
-.scene-c{background:linear-gradient(145deg,var(--yellow),var(--yellow-2));color:#162338}
-.scene-d{background:linear-gradient(145deg,var(--cyan),var(--cyan-2))}
-
-.mini-stat,
-.quick-btn{
-  padding:10px;
-  border-radius:12px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.07);
-  font-size:11px;
-  font-weight:800;
+.quick-btn,.mini-stat{
+  padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.04);font-size:11px;font-weight:800;text-align:center;
   color:#dce8f4;
-  text-align:center;
 }
-.quick-btn{cursor:pointer}
-.quick-btn.active{box-shadow:0 0 0 2px rgba(30,167,255,.24) inset;background:linear-gradient(145deg,rgba(30,167,255,.20),rgba(30,167,255,.08))}
+.quick-btn.active{box-shadow:0 0 0 2px rgba(21,200,216,.24) inset;background:linear-gradient(145deg,rgba(21,200,216,.18),rgba(21,200,216,.07))}
+
+.scene-btn{
+  padding:14px 12px;border-radius:14px;text-align:left;font-size:14px;
+}
+.scene-btn strong{display:block;font-size:15px}
+.scene-btn span{display:block;margin-top:4px;font-size:11px;opacity:.92}
+.scene-a{background:linear-gradient(145deg,#6d4dff,#4b31db)}
+.scene-b{background:linear-gradient(145deg,#18b7ff,#0c61d8)}
+.scene-c{background:linear-gradient(145deg,#15c8d8,#0c95a4)}
+.scene-d{background:linear-gradient(145deg,#ef4d43,#c51e16)}
+
+.sidebar-footer .modal-btn{
+  width:100%;padding:13px 12px;border-radius:14px;font-size:14px;
+  background:linear-gradient(145deg,var(--gray),var(--gray2));
+}
 
 .main{
   padding:12px;
@@ -263,47 +189,26 @@ body{
 }
 
 .screen-top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:10px 16px;
-  background:linear-gradient(180deg,#22384d,#192c40);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px 16px;background:linear-gradient(180deg,#22384d,#192c40);
   border-bottom:1px solid rgba(255,255,255,.08);
 }
 .screen-brand{display:flex;align-items:center;gap:12px;min-width:0}
-.swirl{
-  width:34px;height:34px;flex:0 0 34px;border-radius:50%;
-  background:conic-gradient(from 120deg,#1db7ff,#0c61d8,#19c8d8,#1db7ff);
-  box-shadow:0 0 18px rgba(30,167,255,.26);
-}
+.swirl{width:34px;height:34px;flex:0 0 34px;border-radius:50%;background:conic-gradient(from 120deg,#18b7ff,#0b63d7,#18c8d8,#18b7ff);box-shadow:0 0 18px rgba(24,183,255,.24)}
 .screen-brand h2{margin:0;font-size:16px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .screen-brand p{margin:4px 0 0;font-size:11px;color:#dbe9f7;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 .screen-body{
   display:grid;
-  grid-template-columns:minmax(170px,210px) 1fr;
-  gap:12px;
+  grid-template-columns:1fr;
+  min-height:0;
   padding:12px;
-  min-height:0;
 }
-
-.left-menu{
-  display:grid;
-  gap:10px;
-  align-content:start;
-  min-height:0;
-}
-.left-menu .menu-btn{font-size:16px;padding:13px 12px}
 
 .map-panel{
-  min-height:0;
-  border-radius:18px;
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02)),
-    linear-gradient(145deg,#22384a,#102133);
+  min-height:0;border-radius:18px;padding:10px;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02)),linear-gradient(145deg,#22384a,#102133);
   border:1px solid rgba(255,255,255,.08);
-  padding:10px;
   display:grid;
 }
 
@@ -314,97 +219,99 @@ body{
   aspect-ratio:16/9;
   border-radius:18px;
   overflow:hidden;
-  background:linear-gradient(180deg,#95c3ea 0%,#83b4db 22%,#79b268 23%,#659c57 100%);
+  background:linear-gradient(180deg,#d5dbe1 0%,#c7d0d8 100%);
 }
 .map::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at 20% 18%, rgba(255,255,255,.16), transparent 18%);
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.22),transparent 14%),
+    radial-gradient(circle at 18% 14%, rgba(255,255,255,.20), transparent 18%);
   pointer-events:none;
 }
 
-.walk{
-  position:absolute;
-  background:linear-gradient(180deg,#dce3e7,#b4bec6);
-  border-radius:12px;
-  box-shadow:0 8px 14px rgba(0,0,0,.12);
+.yard{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,transparent 0 74%, #bcc5ce 74% 100%),
+    linear-gradient(90deg,transparent 0 3%, #bcc5ce 3% 97%, transparent 97% 100%);
 }
-.walk.h{left:13%;right:13%;top:53%;height:4.6%;transform:translateY(-50%)}
-.walk.v{top:13%;bottom:13%;left:50%;width:3.6%;transform:translateX(-50%)}
+
+.corridor{position:absolute;background:linear-gradient(180deg,#d9dfe5,#b8c1c9);border-radius:12px;box-shadow:0 10px 16px rgba(0,0,0,.10)}
+.corridor.h{left:18%;right:18%;top:51%;height:4.4%;transform:translateY(-50%)}
+.corridor.v{top:14%;bottom:15%;left:50%;width:3.4%;transform:translateX(-50%)}
 
 .zone{
   position:absolute;
-  border-radius:18px;
   padding:12px;
-  border:2px solid rgba(255,255,255,.22);
-  color:#fff;
-  font-weight:900;
+  border-radius:18px;
+  border:2px solid rgba(90,102,114,.25);
+  background:linear-gradient(145deg,#e8edf2,#cfd6dd);
+  color:#1a2734;
   cursor:pointer;
-  box-shadow:0 14px 24px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.18);
-  transition:.18s ease;
+  box-shadow:
+    0 20px 35px rgba(0,0,0,.18),
+    inset 0 2px 4px rgba(255,255,255,.8),
+    inset 0 -3px 6px rgba(0,0,0,.08);
+  transition:all .25s cubic-bezier(.2,.8,.2,1);
   overflow:hidden;
 }
 .zone::before{
-  content:"";
-  position:absolute;
-  left:10px;right:10px;top:8px;height:14px;
-  border-radius:12px;
-  background:rgba(255,255,255,.16);
-  filter:blur(2px);
-  pointer-events:none;
+  content:"";position:absolute;left:10px;right:10px;top:8px;height:14px;border-radius:12px;
+  background:rgba(255,255,255,.35);filter:blur(2px);pointer-events:none;
 }
-.zone.selected{outline:3px solid rgba(255,255,255,.95)}
+.zone.selected{outline:3px solid rgba(26,39,52,.95)}
 .zone h3,.zone p,.zone .state,.zone .audio-icon{position:relative;z-index:1}
-.zone h3{margin:0;font-size:clamp(13px,1.25vw,20px);line-height:1.05}
-.zone p{margin:5px 0 0;font-size:clamp(8px,.65vw,11px);font-weight:700;opacity:.95}
+.zone h3{margin:0;font-size:clamp(13px,1.2vw,19px);line-height:1.05}
+.zone p{margin:5px 0 0;font-size:clamp(8px,.68vw,11px);font-weight:700;color:#33485b}
 .zone .state{
-  margin-top:10px;
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  padding:7px 10px;
-  border-radius:999px;
-  background:rgba(0,0,0,.18);
-  border:1px solid rgba(255,255,255,.16);
+  margin-top:10px;display:inline-flex;align-items:center;gap:7px;
+  padding:7px 10px;border-radius:999px;
+  background:rgba(255,255,255,.55);
+  border:1px solid rgba(56,73,88,.14);
   font-size:clamp(8px,.7vw,10px);
+  color:#203142;
 }
 .zone .audio-icon{
-  position:absolute;
-  right:12px;
-  bottom:12px;
-  width:clamp(34px,4.4vw,52px);
-  height:clamp(34px,4.4vw,52px);
-  border-radius:16px;
-  display:grid;
-  place-items:center;
+  position:absolute;right:12px;bottom:12px;
+  width:clamp(34px,4.3vw,52px);height:clamp(34px,4.3vw,52px);
+  border-radius:16px;display:grid;place-items:center;
   font-size:clamp(18px,2.2vw,26px);
-  background:rgba(255,255,255,.16);
-  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.55);
+  border:1px solid rgba(56,73,88,.14);
+  color:#1f2e3d;
 }
 
-.zone.music{box-shadow:0 0 0 4px rgba(24,200,216,.26),0 0 18px rgba(24,200,216,.30),0 14px 24px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.18)}
-.zone.bell{box-shadow:0 0 0 4px rgba(111,77,255,.26),0 0 18px rgba(111,77,255,.30),0 14px 24px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.18)}
-.zone.mic{box-shadow:0 0 0 4px rgba(239,75,64,.26),0 0 18px rgba(239,75,64,.30),0 14px 24px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.18)}
-.zone.off{opacity:.86}
+.zone.music{
+  color:#fff;background:linear-gradient(145deg,var(--music),var(--music2));border-color:rgba(255,255,255,.18);
+  box-shadow:0 0 0 4px rgba(21,200,216,.24),0 0 18px rgba(21,200,216,.24),0 16px 28px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.18);
+}
+.zone.music p,.zone.music .state,.zone.music .audio-icon{color:#fff}
+.zone.music .state,.zone.music .audio-icon{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.18)}
 
-.salas{left:2.8%;top:4.2%;width:34%;height:27%}
-.patio{left:41.5%;top:4.2%;width:26%;height:27%}
-.direita{right:2.8%;top:4.2%;width:25%;height:27%}
-.auditorio{left:34%;top:49.5%;width:30%;height:24%}
-.recepcao{right:2.8%;top:49.5%;width:24%;height:24%}
-.inferior-esq{left:2.8%;bottom:4.2%;width:20%;height:16%}
-.inferior-centro{left:26%;bottom:4.2%;width:24%;height:16%}
-.inferior-dir{right:2.8%;bottom:4.2%;width:18%;height:16%}
+.zone.bell{
+  color:#fff;background:linear-gradient(145deg,var(--bell),var(--bell2));border-color:rgba(255,255,255,.18);
+  box-shadow:0 0 0 4px rgba(109,77,255,.24),0 0 18px rgba(109,77,255,.24),0 16px 28px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.18);
+}
+.zone.bell p,.zone.bell .state,.zone.bell .audio-icon{color:#fff}
+.zone.bell .state,.zone.bell .audio-icon{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.18)}
 
-.salas{background:linear-gradient(145deg,#1e96ff,#0d63d1)}
-.patio{background:linear-gradient(145deg,#31c96f,#14995d)}
-.direita{background:linear-gradient(145deg,#ffa24a,#dd6c10)}
-.auditorio{background:linear-gradient(145deg,#ef4b40,#c71f17)}
-.recepcao{background:linear-gradient(145deg,#ff8d2c,#df6710)}
-.inferior-esq{background:linear-gradient(145deg,#8e6cff,#5a3ee6)}
-.inferior-centro{background:linear-gradient(145deg,#18c8d8,#0896a5)}
-.inferior-dir{background:linear-gradient(145deg,#6e7d8f,#4f5c6d)}
+.zone.mic{
+  color:#fff;background:linear-gradient(145deg,var(--mic),var(--mic2));border-color:rgba(255,255,255,.18);
+  box-shadow:0 0 0 4px rgba(239,77,67,.24),0 0 18px rgba(239,77,67,.24),0 16px 28px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.18);
+}
+.zone.mic p,.zone.mic .state,.zone.mic .audio-icon{color:#fff}
+.zone.mic .state,.zone.mic .audio-icon{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.18)}
+
+.zone.off{opacity:1}
+
+.salas{left:3%;top:5%;width:35%;height:27%}
+.patio{left:42%;top:5%;width:26%;height:27%}
+.direcao{right:3%;top:5%;width:24%;height:27%}
+.auditorio{left:35%;top:49%;width:30%;height:24%}
+.recepcao{right:3%;top:49%;width:24%;height:24%}
+.setor1{left:3%;bottom:5%;width:21%;height:17%}
+.setor2{left:27%;bottom:5%;width:24%;height:17%}
+.setor3{right:3%;bottom:5%;width:18%;height:17%}
 
 .screen-bottom{
   display:grid;
@@ -419,16 +326,41 @@ body{
 .date{margin-top:4px;font-size:10px;color:#d6e5f5;font-weight:700}
 .bottom-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .bottom-btn{padding:14px 10px;border-radius:12px;font-size:15px;box-shadow:0 10px 18px rgba(0,0,0,.18)}
-.b-recreio{background:linear-gradient(145deg,var(--purple),var(--purple-2))}
-.b-alerta{background:linear-gradient(145deg,var(--red),var(--red-2))}
-.b-musica{background:linear-gradient(145deg,var(--cyan),var(--cyan-2))}
-.b-silenciar{background:linear-gradient(145deg,var(--gray),var(--gray-2))}
+.b-recreio{background:linear-gradient(145deg,var(--bell),var(--bell2))}
+.b-alerta{background:linear-gradient(145deg,var(--mic),var(--mic2))}
+.b-musica{background:linear-gradient(145deg,var(--music),var(--music2))}
+.b-silenciar{background:linear-gradient(145deg,var(--gray),var(--gray2))}
+
+.modal{
+  position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+  background:rgba(4,10,16,.68);backdrop-filter:blur(6px);z-index:50;padding:20px;
+}
+.modal.show{display:flex}
+.modal-card{
+  width:min(680px,100%);
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,.10);
+  background:linear-gradient(180deg,#152536,#0f1b28);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.modal-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,#22384d,#192c40);
+}
+.modal-head h3{margin:0;font-size:18px}
+.close-btn{
+  border:none;background:rgba(255,255,255,.08);color:#fff;width:38px;height:38px;border-radius:12px;cursor:pointer;font-size:20px;font-weight:900;
+}
+.modal-body{padding:16px;display:grid;gap:14px}
+.slider-row{display:grid;gap:8px}
+.slider-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px;font-weight:800}
+.slider-head span:last-child{color:#dbe8f5}
+.slider{width:100%;appearance:none;height:10px;border-radius:999px;background:rgba(255,255,255,.10);outline:none}
+.slider::-webkit-slider-thumb{appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.25);cursor:pointer}
 
 @media (max-width:1360px){
-  .layout{grid-template-columns:minmax(220px,260px) 1fr}
-  .screen-body{grid-template-columns:minmax(150px,180px) 1fr}
-  .left-menu .menu-btn{font-size:14px}
-  .menu-btn{font-size:15px}
+  .layout{grid-template-columns:210px 1fr}
   .bottom-btn{font-size:13px;padding:12px 8px}
 }
 
@@ -440,9 +372,6 @@ body{
   .layout{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding:10px}
   .sidebar{grid-template-rows:auto auto auto auto}
   .main{padding:0;border:none;background:transparent}
-  .screen{border-radius:18px}
-  .screen-body{grid-template-columns:160px 1fr;gap:10px;padding:10px}
-  .screen-bottom{grid-template-columns:140px 1fr}
 }
 
 @media (max-width:840px){
@@ -451,22 +380,19 @@ body{
   .app{height:auto;min-height:100dvh;max-width:none;border-radius:0;grid-template-rows:auto auto}
   .topbar{padding:10px;align-items:flex-start;flex-direction:column}
   .top-actions{width:100%}
-  .chip,.btn-install{font-size:11px;padding:8px 10px}
+  .chip,.btn-top{font-size:11px;padding:8px 10px}
   .layout{grid-template-columns:1fr;grid-template-rows:auto auto;padding:8px;height:auto}
   .sidebar{padding:10px;gap:8px}
   .main{padding:0;background:transparent;border:none}
   .screen{display:block}
   .screen-top{padding:10px 12px}
-  .screen-body{grid-template-columns:1fr;padding:8px}
-  .left-menu{grid-template-columns:repeat(2,1fr);display:grid}
-  .left-menu .menu-btn,.menu-btn{font-size:14px;padding:11px 10px}
-  .menu-icon{width:34px;height:34px;flex-basis:34px;font-size:18px;border-radius:10px}
+  .screen-body{padding:8px}
   .map-panel{padding:8px}
   .map{aspect-ratio:4/3;min-height:300px}
   .zone{padding:10px;border-radius:14px}
   .zone .state{margin-top:8px;padding:6px 8px}
-  .walk.h{left:9%;right:9%;height:3.4%}
-  .walk.v{top:10%;bottom:10%;width:2.4%}
+  .corridor.h{left:10%;right:10%;height:3.4%}
+  .corridor.v{top:10%;bottom:10%;width:2.4%}
   .screen-bottom{grid-template-columns:1fr;gap:8px;padding:8px 10px 12px}
   .clock{font-size:18px}
   .bottom-actions{grid-template-columns:repeat(2,1fr);gap:8px}
@@ -476,20 +402,21 @@ body{
 @media (max-width:560px){
   .brand h1{font-size:18px}
   .brand p{font-size:10px}
-  .logo{width:42px;height:42px;flex-basis:42px;font-size:11px;border-radius:12px}
-  .source-grid,.stats-grid,.scene-grid,.quick-grid{grid-template-columns:1fr 1fr}
+  .logo{width:42px;height:42px;flex-basis:42px;border-radius:12px}
+  .nav-btn{font-size:14px;padding:11px 10px}
+  .nav-icon{width:34px;height:34px;flex-basis:34px;font-size:18px;border-radius:10px}
   .screen-brand h2{font-size:13px}
   .screen-brand p{font-size:10px}
   .swirl{width:28px;height:28px;flex-basis:28px}
   .map{aspect-ratio:1/1;min-height:280px}
   .salas{left:3%;top:3%;width:40%;height:26%}
   .patio{left:45%;top:3%;width:26%;height:26%}
-  .direita{right:3%;top:3%;width:24%;height:26%}
+  .direcao{right:3%;top:3%;width:24%;height:26%}
   .auditorio{left:32%;top:49%;width:32%;height:23%}
   .recepcao{right:3%;top:49%;width:26%;height:23%}
-  .inferior-esq{left:3%;bottom:3%;width:22%;height:16%}
-  .inferior-centro{left:28%;bottom:3%;width:27%;height:16%}
-  .inferior-dir{right:3%;bottom:3%;width:20%;height:16%}
+  .setor1{left:3%;bottom:3%;width:22%;height:16%}
+  .setor2{left:28%;bottom:3%;width:27%;height:16%}
+  .setor3{right:3%;bottom:3%;width:20%;height:16%}
 }
 
 @media (orientation: portrait) and (max-width:1100px){
@@ -506,7 +433,7 @@ body{
   .sidebar{padding:8px;gap:8px}
   .card{padding:10px}
   .screen-top{padding:8px 12px}
-  .screen-body{padding:8px;gap:8px}
+  .screen-body{padding:8px}
   .screen-bottom{padding:8px 10px calc(8px + var(--safe-bottom))}
   .bottom-btn{padding:10px 8px;font-size:12px}
   .map{aspect-ratio:16/8.6}
@@ -518,24 +445,24 @@ body{
   <div class="app">
     <div class="topbar">
       <div class="brand">
-        <div class="logo">ÉTICA</div>
+        <div class="logo"></div>
         <div class="brand-copy">
           <h1>Ética Vision Control</h1>
-          <p>Adaptive Premium · pensado para diretor, coordenador e operação simples</p>
+          <p>Plataforma premium de comunicação escolar · elegante, intuitiva e corporativa</p>
         </div>
       </div>
       <div class="top-actions">
-        <button class="btn-install" onclick="instalarApp()">Instalar app</button>
+        <button class="btn-top" onclick="openVolumes()">Volumes</button>
         <div class="chip env" id="selectedChip">Ambiente: Nenhum</div>
         <div class="chip online">● Sistema online</div>
         <div class="chip scene" id="sceneChip">Cena: Operação normal</div>
       </div>
     </div><div class="layout">
   <aside class="sidebar">
-    <button class="menu-btn" onclick="modoAula()"><span class="menu-icon">🔔</span>Campainha</button>
-    <button class="menu-btn" onclick="aplicarFonteRapida('bell')"><span class="menu-icon">💬</span>Mensagens</button>
-    <button class="menu-btn" onclick="modoMusica()"><span class="menu-icon">📻</span>Rádio Escola</button>
-    <button class="menu-btn" onclick="setScene('Horários programados')"><span class="menu-icon">🕒</span>Horários</button>
+    <button class="nav-btn" onclick="modoAula()"><span class="nav-icon">🔔</span>Campainha</button>
+    <button class="nav-btn" onclick="aplicarFonteRapida('mic')"><span class="nav-icon">💬</span>Mensagem</button>
+    <button class="nav-btn" onclick="modoMusica()"><span class="nav-icon">📻</span>Rádio Escola</button>
+    <button class="nav-btn" onclick="setScene('Horários programados')"><span class="nav-icon">🕒</span>Horários</button>
 
     <div class="card">
       <div class="kicker">Operação guiada</div>
@@ -546,24 +473,24 @@ body{
           <option value="">Selecione o ambiente</option>
           <option value="salas">Salas de Aula</option>
           <option value="patio">Pátio</option>
-          <option value="direita">Direção</option>
+          <option value="direcao">Direção</option>
           <option value="auditorio">Auditório</option>
           <option value="recepcao">Recepção</option>
-          <option value="inferior-esq">Setor 01</option>
-          <option value="inferior-centro">Setor 02</option>
-          <option value="inferior-dir">Setor 03</option>
+          <option value="setor1">Setor 01</option>
+          <option value="setor2">Setor 02</option>
+          <option value="setor3">Setor 03</option>
         </select>
       </div>
-      <div class="source-grid">
-        <button class="source-btn music-btn" onclick="aplicarFonteRapida('music')">🎵 Música</button>
-        <button class="source-btn bell-btn" onclick="aplicarFonteRapida('bell')">🔔 Campainha</button>
-        <button class="source-btn mic-btn" onclick="aplicarFonteRapida('mic')">🎤 Microfone</button>
-        <button class="source-btn mute-btn" onclick="aplicarFonteRapida('off')">⏹ Silenciar</button>
+      <div class="quick-grid">
+        <button class="quick-btn" onclick="aplicarFonteRapida('music')">🎵 Música</button>
+        <button class="quick-btn" onclick="aplicarFonteRapida('bell')">🔔 Campainha</button>
+        <button class="quick-btn" onclick="aplicarFonteRapida('mic')">🎤 Microfone</button>
+        <button class="quick-btn" onclick="aplicarFonteRapida('off')">⏹ Silenciar</button>
       </div>
     </div>
 
     <div class="card">
-      <div class="kicker">Leitura rápida</div>
+      <div class="kicker">Resumo visual</div>
       <h3>Status do sistema</h3>
       <div class="stats-grid">
         <div class="mini-stat" id="musicStat">Música: 2</div>
@@ -577,11 +504,15 @@ body{
       <div class="kicker">Cenas prontas</div>
       <h3>Uso diário</h3>
       <div class="scene-grid">
-        <button class="scene-btn scene-a" onclick="modoMusica()">Recreio</button>
-        <button class="scene-btn scene-b" onclick="modoEntrada()">Entrada</button>
-        <button class="scene-btn scene-c" onclick="modoAula()">Início de aula</button>
-        <button class="scene-btn scene-d" onclick="modoEvento()">Evento</button>
+        <button class="scene-btn scene-a" onclick="modoMusica()"><strong>Recreio</strong><span>Música nas áreas comuns</span></button>
+        <button class="scene-btn scene-b" onclick="modoEntrada()"><strong>Entrada</strong><span>Fluxo organizado de chegada</span></button>
+        <button class="scene-btn scene-c" onclick="modoAula()"><strong>Início de aula</strong><span>Campainha nos setores certos</span></button>
+        <button class="scene-btn scene-d" onclick="modoEvento()"><strong>Evento</strong><span>Auditório e recepção ativos</span></button>
       </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="modal-btn" onclick="openVolumes()">Abrir tela de volumes</button>
     </div>
   </aside>
 
@@ -599,17 +530,11 @@ body{
       </div>
 
       <div class="screen-body">
-        <div class="left-menu">
-          <button class="menu-btn" onclick="modoAula()"><span class="menu-icon">🔔</span>Campainha</button>
-          <button class="menu-btn" onclick="aplicarFonteRapida('bell')"><span class="menu-icon">💬</span>Mensagens</button>
-          <button class="menu-btn" onclick="modoMusica()"><span class="menu-icon">📻</span>Rádio Escola</button>
-          <button class="menu-btn" onclick="setScene('Horários programados')"><span class="menu-icon">🕒</span>Horários</button>
-        </div>
-
         <div class="map-panel">
           <div class="map">
-            <div class="walk h"></div>
-            <div class="walk v"></div>
+            <div class="yard"></div>
+            <div class="corridor h"></div>
+            <div class="corridor v"></div>
 
             <div class="zone salas music" data-zone="salas" data-mode="music" onclick="selectZone(this)">
               <h3>Salas de Aula</h3>
@@ -625,7 +550,7 @@ body{
               <div class="audio-icon">🎵</div>
             </div>
 
-            <div class="zone direita mic" data-zone="direita" data-mode="mic" onclick="selectZone(this)">
+            <div class="zone direcao mic" data-zone="direcao" data-mode="mic" onclick="selectZone(this)">
               <h3>Direção</h3>
               <p>Coordenação e gestão</p>
               <div class="state">🎤 Microfone</div>
@@ -634,7 +559,7 @@ body{
 
             <div class="zone auditorio off" data-zone="auditorio" data-mode="off" onclick="selectZone(this)">
               <h3>Auditório</h3>
-              <p>Apresentações e eventos</p>
+              <p>Eventos e apresentações</p>
               <div class="state">⏹ Desligado</div>
               <div class="audio-icon">⏹</div>
             </div>
@@ -646,21 +571,21 @@ body{
               <div class="audio-icon">⏹</div>
             </div>
 
-            <div class="zone inferior-esq off" data-zone="inferior-esq" data-mode="off" onclick="selectZone(this)">
+            <div class="zone setor1 off" data-zone="setor1" data-mode="off" onclick="selectZone(this)">
               <h3>Setor 01</h3>
               <p>Apoio</p>
               <div class="state">⏹ Desligado</div>
               <div class="audio-icon">⏹</div>
             </div>
 
-            <div class="zone inferior-centro off" data-zone="inferior-centro" data-mode="off" onclick="selectZone(this)">
+            <div class="zone setor2 off" data-zone="setor2" data-mode="off" onclick="selectZone(this)">
               <h3>Setor 02</h3>
               <p>Circulação</p>
               <div class="state">⏹ Desligado</div>
               <div class="audio-icon">⏹</div>
             </div>
 
-            <div class="zone inferior-dir off" data-zone="inferior-dir" data-mode="off" onclick="selectZone(this)">
+            <div class="zone setor3 off" data-zone="setor3" data-mode="off" onclick="selectZone(this)">
               <h3>Setor 03</h3>
               <p>Expansão</p>
               <div class="state">⏹ Desligado</div>
@@ -686,11 +611,32 @@ body{
   </main>
 </div>
 
+  </div>  <div class="modal" id="volumesModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>Controle de volumes</h3>
+        <button class="close-btn" onclick="closeVolumes()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="slider-row">
+          <div class="slider-head"><span>Música ambiente</span><span id="volMusicValue">72%</span></div>
+          <input class="slider" type="range" min="0" max="100" value="72" oninput="updateVolume('volMusicValue',this.value)">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head"><span>Campainha</span><span id="volBellValue">100%</span></div>
+          <input class="slider" type="range" min="0" max="100" value="100" oninput="updateVolume('volBellValue',this.value)">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head"><span>Microfone</span><span id="volMicValue">88%</span></div>
+          <input class="slider" type="range" min="0" max="100" value="88" oninput="updateVolume('volMicValue',this.value)">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head"><span>Mensagem de aviso</span><span id="volMsgValue">78%</span></div>
+          <input class="slider" type="range" min="0" max="100" value="78" oninput="updateVolume('volMsgValue',this.value)">
+        </div>
+      </div>
+    </div>
   </div>  <script>
-    function instalarApp(){
-      alert('Use o menu do navegador para instalar na tela inicial.');
-    }
-
     let selectedEnv = '';
 
     function setScene(text){
@@ -699,7 +645,11 @@ body{
     }
 
     function capitalize(v){
-      return v.charAt(0).toUpperCase() + v.slice(1);
+      const map = {
+        salas:'Salas de Aula', patio:'Pátio', direcao:'Direção', auditorio:'Auditório', recepcao:'Recepção',
+        setor1:'Setor 01', setor2:'Setor 02', setor3:'Setor 03'
+      };
+      return map[v] || v;
     }
 
     function syncSelectedEnv(env){
@@ -720,7 +670,7 @@ body{
 
     function aplicarFonteRapida(mode){
       if(!selectedEnv){
-        alert('Selecione um ambiente no mapa ou no campo lateral.');
+        alert('Selecione um ambiente no mapa ou na lista lateral.');
         return;
       }
       const el = document.querySelector(`[data-zone="${selectedEnv}"]`);
@@ -772,19 +722,19 @@ body{
 
     function modoEntrada(){
       document.querySelectorAll('.zone').forEach(z => setZoneMode(z,'off'));
-      ['recepcao','inferior-centro','patio'].forEach(n => setZoneMode(document.querySelector(`[data-zone="${n}"]`),'music'));
+      ['recepcao','setor2','patio'].forEach(n => setZoneMode(document.querySelector(`[data-zone="${n}"]`),'music'));
       setScene('Entrada organizada');
     }
 
     function modoAula(){
       document.querySelectorAll('.zone').forEach(z => setZoneMode(z,'off'));
-      ['salas','inferior-centro'].forEach(n => setZoneMode(document.querySelector(`[data-zone="${n}"]`),'bell'));
+      ['salas','setor2'].forEach(n => setZoneMode(document.querySelector(`[data-zone="${n}"]`),'bell'));
       setScene('Início de aula');
     }
 
     function modoEvento(){
       document.querySelectorAll('.zone').forEach(z => setZoneMode(z,'off'));
-      ['auditorio','recepcao','direita'].forEach(n => setZoneMode(document.querySelector(`[data-zone="${n}"]`),'mic'));
+      ['auditorio','recepcao','direcao'].forEach(n => setZoneMode(document.querySelector(`[data-zone="${n}"]`),'mic'));
       setScene('Evento institucional');
     }
 
@@ -801,6 +751,22 @@ body{
       document.getElementById('clock').textContent = `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
       document.getElementById('dateText').textContent = d.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' });
     }
+
+    function openVolumes(){
+      document.getElementById('volumesModal').classList.add('show');
+    }
+
+    function closeVolumes(){
+      document.getElementById('volumesModal').classList.remove('show');
+    }
+
+    function updateVolume(id,value){
+      document.getElementById(id).textContent = `${value}%`;
+    }
+
+    document.getElementById('volumesModal').addEventListener('click', function(e){
+      if(e.target === this) closeVolumes();
+    });
 
     setInterval(tick, 1000);
     tick();
