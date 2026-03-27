@@ -11,39 +11,40 @@
 <style>
 :root{
   --bg:#07111b; --bg2:#0c1d2f; --panel:#11263c; --line:rgba(255,255,255,.08);
-  --text:#eef6ff; --muted:#abc0d4; --blue:#18a4ff; --green:#26ca6f; --red:#ff5848;
-  --orange:#ff9b38; --purple:#6b4bff; --cyan:#15c6d8; --yellow:#f5ca4a; --shadow:0 24px 60px rgba(0,0,0,.35);
+  --text:#eef6ff; --muted:#abc0d4; --blue:#18a4ff; --purple:#6b4bff; --yellow:#f5ca4a; --shadow:0 20px 40px rgba(0,0,0,.30);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
 body{
-  margin:0; font-family:Arial,Helvetica,sans-serif; min-height:100vh; color:var(--text);
+  margin:0; font-family:Arial,Helvetica,sans-serif; color:var(--text);
   background:radial-gradient(circle at top left, rgba(24,164,255,.12), transparent 20%),radial-gradient(circle at bottom right, rgba(107,75,255,.12), transparent 20%),linear-gradient(145deg,var(--bg),#0a1724 52%,var(--bg2) 100%);
-  padding:14px;
+  padding:10px;
 }
-.app{max-width:1550px;margin:0 auto;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(8,18,29,.98);box-shadow:var(--shadow)}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:18px 22px;background:linear-gradient(180deg,#17324a,#11263a);border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:14px}.logo{width:64px;height:64px;border-radius:18px;background:#fff;display:grid;place-items:center;color:#163252;font-weight:900;font-size:15px;line-height:1.05;box-shadow:0 10px 20px rgba(0,0,0,.18)}
-.brand h1{margin:0;font-size:32px;line-height:1}.brand p{margin:5px 0 0;color:#d7e7f7;font-size:14px;font-weight:700}
-.top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.chip,.btn-install{padding:11px 15px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.05);font-size:13px;font-weight:800;color:#fff}.chip.online{background:rgba(38,202,111,.15);color:#cff4dd}.chip.scene{background:rgba(245,202,74,.14);color:#ffefb6}.chip.env{background:rgba(24,164,255,.14);color:#d9efff}.btn-install{background:rgba(107,75,255,.18);color:#e5ddff;cursor:pointer}
-.install-banner{display:none;margin:16px 16px 0;padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(180deg,#17324a,#11263a);align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.install-banner.show{display:flex}.install-text{color:#dce8f3;font-size:14px;font-weight:700}.mini-btn{border:none;border-radius:12px;padding:12px 14px;font-size:14px;font-weight:800;cursor:pointer;color:#fff;background:linear-gradient(145deg,var(--purple),#4e32df)}.mini-btn.secondary{background:linear-gradient(145deg,#607081,#425060)}.ios-tip{display:none;margin:16px;padding:14px 16px;border-radius:16px;border:1px dashed rgba(255,255,255,.18);background:rgba(255,255,255,.04);color:#dce8f3;font-size:14px;line-height:1.5}
-.layout{display:grid;grid-template-columns:330px 1fr;gap:16px;padding:16px}.sidebar,.main,.footer-card{background:linear-gradient(180deg,rgba(17,38,60,.98),rgba(10,24,38,.98));border:1px solid var(--line);border-radius:24px}.sidebar{padding:16px;display:flex;flex-direction:column;gap:14px}
-.box{padding:15px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}.box h3{margin:0 0 12px;font-size:18px}.kicker{color:var(--muted);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.7px}
-.field{margin-bottom:12px}.field:last-child{margin-bottom:0}.field label{display:block;margin-bottom:7px;color:var(--muted);font-size:13px;font-weight:800}.select{width:100%;padding:13px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);color:#fff;font-size:15px;font-weight:700}
-.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.route-btn,.scene-preset,.quick-btn,.action-btn{border:none;border-radius:14px;padding:14px 12px;color:#fff;font-size:14px;font-weight:900;cursor:pointer;transition:.18s ease}.route-btn:hover,.scene-preset:hover,.quick-btn:hover,.action-btn:hover,.zone-card:hover{transform:translateY(-1px);filter:brightness(1.05)}
-.send{background:linear-gradient(145deg,var(--green),#13955a)}.mute{background:linear-gradient(145deg,#607081,#425060)}.priority{background:linear-gradient(145deg,var(--red),#d42017)}.preview{background:linear-gradient(145deg,var(--cyan),#0896a5)}
-.preset-recreio{background:linear-gradient(145deg,var(--purple),#4e32df)}.preset-entrada{background:linear-gradient(145deg,var(--blue),#0d63d1)}.preset-aula{background:linear-gradient(145deg,var(--orange),#dd6c10)}.preset-evento{background:linear-gradient(145deg,var(--cyan),#0896a5)}
-.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.quick-btn{background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.08)}.quick-btn.active{box-shadow:0 0 0 2px rgba(24,164,255,.22) inset;background:linear-gradient(145deg,rgba(24,164,255,.22),rgba(24,164,255,.10))}
-.legend{display:grid;grid-template-columns:1fr 1fr;gap:10px}.legend-item{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);font-size:13px;font-weight:800}.dot{width:12px;height:12px;border-radius:50%}.d-music{background:var(--blue)}.d-bell{background:var(--yellow)}.d-mic{background:var(--purple)}.d-off{background:#66788b}
-.main{padding:16px}.main-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}.main-head h2{margin:0;font-size:22px}.stats{display:flex;gap:10px;flex-wrap:wrap}.stat{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:13px;font-weight:800}
-.scene-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}.scene-preset{text-align:left;min-height:92px;border:1px solid rgba(255,255,255,.08)}.scene-preset strong{display:block;font-size:17px}.scene-preset span{display:block;margin-top:6px;font-size:13px;color:#eef6ff;opacity:.92}
-.map-wrap{border-radius:22px;border:1px solid rgba(255,255,255,.10);padding:14px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02)),linear-gradient(145deg,#294359,#12283b)}.map-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}.map-head h3{margin:0;font-size:18px}.map-head p{margin:0;color:var(--muted);font-size:13px;font-weight:700}
-.map-canvas{position:relative;min-height:720px;border-radius:24px;overflow:hidden;background:linear-gradient(180deg,#99c4e9 0%,#88b9df 24%,#7eb96e 25%,#629b55 100%);padding:26px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}.map-canvas::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 15%, rgba(255,255,255,.16), transparent 18%),linear-gradient(180deg, rgba(255,255,255,.06), transparent 16%);pointer-events:none}.grass{position:absolute;inset:34px;border-radius:30px;background:linear-gradient(180deg,#8bc174,#6ea55a);box-shadow:inset 0 0 0 3px rgba(255,255,255,.12)}.road{position:absolute;background:linear-gradient(180deg,#dae2e6,#b0bcc4);border-radius:18px;box-shadow:0 10px 18px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.35)}.road.h{left:170px;right:170px;top:330px;height:42px}.road.v1{top:125px;bottom:125px;left:50%;width:42px;transform:translateX(-50%)}.road.v2{top:135px;bottom:300px;left:125px;width:30px}.road.v3{top:135px;bottom:300px;right:125px;width:30px}
-.zone-card{position:absolute;border-radius:26px;padding:18px;color:#fff;font-weight:900;cursor:pointer;transition:.2s ease;border:2px solid rgba(255,255,255,.22);box-shadow:0 18px 30px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.18)}.zone-card::before{content:"";position:absolute;left:12px;right:12px;top:8px;height:20px;border-radius:16px;background:rgba(255,255,255,.16);filter:blur(2px);pointer-events:none}.zone-card:hover{transform:translateY(-3px)}.zone-card .name{font-size:28px;line-height:1}.zone-card .desc{margin-top:6px;font-size:14px;font-weight:700;opacity:.95}.zone-card .state{margin-top:14px;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.18);font-size:13px}.zone-card .icon{position:absolute;right:18px;bottom:18px;width:72px;height:72px;border-radius:20px;display:grid;place-items:center;font-size:34px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);box-shadow:0 10px 18px rgba(0,0,0,.18);transition:.2s ease}
-.zone-card.selected{outline:3px solid rgba(255,255,255,.95)}.zone-card.music-active{box-shadow:0 0 0 5px rgba(24,164,255,.28),0 0 26px rgba(24,164,255,.34),0 18px 30px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.18)}.zone-card.mic-active{box-shadow:0 0 0 5px rgba(107,75,255,.28),0 0 26px rgba(107,75,255,.34),0 18px 30px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.18)}.zone-card.bell-active{box-shadow:0 0 0 5px rgba(245,202,74,.28),0 0 26px rgba(245,202,74,.34),0 18px 30px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.18)}.zone-card.off-active{opacity:.88}
-.salas{left:70px;top:90px;width:360px;height:170px;background:linear-gradient(145deg,#29cf72,#14995d)}.patio{left:470px;top:92px;width:300px;height:170px;background:linear-gradient(145deg,#18a4ff,#0d63d1)}.direcao{right:76px;top:92px;width:230px;height:170px;background:linear-gradient(145deg,#ff9b38,#dd6c10)}.auditorio{left:295px;top:395px;width:320px;height:180px;background:linear-gradient(145deg,#ff5848,#d42017)}.recepcao{right:118px;top:395px;width:250px;height:180px;background:linear-gradient(145deg,#6b4bff,#4e32df)}.quadra{left:70px;bottom:78px;width:330px;height:165px;background:linear-gradient(145deg,#15c6d8,#0896a5)}.secretaria{left:430px;bottom:80px;width:230px;height:165px;background:linear-gradient(145deg,#ff69bf,#da3f93)}.corredor{right:70px;bottom:78px;width:270px;height:165px;background:linear-gradient(145deg,#f5ca4a,#cc9600);color:#12263a}
-.footer{display:grid;grid-template-columns:260px 1fr;gap:16px;padding:0 16px 16px}.footer-card{padding:16px}.time{font-size:48px;font-weight:900;line-height:1;margin-bottom:6px}.date{color:var(--muted);font-size:15px;font-weight:700}.action-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.action-btn{font-size:16px;padding:18px 12px}.recreio{background:linear-gradient(145deg,var(--purple),#4e32df)}.emergencia{background:linear-gradient(145deg,var(--red),#d42017)}.musica{background:linear-gradient(145deg,var(--cyan),#0896a5)}.silenciar{background:linear-gradient(145deg,#607081,#425060)}.logs{grid-column:1/-1}.logs h3{margin:0 0 12px;font-size:17px}.log-list{display:grid;gap:8px}.log-item{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:13px;color:#dce8f3}
-@media (max-width:1240px){.layout,.footer{grid-template-columns:1fr}.scene-row{grid-template-columns:repeat(2,1fr)}.action-row{grid-template-columns:repeat(2,1fr)}.map-canvas{min-height:1120px}.salas{left:40px;top:70px;width:290px}.patio{left:360px;top:70px;width:260px}.direcao{right:40px;top:70px;width:190px}.auditorio{left:220px;top:370px;width:270px}.recepcao{right:60px;top:370px;width:210px}.quadra{left:40px;bottom:290px;width:270px}.secretaria{left:340px;bottom:290px;width:200px}.corredor{right:40px;bottom:290px;width:220px}}
-@media (max-width:840px){.scene-row,.action-row,.quick-grid,.grid-2,.legend{grid-template-columns:1fr}.brand h1{font-size:24px}.map-canvas{min-height:1380px;padding:18px}.grass{inset:20px}.road{display:none}.zone-card{position:relative !important;left:auto !important;right:auto !important;top:auto !important;bottom:auto !important;width:100% !important;height:128px !important;margin-bottom:14px}.zone-card .name{font-size:24px}}
+.app{height:calc(100vh - 20px);max-width:1600px;margin:0 auto;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(8,18,29,.98);box-shadow:var(--shadow);display:grid;grid-template-rows:78px 1fr}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 18px;background:linear-gradient(180deg,#17324a,#11263a);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border-radius:16px;background:#fff;display:grid;place-items:center;color:#163252;font-weight:900;font-size:13px;line-height:1.05;box-shadow:0 10px 20px rgba(0,0,0,.18)}
+.brand h1{margin:0;font-size:26px;line-height:1}.brand p{margin:4px 0 0;color:#d7e7f7;font-size:12px;font-weight:700}
+.top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.chip,.btn-install{padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.05);font-size:12px;font-weight:800;color:#fff}.chip.online{background:rgba(38,202,111,.15);color:#cff4dd}.chip.scene{background:rgba(245,202,74,.14);color:#ffefb6}.chip.env{background:rgba(24,164,255,.14);color:#d9efff}.btn-install{background:rgba(107,75,255,.18);color:#e5ddff;cursor:pointer}
+.main-grid{display:grid;grid-template-columns:305px 1fr;gap:12px;padding:12px;height:100%;min-height:0}
+.sidebar,.main{background:linear-gradient(180deg,rgba(17,38,60,.98),rgba(10,24,38,.98));border:1px solid var(--line);border-radius:20px;min-height:0}
+.sidebar{padding:12px;display:grid;grid-template-rows:auto auto auto 1fr;gap:10px}
+.box{padding:12px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
+.box h3{margin:0 0 8px;font-size:15px}.kicker{color:var(--muted);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px}
+.field{margin-bottom:8px}.field:last-child{margin-bottom:0}.field label{display:block;margin-bottom:5px;color:var(--muted);font-size:12px;font-weight:800}.select{width:100%;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);color:#fff;font-size:14px;font-weight:700}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.route-btn,.scene-preset,.quick-btn,.action-btn{border:none;border-radius:12px;padding:11px 10px;color:#fff;font-size:12px;font-weight:900;cursor:pointer;transition:.18s ease}.route-btn:hover,.scene-preset:hover,.quick-btn:hover,.action-btn:hover,.zone-card:hover{transform:translateY(-1px);filter:brightness(1.05)}
+.send{background:linear-gradient(145deg,#26ca6f,#13955a)}.mute{background:linear-gradient(145deg,#607081,#425060)}.priority{background:linear-gradient(145deg,#ff5848,#d42017)}.preview{background:linear-gradient(145deg,#15c6d8,#0896a5)}
+.preset-recreio{background:linear-gradient(145deg,var(--purple),#4e32df)}.preset-entrada{background:linear-gradient(145deg,var(--blue),#0d63d1)}.preset-aula{background:linear-gradient(145deg,#ff9b38,#dd6c10)}.preset-evento{background:linear-gradient(145deg,#15c6d8,#0896a5)}
+.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.quick-btn{background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.08)}.quick-btn.active{box-shadow:0 0 0 2px rgba(24,164,255,.22) inset;background:linear-gradient(145deg,rgba(24,164,255,.22),rgba(24,164,255,.10))}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:8px}.legend-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);font-size:11px;font-weight:800}.dot{width:10px;height:10px;border-radius:50%}.d-music{background:#18a4ff}.d-bell{background:#f5ca4a}.d-mic{background:#6b4bff}.d-off{background:#66788b}
+.main{padding:12px;display:grid;grid-template-rows:auto auto 1fr auto;gap:10px}
+.main-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.main-head h2{margin:0;font-size:18px}.stats{display:flex;gap:8px;flex-wrap:wrap}.stat{padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:11px;font-weight:800}
+.scene-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.scene-preset{text-align:left;min-height:62px;border:1px solid rgba(255,255,255,.08)}.scene-preset strong{display:block;font-size:13px}.scene-preset span{display:block;margin-top:4px;font-size:10px;color:#eef6ff;opacity:.92;line-height:1.25}
+.map-wrap{border-radius:18px;border:1px solid rgba(255,255,255,.10);padding:10px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02)),linear-gradient(145deg,#294359,#12283b);min-height:0}.map-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}.map-head h3{margin:0;font-size:15px}.map-head p{margin:0;color:var(--muted);font-size:11px;font-weight:700}
+.map-canvas{position:relative;height:100%;min-height:420px;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#99c4e9 0%,#88b9df 24%,#7eb96e 25%,#629b55 100%);padding:18px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}.map-canvas::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 15%, rgba(255,255,255,.16), transparent 18%),linear-gradient(180deg, rgba(255,255,255,.06), transparent 16%);pointer-events:none}.grass{position:absolute;inset:24px;border-radius:24px;background:linear-gradient(180deg,#8bc174,#6ea55a);box-shadow:inset 0 0 0 3px rgba(255,255,255,.12)}.road{position:absolute;background:linear-gradient(180deg,#dae2e6,#b0bcc4);border-radius:14px;box-shadow:0 8px 16px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.35)}.road.h{left:130px;right:130px;top:265px;height:32px}.road.v1{top:95px;bottom:95px;left:50%;width:32px;transform:translateX(-50%)}.road.v2{top:105px;bottom:220px;left:95px;width:24px}.road.v3{top:105px;bottom:220px;right:95px;width:24px}
+.zone-card{position:absolute;border-radius:20px;padding:14px;color:#fff;font-weight:900;cursor:pointer;transition:.2s ease;border:2px solid rgba(255,255,255,.22);box-shadow:0 14px 24px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.18)}.zone-card::before{content:"";position:absolute;left:10px;right:10px;top:7px;height:16px;border-radius:12px;background:rgba(255,255,255,.16);filter:blur(2px);pointer-events:none}.zone-card .name{font-size:21px;line-height:1}.zone-card .desc{margin-top:5px;font-size:11px;font-weight:700;opacity:.95}.zone-card .state{margin-top:10px;display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:999px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.18);font-size:11px}.zone-card .icon{position:absolute;right:14px;bottom:14px;width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:26px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);box-shadow:0 8px 14px rgba(0,0,0,.18)}.zone-card.selected{outline:3px solid rgba(255,255,255,.95)}.zone-card.music-active{box-shadow:0 0 0 4px rgba(24,164,255,.28),0 0 20px rgba(24,164,255,.32),0 14px 24px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.18)}.zone-card.mic-active{box-shadow:0 0 0 4px rgba(107,75,255,.28),0 0 20px rgba(107,75,255,.32),0 14px 24px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.18)}.zone-card.bell-active{box-shadow:0 0 0 4px rgba(245,202,74,.28),0 0 20px rgba(245,202,74,.32),0 14px 24px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.18)}.zone-card.off-active{opacity:.88}
+.salas{left:50px;top:65px;width:300px;height:138px;background:linear-gradient(145deg,#29cf72,#14995d)}.patio{left:390px;top:67px;width:250px;height:138px;background:linear-gradient(145deg,#18a4ff,#0d63d1)}.direcao{right:58px;top:67px;width:190px;height:138px;background:linear-gradient(145deg,#ff9b38,#dd6c10)}.auditorio{left:240px;top:320px;width:270px;height:148px;background:linear-gradient(145deg,#ff5848,#d42017)}.recepcao{right:94px;top:320px;width:220px;height:148px;background:linear-gradient(145deg,#6b4bff,#4e32df)}.quadra{left:50px;bottom:56px;width:280px;height:140px;background:linear-gradient(145deg,#15c6d8,#0896a5)}.secretaria{left:360px;bottom:58px;width:190px;height:140px;background:linear-gradient(145deg,#ff69bf,#da3f93)}.corredor{right:54px;bottom:56px;width:230px;height:140px;background:linear-gradient(145deg,#f5ca4a,#cc9600);color:#12263a}
+.footer{display:grid;grid-template-columns:200px 1fr 320px;gap:10px}.footer-card{padding:10px}.time{font-size:36px;font-weight:900;line-height:1;margin-bottom:4px}.date{color:var(--muted);font-size:12px;font-weight:700}.action-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.action-btn{font-size:13px;padding:12px 8px}.recreio{background:linear-gradient(145deg,var(--purple),#4e32df)}.emergencia{background:linear-gradient(145deg,var(--red),#d42017)}.musica{background:linear-gradient(145deg,var(--cyan),#0896a5)}.silenciar{background:linear-gradient(145deg,#607081,#425060)}.logs h3{margin:0 0 8px;font-size:14px}.log-list{display:grid;gap:6px;max-height:96px;overflow:hidden}.log-item{padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:11px;color:#dce8f3}
+@media (max-width:1320px){.main-grid{grid-template-columns:290px 1fr}.scene-row{grid-template-columns:repeat(2,1fr)}.footer{grid-template-columns:1fr;}.log-list{max-height:none}}
 </style>
 </head>
 <body>
@@ -53,7 +54,7 @@ body{
       <div class="logo">ÉTICA</div>
       <div>
         <h1>Ética Vision Control</h1>
-        <p>Versão enxuta para apresentação · clara, intuitiva e visual</p>
+        <p>Tecnologia, inovação, segurança e organização escolar em uma única tela</p>
       </div>
     </div>
     <div class="top-actions">
@@ -62,13 +63,7 @@ body{
       <div class="chip online">● Sistema online</div>
       <div class="chip scene" id="sceneChip">Cena: Operação normal</div>
     </div>
-  </div>  <div class="install-banner" id="installBanner">
-    <div class="install-text">Instale o Ética Vision Control na tela inicial para usar como aplicativo.</div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <button class="mini-btn" onclick="instalarApp()">Instalar agora</button>
-      <button class="mini-btn secondary" onclick="fecharBanner()">Depois</button>
-    </div>
-  </div>  <div class="ios-tip" id="iosTip">No iPhone/iPad: toque em <b>Compartilhar</b> no Safari e escolha <b>Adicionar à Tela de Início</b>.</div>  <div class="layout">
+  </div>  <div class="main-grid">
     <aside class="sidebar">
       <div class="box">
         <div class="kicker">Operação intuitiva</div>
@@ -97,10 +92,10 @@ body{
           </select>
         </div>
         <div class="grid-2">
-          <button class="route-btn send" onclick="enviarRota()">Aplicar fonte</button>
-          <button class="route-btn mute" onclick="silenciarAmbiente()">Silenciar ambiente</button>
-          <button class="route-btn preview" onclick="preOuvirFonte()">Pré-ouvir fonte</button>
-          <button class="route-btn priority" onclick="microfonePrioritario()">Microfone prioritário</button>
+          <button class="route-btn send" onclick="enviarRota()">Aplicar</button>
+          <button class="route-btn mute" onclick="silenciarAmbiente()">Silenciar</button>
+          <button class="route-btn preview" onclick="preOuvirFonte()">Pré-ouvir</button>
+          <button class="route-btn priority" onclick="microfonePrioritario()">Microfone</button>
         </div>
       </div><div class="box">
     <div class="kicker">Cenas rápidas</div>
@@ -108,14 +103,14 @@ body{
     <div class="grid-2">
       <button class="scene-preset preset-recreio" onclick="modoMusica()"><strong>Recreio</strong><span>Música nas áreas comuns</span></button>
       <button class="scene-preset preset-entrada" onclick="modoEntrada()"><strong>Entrada</strong><span>Recepção e circulação</span></button>
-      <button class="scene-preset preset-aula" onclick="modoAula()"><strong>Início de aula</strong><span>Campainha nas áreas pedagógicas</span></button>
+      <button class="scene-preset preset-aula" onclick="modoAula()"><strong>Aula</strong><span>Campainha por setor</span></button>
       <button class="scene-preset preset-evento" onclick="modoEvento()"><strong>Evento</strong><span>Auditório e recepção</span></button>
     </div>
   </div>
 
   <div class="box">
-    <div class="kicker">Legenda visual</div>
-    <h3>Cores das fontes</h3>
+    <div class="kicker">Inovação visual</div>
+    <h3>Leitura rápida do sistema</h3>
     <div class="legend">
       <div class="legend-item"><span class="dot d-music"></span> Música</div>
       <div class="legend-item"><span class="dot d-bell"></span> Campainha</div>
@@ -142,7 +137,7 @@ body{
 
 <main class="main">
   <div class="main-head">
-    <h2>Planta baixa 3D interativa</h2>
+    <h2>Painel inteligente de comunicação e organização escolar</h2>
     <div class="stats">
       <div class="stat" id="musicStat">Música: 3 zonas</div>
       <div class="stat" id="micStat">Microfone: 0 zonas</div>
@@ -152,17 +147,17 @@ body{
   </div>
 
   <div class="scene-row">
-    <button class="scene-preset preset-recreio" onclick="modoMusica()"><strong>Recreio</strong><span>Música visualizada em tempo real no mapa</span></button>
-    <button class="scene-preset preset-entrada" onclick="modoEntrada()"><strong>Entrada</strong><span>Fluxo de chegada com áudio por setor</span></button>
-    <button class="scene-preset preset-aula" onclick="modoAula()"><strong>Aula</strong><span>Campainha e transição visual por ambiente</span></button>
-    <button class="scene-preset preset-evento" onclick="modoEvento()"><strong>Evento</strong><span>Auditório pronto para uso institucional</span></button>
+    <button class="scene-preset preset-recreio" onclick="modoMusica()"><strong>Recreio inteligente</strong><span>Automação visual e áudio em tempo real</span></button>
+    <button class="scene-preset preset-entrada" onclick="modoEntrada()"><strong>Entrada organizada</strong><span>Recepção e circulação sob controle</span></button>
+    <button class="scene-preset preset-aula" onclick="modoAula()"><strong>Início de aula</strong><span>Organização automática por setor</span></button>
+    <button class="scene-preset preset-evento" onclick="modoEvento()"><strong>Evento institucional</strong><span>Apresentação premium com controle por ambiente</span></button>
   </div>
 
   <div class="map-wrap">
     <div class="map-head">
       <div>
         <h3>Mapa vivo da escola</h3>
-        <p>Os ambientes mudam de cor e exibem ícone interno conforme a fonte de áudio ativa.</p>
+        <p>Os ambientes mudam de cor e exibem ícone interno conforme a fonte ativa, reforçando inovação, controle e organização operacional.</p>
       </div>
     </div>
 
@@ -183,37 +178,33 @@ body{
       <div class="zone-card corredor off-active" data-zone="corredor" data-mode="off" onclick="selectZone(this)"><div class="name">Corredor</div><div class="desc">Circulação entre blocos</div><div class="state">⏹ Desligado</div><div class="icon">⏹</div></div>
     </div>
   </div>
-</main>
 
-  </div>  <div class="footer">
+  <div class="footer">
     <div class="footer-card">
       <div class="time" id="clock">10:28</div>
       <div class="date" id="dateText">Quinta-feira</div>
     </div>
     <div class="footer-card">
       <div class="action-row">
-        <button class="action-btn recreio" onclick="modoMusica()">Modo recreio</button>
-        <button class="action-btn musica" onclick="modoAula()">Início de aula</button>
+        <button class="action-btn recreio" onclick="modoMusica()">Recreio</button>
+        <button class="action-btn musica" onclick="modoAula()">Aula</button>
         <button class="action-btn emergencia" onclick="microfoneGeral()">Microfone geral</button>
-        <button class="action-btn silenciar" onclick="silenciarTudo()">Silenciar tudo</button>
+        <button class="action-btn silenciar" onclick="silenciarTudo()">Silenciar</button>
       </div>
     </div>
     <div class="footer-card logs">
-      <h3>Eventos do sistema</h3>
+      <h3>Resumo operacional</h3>
       <div class="log-list" id="logList"></div>
     </div>
+  </div>
+</main>
+
   </div>
 </div><script>
 let deferredPrompt = null;
 let selectedEnv = '';
-const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-(function criarManifesto(){const manifest={name:'Ética Vision Control',short_name:'Ética Vision',start_url:'./',display:'standalone',background_color:'#06111b',theme_color:'#0f2236',icons:[{src:'data:image/svg+xml;base64,'+btoa(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" rx="56" fill="#0f2236"/><rect x="38" y="38" width="180" height="180" rx="34" fill="#f7fbff" opacity="0.14"/><text x="128" y="112" text-anchor="middle" font-family="Arial" font-size="34" font-weight="700" fill="#eef6ff">ÉTICA</text><text x="128" y="160" text-anchor="middle" font-family="Arial" font-size="32" font-weight="700" fill="#eef6ff">VISION</text><text x="128" y="196" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700" fill="#eef6ff">CTRL</text></svg>`),sizes:'256x256',type:'image/svg+xml',purpose:'any'}]};const blob=new Blob([JSON.stringify(manifest)],{type:'application/manifest+json'});const link=document.createElement('link');link.rel='manifest';link.href=URL.createObjectURL(blob);document.head.appendChild(link);})();
-window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPrompt=e;if(!isStandalone)document.getElementById('installBanner').classList.add('show');});
-function instalarApp(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.finally(()=>{deferredPrompt=null;document.getElementById('installBanner').classList.remove('show');});return;}if(isIOS&&!isStandalone){document.getElementById('iosTip').style.display='block';addLog('Exibida instrução de instalação no iPhone/iPad');return;}alert('Use o menu do navegador para instalar ou adicionar à tela inicial.');}
-function fecharBanner(){document.getElementById('installBanner').classList.remove('show');}
-if(isIOS&&!isStandalone){document.getElementById('iosTip').style.display='block';}
-function addLog(text){const list=document.getElementById('logList');const item=document.createElement('div');item.className='log-item';const now=new Date();const h=String(now.getHours()).padStart(2,'0');const m=String(now.getMinutes()).padStart(2,'0');const s=String(now.getSeconds()).padStart(2,'0');item.textContent=`[${h}:${m}:${s}] ${text}`;list.prepend(item);while(list.children.length>9)list.removeChild(list.lastChild);}
+function instalarApp(){alert('Instalação pelo navegador habilitada.');}
+function addLog(text){const list=document.getElementById('logList');const item=document.createElement('div');item.className='log-item';const now=new Date();const h=String(now.getHours()).padStart(2,'0');const m=String(now.getMinutes()).padStart(2,'0');const s=String(now.getSeconds()).padStart(2,'0');item.textContent=`[${h}:${m}:${s}] ${text}`;list.prepend(item);while(list.children.length>6)list.removeChild(list.lastChild);}
 function atualizarRelogio(){const agora=new Date();const horas=String(agora.getHours()).padStart(2,'0');const minutos=String(agora.getMinutes()).padStart(2,'0');const dias=['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];document.getElementById('clock').textContent=`${horas}:${minutos}`;document.getElementById('dateText').textContent=dias[agora.getDay()];}
 setInterval(atualizarRelogio,1000);atualizarRelogio();
 function setScene(texto){document.getElementById('sceneChip').textContent=`Cena: ${texto}`;addLog(texto);}
@@ -225,7 +216,7 @@ function setZoneMode(el, mode){el.classList.remove('music-active','mic-active','
 function enviarRota(){if(!selectedEnv){alert('Selecione um ambiente primeiro.');return;}const source=document.getElementById('sourceSelect').value;const el=document.querySelector(`[data-zone="${selectedEnv}"]`);if(!el)return;setZoneMode(el,source);addLog(`Fonte ${source} aplicada em ${capitalize(selectedEnv)}`);setScene(`Rota manual: ${capitalize(selectedEnv)}`);} 
 function silenciarAmbiente(){if(!selectedEnv){alert('Selecione um ambiente primeiro.');return;}const el=document.querySelector(`[data-zone="${selectedEnv}"]`);if(!el)return;setZoneMode(el,'off');addLog(`Ambiente ${capitalize(selectedEnv)} silenciado`);} 
 function microfonePrioritario(){if(!selectedEnv){alert('Selecione um ambiente primeiro.');return;}const el=document.querySelector(`[data-zone="${selectedEnv}"]`);if(!el)return;setZoneMode(el,'mic');addLog(`Microfone prioritário em ${capitalize(selectedEnv)}`);setScene(`Microfone em ${capitalize(selectedEnv)}`);} 
-function preOuvirFonte(){const source=document.getElementById('sourceSelect').value;addLog(`Pré-escuta da fonte ${source} iniciada`);setScene(`Pré-escuta: ${source}`);} 
+function preOuvirFonte(){const source=document.getElementById('sourceSelect').value;addLog(`Pré-escuta da fonte ${source} iniciada`);setScene(`Pré-ouvir: ${source}`);} 
 function updateStats(){const all=[...document.querySelectorAll('.zone-card')];const music=all.filter(c=>c.dataset.mode==='music').length;const mic=all.filter(c=>c.dataset.mode==='mic').length;const bell=all.filter(c=>c.dataset.mode==='bell').length;const off=all.filter(c=>c.dataset.mode==='off').length;document.getElementById('musicStat').textContent=`Música: ${music} zonas`;document.getElementById('micStat').textContent=`Microfone: ${mic} zonas`;document.getElementById('bellStat').textContent=`Campainha: ${bell} zonas`;document.getElementById('offStat').textContent=`Desligado: ${off} zonas`;}
 function silenciarTudo(){document.querySelectorAll('.zone-card').forEach(c=>setZoneMode(c,'off'));setScene('Silenciado');}
 function modoMusica(){document.querySelectorAll('.zone-card').forEach(c=>setZoneMode(c,'off'));['salas','patio','quadra'].forEach(n=>setZoneMode(document.querySelector(`[data-zone="${n}"]`),'music'));setScene('Modo recreio');}
@@ -233,6 +224,6 @@ function modoEntrada(){document.querySelectorAll('.zone-card').forEach(c=>setZon
 function modoAula(){document.querySelectorAll('.zone-card').forEach(c=>setZoneMode(c,'off'));['salas','corredor'].forEach(n=>setZoneMode(document.querySelector(`[data-zone="${n}"]`),'bell'));setScene('Início de aula');}
 function modoEvento(){document.querySelectorAll('.zone-card').forEach(c=>setZoneMode(c,'off'));['auditorio','recepcao'].forEach(n=>setZoneMode(document.querySelector(`[data-zone="${n}"]`),'mic'));setScene('Evento institucional');}
 function microfoneGeral(){document.querySelectorAll('.zone-card').forEach(c=>setZoneMode(c,'mic'));setScene('Microfone geral');}
-updateStats();refreshSelection();addLog('Sistema de apresentação enxuto inicializado');
+updateStats();refreshSelection();addLog('Sistema em tela única inicializado');
 </script></body>
 </html>
