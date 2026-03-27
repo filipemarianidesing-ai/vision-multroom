@@ -1,0 +1,69 @@
+{
+  "appName": "Ética Vision Control PRO",
+  "schoolName": "Colégio Modelo",
+  "version": "Sistema Comercial Real",
+  "floors": {
+    "terreo": {
+      "image": "terreo.png",
+      "initialView": {
+        "scale": 0.92,
+        "x": -140,
+        "y": -35
+      },
+      "zones": [
+        { "id": "entrada", "name": "Entrada", "x": 34.6, "y": 2.0, "w": 29.0, "h": 9.2 },
+        { "id": "sala02", "name": "Sala 02", "x": 2.9, "y": 16.8, "w": 13.9, "h": 28.2 },
+        { "id": "planejamento", "name": "Sala de Planejamento", "x": 3.0, "y": 46.1, "w": 7.8, "h": 12.0 },
+        { "id": "corredorTerreo", "name": "Corredor Térreo", "x": 10.9, "y": 43.8, "w": 18.1, "h": 14.0 },
+        { "id": "sala01", "name": "Sala 01", "x": 3.0, "y": 59.2, "w": 13.9, "h": 28.0 },
+        { "id": "aee", "name": "AEE", "x": 16.9, "y": 59.2, "w": 8.5, "h": 28.0 },
+        { "id": "almox", "name": "Almoxarifado", "x": 16.9, "y": 16.8, "w": 6.8, "h": 28.2 },
+        { "id": "patioAlimentacao", "name": "Pátio Alimentação", "x": 23.8, "y": 16.8, "w": 26.4, "h": 44.9 },
+        { "id": "cozinha", "name": "Cozinha", "x": 50.3, "y": 16.8, "w": 11.9, "h": 27.5 },
+        { "id": "biblioteca", "name": "Biblioteca", "x": 62.3, "y": 16.8, "w": 12.8, "h": 27.5 },
+        { "id": "coordenacao", "name": "Coordenação", "x": 49.2, "y": 57.2, "w": 8.6, "h": 16.4 },
+        { "id": "secretaria", "name": "Secretaria", "x": 57.8, "y": 57.2, "w": 8.0, "h": 23.0 },
+        { "id": "arquivoTerreo", "name": "Arquivo Permanente", "x": 65.8, "y": 57.2, "w": 7.2, "h": 23.0 },
+        { "id": "professores", "name": "Sala dos Professores", "x": 73.0, "y": 57.2, "w": 7.5, "h": 23.0 },
+        { "id": "patioExterno", "name": "Pátio Externo", "x": 78.2, "y": 11.2, "w": 19.0, "h": 53.8 }
+      ]
+    },
+    "superior": {
+      "image": "superior.png",
+      "initialView": {
+        "scale": 0.92,
+        "x": -140,
+        "y": -35
+      },
+      "zones": [
+        { "id": "sala04", "name": "Sala 04", "x": 5.0, "y": 10.4, "w": 15.6, "h": 28.0 },
+        { "id": "sala05", "name": "Sala 05", "x": 20.8, "y": 10.4, "w": 15.6, "h": 28.0 },
+        { "id": "sala06", "name": "Sala 06", "x": 36.7, "y": 10.4, "w": 17.6, "h": 28.0 },
+        { "id": "sala07", "name": "Sala 07", "x": 54.5, "y": 10.4, "w": 17.6, "h": 28.0 },
+        { "id": "sala08", "name": "Sala 08", "x": 72.3, "y": 10.4, "w": 16.9, "h": 28.0 },
+        { "id": "arquivoSup", "name": "Arquivo Permanente", "x": 5.0, "y": 40.0, "w": 11.7, "h": 13.5 },
+        { "id": "corredorSup", "name": "Corredor Pavimento Superior", "x": 16.8, "y": 40.0, "w": 57.0, "h": 13.5 },
+        { "id": "apoio", "name": "Sala de Apoio", "x": 74.0, "y": 40.0, "w": 15.0, "h": 13.5 },
+        { "id": "sala03", "name": "Sala 03", "x": 5.0, "y": 55.3, "w": 15.8, "h": 27.6 },
+        { "id": "auditorio", "name": "Auditório", "x": 20.9, "y": 55.3, "w": 26.4, "h": 27.6 },
+        { "id": "sala10", "name": "Sala 10", "x": 53.7, "y": 55.3, "w": 15.0, "h": 27.6 },
+        { "id": "sala09", "name": "Sala 09", "x": 72.9, "y": 55.3, "w": 16.2, "h": 27.6 }
+      ]
+    }
+  },
+  "defaults": {
+    "volumes": {
+      "radio": 72,
+      "campainha": 100,
+      "microfone": 88,
+      "emergencia": 100
+    }
+  },
+  "schedules": {
+    "campainha": [
+      { "id": "bell-entrada", "dias": "Segunda a Sexta", "hora": "07:00", "zona": "todas", "tipo": "Entrada" },
+      { "id": "bell-recreio", "dias": "Segunda a Sexta", "hora": "09:30", "zona": "todas", "tipo": "Recreio" },
+      { "id": "bell-saida", "dias": "Segunda a Sexta", "hora": "12:00", "zona": "todas", "tipo": "Saída" }
+    ],
+    "radio": [
+      { "id": "radio-manha", "dias": "Segunda a Sexta", "inicio": "06:40", "fim": "06:58", "origem": "Pendrive", "zona": "patios", "
