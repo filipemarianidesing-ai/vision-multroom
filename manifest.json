@@ -1,5 +1,5 @@
 {
-  "name": "Ética Vision Control PRO",
+  "appName": "Mariani Vision Control",
   "short_name": "Vision Control",
   "start_url": "./index.html",
   "display": "standalone",
