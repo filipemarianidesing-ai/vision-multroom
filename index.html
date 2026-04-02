@@ -1,225 +1,1091 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mariani Vision Control</title>
-
-<style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#0b1220;
-  color:white;
-  overflow:hidden;
-}
-
-/* SIDEBAR */
-.sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  width:90px;
-  height:100%;
-  background:#111c2e;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding-top:20px;
-  gap:20px;
-}
-
-.btn{
-  width:70px;
-  height:70px;
-  border-radius:20px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-  background:#1e2a3f;
-}
-
-/* MAIN */
-.main{
-  margin-left:100px;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-}
-
-/* HEADER */
-.header{
-  padding:15px;
-  background:#111c2e;
-  display:flex;
-  justify-content:space-between;
-}
-
-/* VIEW */
-.view{
-  flex:1;
-  position:relative;
-  overflow:hidden;
-}
-
-/* STAGE */
-#stage{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%) scale(0.7);
-  transform-origin:center;
-}
-
-/* PLANTA */
-#planta{
-  width:1400px;
-}
-
-/* ZONAS */
-.zona{
-  position:absolute;
-  border:2px solid rgba(0,200,255,0.6);
-  border-radius:12px;
-}
-
-/* BOTÕES */
-.controls{
-  display:flex;
-  gap:10px;
-  padding:10px;
-  background:#111c2e;
-}
-
-.control{
-  flex:1;
-  padding:15px;
-  border-radius:12px;
-  text-align:center;
-  font-weight:bold;
-}
-
-.radio{background:#0066ff;}
-.campainha{background:#00aa55;}
-.microfone{background:#7a2cff;}
-.emergencia{background:#ff0033;}
-
-</style>
-</head>
-
-<body>
-
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <div class="btn">📻</div>
-  <div class="btn">🔔</div>
-  <div class="btn">🎤</div>
-  <div class="btn">🚨</div>
-</div>
-
-<!-- MAIN -->
-<div class="main">
-
-  <!-- HEADER -->
-  <div class="header">
-    <div><b>MARIANI VISION CONTROL</b></div>
-    <div>Sistema online</div>
-  </div>
-
-  <!-- VIEW -->
-  <div class="view" id="view">
-
-    <div id="stage">
-      <img id="planta" src="terreo.png">
-
-      <!-- ZONAS -->
-      <div class="zona" style="left:100px;top:200px;width:200px;height:150px;" onclick="clickZona('Sala 01')"></div>
-      <div class="zona" style="left:400px;top:150px;width:300px;height:200px;" onclick="clickZona('Pátio')"></div>
-      <div class="zona" style="left:600px;top:500px;width:200px;height:150px;" onclick="clickZona('Biblioteca')"></div>
-
-    </div>
-
-  </div>
-
-  <!-- CONTROLES -->
-  <div class="controls">
-    <div class="control radio" onclick="acao('radio')">Rádio</div>
-    <div class="control campainha" onclick="acao('campainha')">Campainha</div>
-    <div class="control microfone" onclick="acao('mic')">Microfone</div>
-    <div class="control emergencia" onclick="acao('emergencia')">Emergência</div>
-  </div>
-
-</div>
-
-<script>
-
-let stage = document.getElementById("stage");
-
-let scale = 0.7;
-let posX = 0;
-let posY = 0;
-
-let lastX, lastY;
-let isDragging = false;
-
-/* DRAG */
-stage.addEventListener("touchstart",(e)=>{
-  isDragging=true;
-  lastX = e.touches[0].clientX;
-  lastY = e.touches[0].clientY;
-});
-
-stage.addEventListener("touchmove",(e)=>{
-  if(e.touches.length==1){
-    let dx = e.touches[0].clientX - lastX;
-    let dy = e.touches[0].clientY - lastY;
-
-    posX += dx;
-    posY += dy;
-
-    update();
-
-    lastX = e.touches[0].clientX;
-    lastY = e.touches[0].clientY;
-  }
-});
-
-/* ZOOM */
-stage.addEventListener("touchmove",(e)=>{
-  if(e.touches.length==2){
-    let dx = e.touches[0].clientX - e.touches[1].clientX;
-    let dy = e.touches[0].clientY - e.touches[1].clientY;
-
-    let dist = Math.sqrt(dx*dx + dy*dy);
-
-    if(window.lastDist){
-      scale += (dist - window.lastDist)/300;
-      scale = Math.max(0.5, Math.min(scale, 2));
-      update();
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <title>Mariani Vision Control</title>
+  <style>
+    :root{
+      --bg:#07111b;
+      --bg2:#0c1826;
+      --panel:rgba(10,20,32,.94);
+      --panel2:rgba(14,27,42,.94);
+      --line:rgba(255,255,255,.08);
+      --text:#eef6ff;
+      --muted:#9fb2c8;
+      --blue:#2a7dff;
+      --green:#18c26e;
+      --purple:#995cff;
+      --red:#ff4c4c;
+      --shadow:0 18px 40px rgba(0,0,0,.35);
+      --safe-top:env(safe-area-inset-top,0px);
+      --safe-bottom:env(safe-area-inset-bottom,0px);
     }
 
-    window.lastDist = dist;
-  }
-});
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+      user-select:none;
+    }
 
-/* UPDATE */
-function update(){
-  stage.style.transform =
-    `translate(-50%,-50%) translate(${posX}px,${posY}px) scale(${scale})`;
-}
+    html,body{
+      margin:0;
+      height:100%;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at top left, rgba(42,125,255,.16), transparent 18%),
+        radial-gradient(circle at top right, rgba(153,92,255,.10), transparent 22%),
+        linear-gradient(160deg,var(--bg),var(--bg2));
+      color:var(--text);
+      font-family:Arial, Helvetica, sans-serif;
+    }
 
-/* CLICK ZONA */
-function clickZona(nome){
-  alert("Selecionado: "+nome);
-}
+    .app{
+      display:grid;
+      grid-template-columns:92px 1fr 250px;
+      gap:10px;
+      height:100dvh;
+      padding:10px;
+      padding-top:calc(10px + var(--safe-top));
+      padding-bottom:calc(10px + var(--safe-bottom));
+    }
 
-/* AÇÕES */
-function acao(tipo){
-  alert("Ativou: "+tipo);
-}
+    .panel{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      min-height:0;
+      backdrop-filter:blur(16px);
+    }
 
-</script>
+    .sidebar{
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+      gap:12px;
+      padding:10px 8px;
+    }
 
+    .brand{
+      display:grid;
+      justify-items:center;
+      gap:8px;
+      padding:8px 0 12px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .brandMark{
+      width:56px;
+      height:56px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#08121d,#143255 58%,#2a7dff);
+      box-shadow:0 0 26px rgba(42,125,255,.26);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .brandMark::after{
+      content:"M";
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      font-size:28px;
+      font-weight:900;
+      color:#fff;
+    }
+
+    .brandText{
+      text-align:center;
+      font-size:10px;
+      color:var(--muted);
+      font-weight:800;
+      line-height:1.2;
+    }
+
+    .iconGrid{
+      display:grid;
+      gap:10px;
+      align-content:start;
+    }
+
+    .iconBtn,.toolBtn,.bottomBtn,.miniBtn,.closeBtn,.saveBtn,.dangerBtn{
+      border:none;
+      color:#fff;
+      cursor:pointer;
+      font-weight:800;
+    }
+
+    .iconBtn{
+      width:100%;
+      aspect-ratio:1/1;
+      border-radius:20px;
+      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      font-size:26px;
+      position:relative;
+      transition:.18s ease;
+    }
+
+    .iconBtn small{
+      position:absolute;
+      bottom:6px;
+      left:0;
+      right:0;
+      font-size:8px;
+      letter-spacing:.4px;
+    }
+
+    .iconBtn.active.radio{background:linear-gradient(145deg,var(--blue),#1659d8)}
+    .iconBtn.active.campainha{background:linear-gradient(145deg,var(--green),#0f8b4d)}
+    .iconBtn.active.microfone{background:linear-gradient(145deg,var(--purple),#6f36e0)}
+    .iconBtn.active.emergencia{background:linear-gradient(145deg,var(--red),#c92f2f)}
+
+    .miniBtn{
+      padding:12px 8px;
+      border-radius:16px;
+      background:#1a2a3c;
+      font-size:12px;
+    }
+
+    .main{
+      display:grid;
+      grid-template-rows:auto auto 1fr auto;
+      min-width:0;
+      background:linear-gradient(180deg,rgba(15,27,42,.90),rgba(8,16,27,.94));
+    }
+
+    .topbar{
+      padding:12px 14px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      flex-wrap:wrap;
+      background:linear-gradient(180deg,#142436,#0f1c2a);
+    }
+
+    .title h1{
+      margin:0;
+      font-size:24px;
+      letter-spacing:.2px;
+    }
+
+    .title p{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .chips{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .chip{
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.05);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .toolbar{
+      padding:8px 12px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      background:linear-gradient(180deg,#102031,#0c1723);
+    }
+
+    .toolbarGroup{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .toolBtn{
+      padding:9px 12px;
+      border-radius:999px;
+      background:#182738;
+      border:1px solid rgba(255,255,255,.08);
+      font-size:12px;
+    }
+
+    .viewerWrap{
+      min-height:0;
+      padding:4px;
+    }
+
+    .viewer{
+      position:relative;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      border-radius:24px;
+      background:
+        radial-gradient(circle at 20% 14%, rgba(255,255,255,.20), transparent 18%),
+        linear-gradient(180deg,#d8dfe6,#cfd7df);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);
+      touch-action:none;
+    }
+
+    #stage{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform-origin:center center;
+      will-change:transform;
+    }
+
+    .map{
+      position:relative;
+      width:1600px;
+      height:900px;
+      border-radius:24px;
+      overflow:hidden;
+      background:#f3f5f7;
+      box-shadow:0 20px 40px rgba(0,0,0,.18);
+    }
+
+    .map img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      pointer-events:none;
+    }
+
+    #zonesLayer{
+      position:absolute;
+      inset:0;
+    }
+
+    .zone{
+      position:absolute;
+      border:2px solid rgba(0,200,255,.55);
+      border-radius:12px;
+      background:rgba(0,180,255,.05);
+      z-index:20;
+      pointer-events:auto;
+      transition:.15s ease;
+    }
+
+    .zone.selected{
+      outline:3px solid rgba(255,255,255,.92);
+    }
+
+    .zone.active-radio{
+      box-shadow:0 0 0 2px rgba(42,125,255,.25),0 0 22px rgba(42,125,255,.35);
+      background:rgba(42,125,255,.18);
+    }
+
+    .zone.active-campainha{
+      box-shadow:0 0 0 2px rgba(24,194,110,.25),0 0 22px rgba(24,194,110,.35);
+      background:rgba(24,194,110,.18);
+    }
+
+    .zone.active-microfone{
+      box-shadow:0 0 0 2px rgba(153,92,255,.25),0 0 22px rgba(153,92,255,.35);
+      background:rgba(153,92,255,.18);
+    }
+
+    .zone.active-emergencia{
+      box-shadow:0 0 0 2px rgba(255,76,76,.25),0 0 24px rgba(255,76,76,.42);
+      background:rgba(255,76,76,.20);
+    }
+
+    .zoneLabel{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      width:86%;
+      padding:5px 7px;
+      border-radius:10px;
+      background:rgba(5,12,19,.65);
+      text-align:center;
+      font-size:11px;
+      font-weight:900;
+      color:#fff;
+      line-height:1.1;
+      pointer-events:none;
+    }
+
+    .zoneBadge{
+      position:absolute;
+      right:8px;
+      bottom:8px;
+      width:30px;
+      height:30px;
+      border-radius:10px;
+      background:rgba(5,12,19,.80);
+      border:1px solid rgba(255,255,255,.10);
+      display:grid;
+      place-items:center;
+      font-size:14px;
+      pointer-events:none;
+    }
+
+    .bottombar{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+      padding:8px 10px;
+      border-top:1px solid var(--line);
+      background:linear-gradient(180deg,#0f1c2a,#0a131d);
+    }
+
+    .bottomBtn{
+      padding:12px;
+      border-radius:18px;
+      text-align:left;
+      display:grid;
+      gap:3px;
+      font-size:14px;
+    }
+
+    .bottomBtn span{
+      font-size:11px;
+      opacity:.92;
+    }
+
+    .bottomBtn.radio{background:linear-gradient(145deg,var(--blue),#1659d8)}
+    .bottomBtn.campainha{background:linear-gradient(145deg,var(--green),#0f8b4d)}
+    .bottomBtn.microfone{background:linear-gradient(145deg,var(--purple),#6f36e0)}
+    .bottomBtn.emergencia{background:linear-gradient(145deg,var(--red),#c92f2f)}
+
+    .right{
+      display:grid;
+      grid-template-rows:auto auto auto 1fr;
+      background:linear-gradient(180deg,rgba(16,28,42,.92),rgba(10,17,28,.96));
+    }
+
+    .block{
+      padding:14px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .blockTitle{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.7px;
+      color:var(--muted);
+      font-weight:900;
+      margin-bottom:8px;
+    }
+
+    .block h3{
+      margin:0 0 8px;
+      font-size:18px;
+    }
+
+    .helper{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.45;
+    }
+
+    .statusGrid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:8px;
+    }
+
+    .statusBox{
+      padding:10px;
+      border-radius:14px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:12px;
+      font-weight:800;
+      text-align:center;
+    }
+
+    .logs{
+      padding:14px;
+      overflow:auto;
+      display:grid;
+      gap:8px;
+      min-height:0;
+    }
+
+    .logItem{
+      padding:10px 12px;
+      border-radius:14px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:12px;
+      line-height:1.4;
+    }
+
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,.55);
+      backdrop-filter:blur(6px);
+      z-index:999;
+      padding:16px;
+    }
+
+    .modal.show{
+      display:flex;
+    }
+
+    .modalCard{
+      width:min(640px,100%);
+      border-radius:24px;
+      background:linear-gradient(180deg,#162638,#0f1723);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .modalHead{
+      padding:14px 16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:linear-gradient(180deg,#20344a,#172638);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .modalHead h3{
+      margin:0;
+      font-size:18px;
+    }
+
+    .closeBtn{
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      background:rgba(255,255,255,.08);
+      font-size:20px;
+    }
+
+    .modalBody{
+      padding:16px;
+      display:grid;
+      gap:14px;
+    }
+
+    .saveBtn,.dangerBtn{
+      padding:13px 16px;
+      border-radius:16px;
+    }
+
+    .saveBtn{background:linear-gradient(145deg,var(--blue),#1659d8)}
+    .dangerBtn{background:linear-gradient(145deg,var(--red),#c92f2f)}
+
+    input,textarea{
+      width:100%;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.08);
+      background:#0d1722;
+      color:#fff;
+      font-size:14px;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+
+    .sliderWrap{
+      display:grid;
+      gap:8px;
+    }
+
+    .sliderRow{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .slider{
+      width:100%;
+    }
+
+    @media (max-width:980px){
+      body{overflow:auto}
+      .app{
+        grid-template-columns:1fr;
+        height:auto;
+        min-height:100vh;
+      }
+      .right{order:3}
+      .sidebar{order:1;grid-template-rows:auto auto}
+      .main{order:2;min-height:70vh}
+      .bottombar{grid-template-columns:repeat(2,1fr)}
+      .grid2{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="panel sidebar">
+      <div class="brand">
+        <div class="brandMark"></div>
+        <div class="brandText">MARIANI<br>VISION CONTROL</div>
+      </div>
+
+      <div class="iconGrid">
+        <button class="iconBtn" id="iconRadio"><div>📻</div><small>RÁDIO</small></button>
+        <button class="iconBtn" id="iconCampainha"><div>🔔</div><small>CAMPAINHA</small></button>
+        <button class="iconBtn" id="iconMicrofone"><div>🎤</div><small>MIC</small></button>
+        <button class="iconBtn" id="iconEmergencia"><div>🚨</div><small>ALERTA</small></button>
+      </div>
+
+      <button class="miniBtn" id="btnSilenciar">🔇 Parada geral</button>
+    </aside>
+
+    <main class="panel main">
+      <div class="topbar">
+        <div class="title">
+          <h1>Mariani Vision Control</h1>
+          <p>Sistema profissional de comunicação escolar</p>
+        </div>
+        <div class="chips">
+          <div class="chip" id="chipAmbiente">Ambiente: Nenhum</div>
+          <div class="chip">● Sistema online</div>
+          <div class="chip" id="chipCena">Cena: Sistema silenciado</div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbarGroup">
+          <button class="toolBtn" id="btnTerreo">Térreo</button>
+          <button class="toolBtn" id="btnSuperior">Superior</button>
+        </div>
+        <div class="toolbarGroup">
+          <button class="toolBtn" id="btnCentralizar">Centralizar</button>
+          <button class="toolBtn" id="btnMensagem">Texto → áudio</button>
+        </div>
+      </div>
+
+      <div class="viewerWrap">
+        <div class="viewer" id="viewer">
+          <div id="stage">
+            <div class="map">
+              <img id="mapImage" src="terreo.png" alt="Planta">
+              <div id="zonesLayer"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottombar">
+        <button class="bottomBtn radio" id="bottomRadio">📻 Rádio<span>1 toque liga/desliga · segurar ajustes</span></button>
+        <button class="bottomBtn campainha" id="bottomCampainha">🔔 Campainha<span>1 toque liga/desliga · segurar ajustes</span></button>
+        <button class="bottomBtn microfone" id="bottomMicrofone">🎤 Microfone<span>1 toque liga/desliga · segurar ajustes</span></button>
+        <button class="bottomBtn emergencia" id="bottomEmergencia">🚨 Emergência<span>1 toque liga/desliga · segurar ajustes</span></button>
+      </div>
+    </main>
+
+    <aside class="panel right">
+      <div class="block">
+        <div class="blockTitle">Ambiente selecionado</div>
+        <h3 id="selectedZoneTitle">Nenhum ambiente selecionado</h3>
+        <div class="helper">Toque na zona para selecionar. Se um modo estiver ativo, a zona recebe o comando.</div>
+      </div>
+
+      <div class="block">
+        <div class="blockTitle">Status por função</div>
+        <div class="statusGrid">
+          <div class="statusBox" id="statusRadio">Rádio: 0</div>
+          <div class="statusBox" id="statusCampainha">Campainha: 0</div>
+          <div class="statusBox" id="statusMicrofone">Microfone: 0</div>
+          <div class="statusBox" id="statusOff">Desligado: 0</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="blockTitle">Ajuda rápida</div>
+        <div class="helper">
+          Um toque no botão liga/desliga.<br>
+          Segurar o botão abre volume e programação.<br>
+          Use dois dedos para zoom e um dedo para arrastar.
+        </div>
+      </div>
+
+      <div class="logs" id="logs"></div>
+    </aside>
+  </div>
+
+  <div class="modal" id="settingsModal">
+    <div class="modalCard">
+      <div class="modalHead">
+        <h3 id="settingsTitle">Configuração</h3>
+        <button class="closeBtn" id="closeSettings">×</button>
+      </div>
+      <div class="modalBody">
+        <div class="sliderWrap">
+          <div class="sliderRow">
+            <span>Volume</span>
+            <span id="settingsVolumeValue">50%</span>
+          </div>
+          <input class="slider" id="settingsVolume" type="range" min="0" max="100" value="50">
+        </div>
+
+        <div class="grid2">
+          <input id="programStart" type="time">
+          <input id="programEnd" type="time">
+        </div>
+
+        <textarea id="programText" rows="4" placeholder="Descrição da programação ou mensagem automática..."></textarea>
+
+        <div class="grid2">
+          <button class="saveBtn" id="runNowBtn">Executar agora</button>
+          <button class="saveBtn" id="saveProgramBtn">Salvar programação</button>
+        </div>
+
+        <button class="dangerBtn" id="stopModeBtn">Desligar função</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const floors = {
+      terreo: {
+        image: "terreo.png",
+        initial: { scale: 0.72, x: 0, y: 0 },
+        zones: [
+          { id: "sala01", nome: "Sala 01", x: 90,  y: 180, w: 220, h: 170 },
+          { id: "patio", nome: "Pátio Alimentação", x: 380, y: 150, w: 310, h: 220 },
+          { id: "biblioteca", nome: "Biblioteca", x: 540, y: 520, w: 210, h: 150 },
+          { id: "secretaria", nome: "Secretaria", x: 880, y: 520, w: 170, h: 150 },
+          { id: "prof", nome: "Sala dos Professores", x: 1110, y: 520, w: 250, h: 150 },
+          { id: "corredor", nome: "Corredor Térreo", x: 160, y: 420, w: 1140, h: 70 }
+        ]
+      },
+      superior: {
+        image: "superior.png",
+        initial: { scale: 0.72, x: 0, y: 0 },
+        zones: [
+          { id: "sala03", nome: "Sala 03", x: 170, y: 180, w: 190, h: 150 },
+          { id: "sala06", nome: "Sala 06", x: 620, y: 180, w: 190, h: 150 },
+          { id: "sala07", nome: "Sala 07", x: 930, y: 180, w: 190, h: 150 },
+          { id: "corredorSup", nome: "Corredor Pavimento Superior", x: 160, y: 430, w: 1150, h: 70 },
+          { id: "bibliotecaSup", nome: "Biblioteca", x: 500, y: 580, w: 220, h: 140 },
+          { id: "secretariaSup", nome: "Secretaria", x: 860, y: 580, w: 170, h: 140 }
+        ]
+      }
+    };
+
+    const state = {
+      floor: "terreo",
+      selectedZone: null,
+      activeMode: "off",
+      stageScale: floors.terreo.initial.scale,
+      stageX: 0,
+      stageY: 0,
+      buttons: {
+        radio: { volume: 72 },
+        campainha: { volume: 100 },
+        microfone: { volume: 88 },
+        emergencia: { volume: 100 }
+      },
+      programs: [],
+      logs: [
+        "Sistema iniciado com sucesso",
+        "Mariani Vision carregado",
+        "Pronto para operação"
+      ]
+    };
+
+    const viewer = document.getElementById("viewer");
+    const stage = document.getElementById("stage");
+    const mapImage = document.getElementById("mapImage");
+    const zonesLayer = document.getElementById("zonesLayer");
+
+    const chipAmbiente = document.getElementById("chipAmbiente");
+    const chipCena = document.getElementById("chipCena");
+    const selectedZoneTitle = document.getElementById("selectedZoneTitle");
+    const logsEl = document.getElementById("logs");
+
+    const settingsModal = document.getElementById("settingsModal");
+    const settingsTitle = document.getElementById("settingsTitle");
+    const settingsVolume = document.getElementById("settingsVolume");
+    const settingsVolumeValue = document.getElementById("settingsVolumeValue");
+
+    let currentSettingsMode = "radio";
+
+    function addLog(text){
+      state.logs.unshift(text);
+      state.logs = state.logs.slice(0, 10);
+      renderLogs();
+    }
+
+    function renderLogs(){
+      logsEl.innerHTML = "";
+      state.logs.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "logItem";
+        div.textContent = item;
+        logsEl.appendChild(div);
+      });
+    }
+
+    function speak(text){
+      if (!text) return;
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = "pt-BR";
+      speechSynthesis.cancel();
+      speechSynthesis.speak(msg);
+    }
+
+    function setScene(text){
+      chipCena.textContent = "Cena: " + text;
+    }
+
+    function applyTransform(){
+      stage.style.transform = `translate(-50%, -50%) translate(${state.stageX}px, ${state.stageY}px) scale(${state.stageScale})`;
+    }
+
+    function resetView(){
+      const initial = floors[state.floor].initial;
+      state.stageScale = initial.scale;
+      state.stageX = initial.x;
+      state.stageY = initial.y;
+      applyTransform();
+      addLog("Mapa centralizado");
+    }
+
+    function iconForMode(mode){
+      return mode === "radio" ? "📻" :
+             mode === "campainha" ? "🔔" :
+             mode === "microfone" ? "🎤" :
+             mode === "emergencia" ? "🚨" : "⏹";
+    }
+
+    function labelForMode(mode){
+      return mode === "radio" ? "Rádio" :
+             mode === "campainha" ? "Campainha" :
+             mode === "microfone" ? "Microfone" :
+             mode === "emergencia" ? "Emergência" : "Desligado";
+    }
+
+    function updateStatusBoxes(){
+      const total = floors[state.floor].zones.length;
+      document.getElementById("statusRadio").textContent = "Rádio: " + (state.activeMode === "radio" ? total : 0);
+      document.getElementById("statusCampainha").textContent = "Campainha: " + (state.activeMode === "campainha" ? total : 0);
+      document.getElementById("statusMicrofone").textContent = "Microfone: " + (state.activeMode === "microfone" ? total : 0);
+      document.getElementById("statusOff").textContent = "Desligado: " + (state.activeMode === "off" ? total : 0);
+    }
+
+    function renderZones(){
+      zonesLayer.innerHTML = "";
+
+      floors[state.floor].zones.forEach(zone => {
+        const el = document.createElement("button");
+        el.className = "zone";
+        if (state.selectedZone === zone.id) el.classList.add("selected");
+        if (state.activeMode !== "off") el.classList.add(`active-${state.activeMode}`);
+
+        el.style.left = zone.x + "px";
+        el.style.top = zone.y + "px";
+        el.style.width = zone.w + "px";
+        el.style.height = zone.h + "px";
+
+        el.innerHTML = `
+          <div class="zoneLabel">${zone.nome}</div>
+          ${state.activeMode !== "off" ? `<div class="zoneBadge">${iconForMode(state.activeMode)}</div>` : ""}
+        `;
+
+        el.addEventListener("pointerdown", (e) => e.stopPropagation());
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          state.selectedZone = zone.id;
+          chipAmbiente.textContent = "Ambiente: " + zone.nome;
+          selectedZoneTitle.textContent = zone.nome;
+          addLog("Ambiente selecionado: " + zone.nome);
+          renderZones();
+
+          if (state.activeMode !== "off") {
+            addLog(`Comando "${labelForMode(state.activeMode)}" aplicado em ${zone.nome}`);
+            speak(`${labelForMode(state.activeMode)} ativado em ${zone.nome}`);
+          }
+        });
+
+        zonesLayer.appendChild(el);
+      });
+
+      updateStatusBoxes();
+    }
+
+    function renderFloor(){
+      mapImage.src = floors[state.floor].image;
+      state.selectedZone = null;
+      chipAmbiente.textContent = "Ambiente: Nenhum";
+      selectedZoneTitle.textContent = "Nenhum ambiente selecionado";
+      renderZones();
+      resetView();
+    }
+
+    function updateButtons(){
+      const btnMap = {
+        radio: document.getElementById("iconRadio"),
+        campainha: document.getElementById("iconCampainha"),
+        microfone: document.getElementById("iconMicrofone"),
+        emergencia: document.getElementById("iconEmergencia")
+      };
+
+      Object.entries(btnMap).forEach(([mode, btn]) => {
+        btn.classList.remove("active","radio","campainha","microfone","emergencia");
+        if (state.activeMode === mode) btn.classList.add("active", mode);
+      });
+    }
+
+    function setActiveMode(mode){
+      if (state.activeMode === mode) {
+        state.activeMode = "off";
+        setScene("Sistema silenciado");
+        addLog(`${labelForMode(mode)} desligado`);
+      } else {
+        state.activeMode = mode;
+        setScene(`${labelForMode(mode)} ativo`);
+        addLog(`${labelForMode(mode)} ativado`);
+        speak(`${labelForMode(mode)} ativado`);
+        if (mode === "emergencia") {
+          speak("Atenção. Emergência detectada. Iniciar evacuação com segurança.");
+        }
+      }
+      updateButtons();
+      renderZones();
+    }
+
+    function stopMode(mode){
+      if (state.activeMode === mode) {
+        state.activeMode = "off";
+        setScene("Sistema silenciado");
+        addLog(`${labelForMode(mode)} desligado`);
+        updateButtons();
+        renderZones();
+      }
+    }
+
+    function openSettings(mode){
+      currentSettingsMode = mode;
+      settingsTitle.textContent = `Configuração - ${labelForMode(mode)}`;
+      settingsVolume.value = state.buttons[mode].volume;
+      settingsVolumeValue.textContent = state.buttons[mode].volume + "%";
+      settingsModal.classList.add("show");
+    }
+
+    function closeSettings(){
+      settingsModal.classList.remove("show");
+    }
+
+    settingsVolume.addEventListener("input", () => {
+      state.buttons[currentSettingsMode].volume = Number(settingsVolume.value);
+      settingsVolumeValue.textContent = settingsVolume.value + "%";
+    });
+
+    document.getElementById("runNowBtn").addEventListener("click", () => {
+      setActiveMode(currentSettingsMode);
+      closeSettings();
+    });
+
+    document.getElementById("saveProgramBtn").addEventListener("click", () => {
+      const start = document.getElementById("programStart").value;
+      const end = document.getElementById("programEnd").value;
+      const text = document.getElementById("programText").value.trim();
+
+      state.programs.push({ mode: currentSettingsMode, start, end, text });
+      addLog(`Programação salva para ${labelForMode(currentSettingsMode)}`);
+      closeSettings();
+    });
+
+    document.getElementById("stopModeBtn").addEventListener("click", () => {
+      stopMode(currentSettingsMode);
+      closeSettings();
+    });
+
+    document.getElementById("closeSettings").addEventListener("click", closeSettings);
+    settingsModal.addEventListener("click", (e) => {
+      if (e.target === settingsModal) closeSettings();
+    });
+
+    function bindTapAndHold(button, mode){
+      let holdTimer = null;
+      let opened = false;
+
+      const start = () => {
+        opened = false;
+        holdTimer = setTimeout(() => {
+          opened = true;
+          openSettings(mode);
+        }, 550);
+      };
+
+      const end = () => {
+        clearTimeout(holdTimer);
+        if (!opened) setActiveMode(mode);
+      };
+
+      button.addEventListener("pointerdown", start);
+      button.addEventListener("pointerup", end);
+      button.addEventListener("pointerleave", () => clearTimeout(holdTimer));
+      button.addEventListener("pointercancel", () => clearTimeout(holdTimer));
+    }
+
+    bindTapAndHold(document.getElementById("bottomRadio"), "radio");
+    bindTapAndHold(document.getElementById("bottomCampainha"), "campainha");
+    bindTapAndHold(document.getElementById("bottomMicrofone"), "microfone");
+    bindTapAndHold(document.getElementById("bottomEmergencia"), "emergencia");
+
+    bindTapAndHold(document.getElementById("iconRadio"), "radio");
+    bindTapAndHold(document.getElementById("iconCampainha"), "campainha");
+    bindTapAndHold(document.getElementById("iconMicrofone"), "microfone");
+    bindTapAndHold(document.getElementById("iconEmergencia"), "emergencia");
+
+    document.getElementById("btnSilenciar").addEventListener("click", () => {
+      state.activeMode = "off";
+      setScene("Sistema silenciado");
+      addLog("Parada geral executada");
+      updateButtons();
+      renderZones();
+    });
+
+    document.getElementById("btnTerreo").addEventListener("click", () => {
+      state.floor = "terreo";
+      renderFloor();
+      addLog("Piso alterado para Térreo");
+    });
+
+    document.getElementById("btnSuperior").addEventListener("click", () => {
+      state.floor = "superior";
+      renderFloor();
+      addLog("Piso alterado para Superior");
+    });
+
+    document.getElementById("btnCentralizar").addEventListener("click", resetView);
+
+    document.getElementById("btnMensagem").addEventListener("click", () => {
+      const txt = prompt("Digite a mensagem para virar áudio:");
+      if (!txt) return;
+      speak(txt);
+      addLog("Mensagem por voz executada");
+    });
+
+    const pointers = new Map();
+    let gesture = null;
+
+    function clampScale(value){
+      return Math.max(0.60, Math.min(2.6, value));
+    }
+
+    function distance(a, b){
+      const dx = a.clientX - b.clientX;
+      const dy = a.clientY - b.clientY;
+      return Math.hypot(dx, dy);
+    }
+
+    function center(a, b){
+      return {
+        x: (a.clientX + b.clientX) / 2,
+        y: (a.clientY + b.clientY) / 2
+      };
+    }
+
+    viewer.addEventListener("pointerdown", (e) => {
+      if (e.target.closest(".zone")) return;
+      viewer.setPointerCapture(e.pointerId);
+      pointers.set(e.pointerId, { clientX: e.clientX, clientY: e.clientY });
+
+      const pts = Array.from(pointers.values());
+
+      if (pts.length === 1) {
+        gesture = {
+          type: "pan",
+          startX: pts[0].clientX,
+          startY: pts[0].clientY,
+          baseX: state.stageX,
+          baseY: state.stageY
+        };
+      } else if (pts.length === 2) {
+        gesture = {
+          type: "pinch",
+          startDistance: distance(pts[0], pts[1]),
+          startScale: state.stageScale,
+          startCenter: center(pts[0], pts[1]),
+          baseX: state.stageX,
+          baseY: state.stageY
+        };
+      }
+    });
+
+    viewer.addEventListener("pointermove", (e) => {
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, { clientX: e.clientX, clientY: e.clientY });
+
+      const pts = Array.from(pointers.values());
+
+      if (pts.length === 1 && gesture && gesture.type === "pan") {
+        const p = pts[0];
+        state.stageX = gesture.baseX + (p.clientX - gesture.startX);
+        state.stageY = gesture.baseY + (p.clientY - gesture.startY);
+        applyTransform();
+      }
+
+      if (pts.length === 2 && gesture) {
+        const c = center(pts[0], pts[1]);
+        const d = distance(pts[0], pts[1]);
+        const ratio = d / gesture.startDistance;
+
+        state.stageScale = clampScale(gesture.startScale * ratio);
+        state.stageX = gesture.baseX + (c.x - gesture.startCenter.x);
+        state.stageY = gesture.baseY + (c.y - gesture.startCenter.y);
+        applyTransform();
+      }
+    });
+
+    function endPointer(e){
+      pointers.delete(e.pointerId);
+      const pts = Array.from(pointers.values());
+
+      if (pts.length === 1) {
+        gesture = {
+          type: "pan",
+          startX: pts[0].clientX,
+          startY: pts[0].clientY,
+          baseX: state.stageX,
+          baseY: state.stageY
+        };
+      } else if (pts.length === 0) {
+        gesture = null;
+      }
+    }
+
+    viewer.addEventListener("pointerup", endPointer);
+    viewer.addEventListener("pointercancel", endPointer);
+
+    viewer.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -0.08 : 0.08;
+      state.stageScale = clampScale(state.stageScale + delta);
+      applyTransform();
+    }, { passive:false });
+
+    renderLogs();
+    renderFloor();
+    updateButtons();
+  </script>
 </body>
-</html>x
+</html>
