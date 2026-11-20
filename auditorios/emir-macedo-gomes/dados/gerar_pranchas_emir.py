@@ -113,10 +113,10 @@ arq.append(T(-3.8, -3.5, "PALCO +1,20 (sem alteração)", cor="cinza", tam=7, ne
 # ---------------- SOM
 som = []
 for s in (-1, 1):
-    som.append(R(s * 7.0 - 0.15, -0.97, s * 7.0 + 0.15, -0.72, cor="som", opacidade=0.95, tag=f"PA-{1 if s<0 else 2}", tag_desloc=[-6 if s>0 else -20, 14]))
-    ang_c = 90 + (-28 if s < 0 else 28)  # mira em direção ao centro-fundo
-    som.append({"tipo": "leque", "pts": [[s * 7.0, -0.8]], "raio_m": 18.0, "ang_ini": ang_c - 48, "ang_fim": ang_c + 48, "cor": "som", "opacidade": 0.05})
-    som.append(R(s * 2.6 - 0.35, -0.6, s * 2.6 + 0.35, 0.0, cor="som", opacidade=0.8, tag=f"SUB-{1 if s<0 else 2}", tag_desloc=[-8, 16]))
+    som.append(R(s * 5.2 - 0.23, -0.56, s * 5.2 + 0.23, -0.24, cor="som", opacidade=0.95, tag=f"LB-{1 if s<0 else 2} suspenso", tag_desloc=[8 if s > 0 else -70, 22]))
+    ang_c = 90 + (-18 if s < 0 else 18)  # virada 18° para o centro
+    som.append({"tipo": "leque", "pts": [[s * 5.2, -0.4]], "raio_m": 18.0, "ang_ini": ang_c - 55, "ang_fim": ang_c + 55, "cor": "som", "opacidade": 0.05})
+    som.append(R(s * 3.6 - 0.28, 0.05, s * 3.6 + 0.28, 0.80, cor="som", opacidade=0.8, tag=f"SUB-{1 if s<0 else 2} 18\"", tag_desloc=[-60 if s < 0 else 14, -6]))
     som.append(R(s * 7.40 - (0.25 if s > 0 else 0), 10.75, s * 7.40 + (0.25 if s < 0 else 0), 11.05, cor="som", opacidade=0.6, tracejado=True,
                  tag=f"DLY-{1 if s<0 else 2}*", tag_desloc=[-38 if s > 0 else 6, -6]))
     for xm in (1.6, 3.6):
@@ -256,16 +256,16 @@ layout = {"pranchas": [
     {"codigo": "SOM-01", "titulo": "Sonorização — posições e cobertura", "descricao": "Sistema principal frontal, subgraves, retornos, reforços opcionais, operação e rack",
      "itens": som,
      "legenda": LEG_BASE + [
-        ("som", "ret", "PA-1/PA-2: colunas direcionais (line array em coluna) nas faces das salas de apoio, base ≈ 2,2 m, mira para o centro-fundo."),
-        ("som", "ret", "SUB-1/SUB-2: subgraves embutidos no espelho do palco (1,00 m de altura) — controle independente, desligáveis em palestras."),
+        ("som", "ret", "LB-1/LB-2: Line Bonsai suspenso no teto, 8 caixas por coluna, topo a ≈ 5,0 m, sobre as laterais da boca de cena, virado 18° para o centro. Inclinações 10°–32° (pré-ajuste)."),
+        ("som", "ret", "SUB-1/SUB-2: 2 subwoofers de 18\" no chão da plateia, junto à frente do palco — via independente, desligáveis em palestras."),
         ("som", "trac", "FF* front-fills e DLY-* reforços com delay (≈ 44 ms iniciais): só se a simulação indicar. Infraestrutura prevista."),
         ("som", "ret", "MON: 4 retornos de chão; posição para reduzir vazamento e microfonia."),
         ("infra", "circ", "CP1–CP4: caixas de piso/parede no palco (microfones, linha, rede, vídeo, energia)."),
         ("video", "ret", "Púlpito com microfone gooseneck e ponto de vídeo."),
      ],
      "notas": [
-        "Distância da caixa principal à 1ª fileira ≈ 7,6 m e à última ≈ 21 m. Fonte pontual: ≈ 9 dB de queda frente→fundo; coluna direcional: ≈ 4–5 dB antes da mira. Meta: ±3 dB (2 kHz) em toda a plateia.",
-        "Colunas direcionais concentram energia na plateia e reduzem reflexões em paredes e teto — principal ganho de inteligibilidade em sala reverberante.",
+        "Line Bonsai: cada caixa mira uma faixa da plateia (caixas 1–2 → F13–F15; 3–4 → F9–F11; 5–6 → F5–F7; 7–8 → F1–F3). Meta: ±3 dB (2 kHz) em toda a plateia. Ângulos finais no software do fabricante.",
+        "Suspenso, o som chega por cima das cabeças a todas as fileiras e concentra a energia na plateia, com menos reflexão nas paredes. Suspensão exige pontos de fixação validados pelo estrutural (peso do conjunto + bumper + cabos de segurança).",
         "Cobertura, SPL, STI e margem antes da microfonia: confirmar em simulação (EASE/fabricante) com pé-direito e materiais levantados.",
         "FOH no centro-fundo: escuta representativa da plateia. Alternativa: fileira 11–12 central com supressão de 4 lugares.",
         "Reforços DLY (se necessários) na face reta da parede superior junto ao símbolo ⊗ (≈ 11 m da borda): ponto alto, sem sombra da faixa rebaixada, alinhado às fileiras do fundo.",
@@ -392,10 +392,10 @@ p.texto(pymupdf.Point(foco.x - 120, foco.y - 6), "ponto focal: 0,40 m acima do p
 s = pg.new_shape(); s.draw_rect(pymupdf.Rect(Q(-3.08, 4.81), Q(-2.92, 2.0))); s.finish(color=G.hexrgb("video"), fill=G.hexrgb("video"), width=1); s.commit()
 p.texto(Q(-6.6, 5.0), "LED 2,81 m (base +1,00 do palco)", size=6.5, cor="video")
 # coluna PA (projeção no corte)
-s = pg.new_shape(); s.draw_rect(pymupdf.Rect(Q(-0.97, 3.8), Q(-0.77, 2.2))); s.finish(color=G.hexrgb("som"), fill=G.hexrgb("som"), width=1); s.commit()
-p.texto(Q(-0.6, 4.0), "PA (coluna)", size=6.5, cor="som")
+s = pg.new_shape(); s.draw_rect(pymupdf.Rect(Q(-0.55, 5.0), Q(-0.25, 3.64))); s.finish(color=G.hexrgb("som"), fill=G.hexrgb("som"), width=1); s.commit()
+p.texto(Q(-0.2, 5.15), "Line Bonsai (suspenso)", size=6.5, cor="som")
 for yy in (0, 6, 12, 18):
-    s = pg.new_shape(); s.draw_line(Q(-0.87, 3.0), Q(yy + 2.4, 1.3 + (PERFIL_B[min(14, int(yy))] if yy else 0))); s.finish(color=G.hexrgb("som"), width=0.4, dashes="[1 2] 0"); s.commit()
+    s = pg.new_shape(); s.draw_line(Q(-0.4, 4.3), Q(yy + 2.4, 1.3 + (PERFIL_B[min(14, int(yy))] if yy else 0))); s.finish(color=G.hexrgb("som"), width=0.4, dashes="[1 2] 0"); s.commit()
 # vara FOH (hipótese)
 for H, lab in ((4.5, "4,5"), (5.5, "5,5"), (6.5, "6,5")):
     s = pg.new_shape(); s.draw_line(Q(-7.0, H), Q(18.7, H)); s.finish(color=(0.6, 0.6, 0.6), width=0.5, dashes="[6 3] 0"); s.commit()
@@ -451,7 +451,7 @@ for i, (t, s_) in enumerate(ent):
 G.caixa(pg, B(240, 160, 380, 400), "STAGEBOX DIGITAL", "16 entradas / 8 saídas no palco (CP1/CP2) — um cabo de rede até a mesa", cor="infra")
 G.caixa(pg, B(440, 160, 600, 400), "MESA DIGITAL (FOH)", "≥ 16 canais mic + estéreo; cenas salvas; controle por tablet; gravação USB; reserva ≥ 25 %", cor="som", fill=0.2)
 G.caixa(pg, B(660, 130, 820, 430), "DSP / MATRIZ (RACK)", "roteamento, EQ, delay, limitador por via; presets: PALESTRA · FORMATURA · MÚSICA · VÍDEO", cor="som", fill=0.2)
-outs = [("PA-1 / PA-2", "colunas direcionais"), ("SUB-1 / SUB-2", "graves — desligáveis"), ("Front-fill*", "se simulação indicar"),
+outs = [("LB-1 / LB-2", "Line Bonsai 2 × 8 cx"), ("SUB-1 / SUB-2", "2 × 18\" — desligáveis"), ("Front-fill*", "se simulação indicar"),
         ("Delay*", "≈ 44 ms iniciais"), ("Retornos ×4", "vias de monitor"), ("Gravação / transmissão", "saída de linha da mesa/DSP")]
 G.caixa(pg, B(660, 470, 820, 560), "AMPLIFICAÇÃO", "multicanal classe D (ou caixas ativas com ponto de energia + sinal)", cor="som")
 for i, (t, s_) in enumerate(outs):

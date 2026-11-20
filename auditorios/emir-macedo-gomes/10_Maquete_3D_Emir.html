@@ -1,0 +1,310 @@
+<title>Maquete 3D Auditório Emir</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: visor 3D em tela cheia, painel de controle flutuante à esquerda, legenda à direita. Visual único escuro de "sala técnica". */
+:root {
+  --bg: #0F1522; --panel: rgba(20, 29, 46, 0.92); --line: #2C3A55;
+  --fg: #E8ECF3; --muted: #9AA7BD; --accent: #F0A04B; --som: #4FB3FF;
+  --f-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --f-head: 'Space Grotesk', 'Inter', Arial, sans-serif;
+  color-scheme: dark;
+}
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--fg); font-family: var(--f-ui); overflow: hidden; }
+#cena { position: fixed; inset: 0; }
+.painel { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); left: max(12px, env(safe-area-inset-left, 0px)); width: min(330px, calc(100vw - 24px)); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; backdrop-filter: blur(6px); max-height: calc(100% - 24px); overflow: auto; }
+.selo { align-self: flex-start; background: #F2C14E; color: #14213D; font-weight: 700; font-size: 11px; letter-spacing: .06em; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; }
+h1 { font-family: var(--f-head); font-size: 19px; line-height: 1.2; margin: 0; text-wrap: balance; }
+.sub { color: var(--muted); font-size: 12.5px; line-height: 1.45; margin: 0; }
+.grupo { display: flex; flex-wrap: wrap; gap: 6px; }
+button { font: inherit; font-size: 12.5px; color: var(--fg); background: #1C2840; border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button.ativo { background: var(--accent); color: #14213D; border-color: var(--accent); font-weight: 600; }
+label { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--fg); cursor: pointer; }
+.rotulo { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+table { border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; width: 100%; }
+td, th { padding: 2px 4px; text-align: left; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-weight: 600; }
+.legenda { position: fixed; right: max(12px, env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 5px; font-size: 12px; max-width: 280px; }
+.legenda span { display: flex; align-items: center; gap: 8px; }
+.legenda i { width: 14px; height: 10px; border-radius: 2px; flex: none; }
+.nota { color: var(--muted); font-size: 11px; line-height: 1.4; margin: 0; }
+@media (max-width: 640px) { .legenda { display: none; } .painel { width: calc(100vw - 24px); max-height: 46%; } }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap">
+
+<div id="cena" aria-label="Maquete 3D do auditório"></div>
+
+<div class="painel">
+  <span class="selo">Simulação de pré-projeto</span>
+  <h1>Auditório EEEM Emir de Macedo Gomes</h1>
+  <p class="sub">Sistema Line Bonsai: duas colunas suspensas de 8 caixas, com ângulos para cobrir da 1ª à 15ª fileira, mais 2 subwoofers de 18" no chão. Paredes em dente de serra e palco em leque, conforme a planta.</p>
+  <div class="rotulo">Vistas</div>
+  <div class="grupo" id="vistas">
+    <button data-v="geral" class="ativo">Geral</button>
+    <button data-v="lateral">Corte lateral</button>
+    <button data-v="fundo">Da última fileira</button>
+    <button data-v="palco">Do palco</button>
+    <button data-v="topo">Planta</button>
+  </div>
+  <div class="rotulo">Camadas</div>
+  <label><input type="checkbox" id="cbRaios" checked> Mira de cada caixa (cobertura)</label>
+  <label><input type="checkbox" id="cbParedes" checked> Paredes</label>
+  <label><input type="checkbox" id="cbAcu" checked> Tratamento acústico</label>
+  <label><input type="checkbox" id="cbLuz" checked> Varas de luz e LED</label>
+  <div class="rotulo">Ângulos por coluna (pré-ajuste)</div>
+  <table>
+    <tr><th>Caixa</th><th>Inclinação</th><th>Mira</th></tr>
+    <tbody id="tabAng"></tbody>
+  </table>
+  <p class="nota">Pé-direito de 5,5 m e paredes inferiores de 3,2 m são hipóteses até a vistoria. Dimensões das caixas são ilustrativas: os ângulos finais saem do software do fabricante com a ficha da Line Bonsai.</p>
+</div>
+
+<div class="legenda" aria-label="Legenda">
+  <span><i style="background:#4FB3FF"></i>Line Bonsai (8 caixas por lado)</span>
+  <span><i style="background:#1A1A1A;border:1px solid #666"></i>Subwoofer 18" (2, no chão)</span>
+  <span><i style="background:#8E6FD8"></i>Arquibancada (até +0,82)</span>
+  <span><i style="background:#D9558B"></i>Superfície absorvente</span>
+  <span><i style="background:#9C6B3C"></i>Face refletora (voltada ao palco)</span>
+  <span><i style="background:#3FD39A"></i>Painel LED 5,00 × 2,81 m</span>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function () {
+  const PE_DIREITO = 5.5, H_INF = 3.2, XW = 9.30, Y_FUNDO = 18.70, XB = 6.26;
+  const PERFIL = [0,0,0,0.01,0.04,0.07,0.11,0.15,0.20,0.26,0.32,0.39,0.46,0.54,0.62];
+  const FRENTES = PERFIL.map((_, i) => 2.05 + i);
+  const K = 22.677, XC = 242.1, YB = 441.5;
+  const M = (xp, yp) => [(xp - XC) / K, (YB - yp) / K];
+  const IN = 73.2, OUT = 53.9;
+  const SEQ = [[IN,28.7],[OUT,63.4],[IN,74],[IN,76],[OUT,110.6],[IN,121.3],[IN,123.2],[OUT,157.7],[IN,168.4],[IN,198.8],[OUT,233.5],[IN,244.1],[IN,246.1],[OUT,280.6],[IN,291.3],[IN,293.2],[OUT,327.9],[IN,338.5],[IN,368.9],[OUT,403.5],[IN,414.2],[IN,416.1],[OUT,450.8],[IN,461.3]];
+  const ZZ_E = SEQ.map(([x, y]) => M(x, y));
+  const ZZ_D = ZZ_E.map(([x, y]) => [-x, y]);
+  const PALCO_SUP = [M(141.2,479),M(172.8,545),M(172.8,582.3),M(310.2,582.3),M(311.5,545),M(343.7,479)];
+  // Line Bonsai: inclinação de cada caixa (graus para baixo), da caixa de cima para a de baixo
+  const ANG = [10, 11, 13, 15, 18, 21, 26, 32];
+  const ALVO = ['F15', 'F13', 'F11', 'F9', 'F7', 'F5', 'F3', 'F1'];
+  const ARRAY_X = 5.2, ARRAY_Z = -0.4, ARRAY_TOPO = 5.0, TOE = 18, CX_H = 0.17, CX_L = 0.45, CX_P = 0.32;
+
+  document.getElementById('tabAng').innerHTML = ANG.map((a, i) =>
+    `<tr><td>${i + 1}</td><td>${a}°${i ? ' (+' + (a - ANG[i - 1]) + '°)' : ''}</td><td>${ALVO[i]}</td></tr>`).join('');
+
+  const el = document.getElementById('cena');
+  const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(el.clientWidth, el.clientHeight);
+  renderer.shadowMap.enabled = true;
+  el.appendChild(renderer.domElement);
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0F1522);
+  const camera = new THREE.PerspectiveCamera(45, el.clientWidth / el.clientHeight, 0.1, 200);
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+
+  scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x2a2f3a, 0.75));
+  const sol = new THREE.DirectionalLight(0xffffff, 0.65);
+  sol.position.set(-12, 22, 26); sol.castShadow = true;
+  sol.shadow.mapSize.set(2048, 2048);
+  Object.assign(sol.shadow.camera, { left: -25, right: 25, top: 25, bottom: -25 });
+  scene.add(sol);
+
+  const mat = (c, o = {}) => new THREE.MeshStandardMaterial(Object.assign({ color: c, roughness: 0.85, metalness: 0.05 }, o));
+  const G = { paredes: new THREE.Group(), acu: new THREE.Group(), raios: new THREE.Group(), luz: new THREE.Group() };
+  Object.values(G).forEach(g => scene.add(g));
+
+  function caixa(w, h, d, x, y, z, m, grupo = scene) {
+    const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
+    b.position.set(x, y, z); b.castShadow = true; b.receiveShadow = true; grupo.add(b); return b;
+  }
+  function painelEntre(a, b, y0, y1, m, grupo, esp = 0.06) {
+    const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz);
+    if (L < 0.02) return;
+    const p = new THREE.Mesh(new THREE.BoxGeometry(L, y1 - y0, esp), m);
+    p.position.set((a[0] + b[0]) / 2, (y0 + y1) / 2, (a[1] + b[1]) / 2);
+    p.rotation.y = -Math.atan2(dz, dx);
+    p.castShadow = true; p.receiveShadow = true; grupo.add(p); return p;
+  }
+
+  // ---------- pisos
+  const mPiso = mat(0x5B6170), mTier = mat(0x8E6FD8), mRampa = mat(0x6E5AA8), mPalco = mat(0x7A5634, { roughness: 0.6 });
+  caixa(2 * XW, 0.1, Y_FUNDO + 0.97, 0, -0.05, (Y_FUNDO - 0.97) / 2, mPiso);
+  FRENTES.forEach((yf, i) => {
+    const h = PERFIL[i]; if (h <= 0) return;
+    caixa(2 * XB, h, 1.0, 0, h / 2, yf + 0.17, mTier);
+  });
+  caixa(2 * XW, 0.62, Y_FUNDO - 16.72, 0, 0.31, (16.72 + Y_FUNDO) / 2, mTier);
+  [-1, 1].forEach(s => {   // rampas laterais acompanhando o perfil
+    for (let i = 3; i < 15; i++) {
+      const z0 = FRENTES[i] - 0.33, z1 = z0 + 1.0, h0 = PERFIL[i - 1] || 0, h1 = PERFIL[i];
+      const L = Math.hypot(1.0, h1 - h0);
+      const r = new THREE.Mesh(new THREE.BoxGeometry(XW - XB, 0.05, L), mRampa);
+      r.position.set(s * (XB + XW) / 2, (h0 + h1) / 2, (z0 + z1) / 2);
+      r.rotation.x = -Math.atan2(h1 - h0, 1.0); r.receiveShadow = true; scene.add(r);
+    }
+  });
+  // palco + apoios
+  caixa(12.6, 1.0, 6.0, 0, 0.5, -3.97, mPalco);
+  caixa(9.0, 1.0, 0.97, 0, 0.5, -0.485, mPalco);
+  const mApoio = mat(0x3A4254);
+  [-1, 1].forEach(s => caixa(3.0, 3.0, 2.35, s * 7.8, 1.5, -2.145, mApoio, G.paredes));
+
+  // ---------- poltronas (fileira 1 começa após os 2 espaços P.C.R. do desenho)
+  const mAss = mat(0x2D5B9E, { roughness: 0.9 }), mEnc = mat(0x244A82, { roughness: 0.9 });
+  const passo = (2 * XB) / 18;
+  const nAss = 15 * 18;
+  const assento = new THREE.InstancedMesh(new THREE.BoxGeometry(0.52, 0.12, 0.48), mAss, nAss);
+  const encosto = new THREE.InstancedMesh(new THREE.BoxGeometry(0.52, 0.55, 0.1), mEnc, nAss);
+  const dm = new THREE.Object3D(); let n = 0;
+  const pcr = new Set(['2-0', '2-17', '9-0', '9-17']);
+  FRENTES.forEach((yf, i) => {
+    for (let j = 0; j < 18; j++) {
+      if (i === 0 && j < 4) continue;
+      if (pcr.has(i + '-' + j)) continue;
+      const x = -XB + passo * (j + 0.5), h = PERFIL[i];
+      dm.position.set(x, h + 0.45, yf + 0.3); dm.updateMatrix(); assento.setMatrixAt(n, dm.matrix);
+      dm.position.set(x, h + 0.75, yf + 0.6); dm.updateMatrix(); encosto.setMatrixAt(n, dm.matrix); n++;
+    }
+  });
+  assento.count = encosto.count = n;
+  assento.castShadow = encosto.castShadow = true;
+  scene.add(assento, encosto);
+  const mPcr = mat(0x2F7DF6, { emissive: 0x0b2a66 });
+  [[0, 2], [17, 2], [0, 9], [17, 9]].forEach(([j, i]) => caixa(0.8, 0.02, 1.0, -XB + passo * (j + 0.5), PERFIL[i] + 0.02, FRENTES[i] + 0.3, mPcr));
+  caixa(-3.58 + 6.19, 0.02, 1.5, (-6.19 - 3.58) / 2, 0.02, 2.0, mPcr);
+
+  // ---------- paredes
+  const mParede = mat(0xC9CED8, { transparent: true, opacity: 0.32, side: THREE.DoubleSide, depthWrite: false });
+  const mParedeSup = mat(0xD8DCE4, { transparent: true, opacity: 0.38, side: THREE.DoubleSide, depthWrite: false });
+  [-1, 1].forEach(s => painelEntre([s * XW, -0.97], [s * XW, Y_FUNDO], 0, H_INF, mParede, G.paredes, 0.15));
+  painelEntre([-XW, Y_FUNDO], [XW, Y_FUNDO], 0, PE_DIREITO, mParede, G.paredes, 0.15);
+  [ZZ_E, ZZ_D].forEach((zz, k) => {
+    for (let i = 0; i < zz.length - 1; i++) painelEntre(zz[i], zz[i + 1], H_INF, PE_DIREITO, mParedeSup, G.paredes, 0.12);
+    const s = k ? 1 : -1;   // forro da faixa sob a parede superior
+    const shape = new THREE.Shape();
+    shape.moveTo(s * XW, zz[0][1]); zz.forEach(p => shape.lineTo(p[0], p[1])); shape.lineTo(s * XW, zz[zz.length - 1][1]);
+    const f = new THREE.Mesh(new THREE.ShapeGeometry(shape), mParede);
+    f.rotation.x = Math.PI / 2; f.position.y = H_INF; G.paredes.add(f);
+  });
+  // proscênio com boca de 9,00 m
+  [-1, 1].forEach(s => painelEntre([s * 4.5, -0.97], [s * XW, -0.97], 3.0, PE_DIREITO, mParede, G.paredes, 0.15));
+  painelEntre([-4.5, -0.97], [4.5, -0.97], 4.6, PE_DIREITO, mParede, G.paredes, 0.15);
+  // leque do palco
+  for (let i = 0; i < PALCO_SUP.length - 1; i++) painelEntre(PALCO_SUP[i], PALCO_SUP[i + 1], 1.0, PE_DIREITO, mParedeSup, G.paredes, 0.1);
+
+  // ---------- tratamento acústico
+  const mAbs = mat(0xD9558B, { roughness: 1 }), mRef = mat(0x9C6B3C, { roughness: 0.5 });
+  [-1, 1].forEach(s => painelEntre([s * (XW - 0.09), 4.0], [s * (XW - 0.09), Y_FUNDO - 0.1], 1.2, H_INF - 0.1, mAbs, G.acu, 0.05));
+  painelEntre([-XW + 0.2, Y_FUNDO - 0.1], [XW - 0.2, Y_FUNDO - 0.1], 1.0, 3.6, mAbs, G.acu, 0.05);
+  [ZZ_E, ZZ_D].forEach(zz => {
+    for (let i = 0; i < zz.length - 1; i++) {
+      const a = zz[i], b = zz[i + 1];
+      if (Math.abs(a[0] - b[0]) < 0.05) continue;
+      const curta = Math.abs(a[1] - b[1]) < 0.6, ym = (a[1] + b[1]) / 2;
+      painelEntre(a, b, H_INF + 0.2, PE_DIREITO - 0.3, (curta || ym > 9) ? mAbs : mRef, G.acu, 0.14);
+    }
+  });
+
+  // ---------- LED e varas de luz
+  const cv = document.createElement('canvas'); cv.width = 1024; cv.height = 576;
+  const cx = cv.getContext('2d');
+  const gr = cx.createLinearGradient(0, 0, 1024, 576); gr.addColorStop(0, '#103B66'); gr.addColorStop(1, '#0E7A5E');
+  cx.fillStyle = gr; cx.fillRect(0, 0, 1024, 576);
+  cx.fillStyle = '#F7F5F0'; cx.font = 'bold 64px Arial'; cx.textAlign = 'center';
+  cx.fillText('EEEM Emir de Macedo Gomes', 512, 260); cx.font = '40px Arial'; cx.fillStyle = '#F0A04B';
+  cx.fillText('Formatura 2027', 512, 340);
+  const tex = new THREE.CanvasTexture(cv);
+  const led = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 2.81), new THREE.MeshBasicMaterial({ map: tex }));
+  led.position.set(0, 1.0 + 1.0 + 1.405, -3.0); G.luz.add(led);
+  caixa(5.1, 2.9, 0.12, 0, 3.405, -3.08, mat(0x111418), G.luz);
+  const mVara = mat(0x8A8F99, { metalness: 0.6, roughness: 0.4 }), mRefl = mat(0x222428, { metalness: 0.4 });
+  [[3.0, 12.0, 4.9], [-1.9, 8.2, 5.0], [-3.6, 6.4, 5.0]].forEach(([z, L, y]) => {
+    const v = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, L, 8), mVara);
+    v.rotation.z = Math.PI / 2; v.position.set(0, y, z); G.luz.add(v);
+    const nf = Math.round(L / 1.6);
+    for (let i = 0; i < nf; i++) caixa(0.22, 0.3, 0.3, -L / 2 + L * (i + 0.5) / nf, y - 0.2, z, mRefl, G.luz);
+  });
+  caixa(1.8, 0.85, 0.8, -0.15, 0.62 + 0.425, 17.45, mat(0x1E2633), scene);   // FOH
+
+  // ---------- Line Bonsai
+  const mCx = mat(0x1B1E24, { roughness: 0.5, metalness: 0.2 }), mGrade = mat(0x4FB3FF, { emissive: 0x0d3a66, roughness: 0.4 });
+  const mCabo = new THREE.LineBasicMaterial({ color: 0x9aa7bd });
+  const corRaio = i => new THREE.Color().setHSL(0.55 - i * 0.06, 0.85, 0.6);
+  function tierEm(z) { let h = 0; FRENTES.forEach((yf, i) => { if (z >= yf - 0.33) h = PERFIL[i]; }); if (z > 16.72) h = 0.62; return h; }
+  [-1, 1].forEach(s => {
+    const grp = new THREE.Group();
+    grp.position.set(s * ARRAY_X, ARRAY_TOPO, ARRAY_Z);
+    grp.rotation.y = -s * THREE.MathUtils.degToRad(TOE);
+    scene.add(grp);
+    caixa(0.6, 0.05, 0.42, 0, 0.04, 0.05, mat(0x6B7280, { metalness: 0.7 }), grp);   // bumper
+    let topo = new THREE.Vector3(0, 0, 0);
+    ANG.forEach((a, i) => {
+      const r = THREE.MathUtils.degToRad(a);
+      const up = new THREE.Vector3(0, Math.cos(r), Math.sin(r));
+      const centro = topo.clone().addScaledVector(up, -CX_H / 2);
+      const b = new THREE.Mesh(new THREE.BoxGeometry(CX_L, CX_H * 0.96, CX_P), mCx);
+      b.position.copy(centro); b.rotation.x = r; b.castShadow = true; grp.add(b);
+      const g = new THREE.Mesh(new THREE.PlaneGeometry(CX_L * 0.92, CX_H * 0.8), mGrade);
+      g.position.set(0, 0, CX_P / 2 + 0.002); b.add(g);
+      topo = topo.clone().addScaledVector(up, -CX_H);
+      // raio de mira até a altura do ouvido da plateia
+      grp.updateMatrixWorld(true);
+      const p0 = centro.clone().applyMatrix4(grp.matrixWorld);
+      const dir = new THREE.Vector3(0, -Math.sin(r), Math.cos(r)).applyQuaternion(grp.quaternion);
+      let p = p0.clone();
+      for (let t = 0; t < 40; t += 0.05) { p = p0.clone().addScaledVector(dir, t); if (p.y <= tierEm(p.z) + 1.12) break; }
+      const geo = new THREE.BufferGeometry().setFromPoints([p0, p]);
+      G.raios.add(new THREE.Line(geo, new THREE.LineBasicMaterial({ color: corRaio(i) })));
+      const alvo = new THREE.Mesh(new THREE.CircleGeometry(0.45, 24), new THREE.MeshBasicMaterial({ color: corRaio(i), transparent: true, opacity: 0.45, side: THREE.DoubleSide }));
+      alvo.rotation.x = -Math.PI / 2; alvo.position.set(p.x, tierEm(p.z) + 0.95, p.z); G.raios.add(alvo);
+    });
+    // limites da cobertura horizontal (±55°) a partir da caixa central
+    grp.updateMatrixWorld(true);
+    const pc = new THREE.Vector3(0, -0.6, 0).applyMatrix4(grp.matrixWorld);
+    [-55, 55].forEach(h => {
+      const d = new THREE.Vector3(0, -Math.sin(THREE.MathUtils.degToRad(16)), Math.cos(THREE.MathUtils.degToRad(16)))
+        .applyAxisAngle(new THREE.Vector3(0, 1, 0), THREE.MathUtils.degToRad(h)).applyQuaternion(grp.quaternion);
+      const geo = new THREE.BufferGeometry().setFromPoints([pc, pc.clone().addScaledVector(d, 13)]);
+      const l = new THREE.Line(geo, new THREE.LineDashedMaterial({ color: 0x4FB3FF, dashSize: 0.3, gapSize: 0.2 }));
+      l.computeLineDistances(); G.raios.add(l);
+    });
+    // cabos de suspensão ao teto
+    [-0.25, 0.25].forEach(dx => {
+      const a = new THREE.Vector3(dx, 0.06, 0.05).applyMatrix4(grp.matrixWorld);
+      scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([a, new THREE.Vector3(a.x, PE_DIREITO, a.z)]), mCabo));
+    });
+    // subwoofer 18" no chão, junto ao palco
+    const sub = caixa(0.56, 0.70, 0.75, s * 3.6, 0.35, 0.42, mat(0x151719, { roughness: 0.7 }));
+    const cone = new THREE.Mesh(new THREE.CircleGeometry(0.22, 32), mat(0x2b2f36, { roughness: 0.4 }));
+    cone.position.set(0, 0.02, 0.376); sub.add(cone);
+  });
+
+  // ---------- vistas
+  const VISTAS = {
+    geral: [[-17, 13, 27], [0, 1.5, 6]],
+    lateral: [[-30, 6.5, 6.5], [0, 2.2, 6.5]],
+    fundo: [[0, 0.62 + 1.12 + 0.2, 16.6], [0, 2.4, -2]],
+    palco: [[0, 2.9, -1.2], [0, 1.2, 12]],
+    topo: [[0, 38, 6.5], [0, 0, 6.4]],
+  };
+  function vista(v) {
+    const [p, t] = VISTAS[v]; camera.position.set(...p); controls.target.set(...t); controls.update();
+    document.querySelectorAll('#vistas button').forEach(b => b.classList.toggle('ativo', b.dataset.v === v));
+    G.paredes.visible = v === 'lateral' ? false : document.getElementById('cbParedes').checked;
+    G.acu.visible = v === 'lateral' ? false : document.getElementById('cbAcu').checked;
+  }
+  document.getElementById('vistas').addEventListener('click', e => { if (e.target.dataset.v) vista(e.target.dataset.v); });
+  [['cbRaios', 'raios'], ['cbParedes', 'paredes'], ['cbAcu', 'acu'], ['cbLuz', 'luz']].forEach(([id, g]) =>
+    document.getElementById(id).addEventListener('change', e => { G[g].visible = e.target.checked; }));
+  const h0 = (location.hash || '').replace('#', '');
+  vista(VISTAS[h0] ? h0 : 'geral');
+  window.addEventListener('hashchange', () => { const h = location.hash.replace('#', ''); if (VISTAS[h]) vista(h); });
+  window.addEventListener('resize', () => {
+    camera.aspect = el.clientWidth / el.clientHeight; camera.updateProjectionMatrix();
+    renderer.setSize(el.clientWidth, el.clientHeight);
+  });
+  (function loop() { controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop); })();
+})();
+</script>

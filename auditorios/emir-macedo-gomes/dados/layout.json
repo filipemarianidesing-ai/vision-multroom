@@ -2290,33 +2290,33 @@
      "tipo": "ret",
      "pts": [
       [
-       -7.15,
-       -0.97
+       -5.430000000000001,
+       -0.56
       ],
       [
-       -6.85,
-       -0.72
+       -4.97,
+       -0.24
       ]
      ],
      "cor": "som",
      "opacidade": 0.95,
-     "tag": "PA-1",
+     "tag": "LB-1 suspenso",
      "tag_desloc": [
-      -20,
-      14
+      -70,
+      22
      ]
     },
     {
      "tipo": "leque",
      "pts": [
       [
-       -7.0,
-       -0.8
+       -5.2,
+       -0.4
       ]
      ],
      "raio_m": 18.0,
-     "ang_ini": 14,
-     "ang_fim": 110,
+     "ang_ini": 17,
+     "ang_fim": 127,
      "cor": "som",
      "opacidade": 0.05
     },
@@ -2324,20 +2324,20 @@
      "tipo": "ret",
      "pts": [
       [
-       -2.95,
-       -0.6
+       -3.88,
+       0.05
       ],
       [
-       -2.25,
-       0.0
+       -3.3200000000000003,
+       0.8
       ]
      ],
      "cor": "som",
      "opacidade": 0.8,
-     "tag": "SUB-1",
+     "tag": "SUB-1 18\"",
      "tag_desloc": [
-      -8,
-      16
+      -60,
+      -6
      ]
     },
     {
@@ -2397,33 +2397,33 @@
      "tipo": "ret",
      "pts": [
       [
-       6.85,
-       -0.97
+       4.97,
+       -0.56
       ],
       [
-       7.15,
-       -0.72
+       5.430000000000001,
+       -0.24
       ]
      ],
      "cor": "som",
      "opacidade": 0.95,
-     "tag": "PA-2",
+     "tag": "LB-2 suspenso",
      "tag_desloc": [
-      -6,
-      14
+      8,
+      22
      ]
     },
     {
      "tipo": "leque",
      "pts": [
       [
-       7.0,
-       -0.8
+       5.2,
+       -0.4
       ]
      ],
      "raio_m": 18.0,
-     "ang_ini": 70,
-     "ang_fim": 166,
+     "ang_ini": 53,
+     "ang_fim": 163,
      "cor": "som",
      "opacidade": 0.05
     },
@@ -2431,20 +2431,20 @@
      "tipo": "ret",
      "pts": [
       [
-       2.25,
-       -0.6
+       3.3200000000000003,
+       0.05
       ],
       [
-       2.95,
-       0.0
+       3.88,
+       0.8
       ]
      ],
      "cor": "som",
      "opacidade": 0.8,
-     "tag": "SUB-2",
+     "tag": "SUB-2 18\"",
      "tag_desloc": [
-      -8,
-      16
+      14,
+      -6
      ]
     },
     {
@@ -2863,12 +2863,12 @@
     [
      "som",
      "ret",
-     "PA-1/PA-2: colunas direcionais (line array em coluna) nas faces das salas de apoio, base ≈ 2,2 m, mira para o centro-fundo."
+     "LB-1/LB-2: Line Bonsai suspenso no teto, 8 caixas por coluna, topo a ≈ 5,0 m, sobre as laterais da boca de cena, virado 18° para o centro. Inclinações 10°–32° (pré-ajuste)."
     ],
     [
      "som",
      "ret",
-     "SUB-1/SUB-2: subgraves embutidos no espelho do palco (1,00 m de altura) — controle independente, desligáveis em palestras."
+     "SUB-1/SUB-2: 2 subwoofers de 18\" no chão da plateia, junto à frente do palco — via independente, desligáveis em palestras."
     ],
     [
      "som",
@@ -2892,8 +2892,8 @@
     ]
    ],
    "notas": [
-    "Distância da caixa principal à 1ª fileira ≈ 7,6 m e à última ≈ 21 m. Fonte pontual: ≈ 9 dB de queda frente→fundo; coluna direcional: ≈ 4–5 dB antes da mira. Meta: ±3 dB (2 kHz) em toda a plateia.",
-    "Colunas direcionais concentram energia na plateia e reduzem reflexões em paredes e teto — principal ganho de inteligibilidade em sala reverberante.",
+    "Line Bonsai: cada caixa mira uma faixa da plateia (caixas 1–2 → F13–F15; 3–4 → F9–F11; 5–6 → F5–F7; 7–8 → F1–F3). Meta: ±3 dB (2 kHz) em toda a plateia. Ângulos finais no software do fabricante.",
+    "Suspenso, o som chega por cima das cabeças a todas as fileiras e concentra a energia na plateia, com menos reflexão nas paredes. Suspensão exige pontos de fixação validados pelo estrutural (peso do conjunto + bumper + cabos de segurança).",
     "Cobertura, SPL, STI e margem antes da microfonia: confirmar em simulação (EASE/fabricante) com pé-direito e materiais levantados.",
     "FOH no centro-fundo: escuta representativa da plateia. Alternativa: fileira 11–12 central com supressão de 4 lugares.",
     "Reforços DLY (se necessários) na face reta da parede superior junto ao símbolo ⊗ (≈ 11 m da borda): ponto alto, sem sombra da faixa rebaixada, alinhado às fileiras do fundo.",
