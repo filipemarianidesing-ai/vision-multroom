@@ -30,17 +30,35 @@ th { color: var(--muted); font-weight: 600; }
 .legenda span { display: flex; align-items: center; gap: 8px; }
 .legenda i { width: 14px; height: 10px; border-radius: 2px; flex: none; }
 .nota { color: var(--muted); font-size: 11px; line-height: 1.4; margin: 0; }
-@media (max-width: 640px) { .legenda { display: none; } .painel { width: calc(100vw - 24px); max-height: 46%; } }
+.painel { box-sizing: border-box; }
+.painel > * { flex-shrink: 0; }
+.topo { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+#btDet { padding: 4px 10px; font-size: 12px; }
+#detalhes { display: none; flex-direction: column; gap: 10px; }
+.painel.aberto #detalhes { display: flex; }
+.leg-mob { display: none; }
+@media (max-width: 640px) {
+  .legenda { display: none; }
+  .painel { top: auto; bottom: calc(8px + env(safe-area-inset-bottom, 0px)); left: max(8px, env(safe-area-inset-left, 0px)); width: calc(100vw - 16px); padding: 10px 12px; gap: 8px; max-height: 55%; }
+  h1 { font-size: 15px; }
+  .selo { font-size: 10px; }
+  #vistas { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; }
+  #vistas button { flex: none; }
+  .leg-mob { display: grid; gap: 4px; font-size: 12px; }
+  .leg-mob span { display: flex; align-items: center; gap: 8px; }
+  .leg-mob i { width: 14px; height: 10px; border-radius: 2px; flex: none; }
+}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap">
 
 <div id="cena" aria-label="Maquete 3D do auditório"></div>
 
-<div class="painel">
-  <span class="selo">Simulação de pré-projeto</span>
+<div class="painel" id="painel">
+  <div class="topo">
+    <span class="selo">Simulação de pré-projeto</span>
+    <button id="btDet" aria-expanded="false" aria-controls="detalhes">Detalhes ▴</button>
+  </div>
   <h1>Auditório EEEM Emir de Macedo Gomes</h1>
-  <p class="sub">Sistema Line Bonsai: duas colunas suspensas de 8 caixas, com ângulos para cobrir da 1ª à 15ª fileira, mais 2 subwoofers de 18" no chão. Paredes em dente de serra e palco em leque, conforme a planta.</p>
-  <div class="rotulo">Vistas</div>
   <div class="grupo" id="vistas">
     <button data-v="geral" class="ativo">Geral</button>
     <button data-v="lateral">Corte lateral</button>
@@ -48,6 +66,8 @@ th { color: var(--muted); font-weight: 600; }
     <button data-v="palco">Do palco</button>
     <button data-v="topo">Planta</button>
   </div>
+  <div id="detalhes">
+  <p class="sub">Sistema Line Bonsai: duas colunas suspensas de 8 caixas, com ângulos para cobrir da 1ª à 15ª fileira, mais 2 subwoofers de 18" no chão. Paredes em dente de serra e palco em leque, conforme a planta.</p>
   <div class="rotulo">Camadas</div>
   <label><input type="checkbox" id="cbRaios" checked> Mira de cada caixa (cobertura)</label>
   <label><input type="checkbox" id="cbParedes" checked> Paredes</label>
@@ -59,6 +79,14 @@ th { color: var(--muted); font-weight: 600; }
     <tbody id="tabAng"></tbody>
   </table>
   <p class="nota">Pé-direito de 5,5 m e paredes inferiores de 3,2 m são hipóteses até a vistoria. Dimensões das caixas são ilustrativas: os ângulos finais saem do software do fabricante com a ficha da Line Bonsai.</p>
+  <div class="leg-mob" aria-label="Legenda">
+    <span><i style="background:#4FB3FF"></i>Line Bonsai (8 caixas por lado)</span>
+    <span><i style="background:#1A1A1A;border:1px solid #666"></i>Subwoofer 18" (2, no chão)</span>
+    <span><i style="background:#8E6FD8"></i>Arquibancada (até +0,82)</span>
+    <span><i style="background:#D9558B"></i>Superfície absorvente</span>
+    <span><i style="background:#9C6B3C"></i>Face refletora (voltada ao palco)</span>
+  </div>
+  </div>
 </div>
 
 <div class="legenda" aria-label="Legenda">
@@ -289,8 +317,15 @@ th { color: var(--muted); font-weight: 600; }
     palco: [[0, 2.9, -1.2], [0, 1.2, 12]],
     topo: [[0, 38, 6.5], [0, 0, 6.4]],
   };
+  const painel = document.getElementById('painel'), btDet = document.getElementById('btDet');
+  function abrir(on) { painel.classList.toggle('aberto', on); btDet.setAttribute('aria-expanded', on); btDet.textContent = on ? 'Ocultar ▾' : 'Detalhes ▴'; }
+  abrir(window.innerWidth > 640);
+  btDet.addEventListener('click', () => abrir(!painel.classList.contains('aberto')));
   function vista(v) {
-    const [p, t] = VISTAS[v]; camera.position.set(...p); controls.target.set(...t); controls.update();
+    const [p, t] = VISTAS[v];
+    const asp = el.clientWidth / el.clientHeight, f = asp < 1 ? Math.min(2.2, 1.25 / asp) : 1;
+    const pos = (v === 'fundo' || v === 'palco') ? p : p.map((c, i) => t[i] + (c - t[i]) * f);
+    camera.position.set(...pos); controls.target.set(...t); controls.update();
     document.querySelectorAll('#vistas button').forEach(b => b.classList.toggle('ativo', b.dataset.v === v));
     G.paredes.visible = v === 'lateral' ? false : document.getElementById('cbParedes').checked;
     G.acu.visible = v === 'lateral' ? false : document.getElementById('cbAcu').checked;
