@@ -60,13 +60,14 @@ O auditório **não é uma caixa retangular**. Acima da parede de baixo, as late
 ### 3.1 Visibilidade — piso plano com palco alto
 Com o palco 1,00 m acima e a plateia plana, o valor C (folga da linha de visão sobre o olho da fileira da frente) fica abaixo de 0,06 m da 4ª fileira em diante para um ponto focal 0,40 m acima do piso do palco [C]. Na prática, quem está do meio para trás vê o apresentador **só da cintura para cima**, e não vê quem está sentado ou no chão do palco (teatro, coral, formatura).
 
-**Proposta (perfil B):** manter as fileiras 1–3 em +0,20 (zona acessível) e elevar progressivamente as fileiras 4–15 até +0,82, com patamar no fundo. Os corredores laterais viram **rampas com corrimão duplo** (inclinação variável ≤ 8 %, desnível total 0,62 m). Isso dá rota acessível a todos os níveis. O perfil A (C = 0,08 m) levaria o fundo a +1,28 e exigiria degraus; não é recomendado sem reprojeto das saídas. [C] — ver pranchas ARQ-01 e ARQ-02.
+**Proposta (perfil B):** manter as fileiras 1–3 em +0,20 (zona acessível) e elevar progressivamente as fileiras 4–15 até +0,82. O **corredor do fundo (1,98 m) continua no nível atual, +0,20**, ligando as duas portas dos cantos do fundo; a fileira 15 termina com guarda-corpo de vidro e **duas escadas de 4 degraus** (15,5 × 30 cm) descem até o corredor, junto às portas. Os corredores laterais viram **rampas com corrimão duplo** (inclinação variável ≤ 8 %, desnível total 0,62 m). Isso dá rota acessível a todos os níveis. O perfil A (C = 0,08 m) levaria o fundo a +1,28 e exigiria degraus; não é recomendado sem reprojeto das saídas. [C] — ver pranchas ARQ-01 e ARQ-02.
 
 **Por que a elevação ajuda a acústica:** o som direto que passa rasante sobre as cabeças é atenuado pela plateia, sobretudo entre 100 e 400 Hz (efeito de incidência rasante). Elevar as fileiras reduz esse efeito, melhora a voz natural, o teatro e a música acústica, e encurta o caminho livre até o fundo. Com sistema de som, o ganho principal vem das colunas bem miradas, e a elevação complementa. O vazio sob os patamares vira caminho de cabos e recebe lã mineral para não ressoar.
 
 **Condicionantes (afetam custo e viabilidade):**
-- As **portas do fundo** estão em +0,20 e o patamar ficaria em +0,82. É preciso compatibilizar com degraus e rampa junto às portas, nova soleira com patamar externo ou relocação da saída. Isso exige **revisão do PSCIP no CBMES**. [V]
-- **Pé-direito** sobre o patamar do fundo, com meta de ≥ 2,50 m livres. [V]
+- As **duas portas do fundo** (paredes laterais, entre 17,1 e 18,5 m do palco) ficam no nível atual e continuam acessadas pelo corredor do fundo, que não é elevado. A rota de fuga desenhada no PSCIP é mantida. A mudança de layout da plateia ainda exige **revisão do PSCIP no CBMES**. Cadeirantes saem pelas rampas até a porta da frente. [P]+[V]
+- **Pé-direito** sobre a fileira 15 e as rampas, com meta de ≥ 2,50 m livres. [V]
+- **Operação (FOH)** no centro da fileira 15, no lugar de 4 poltronas; os 2 espaços P.C.R. do fundo ficam nas pontas da fileira 15.
 - **Estrutura do piso existente** e carga de uso da arquibancada (NBR 6120), validadas por engenheiro estrutural. [V]
 
 ### 3.2 Inteligibilidade da fala
@@ -101,7 +102,7 @@ Ver aba **Pendências** da planilha `05_Quadro_Tecnico_e_Orcamento_Emir.xlsx` e 
 1. Pé-direito e forro.
 2. Nível real do piso e estrutura existente.
 3. Lotação e situação do PSCIP.
-4. Lado externo das portas do fundo.
+4. Portas do fundo: largura livre, sentido de abertura e barra antipânico.
 5. Quadro elétrico.
 6. Medição de TR e de ruído de fundo.
 7. Estado das poltronas.

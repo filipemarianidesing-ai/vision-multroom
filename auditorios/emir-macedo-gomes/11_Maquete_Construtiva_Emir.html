@@ -100,6 +100,7 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
     <button data-v="poltronas">Poltronas</button>
     <button data-v="difusor">Difusores</button>
     <button data-v="fundo">Da última fileira</button>
+    <button data-v="portas">Portas do fundo</button>
   </div>
   <div id="detalhes">
     <div class="rotulo">Especificação desta etapa</div>
@@ -148,7 +149,7 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
       s: '<ul><li>Lã de rocha 50 mm, 32 kg/m³, sobre o piso existente</li><li>2 eletrodutos Ø 2" (áudio/rede) e 1 Ø 1" (energia) até a FOH</li><li>Caixas de passagem com tampa a cada 6–8 m</li></ul>' },
     { n: 'Deck e madeira', t: '<strong>Etapa 3:</strong> piso fechado em compensado naval 20 mm e espelhos dos degraus em madeira, com LED de balizamento.',
       s: '<ul><li>Compensado naval 20 mm, placas de 1,22 × 2,44 m (base para fixar as poltronas)</li><li>Espelhos dos degraus em madeira: degraus baixos, de até 8 cm</li><li>Perfil de alumínio na borda e fita LED em cada degrau</li></ul>' },
-    { n: 'Carpete e corrimãos', t: '<strong>Etapa 4:</strong> carpete nos patamares e rampas, faixa antiderrapante nas bordas, corrimão duplo e guarda-corpo de vidro no patamar do fundo.',
+    { n: 'Carpete e corrimãos', t: '<strong>Etapa 4:</strong> carpete nos patamares e rampas, faixa antiderrapante nas bordas, corrimão duplo, guarda-corpo de vidro na fileira 15 e escadas para o corredor do fundo, que liga as duas portas.',
       s: '<ul><li>Carpete em placas, náilon, tráfego intenso, classe de reação ao fogo exigida pelo CBMES</li><li>Faixa antiderrapante contrastante na borda de cada patamar</li><li>Corrimão duplo em aço inox (0,70 e 0,92 m) nas rampas</li><li>Guarda-corpo de vidro laminado no fundo (NBR 14718)</li></ul>' },
     { n: 'Poltronas', t: '<strong>Etapa 5:</strong> poltronas estofadas com assento rebatível, fixadas no patamar, e 6 espaços para cadeira de rodas. Use “Rebater assentos” para ver a passagem livre.',
       s: '<ul><li>Poltrona estofada, encosto alto, assento rebatível por mola/contrapeso</li><li>Braço compartilhado, prancheta escamoteável opcional</li><li>Fixação no patamar com chumbador</li><li>6 espaços P.C.R. + 6 assentos reservados (Dec. 5.296/2004)</li></ul>' },
@@ -221,7 +222,7 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
     lista.forEach((t, i) => { o.position.set(t[0], t[1], t[2]); o.rotation.set(t[3] || 0, t[4] || 0, t[5] || 0); o.scale.set(t[6] || 1, t[7] || 1, t[8] || 1); o.updateMatrix(); im.setMatrixAt(i, o.matrix); });
     im.castShadow = im.receiveShadow = true; g.add(im); return im;
   }
-  const alturaEm = z => { let h = 0; FR.forEach((f, i) => { if (z >= f - 0.33) h = PERFIL[i]; }); return z > 16.72 ? 0.62 : h; };
+  const alturaEm = z => { let h = 0; FR.forEach((f, i) => { if (z >= f - 0.33) h = PERFIL[i]; }); return z > 16.72 ? 0 : h; };
 
   // ===================== 0 — existente
   const g0 = E[0];
@@ -231,6 +232,7 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
   caixa(12.6, 1.0, 6.0, 0, 0.5, -3.97, mPalco, g0);
   caixa(9.0, 1.0, 0.97, 0, 0.5, -0.485, mPalco, g0);
   [-1, 1].forEach(s => caixa(3.0, 3.0, 2.35, s * 7.8, 1.5, -2.145, mat(0x3B4356), g0));
+  [-1, 1].forEach(s => { caixa(0.08, 2.1, 1.4, s * (XW - 0.04), 1.05, 17.8, mat(0x6B4A2B, { map: tMadeira }), g0); caixa(0.1, 0.18, 0.5, s * (XW - 0.07), 2.35, 17.8, new THREE.MeshBasicMaterial({ color: 0x22C55E }), g0); });
   const mPar = mat(0xCDD2DB, { transparent: true, opacity: 0.30, side: THREE.DoubleSide, depthWrite: false });
   const mParS = mat(0xDDE1E8, { transparent: true, opacity: 0.36, side: THREE.DoubleSide, depthWrite: false });
   [-1, 1].forEach(s => painel([s * XW, -0.97], [s * XW, YF], 0, H_INF, mPar, g0, 0.15));
@@ -269,10 +271,9 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
   instancias(Lgeo, mAco, pilaretes.map(([x, y, z, a, b, c, sx, sy]) => [x, y, z, Math.PI / 2, 0, 0, 1, 1, sy]), g1);
   instancias(new THREE.BoxGeometry(0.15, 0.012, 0.15), mAcoEsc, bases, g1);
   // patamar do fundo
-  const patV = [], patP = [];
-  for (let z = 16.75; z <= YF - 0.1; z += 0.6) { patV.push([0, 0.62 - DECK - 0.05, z]); [-8.8, -6, -3, 0, 3, 6, 8.8].forEach(x => patP.push([x, 0.25, z, 0, 0, 0, 1, 0.5, 1])); }
-  instancias(new THREE.BoxGeometry(2 * XW - 0.3, 0.1, 0.05), mAco, patV, g1);
-  instancias(new THREE.BoxGeometry(0.05, 1, 0.05), mAco, patP, g1);
+  const escV = [];
+  [-1, 1].forEach(s => [0.465, 0.31, 0.155].forEach((hh, k) => { const z = 16.72 + 0.15 + 0.30 * k; escV.push([s * 6.35, hh - DECK - 0.03, z, 0, 0, 0, 1, 1, 0.3]); escV.push([s * 7.85, hh - DECK - 0.03, z, 0, 0, 0, 1, 1, 0.3]); }));
+  instancias(Lgeo, mAco, escV, g1);
   // rampas laterais (vigas inclinadas + pilaretes)
   const rampV = [], rampP = [];
   [-1, 1].forEach(s => {
@@ -292,7 +293,6 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
   const g2 = E[2];
   const mLa = mat(0xE8C64A, { transparent: true, opacity: 0.55, roughness: 1 }, true);
   FR.forEach((f, i) => { const h = PERFIL[i]; if (h < 0.11) return; caixa(2 * XB - 0.1, 0.05, 0.96, 0, 0.025, f + 0.17, mLa, g2); });
-  caixa(2 * XW - 0.2, 0.05, YF - 16.8, 0, 0.025, (16.72 + YF) / 2, mLa, g2);
   const mDuto = mat(0x2E2E33, { roughness: 0.5 }, true);
   [[-7.6, 0.06, 1.0, -7.6, 0.06, 17.3], [-7.6, 0.06, 17.3, 0, 0.06, 17.3], [-7.5, 0.06, 1.0, -7.5, 0.06, 17.2]].forEach(([x0, y0, z0, x1, y1, z1]) => {
     const L = Math.hypot(x1 - x0, z1 - z0), d = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, L, 10), mDuto);
@@ -311,8 +311,11 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
     const hp = h - (PERFIL[i - 1] || 0);
     if (hp > 0.005) { caixa(2 * XB, hp, 0.02, 0, (PERFIL[i - 1] || 0) + hp / 2, f - 0.33, mEsp, g3); caixa(2 * XB, 0.014, 0.006, 0, h - 0.014, f - 0.346, mLed, g3); }
   });
-  caixa(2 * XW, DECK, YF - 16.72, 0, 0.62 - DECK / 2, (16.72 + YF) / 2, mDeck, g3);
-  caixa(2 * XB, 0.08, 0.02, 0, 0.58, 16.72, mEsp, g3);
+  caixa(2 * XB, 0.62, 0.02, 0, 0.31, 16.73, mEsp, g3);
+  [-1, 1].forEach(s => {
+    caixa(1.4, 0.62, 0.02, s * 8.6, 0.31, 16.73, mEsp, g3);
+    [0.465, 0.31, 0.155].forEach((hh, k) => { const z = 16.72 + 0.15 + 0.30 * k; caixa(1.6, DECK, 0.30, s * 7.1, hh - DECK / 2, z, mDeck, g3); caixa(1.6, 0.155, 0.02, s * 7.1, hh - 0.0775, z + 0.15, mEsp, g3); caixa(1.6, 0.012, 0.006, s * 7.1, hh - 0.012, z + 0.155, mLed, g3); });
+  });
   const rampas = [];
   [-1, 1].forEach(s => { for (let i = 3; i < 15; i++) { const z0 = FR[i] - 0.33, h0 = PERFIL[i - 1] || 0, h1 = PERFIL[i]; rampas.push([s, z0, h0, h1]); } });
   rampas.forEach(([s, z0, h0, h1]) => {
@@ -328,7 +331,8 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
   const plano = (x, z, w, d, y, m, g, rx = 0) => { const p = new THREE.Mesh(new THREE.PlaneGeometry(w, d), m); p.rotation.x = -Math.PI / 2 + rx; p.position.set(x, y, z); p.receiveShadow = true; g.add(p); return p; };
   plano(0, (1.72 - 0.97) / 2, 2 * XW, 1.72 + 0.97, 0.012, mCarp, g4);
   FR.forEach((f, i) => { const h = PERFIL[i]; plano(0, f + 0.17, 2 * XB, 1.0, h + 0.004 + (h > 0 ? 0 : 0.008), mCarp, g4); if (h - (PERFIL[i - 1] || 0) > 0.005) caixa(2 * XB, 0.004, 0.05, 0, h + 0.006, f - 0.31, mFaixa, g4); });
-  plano(0, (16.72 + YF) / 2, 2 * XW, YF - 16.72, 0.624, mCarp, g4);
+  plano(0, (16.72 + YF) / 2, 2 * XW, YF - 16.72, 0.016, mat(0x3C6B55, { map: tCarpete, roughness: 1 }), g4);
+  [-1, 1].forEach(s => [0.465, 0.31, 0.155].forEach((hh, k) => plano(s * 7.1, 16.72 + 0.15 + 0.30 * k, 1.6, 0.30, hh + 0.004, mCarp, g4)));
   [-1, 1].forEach(s => { plano(s * (XB + XW) / 2, (1.72 + 4.72) / 2, XW - XB, 3.0, 0.016, mCarp, g4); });
   rampas.forEach(([s, z0, h0, h1]) => {
     const L = Math.hypot(1.0, h1 - h0), p = plano(s * (XB + XW) / 2, z0 + 0.5, XW - XB, L, (h0 + h1) / 2 + 0.004, mCarp, g4);
@@ -336,25 +340,27 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
   });
   const mInox = mat(0xE3E7EC, { metalness: 0.3, roughness: 0.3 });
   [-1, 1].forEach(s => [XB + 0.06, XW - 0.06].forEach(x => [0.70, 0.92].forEach(hc => {
-    const pts = []; for (let z = 4.4; z <= 16.9; z += 0.25) pts.push(new THREE.Vector3(s * x, alturaEm(Math.min(z, 16.7)) + hc, z));
+    const pts = []; for (let z = 4.4; z <= 16.6; z += 0.25) pts.push(new THREE.Vector3(s * x, alturaEm(Math.min(z, 16.6)) + hc, z));
     const tubo = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 60, 0.02, 8), mInox); g4.add(tubo);
     for (let z = 4.6; z <= 16.7; z += 1.5) caixa(0.03, hc, 0.03, s * x, alturaEm(z) + hc / 2, z, mInox, g4);
   })));
   // balizamento de LED ao longo das rampas
   [-1, 1].forEach(s => [XB + 0.14, XW - 0.22].forEach(x => {
-    const pts = []; for (let z = 1.2; z <= 16.7; z += 0.25) pts.push(new THREE.Vector3(s * x, alturaEm(z) + 0.012, z));
+    const pts = []; for (let z = 1.2; z <= 16.6; z += 0.25) pts.push(new THREE.Vector3(s * x, alturaEm(z) + 0.012, z));
     g4.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 80, 0.012, 6), mLed));
   }));
   const mVidro = new THREE.MeshPhysicalMaterial({ color: 0xBFE3F2, transparent: true, opacity: 0.25, roughness: 0.05, metalness: 0, side: THREE.DoubleSide });
-  caixa(2 * XB, 1.05, 0.02, 0, 0.62 + 0.525, 16.74, mVidro, g4);
-  caixa(2 * XB, 0.04, 0.06, 0, 0.62 + 1.07, 16.74, mInox, g4);
+  caixa(2 * XB, 1.05, 0.02, 0, 0.62 + 0.525, 16.70, mVidro, g4);
+  caixa(2 * XB, 0.04, 0.06, 0, 0.62 + 1.07, 16.70, mInox, g4);
+  [-1, 1].forEach(s => { caixa(1.4, 1.05, 0.02, s * 8.6, 0.62 + 0.525, 16.70, mVidro, g4); caixa(1.4, 0.04, 0.06, s * 8.6, 0.62 + 1.07, 16.70, mInox, g4);
+    [6.32, 7.88].forEach(x => { const c = new THREE.CatmullRomCurve3([new THREE.Vector3(s * x, 0.62 + 0.92, 16.6), new THREE.Vector3(s * x, 0.155 + 0.92, 17.6), new THREE.Vector3(s * x, 0.92, 17.9)]); g4.add(new THREE.Mesh(new THREE.TubeGeometry(c, 20, 0.02, 8), mInox)); }); });
 
   // ===================== 5 — poltronas com assento rebatível
   const g5 = E[5];
   const passo = (2 * XB) / 18;
   const LUG = [];
-  const pcr = new Set(['2-0', '2-17', '9-0', '9-17']);
-  FR.forEach((f, i) => { for (let j = 0; j < 18; j++) { if (i === 0 && j < 4) continue; if (pcr.has(i + '-' + j)) continue; LUG.push([-XB + passo * (j + 0.5), PERFIL[i], f]); } });
+  const pcr = new Set(['2-0', '2-17', '9-0', '9-17', '14-0', '14-17']);
+  FR.forEach((f, i) => { for (let j = 0; j < 18; j++) { if (i === 0 && j < 4) continue; if (pcr.has(i + '-' + j)) continue; if (i === 14 && j >= 7 && j <= 10) continue; LUG.push([-XB + passo * (j + 0.5), PERFIL[i], f]); } });
   const mEst = mat(0x2B4A86, { roughness: 0.95 }, true), mEstEsc = mat(0x1F3766, { roughness: 0.95 }, true);
   const mPreto = mat(0x1B1D22, { roughness: 0.6, metalness: 0.3 }, true), mBraco = mat(0x6B4A2B, { map: tMadeira, roughness: 0.5 }, true);
   const encosto = instancias(new THREE.BoxGeometry(0.54, 0.62, 0.09), mEst, LUG.map(([x, h, f]) => [x, h + 0.80, f + 0.60, -0.12]), g5);
@@ -376,7 +382,7 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
   }
   posAssentos(0);
   const mPcr = mat(0x2F7DF6, { emissive: 0x0b2a66 });
-  [[0, 2], [17, 2], [0, 9], [17, 9]].forEach(([j, i]) => caixa(0.8, 0.012, 1.0, -XB + passo * (j + 0.5), PERFIL[i] + 0.012, FR[i] + 0.3, mPcr, g5));
+  [[0, 2], [17, 2], [0, 9], [17, 9], [0, 14], [17, 14]].forEach(([j, i]) => caixa(0.8, 0.012, 1.0, -XB + passo * (j + 0.5), PERFIL[i] + 0.012, FR[i] + 0.3, mPcr, g5));
   caixa(2.6, 0.012, 1.4, -4.88, 0.024, 2.0, mPcr, g5);
 
   // ===================== 6 — acústica
@@ -446,7 +452,7 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
     const v = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, L, 8), mVara); v.rotation.z = Math.PI / 2; v.position.set(0, y, z); g7.add(v);
     const nf = Math.round(L / 1.6); for (let i = 0; i < nf; i++) caixa(0.22, 0.3, 0.3, -L / 2 + L * (i + 0.5) / nf, y - 0.2, z, mRefl, g7);
   });
-  caixa(1.8, 0.85, 0.8, -0.15, 0.62 + 0.425, 17.45, mat(0x1E2633), g7);
+  caixa(2.4, 0.85, 0.7, 0, 0.62 + 0.425, 16.25, mat(0x1E2633), g7);
   const ANG = [10, 11, 13, 15, 18, 21, 26, 32];
   const mCx = mat(0x1B1E24, { roughness: 0.5, metalness: 0.2 }), mGr = mat(0x4FB3FF, { emissive: 0x0d3a66 });
   [-1, 1].forEach(s => {
@@ -494,7 +500,8 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
     estrutura: [[-7.6, 2.6, 2.6], [-1.5, 0.2, 12.5]],
     poltronas: [[-3.0, 1.75, 6.0], [-4.6, 0.75, 9.6]],
     difusor: [[1.6, 2.1, 12.5], [0, 2.1, 18.6]],
-    fundo: [[0, 0.62 + 1.12 + 0.2, 16.6], [0, 2.4, -2]],
+    fundo: [[-3.2, 0.62 + 1.12 + 0.2, 16.3], [0, 2.4, -2]],
+    portas: [[0.5, 2.6, 13.2], [-8.0, 0.6, 18.0]],
     luz: [[-1.5, 2.6, 0.2], [-7.4, 0.2, 14.5]],
   };
   function vista(v) {
@@ -522,14 +529,16 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
     { l: 1, p: [-2.5, 0.40, 13.75], t: 'Cantoneira de aço L 40 mm', d: 'Perfis de aço em L formam as vigas e os pés de cada nível. É a parte que sustenta o peso da plateia.' },
     { l: 1, p: [-5.0, 0.02, 12.7], t: 'Chapa de base chumbada', d: 'Cada pé tem uma chapa de aço presa no piso com parafusos de chumbamento. Não é preciso quebrar o piso existente.' },
     { l: 1, p: [0.6, 0.50, 15.3], t: 'Travamento a cada 60 cm', d: 'Travessas de aço a cada 60 cm deixam o piso firme. Ninguém sente o chão balançar ao caminhar.' },
-    { l: 1, p: [-7.8, 0.35, 11.0], t: 'Rampas laterais', d: 'Os corredores de 3,04 m viram rampas que sobem até o fundo, a +0,82. Toda a plateia fica acessível.' },
+    { l: 1, p: [-7.8, 0.35, 11.0], t: 'Rampas laterais', d: 'Os corredores de 3,04 m viram rampas que sobem até a fileira 15, a +0,82. Toda a plateia fica acessível.' },
     { l: 2, p: [2.0, 0.06, 14.2], t: 'Lã mineral', d: 'Lã de rocha no vão sob o piso. O piso não ressoa como tambor quando as pessoas andam.' },
     { l: 2, p: [-7.6, 0.10, 8.0], t: 'Eletrodutos até a operação', d: 'Os cabos de som, vídeo e rede vão do palco até a mesa de operação por baixo da arquibancada, sem fio solto.' },
     { l: 3, p: [3.0, 0.47, 14.2], t: 'Compensado naval 20 mm', d: 'Placa de madeira própria para ambiente úmido. Cobre todo o piso e recebe a fixação das poltronas.' },
     { l: 3, p: [-1.0, 0.22, 9.72], t: 'Degraus em madeira com LED', d: 'A frente de cada nível é fechada em madeira, com degraus baixos de até 8 cm e luz de LED na borda.' },
     { l: 4, p: [2.0, 0.34, 12.2], t: 'Carpete', d: 'Carpete em placas, de tráfego intenso, com faixa antiderrapante na borda de cada degrau. Ajuda a acústica.' },
     { l: 4, p: [7.73, 1.20, 10.0], t: 'Corrimão em inox', d: 'Corrimão duplo, a 70 e 92 cm, nos dois lados das rampas.' },
-    { l: 4, p: [3.0, 1.30, 16.74], t: 'Guarda-corpo de vidro', d: 'No fundo, o patamar termina com guarda-corpo de vidro: protege sem tapar a visão.' },
+    { l: 4, p: [3.0, 1.30, 16.70], t: 'Guarda-corpo de vidro', d: 'A fileira 15 termina com guarda-corpo de vidro de 1,10 m sobre o corredor do fundo: protege sem tapar a visão.' },
+    { l: 4, p: [-7.1, 0.55, 17.2], t: 'Escada para as portas do fundo', d: 'Duas escadas de 4 degraus (15,5 cm) descem do topo ao corredor do fundo, junto às duas portas existentes. O corredor continua no nível atual e a rota de fuga fica igual.' },
+    { l: 0, p: [-9.0, 1.2, 17.8], t: 'Portas do fundo mantidas', d: 'As duas portas nos cantos do fundo continuam no nível atual (+0,20), acessadas pelo corredor do fundo de 1,98 m.' },
     { l: 5, p: [-3.5, 0.95, 9.5], t: 'Poltrona com assento rebatível', d: 'Poltronas estofadas, assento que levanta sozinho e libera a passagem. A escola escolhe a cor e o tecido.' },
     { l: 5, p: [-5.9, 0.35, 11.35], t: 'Espaço para cadeira de rodas', d: 'São 6 espaços com lugar para acompanhante, na frente, no meio e no fundo, com boa visão do palco.' },
     { l: 6, p: [0, 2.3, 18.45], t: 'Difusor de madeira', d: 'Os poços de profundidades diferentes espalham o som. Evita o eco que volta para o palco e deixa a voz natural.' },
@@ -541,7 +550,7 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
     { l: 7, p: [3.6, 0.85, 0.42], t: 'Subwoofer 18"', d: 'Dois subwoofers no chão, junto ao palco: graves para música e formaturas, desligados na palestra.' },
     { l: 7, p: [0, 4.95, -3.0], t: 'Painel de LED 5,00 × 2,81 m', d: 'Imagem Full HD visível com a luz acesa, para apresentações, vídeos e formaturas.' },
     { l: 7, p: [0, 4.75, -1.9], t: 'Varas de luz com DMX', d: 'Refletores LED em varas, com cenas prontas: palestra, cerimônia, apresentação e vídeo.' },
-    { l: 7, p: [-0.15, 1.6, 17.45], t: 'Operação', d: 'Mesa de som, luz e vídeo no centro do fundo, sobre o patamar, com visão e escuta da plateia.' },
+    { l: 7, p: [0, 1.6, 16.25], t: 'Operação', d: 'Mesa de som, luz e vídeo no centro da fileira 15, no lugar de 4 poltronas: visão e escuta da plateia, sem ocupar o corredor do fundo.' },
   ];
   const camHS = document.getElementById('hsCamada');
   HS.forEach((h, i) => { const b = document.createElement('button'); b.className = 'hs'; b.hidden = true; b.setAttribute('aria-label', h.t); b.addEventListener('click', () => abrirCard(i)); camHS.appendChild(b); h.el = b; });
@@ -551,7 +560,7 @@ h1 { font-family: var(--f-head); font-weight: 400; letter-spacing: .02em; }
   // ---------- medidas
   const MED = [
     { p: [0, 0.1, -0.6], t: 'boca 9,00 m' }, { p: [0, 0.1, 19.0], t: 'largura 18,60 m' }, { p: [-9.9, 0.1, 9.0], t: '19,45 m' },
-    { p: [6.6, 0.75, 17.6], t: 'topo +0,82' }, { p: [6.6, 0.25, 3.0], t: 'frente +0,20' }, { p: [-7.8, 1.0, 9.5], t: 'rampa ≤ 8 %' },
+    { p: [4.5, 1.0, 16.2], t: 'topo +0,82' }, { p: [3.0, 0.3, 17.7], t: 'corredor do fundo +0,20' }, { p: [6.6, 0.25, 3.0], t: 'frente +0,20' }, { p: [-7.8, 1.0, 9.5], t: 'rampa ≤ 8 %' },
     { p: [3.5, 0.55, 10.1], t: 'fileiras a cada 1,00 m' }, { p: [-7.0, 4.0, 1.0], t: 'pé-direito 5,5 m (hipótese)' }, { p: [0, 1.4, -1.2], t: 'palco 1,00 m' },
   ];
   MED.forEach(m => { const d = document.createElement('div'); d.className = 'med'; d.textContent = m.t; d.hidden = true; camHS.appendChild(d); m.el = d; });

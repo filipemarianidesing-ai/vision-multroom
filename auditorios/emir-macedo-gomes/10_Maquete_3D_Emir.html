@@ -91,6 +91,7 @@ body:not(.limpo) #btAbrir { display: none; }
     <span><i style="background:#4FB3FF"></i>Line Bonsai (8 caixas por lado)</span>
     <span><i style="background:#1A1A1A;border:1px solid #666"></i>Subwoofer 18" (2, no chão)</span>
     <span><i style="background:#8E6FD8"></i>Arquibancada (até +0,82)</span>
+  <span><i style="background:#2E8B57"></i>Corredor do fundo +0,20 e portas</span>
     <span><i style="background:#D9558B"></i>Superfície absorvente</span>
     <span><i style="background:#9C6B3C"></i>Face refletora (voltada ao palco)</span>
   </div>
@@ -101,6 +102,7 @@ body:not(.limpo) #btAbrir { display: none; }
   <span><i style="background:#4FB3FF"></i>Line Bonsai (8 caixas por lado)</span>
   <span><i style="background:#1A1A1A;border:1px solid #666"></i>Subwoofer 18" (2, no chão)</span>
   <span><i style="background:#8E6FD8"></i>Arquibancada (até +0,82)</span>
+  <span><i style="background:#2E8B57"></i>Corredor do fundo +0,20 e portas</span>
   <span><i style="background:#D9558B"></i>Superfície absorvente</span>
   <span><i style="background:#9C6B3C"></i>Face refletora (voltada ao palco)</span>
   <span><i style="background:#3FD39A"></i>Painel LED 5,00 × 2,81 m</span>
@@ -171,7 +173,17 @@ body:not(.limpo) #btAbrir { display: none; }
     const h = PERFIL[i]; if (h <= 0) return;
     caixa(2 * XB, h, 1.0, 0, h / 2, yf + 0.17, mTier);
   });
-  caixa(2 * XW, 0.62, Y_FUNDO - 16.72, 0, 0.31, (16.72 + Y_FUNDO) / 2, mTier);
+  // corredor do fundo mantido em +0,20 (liga as 2 portas) e escadas de 4 degraus
+  const mCorr = mat(0x2E8B57, { roughness: 0.9 });
+  caixa(2 * XW, 0.012, Y_FUNDO - 16.72, 0, 0.006, (16.72 + Y_FUNDO) / 2, mCorr);
+  [-1, 1].forEach(s => {
+    [0.465, 0.31, 0.155].forEach((hh, k) => caixa(1.6, hh, 0.30, s * 7.1, hh / 2, 16.72 + 0.15 + 0.30 * k, mTier));
+    caixa(0.08, 2.1, 1.4, s * (XW - 0.04), 1.05, 17.8, mat(0x2FBF71, { emissive: 0x0d4d2a }));
+    caixa(0.1, 0.18, 0.5, s * (XW - 0.06), 2.35, 17.8, mat(0x22C55E, { emissive: 0x16a34a }));
+  });
+  const mVidroGC = mat(0xBFE3F2, { transparent: true, opacity: 0.35 });
+  caixa(2 * XB, 1.1, 0.02, 0, 0.62 + 0.55, 16.72, mVidroGC);
+  [-1, 1].forEach(s => caixa(1.4, 1.1, 0.02, s * 8.6, 0.62 + 0.55, 16.72, mVidroGC));
   [-1, 1].forEach(s => {   // rampas laterais acompanhando o perfil
     for (let i = 3; i < 15; i++) {
       const z0 = FRENTES[i] - 0.33, z1 = z0 + 1.0, h0 = PERFIL[i - 1] || 0, h1 = PERFIL[i];
@@ -194,7 +206,7 @@ body:not(.limpo) #btAbrir { display: none; }
   const assento = new THREE.InstancedMesh(new THREE.BoxGeometry(0.52, 0.12, 0.48), mAss, nAss);
   const encosto = new THREE.InstancedMesh(new THREE.BoxGeometry(0.52, 0.55, 0.1), mEnc, nAss);
   const dm = new THREE.Object3D(); let n = 0;
-  const pcr = new Set(['2-0', '2-17', '9-0', '9-17']);
+  const pcr = new Set(['2-0', '2-17', '9-0', '9-17', '14-0', '14-17', '14-7', '14-8', '14-9', '14-10']);
   FRENTES.forEach((yf, i) => {
     for (let j = 0; j < 18; j++) {
       if (i === 0 && j < 4) continue;
@@ -208,7 +220,7 @@ body:not(.limpo) #btAbrir { display: none; }
   assento.castShadow = encosto.castShadow = true;
   scene.add(assento, encosto);
   const mPcr = mat(0x2F7DF6, { emissive: 0x0b2a66 });
-  [[0, 2], [17, 2], [0, 9], [17, 9]].forEach(([j, i]) => caixa(0.8, 0.02, 1.0, -XB + passo * (j + 0.5), PERFIL[i] + 0.02, FRENTES[i] + 0.3, mPcr));
+  [[0, 2], [17, 2], [0, 9], [17, 9], [0, 14], [17, 14]].forEach(([j, i]) => caixa(0.8, 0.02, 1.0, -XB + passo * (j + 0.5), PERFIL[i] + 0.02, FRENTES[i] + 0.3, mPcr));
   caixa(-3.58 + 6.19, 0.02, 1.5, (-6.19 - 3.58) / 2, 0.02, 2.0, mPcr);
 
   // ---------- paredes
@@ -262,7 +274,7 @@ body:not(.limpo) #btAbrir { display: none; }
     const nf = Math.round(L / 1.6);
     for (let i = 0; i < nf; i++) caixa(0.22, 0.3, 0.3, -L / 2 + L * (i + 0.5) / nf, y - 0.2, z, mRefl, G.luz);
   });
-  caixa(1.8, 0.85, 0.8, -0.15, 0.62 + 0.425, 17.45, mat(0x1E2633), scene);   // FOH
+  caixa(2.4, 0.85, 0.7, 0, 0.62 + 0.425, 16.25, mat(0x1E2633), scene);   // FOH na F15
 
   // ---------- Line Bonsai
   const mCx = mat(0x1B1E24, { roughness: 0.5, metalness: 0.2 }), mGrade = mat(0x4FB3FF, { emissive: 0x0d3a66, roughness: 0.4 });
@@ -321,7 +333,7 @@ body:not(.limpo) #btAbrir { display: none; }
   const VISTAS = {
     geral: [[-17, 13, 27], [0, 1.5, 6]],
     lateral: [[-30, 6.5, 6.5], [0, 2.2, 6.5]],
-    fundo: [[0, 0.62 + 1.12 + 0.2, 16.6], [0, 2.4, -2]],
+    fundo: [[-3.2, 0.62 + 1.12 + 0.2, 16.3], [0, 2.4, -2]],
     palco: [[0, 2.9, -1.2], [0, 1.2, 12]],
     topo: [[0, 38, 6.5], [0, 0, 6.4]],
   };

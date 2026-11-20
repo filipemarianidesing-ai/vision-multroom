@@ -144,9 +144,16 @@ def main(esc_p, lay_p, base_p, out_p, perfil_p=None):
                 msp.add_3dface([(-xb, ya, z0 + prev), (xb, ya, z0 + prev), (xb, ya, z), (-xb, ya, z)], dxfattribs={"layer": l3})
             msp.add_text(f"F{i+1} {z:+.2f}".replace(".", ","), height=0.15, dxfattribs={"layer": l3}).set_placement((-xb - 1.2, yf + 0.3, z))
             prev = h
-        # patamar do fundo
         zt = z0 + P["perfil_m"][-1]
-        msp.add_3dface([(-9.3, rows[-1] + 0.67, zt), (9.3, rows[-1] + 0.67, zt), (9.3, P["y_fundo_m"], zt), (-9.3, P["y_fundo_m"], zt)], dxfattribs={"layer": l3})
+        if P.get("patamar_fundo", True):   # patamar elevado até a parede do fundo
+            msp.add_3dface([(-9.3, rows[-1] + 0.67, zt), (9.3, rows[-1] + 0.67, zt), (9.3, P["y_fundo_m"], zt), (-9.3, P["y_fundo_m"], zt)], dxfattribs={"layer": l3})
+        else:   # fundo da última fileira fechado (guarda-corpo) e corredor no nível original
+            yb = rows[-1] + 0.67
+            msp.add_3dface([(-P["meia_largura_bloco_m"], yb, z0), (P["meia_largura_bloco_m"], yb, z0), (P["meia_largura_bloco_m"], yb, zt), (-P["meia_largura_bloco_m"], yb, zt)], dxfattribs={"layer": l3})
+        for e in P.get("escadas", []):   # escadas: lista de degraus (altura relativa) com piso de 'piso' m
+            for k, hh in enumerate(e["degraus"]):
+                ya, yb2 = e["y0"] + k * e["piso"], e["y0"] + (k + 1) * e["piso"]
+                msp.add_3dface([(e["x0"], ya, z0 + hh), (e["x1"], ya, z0 + hh), (e["x1"], yb2, z0 + hh), (e["x0"], yb2, z0 + hh)], dxfattribs={"layer": l3})
         # palco
         msp.add_3dface([(-6.3, -6.97, z0 + 1.0), (6.3, -6.97, z0 + 1.0), (6.3, 0, z0 + 1.0), (-6.3, 0, z0 + 1.0)], dxfattribs={"layer": l3})
 

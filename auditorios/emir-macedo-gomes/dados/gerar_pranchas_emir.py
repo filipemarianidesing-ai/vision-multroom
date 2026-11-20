@@ -77,7 +77,17 @@ for i, yf in enumerate(ROW_FRONT):
     arq.append(R(-XB, y0, XB, y1, cor="arq", opacidade=op, espessura=0.4))
     arq.append(T(-XB - 0.15, yf + 0.45, f"F{i+1}  +{0.20 + h:.2f}".replace(".", ","), cor="arq", tam=5.6, txt_desloc=[-38, 0]))
 # patamar do fundo
-arq.append(R(-XW, 16.72, XW, Y_FUNDO, cor="arq", opacidade=0.42, espessura=0.6, tag="PATAMAR FUNDO +0,82", tag_desloc=[70, 22]))
+# corredor do fundo mantido no nível atual (+0,20): liga as 2 portas existentes
+arq.append(R(-XW, 16.72, XW, Y_FUNDO, cor=(0.10, 0.55, 0.30), opacidade=0.16, espessura=0.6, tag="CORREDOR DO FUNDO +0,20 (rota de fuga mantida)", tag_desloc=[-118, -4]))
+# escadas de 4 degraus (espelho 15,5 cm, piso 30 cm) no fim dos corredores laterais
+for s_ in (-1, 1):
+    xa, xb = s_ * 6.30, s_ * 7.90
+    arq.append(R(min(xa, xb), 16.72, max(xa, xb), 17.62, cor="arq", opacidade=0.35, espessura=0.8))
+    for k in range(1, 4):
+        arq.append(L([[xa, 16.72 + 0.30 * k], [xb, 16.72 + 0.30 * k]], cor="arq", espessura=0.6))
+    arq.append(S([s_ * 7.1, 16.80], [s_ * 7.1, 17.55], cor="arq", espessura=1.0))
+    arq.append(T(s_ * 7.1 - (0.75 if s_ < 0 else 0.2), 17.95, "ESCADA 4 deg. ↓", cor="arq", tam=5.6, negrito=True))
+    arq.append(L([[s_ * 7.90, 16.72], [s_ * 9.30, 16.72]], cor="arq", espessura=1.6))  # guarda-corpo no topo da rampa
 # rampas laterais
 for s in (-1, 1):
     x0, x1 = s * XB, s * XW
@@ -88,9 +98,9 @@ for s in (-1, 1):
     arq.append(L([[s * (XB + 0.08), 4.72], [s * (XB + 0.08), 16.72]], cor="arq", espessura=0.6, tracejado=True))
     arq.append(L([[s * (XW - 0.08), 4.72], [s * (XW - 0.08), 16.72]], cor="arq", espessura=0.6, tracejado=True))
 # guarda-corpo na borda do patamar voltada à última fileira (onde houver desnível livre)
-arq.append(L([[-XB, 16.72], [XB, 16.72]], cor="arq", espessura=1.6))
+arq.append(L([[-XB, 16.72], [XB, 16.72]], cor="arq", espessura=1.6))  # guarda-corpo de vidro na borda da F15 (desnível 0,62 m)
 # lugares PCR (6) + acompanhante — distribuídos
-pcr = [(-XB, 3.72, 1), (XB, 3.72, -1), (-XB, 10.72, 1), (XB, 10.72, -1), (-5.2, 17.35, 0), (4.2, 17.35, 0)]
+pcr = [(-XB, 3.72, 1), (XB, 3.72, -1), (-XB, 10.72, 1), (XB, 10.72, -1), (-XB, 15.92, 1), (XB, 15.92, -1)]
 for x, y, s in pcr:
     if s != 0:
         xa, xb = (x, x + s * 0.80)
@@ -101,12 +111,12 @@ for x, y, s in pcr:
 arq.append(R(-6.19, 1.26, -3.58, 2.76, cor="alerta", preenchido=False, tracejado=True, espessura=0.8,
              tag="2 PCR NO DESENHO (DEC. 5.296: 6)", tag_desloc=[-30, 44]))
 # operação
-arq.append(R(-1.2, 17.0, 0.9, 17.85, cor="som", opacidade=0.5, tag="FOH / OPERAÇÃO", tag_desloc=[-30, -16]))
+arq.append(R(-1.39, 15.80, 1.39, 16.62, cor="som", opacidade=0.5, tag="FOH na F15 (4 lugares)", tag_desloc=[-40, 20]))
 # alertas de saída
 for s in (-1, 1):
-    arq.append(R(s * XW - 0.3 if s > 0 else -XW, 16.6, s * XW if s > 0 else -XW + 0.3, 18.3, cor="alerta", opacidade=0.7))
-arq.append(T(-8.9, 18.0, "PORTA +0,20 x PATAMAR +0,82", cor="alerta", tam=6, negrito=True))
-arq.append(T(5.0, 18.0, "PORTA +0,20 x PATAMAR +0,82", cor="alerta", tam=6, negrito=True))
+    arq.append(R(s * XW - 0.3 if s > 0 else -XW, 17.1, s * XW if s > 0 else -XW + 0.3, 18.5, cor=(0.10, 0.55, 0.30), opacidade=0.85))
+arq.append(T(-8.9, 18.35, "PORTA (acesso mantido)", cor=(0.10, 0.55, 0.30), tam=6, negrito=True))
+arq.append(T(6.2, 18.35, "PORTA (acesso mantido)", cor=(0.10, 0.55, 0.30), tam=6, negrito=True))
 arq.append(T(-4.5, 1.0, "FILEIRAS 1–3 MANTIDAS EM +0,20 (zona acessível)", cor="arq", tam=6.2, negrito=True))
 arq.append(T(-3.8, -3.5, "PALCO +1,20 (sem alteração)", cor="cinza", tam=7, negrito=True))
 
@@ -126,7 +136,7 @@ for xf in (-2.0, 0.0, 2.0):
 som.append(T(-2.0, -1.55, "MON (retornos)", cor="som", tam=5.8))
 som.append(T(-1.0, 0.45, "FF* front-fill", cor="som", tam=5.6))
 som.append(R(-7.2, -1.5, -6.6, -2.2, cor="infra", opacidade=0.9, tag="RACK", tag_desloc=[-30, 4]))
-som.append(R(-1.2, 17.0, 0.9, 17.85, cor="som", opacidade=0.6, tag="FOH: MESA + LUZ + VÍDEO", tag_desloc=[-48, -16]))
+som.append(R(-1.39, 15.80, 1.39, 16.62, cor="som", opacidade=0.6, tag="FOH: MESA + LUZ + VÍDEO", tag_desloc=[-48, -16]))
 for (x, y, n) in [(-3.5, -0.55, "CP1"), (3.5, -0.55, "CP2"), (0, -6.2, "CP3"), (-5.6, -4.5, "CP4")]:
     som.append(C(x, y, raio_m=0.22, cor="infra", tag=n, tag_desloc=[4, -4]))
 som.append(R(-3.45, -1.45, -2.95, -0.95, cor="video", opacidade=0.8, tag="PÚLPITO", tag_desloc=[-36, 14]))
@@ -144,7 +154,7 @@ for s in (-1, 1):
 vid.append(T(-8.8, 13.5, "limite de visada lateral ±60°", cor="video", tam=5.8))
 vid.append(R(-0.4, -0.35, 0.4, -0.1, cor="video", opacidade=0.7, tag="MONITOR RETORNO", tag_desloc=[8, 12]))
 vid.append(R(-3.45, -1.45, -2.95, -0.95, cor="video", opacidade=0.8, tag="PÚLPITO: HDMI/USB-C + rede", tag_desloc=[-120, 16]))
-vid.append(R(-1.2, 17.0, 0.9, 17.85, cor="video", opacidade=0.5, tag="FOH: seletor de fontes + notebook", tag_desloc=[-60, -16]))
+vid.append(R(-1.39, 15.80, 1.39, 16.62, cor="video", opacidade=0.5, tag="FOH: seletor de fontes + notebook", tag_desloc=[-60, -16]))
 vid.append(R(-7.2, -1.5, -6.6, -2.2, cor="infra", opacidade=0.9, tag="RACK: processadora LED", tag_desloc=[-60, 18]))
 for (x, y, n) in [(-3.5, -0.55, "CP1 vídeo"), (3.5, -0.55, "CP2 vídeo")]:
     vid.append(C(x, y, raio_m=0.22, cor="infra", tag=n, tag_desloc=[4, -4]))
@@ -170,7 +180,7 @@ for s in (-1, 1):
         luz.append(R(s * x - 0.2, y - 0.2, s * x + 0.2, y + 0.2, cor="luz", opacidade=0.8))
 luz.append(T(-6.2, -5.4, "TORRES (luz cruzada) dentro do leque", cor="luz", tam=5.8))
 luz.append(T(-5.6, -6.3, "Cenário/moving heads (completo) na vara PALCO-2", cor="luz", tam=5.8))
-luz.append(R(-1.2, 17.0, 0.9, 17.85, cor="luz", opacidade=0.5, tag="FOH: mesa DMX", tag_desloc=[-30, -16]))
+luz.append(R(-1.39, 15.80, 1.39, 16.62, cor="luz", opacidade=0.5, tag="FOH: mesa DMX", tag_desloc=[-30, -16]))
 luz.append(R(-8.4, -1.5, -7.8, -2.2, cor="luz", opacidade=0.9, tag="SPLITTER DMX / QD-LUZ", tag_desloc=[-20, 30]))
 luz.append(R(-2.5, -3.08, 2.5, -2.92, cor="video", opacidade=0.9))
 luz.append(T(-4.0, 12.5, "Luz de plateia existente → controlada por DMX (dimmer/relé)", cor="luz", tam=6.2, negrito=True))
@@ -210,7 +220,7 @@ acu.append(T(-4.0, 13.5, "Medir TR e ruído de fundo antes de fechar áreas", co
 
 # ---------------- INFRA
 inf = []
-rota = [[0.0, 17.3], [-7.6, 17.3], [-7.6, 1.0], [-8.6, 1.0], [-8.6, -1.6]]
+rota = [[0.0, 16.2], [-7.6, 16.2], [-7.6, 1.0], [-8.6, 1.0], [-8.6, -1.6]]
 inf.append(L(rota, cor="infra", espessura=1.8, tag="DUTO FOH↔RACK sob arquibancada (2× Ø2\" + cabo de rede/fibra)", tag_desloc=[-160, -50]))
 inf.append(L([[-7.0, -1.8], [-3.5, -0.55], [3.5, -0.55]], cor="infra", espessura=1.2, tracejado=True))
 inf.append(L([[-7.0, -1.8], [0.0, -6.2]], cor="infra", espessura=1.2, tracejado=True))
@@ -218,7 +228,7 @@ inf.append(L([[-7.0, -1.8], [-7.0, -0.85]], cor="infra", espessura=1.2))
 inf.append(L([[-7.0, -0.9], [7.0, -0.9]], cor="infra", espessura=1.0, tracejado=True))
 inf.append(L([[-7.6, 10.9], [-7.45, 10.9]], cor="infra", espessura=0.8, tracejado=True))
 inf.append(L([[7.6, 10.9], [7.45, 10.9]], cor="infra", espessura=0.8, tracejado=True))
-inf.append(L([[-7.6, 16.9], [7.6, 16.9], [7.6, 10.9]], cor="infra", espessura=0.8, tracejado=True))
+inf.append(L([[-7.6, 16.2], [7.6, 16.2], [7.6, 10.9]], cor="infra", espessura=0.8, tracejado=True))
 inf.append(R(-7.2, -1.5, -6.6, -2.2, cor="infra", opacidade=0.9, tag="RACK AV", tag_desloc=[-36, 4]))
 inf.append(R(-8.4, -1.5, -7.8, -2.2, cor="alerta", opacidade=0.8, tag="QD-AV (novo)", tag_desloc=[-52, 22]))
 for (x, y, n) in [(-3.5, -0.55, "CP1"), (3.5, -0.55, "CP2"), (0, -6.2, "CP3"), (-5.6, -4.5, "CP4")]:
@@ -229,7 +239,7 @@ inf.append(L([[-8.1, -1.9], [-6.0, 3.0]], cor="luz", espessura=0.8, tracejado=Tr
 inf.append(L([[-8.1, -1.9], [-5.8, -1.9]], cor="luz", espessura=0.8, tracejado=True))
 inf.append(T(-5.0, 7.5, "Plenum da arquibancada = caminho de cabos protegido", cor="infra", tam=6.5, negrito=True))
 inf.append(T(-5.0, 8.3, "(prever caixas de passagem com tampa a cada 6–8 m)", cor="infra", tam=6))
-inf.append(R(-1.2, 17.0, 0.9, 17.85, cor="som", opacidade=0.5, tag="FOH: 2 TUG + rede + áudio", tag_desloc=[-56, -16]))
+inf.append(R(-1.39, 15.80, 1.39, 16.62, cor="som", opacidade=0.5, tag="FOH: 2 TUG + rede + áudio", tag_desloc=[-56, -16]))
 
 LEG_BASE = [("cinza", "ret", "Base: prancha 02/08 PSCIP (esmaecida). Equipamentos de incêndio, rotas e saídas existentes devem ser preservados."), LEG_PAREDE]
 
@@ -237,20 +247,20 @@ layout = {"pranchas": [
     {"codigo": "ARQ-01", "titulo": "Arquibancada — elevação do piso", "descricao": "Arquitetura: perfil B (rampa acessível), lugares reservados, operação e pontos de compatibilização",
      "itens": arq,
      "legenda": LEG_BASE + [
-        ("arq", "ret", "Patamares das fileiras — tom mais escuro = mais alto. Cotas absolutas F1…F15 (plateia existente +0,20)."),
+        ("arq", "ret", "Patamares das fileiras — tom mais escuro = mais alto. Cotas absolutas F1…F15 (plateia existente +0,20). Escadas de 4 degraus (15,5 × 30 cm) descem da F15 ao corredor do fundo."),
+        ((0.10, 0.55, 0.30), "ret", "Corredor do fundo mantido em +0,20 e as 2 portas existentes (cantos do fundo): rota de fuga e acesso preservados."),
         ("arq", "trac", "Corredores laterais em rampa (3,04 m) com corrimão duplo nos dois lados; inclinação variável ≤ 8 %; desnível total 0,62 m."),
         ("arq", "linha", "Guarda-corpo/borda de patamar (altura e tipo conforme NBR 14718 e NT CBMES)."),
         ((0.0, 0.35, 0.9), "ret", "Espaços P.C.R. propostos (6) + assento de acompanhante ao lado — distribuídos na frente, meio e fundo."),
         ("alerta", "trac", "Espaços P.C.R. do desenho original (2) — insuficientes para 270 lugares (Dec. 5.296/2004 art. 23)."),
-        ("alerta", "ret", "Portas do fundo no nível +0,20: compatibilizar com o patamar +0,82 (ver notas)."),
-        ("som", "ret", "Posição de operação (FOH) — centro-fundo, sobre o patamar."),
+                ("som", "ret", "Posição de operação (FOH) — centro da fileira 15, no lugar de 4 poltronas."),
      ],
      "notas": [
         "Perfil B calculado para ver o apresentador a partir de 0,40 m acima do piso do palco com poltronas alternadas (C ≈ 0,06 m). Perfil A (C = 0,08) leva o fundo a +1,28 e exige degraus. Ver corte ARQ-02.",
         "Hoje, com piso plano, da 4ª fileira em diante a cabeça da frente encobre o apresentador da cintura para baixo (C < 0,06 m).",
-        "Saídas do fundo: (a) degraus + rampa junto às portas, (b) nova soleira com patamar/rampa externa, ou (c) relocar a saída. Decisão depende da vistoria externa e da revisão do PSCIP no CBMES.",
+        "Portas do fundo: o corredor do fundo (1,98 m) continua em +0,20 ligando as duas portas, como no projeto de incêndio. A arquibancada termina na F15 (+0,82) com guarda-corpo de vidro e duas escadas de 4 degraus descem ao corredor junto às portas (solução semelhante à do ABL). Cadeirantes saem pela rampa até a porta da frente. Revisão do PSCIP continua necessária pela mudança de layout.",
         "Estrutura da arquibancada: estrutura metálica leve + painéis cimentícios/OSB com lã mineral no vazio (evita efeito tambor) ou alvenaria + laje. Carga de uso conforme NBR 6120 — validar com engenheiro estrutural.",
-        "Pé-direito livre sobre o patamar do fundo e, principalmente, NAS RAMPAS LATERAIS: elas ficam sob a faixa da parede superior em dente de serra (1,00–1,85 m da parede). Se ali houver forro/viga rebaixado, a elevação de até 0,62 m pode reduzir a altura livre — medir na vistoria (meta ≥ 2,50 m livres).",
+        "Pé-direito livre sobre a F15 e, principalmente, NAS RAMPAS LATERAIS: elas ficam sob a faixa da parede superior em dente de serra (1,00–1,85 m da parede). Se ali houver forro/viga rebaixado, a elevação de até 0,62 m pode reduzir a altura livre — medir na vistoria (meta ≥ 2,50 m livres).",
         "Contagem gráfica do desenho: 14 fileiras × 18 + 14 poltronas na 1ª fileira = 266 poltronas + 2 espaços P.C.R. Legenda indica 270 lug. — validar lotação aprovada.",
      ]},
     {"codigo": "SOM-01", "titulo": "Sonorização — posições e cobertura", "descricao": "Sistema principal frontal, subgraves, retornos, reforços opcionais, operação e rack",
@@ -267,7 +277,7 @@ layout = {"pranchas": [
         "Line Bonsai: cada caixa mira uma faixa da plateia (caixas 1–2 → F13–F15; 3–4 → F9–F11; 5–6 → F5–F7; 7–8 → F1–F3). Meta: ±3 dB (2 kHz) em toda a plateia. Ângulos finais no software do fabricante.",
         "Suspenso, o som chega por cima das cabeças a todas as fileiras e concentra a energia na plateia, com menos reflexão nas paredes. Suspensão exige pontos de fixação validados pelo estrutural (peso do conjunto + bumper + cabos de segurança).",
         "Cobertura, SPL, STI e margem antes da microfonia: confirmar em simulação (EASE/fabricante) com pé-direito e materiais levantados.",
-        "FOH no centro-fundo: escuta representativa da plateia. Alternativa: fileira 11–12 central com supressão de 4 lugares.",
+        "FOH no centro da fileira 15 (4 lugares a menos), fora do corredor do fundo: escuta representativa e rota de fuga livre.",
         "Reforços DLY (se necessários) na face reta da parede superior junto ao símbolo ⊗ (≈ 11 m da borda): ponto alto, sem sombra da faixa rebaixada, alinhado às fileiras do fundo.",
         "As faces do dente de serra voltadas ao palco refletem a energia das colunas para a plateia; mirar as colunas para não excitar as faces curtas (voltadas ao fundo).",
         "Rack na sala de apoio esquerda (junto à plataforma): exige ventilação/climatização, porta com chave e acesso frontal e traseiro.",
@@ -370,7 +380,7 @@ def degraus(perfil, cor, dash=False, fill=None):
     for i, yf in enumerate(ROW_FRONT):
         y0 = yf - 0.33
         pts += [Q(y0, perfil[i]), Q(y0 + 1.0, perfil[i])]
-    pts += [Q(18.7, perfil[-1]), Q(18.7, 0)]
+    pts += [Q(16.72, perfil[-1]), Q(16.72, 0)]
     s = pg.new_shape(); s.draw_polyline(pts)
     s.finish(color=G.hexrgb(cor), width=1.3, dashes="[4 2] 0" if dash else None, fill=fill, fill_opacity=0.25 if fill else 1)
     s.commit()
@@ -404,9 +414,12 @@ s = pg.new_shape(); s.draw_circle(Q(3.0, 4.2), 4); s.finish(color=G.hexrgb("luz"
 s = pg.new_shape(); s.draw_line(Q(3.0, 4.2), Q(-1.0, 2.6)); s.finish(color=G.hexrgb("luz"), width=0.6, dashes="[3 2] 0"); s.commit()
 p.texto(Q(3.3, 4.35), "vara FOH-1 (≈45°)", size=6.5, cor="luz")
 # porta fundo
-s = pg.new_shape(); s.draw_rect(pymupdf.Rect(Q(18.6, 2.3), Q(18.8, 0))); s.finish(color=G.hexrgb("alerta"), width=1.2); s.commit()
-p.texto(Q(15.2, 2.55), "porta existente no nível +0,20", size=6.3, cor="alerta")
-p.texto(Q(15.2, 1.95), "patamar proposto +0,82", size=6.3, cor="arq")
+s = pg.new_shape(); s.draw_rect(pymupdf.Rect(Q(17.1, 2.3), Q(18.5, 0))); s.finish(color=(0.10, 0.55, 0.30), width=1.2, dashes="[3 2] 0"); s.commit()
+s = pg.new_shape(); s.draw_line(Q(16.72, 0.62 + 1.10), Q(16.72, 0.62)); s.finish(color=G.hexrgb("arq"), width=2.0); s.commit()
+s = pg.new_shape(); s.draw_polyline([Q(16.72, 0.62), Q(16.72, 0.465), Q(17.02, 0.465), Q(17.02, 0.31), Q(17.32, 0.31), Q(17.32, 0.155), Q(17.62, 0.155), Q(17.62, 0)]); s.finish(color=(0.4, 0.4, 0.4), width=0.8, dashes="[2 2] 0"); s.commit()
+p.texto(Q(12.6, 2.95), "portas laterais existentes +0,20 (projeção)", size=6.3, cor=(0.10, 0.55, 0.30))
+p.texto(Q(12.6, 2.45), "corredor do fundo mantido +0,20", size=6.3, cor=(0.10, 0.55, 0.30))
+p.texto(Q(11.4, 1.95), "guarda-corpo de vidro 1,10 m + escada 4 deg. (tracejada)", size=6.3, cor="arq")
 # cotas e rótulos
 for i in (0, 3, 7, 11, 14):
     yf = ROW_FRONT[i]
@@ -422,7 +435,7 @@ for i in range(5):
     s = pg.new_shape(); s.draw_rect(pymupdf.Rect(60 + i * SC, 790, 60 + (i + 1) * SC, 793)); s.finish(color=(0, 0, 0), fill=(0, 0, 0) if i % 2 == 0 else (1, 1, 1), width=0.4); s.commit()
 p.texto(pymupdf.Point(60 + 5 * SC + 6, 793), "0–5 m (escala gráfica do corte)", size=6)
 p.texto(pymupdf.Point(50, 80), "CORTE ESQUEMÁTICO — eixo longitudinal do auditório (mesma escala na horizontal e na vertical)", size=10, bold=True)
-p.legenda([("arq", "ret", "Perfil B (recomendado): fileiras 1–3 em +0,20; elevação progressiva até +0,82 na 15ª fileira; rampas laterais ≤ 8 %."),
+p.legenda([("arq", "ret", "Perfil B (recomendado): fileiras 1–3 em +0,20; elevação progressiva até +0,82 na 15ª fileira; rampas laterais ≤ 8 %; corredor do fundo mantido em +0,20 com escadas de 4 degraus."),
            ((0.5, 0.5, 0.5), "trac", "Perfil A (visibilidade plena, C = 0,08 m): fundo em +1,28; corredores com degraus — não recomendado sem reprojeto de saídas."),
            ("arq", "trac", "Linhas de visão das fileiras 4, 8, 12 e 15 ao ponto focal."),
            ("som", "trac", "Som direto da coluna PA à plateia elevada — incidência menos rasante sobre as cabeças."),

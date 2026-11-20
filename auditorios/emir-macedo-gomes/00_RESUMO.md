@@ -26,12 +26,13 @@ Apresentação online: https://claude.ai/artifact/9HhEhzUAs88HXJcxnyjDr8 (privad
 - **Visibilidade:** com piso plano, C < 0,06 m da 4ª fileira em diante. O perfil B eleva até +0,82 no fundo, com rampas ≤ 8 %.
 - **P.C.R.:** são exigidos 6 espaços e há 2 no desenho; mais 6 assentos reservados.
 - **Reverberação estimada:** 1,4–2,2 s hoje e meta de 0,8–1,1 s. Essencial ≈ 0,9–1,2 s; completo ≈ 0,6–0,9 s.
-- **Som:** colunas direcionais (queda frente→fundo ≈ 4–5 dB, contra ≈ 9 dB de uma fonte pontual). Delay só se a simulação pedir (≈ 44 ms).
+- **Som:** Line Bonsai suspenso, 2 colunas de 8 caixas (inclinações 10°–32°), e 2 subwoofers de 18" no chão.
+- **Portas do fundo:** corredor do fundo mantido em +0,20 ligando as 2 portas; 2 escadas de 4 degraus descem da fileira 15.
 - **LED:** 5,00 × 2,81 m, P2,6–2,9; projeção laser ≈ 9.000 lm como alternativa.
 
 ## Decisões em aberto
 1. Essencial ou completo, ou essencial agora e completo por etapas.
-2. Arquibancada: solução para as portas do fundo (degraus + rampa, nova soleira ou relocação), que depende de vistoria e do PSCIP/CBMES.
+2. Arquibancada: corredor do fundo mantido em +0,20 com as duas portas e 2 escadas de 4 degraus (definido em 20/11/2026); falta a revisão do PSCIP pela mudança de layout.
 3. Painel LED ou projeção.
 4. Reaproveitar ou trocar as poltronas.
 5. Lotação oficial: 266 + 2 P.C.R. no desenho × 270 no rótulo.

@@ -27,7 +27,7 @@ Os dois cenários usam a mesma base: a infraestrutura do essencial já fica pron
 
 | Acréscimo | Itens | Justificativa |
 |---|---|---|
-| Arquibancada | Elevação do piso no perfil B (ARQ-01), rampas com corrimão (ARQ-02), guarda-corpos (ARQ-03), compatibilização das portas do fundo (ARQ-04) | Todas as fileiras veem o palco; melhora o som direto; o vazio sob os patamares vira caminho de cabos |
+| Arquibancada | Elevação do piso no perfil B (ARQ-01), rampas com corrimão (ARQ-02), guarda-corpo de vidro (ARQ-03), 2 escadas de 4 degraus até o corredor do fundo, que segue no nível atual e mantém as duas portas (ARQ-04) | Todas as fileiras veem o palco; melhora o som direto; o vazio sob os patamares vira caminho de cabos |
 | Painel LED | 5,00 × 2,81 m P2,6–2,9 + processadora + estrutura (VID-01/02/05) | Imagem com luz acesa, cenário digital para formaturas e teatro |
 | Graves e palco | 2 subgraves embutidos no palco, stagebox digital, 4 retornos, 4 canais sem fio | Música e apresentações |
 | Luz cênica | Vara FOH-2, moving heads, torres laterais, mesa DMX completa | Teatro, música, formaturas |
@@ -45,7 +45,7 @@ Os dois cenários usam a mesma base: a infraestrutura do essencial já fica pron
 | 2 | Som essencial + operação por cenas + treinamento | Não | Sim, após a etapa 1 |
 | 3 | Tratamento acústico de paredes + cortinas | Não (fixações) | Sim, em paralelo à etapa 2 |
 | 4 | Imagem (projeção ou LED) + luz básica | Não (fixações e estrutura do LED) | Sim |
-| 5 | Arquibancada + rampas + portas do fundo + P.C.R. definitivos | **Sim** | Sim, mas exige revisão do PSCIP antes; ideal nas férias |
+| 5 | Arquibancada + rampas + escadas ao corredor do fundo + P.C.R. definitivos | **Sim** | Sim, mas exige revisão do PSCIP antes; ideal nas férias |
 | 6 | Complementos do completo (subgraves, luz cênica, nuvens, câmera) | Parcial | Sim |
 
 **Recomendação:** contratar a etapa 0 primeiro. Sem pé-direito, níveis, materiais e medições, qualquer valor de investimento fica com margem de erro alta.

@@ -1168,14 +1168,236 @@
        18.7
       ]
      ],
-     "cor": "arq",
-     "opacidade": 0.42,
+     "cor": [
+      0.1,
+      0.55,
+      0.3
+     ],
+     "opacidade": 0.16,
      "espessura": 0.6,
-     "tag": "PATAMAR FUNDO +0,82",
+     "tag": "CORREDOR DO FUNDO +0,20 (rota de fuga mantida)",
      "tag_desloc": [
-      70,
-      22
+      -118,
+      -4
      ]
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       -7.9,
+       16.72
+      ],
+      [
+       -6.3,
+       17.62
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.35,
+     "espessura": 0.8
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       -6.3,
+       17.02
+      ],
+      [
+       -7.9,
+       17.02
+      ]
+     ],
+     "cor": "arq",
+     "espessura": 0.6
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       -6.3,
+       17.32
+      ],
+      [
+       -7.9,
+       17.32
+      ]
+     ],
+     "cor": "arq",
+     "espessura": 0.6
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       -6.3,
+       17.619999999999997
+      ],
+      [
+       -7.9,
+       17.619999999999997
+      ]
+     ],
+     "cor": "arq",
+     "espessura": 0.6
+    },
+    {
+     "tipo": "seta",
+     "pts": [
+      [
+       -7.1,
+       16.8
+      ],
+      [
+       -7.1,
+       17.55
+      ]
+     ],
+     "cor": "arq",
+     "espessura": 1.0
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       -7.85,
+       17.95
+      ],
+      [
+       -7.85,
+       17.95
+      ]
+     ],
+     "texto": "ESCADA 4 deg. ↓",
+     "espessura": 0.01,
+     "cor": "arq",
+     "tam": 5.6,
+     "negrito": true
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       -7.9,
+       16.72
+      ],
+      [
+       -9.3,
+       16.72
+      ]
+     ],
+     "cor": "arq",
+     "espessura": 1.6
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       6.3,
+       16.72
+      ],
+      [
+       7.9,
+       17.62
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.35,
+     "espessura": 0.8
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       6.3,
+       17.02
+      ],
+      [
+       7.9,
+       17.02
+      ]
+     ],
+     "cor": "arq",
+     "espessura": 0.6
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       6.3,
+       17.32
+      ],
+      [
+       7.9,
+       17.32
+      ]
+     ],
+     "cor": "arq",
+     "espessura": 0.6
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       6.3,
+       17.619999999999997
+      ],
+      [
+       7.9,
+       17.619999999999997
+      ]
+     ],
+     "cor": "arq",
+     "espessura": 0.6
+    },
+    {
+     "tipo": "seta",
+     "pts": [
+      [
+       7.1,
+       16.8
+      ],
+      [
+       7.1,
+       17.55
+      ]
+     ],
+     "cor": "arq",
+     "espessura": 1.0
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       6.8999999999999995,
+       17.95
+      ],
+      [
+       6.8999999999999995,
+       17.95
+      ]
+     ],
+     "texto": "ESCADA 4 deg. ↓",
+     "espessura": 0.01,
+     "cor": "arq",
+     "tam": 5.6,
+     "negrito": true
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       7.9,
+       16.72
+      ],
+      [
+       9.3,
+       16.72
+      ]
+     ],
+     "cor": "arq",
+     "espessura": 1.6
     },
     {
      "tipo": "ret",
@@ -1440,12 +1662,12 @@
      "tipo": "ret",
      "pts": [
       [
-       -5.2,
-       16.75
+       -6.26,
+       15.72
       ],
       [
-       -4.2,
-       17.950000000000003
+       -5.46,
+       16.720000000000002
       ]
      ],
      "cor": [
@@ -1460,12 +1682,12 @@
      "tipo": "ret",
      "pts": [
       [
-       4.2,
-       16.75
+       5.46,
+       15.72
       ],
       [
-       5.2,
-       17.950000000000003
+       6.26,
+       16.720000000000002
       ]
      ],
      "cor": [
@@ -1502,20 +1724,20 @@
      "tipo": "ret",
      "pts": [
       [
-       -1.2,
-       17.0
+       -1.39,
+       15.8
       ],
       [
-       0.9,
-       17.85
+       1.39,
+       16.62
       ]
      ],
      "cor": "som",
      "opacidade": 0.5,
-     "tag": "FOH / OPERAÇÃO",
+     "tag": "FOH na F15 (4 lugares)",
      "tag_desloc": [
-      -30,
-      -16
+      -40,
+      20
      ]
     },
     {
@@ -1523,46 +1745,58 @@
      "pts": [
       [
        -9.3,
-       16.6
+       17.1
       ],
       [
        -9.0,
-       18.3
+       18.5
       ]
      ],
-     "cor": "alerta",
-     "opacidade": 0.7
+     "cor": [
+      0.1,
+      0.55,
+      0.3
+     ],
+     "opacidade": 0.85
     },
     {
      "tipo": "ret",
      "pts": [
       [
        9.0,
-       16.6
+       17.1
       ],
       [
        9.3,
-       18.3
+       18.5
       ]
      ],
-     "cor": "alerta",
-     "opacidade": 0.7
+     "cor": [
+      0.1,
+      0.55,
+      0.3
+     ],
+     "opacidade": 0.85
     },
     {
      "tipo": "linha",
      "pts": [
       [
        -8.9,
-       18.0
+       18.35
       ],
       [
        -8.9,
-       18.0
+       18.35
       ]
      ],
-     "texto": "PORTA +0,20 x PATAMAR +0,82",
+     "texto": "PORTA (acesso mantido)",
      "espessura": 0.01,
-     "cor": "alerta",
+     "cor": [
+      0.1,
+      0.55,
+      0.3
+     ],
      "tam": 6,
      "negrito": true
     },
@@ -1570,17 +1804,21 @@
      "tipo": "linha",
      "pts": [
       [
-       5.0,
-       18.0
+       6.2,
+       18.35
       ],
       [
-       5.0,
-       18.0
+       6.2,
+       18.35
       ]
      ],
-     "texto": "PORTA +0,20 x PATAMAR +0,82",
+     "texto": "PORTA (acesso mantido)",
      "espessura": 0.01,
-     "cor": "alerta",
+     "cor": [
+      0.1,
+      0.55,
+      0.3
+     ],
      "tam": 6,
      "negrito": true
     },
@@ -1639,7 +1877,16 @@
     [
      "arq",
      "ret",
-     "Patamares das fileiras — tom mais escuro = mais alto. Cotas absolutas F1…F15 (plateia existente +0,20)."
+     "Patamares das fileiras — tom mais escuro = mais alto. Cotas absolutas F1…F15 (plateia existente +0,20). Escadas de 4 degraus (15,5 × 30 cm) descem da F15 ao corredor do fundo."
+    ],
+    [
+     [
+      0.1,
+      0.55,
+      0.3
+     ],
+     "ret",
+     "Corredor do fundo mantido em +0,20 e as 2 portas existentes (cantos do fundo): rota de fuga e acesso preservados."
     ],
     [
      "arq",
@@ -1666,22 +1913,17 @@
      "Espaços P.C.R. do desenho original (2) — insuficientes para 270 lugares (Dec. 5.296/2004 art. 23)."
     ],
     [
-     "alerta",
-     "ret",
-     "Portas do fundo no nível +0,20: compatibilizar com o patamar +0,82 (ver notas)."
-    ],
-    [
      "som",
      "ret",
-     "Posição de operação (FOH) — centro-fundo, sobre o patamar."
+     "Posição de operação (FOH) — centro da fileira 15, no lugar de 4 poltronas."
     ]
    ],
    "notas": [
     "Perfil B calculado para ver o apresentador a partir de 0,40 m acima do piso do palco com poltronas alternadas (C ≈ 0,06 m). Perfil A (C = 0,08) leva o fundo a +1,28 e exige degraus. Ver corte ARQ-02.",
     "Hoje, com piso plano, da 4ª fileira em diante a cabeça da frente encobre o apresentador da cintura para baixo (C < 0,06 m).",
-    "Saídas do fundo: (a) degraus + rampa junto às portas, (b) nova soleira com patamar/rampa externa, ou (c) relocar a saída. Decisão depende da vistoria externa e da revisão do PSCIP no CBMES.",
+    "Portas do fundo: o corredor do fundo (1,98 m) continua em +0,20 ligando as duas portas, como no projeto de incêndio. A arquibancada termina na F15 (+0,82) com guarda-corpo de vidro e duas escadas de 4 degraus descem ao corredor junto às portas (solução semelhante à do ABL). Cadeirantes saem pela rampa até a porta da frente. Revisão do PSCIP continua necessária pela mudança de layout.",
     "Estrutura da arquibancada: estrutura metálica leve + painéis cimentícios/OSB com lã mineral no vazio (evita efeito tambor) ou alvenaria + laje. Carga de uso conforme NBR 6120 — validar com engenheiro estrutural.",
-    "Pé-direito livre sobre o patamar do fundo e, principalmente, NAS RAMPAS LATERAIS: elas ficam sob a faixa da parede superior em dente de serra (1,00–1,85 m da parede). Se ali houver forro/viga rebaixado, a elevação de até 0,62 m pode reduzir a altura livre — medir na vistoria (meta ≥ 2,50 m livres).",
+    "Pé-direito livre sobre a F15 e, principalmente, NAS RAMPAS LATERAIS: elas ficam sob a faixa da parede superior em dente de serra (1,00–1,85 m da parede). Se ali houver forro/viga rebaixado, a elevação de até 0,62 m pode reduzir a altura livre — medir na vistoria (meta ≥ 2,50 m livres).",
     "Contagem gráfica do desenho: 14 fileiras × 18 + 14 poltronas na 1ª fileira = 266 poltronas + 2 espaços P.C.R. Legenda indica 270 lug. — validar lotação aprovada."
    ]
   },
@@ -2606,12 +2848,12 @@
      "tipo": "ret",
      "pts": [
       [
-       -1.2,
-       17.0
+       -1.39,
+       15.8
       ],
       [
-       0.9,
-       17.85
+       1.39,
+       16.62
       ]
      ],
      "cor": "som",
@@ -2895,7 +3137,7 @@
     "Line Bonsai: cada caixa mira uma faixa da plateia (caixas 1–2 → F13–F15; 3–4 → F9–F11; 5–6 → F5–F7; 7–8 → F1–F3). Meta: ±3 dB (2 kHz) em toda a plateia. Ângulos finais no software do fabricante.",
     "Suspenso, o som chega por cima das cabeças a todas as fileiras e concentra a energia na plateia, com menos reflexão nas paredes. Suspensão exige pontos de fixação validados pelo estrutural (peso do conjunto + bumper + cabos de segurança).",
     "Cobertura, SPL, STI e margem antes da microfonia: confirmar em simulação (EASE/fabricante) com pé-direito e materiais levantados.",
-    "FOH no centro-fundo: escuta representativa da plateia. Alternativa: fileira 11–12 central com supressão de 4 lugares.",
+    "FOH no centro da fileira 15 (4 lugares a menos), fora do corredor do fundo: escuta representativa e rota de fuga livre.",
     "Reforços DLY (se necessários) na face reta da parede superior junto ao símbolo ⊗ (≈ 11 m da borda): ponto alto, sem sombra da faixa rebaixada, alinhado às fileiras do fundo.",
     "As faces do dente de serra voltadas ao palco refletem a energia das colunas para a plateia; mirar as colunas para não excitar as faces curtas (voltadas ao fundo).",
     "Rack na sala de apoio esquerda (junto à plataforma): exige ventilação/climatização, porta com chave e acesso frontal e traseiro."
@@ -3616,12 +3858,12 @@
      "tipo": "ret",
      "pts": [
       [
-       -1.2,
-       17.0
+       -1.39,
+       15.8
       ],
       [
-       0.9,
-       17.85
+       1.39,
+       16.62
       ]
      ],
      "cor": "video",
@@ -4880,12 +5122,12 @@
      "tipo": "ret",
      "pts": [
       [
-       -1.2,
-       17.0
+       -1.39,
+       15.8
       ],
       [
-       0.9,
-       17.85
+       1.39,
+       16.62
       ]
      ],
      "cor": "luz",
@@ -7145,11 +7387,11 @@
      "pts": [
       [
        0.0,
-       17.3
+       16.2
       ],
       [
        -7.6,
-       17.3
+       16.2
       ],
       [
        -7.6,
@@ -7276,11 +7518,11 @@
      "pts": [
       [
        -7.6,
-       16.9
+       16.2
       ],
       [
        7.6,
-       16.9
+       16.2
       ],
       [
        7.6,
@@ -7506,12 +7748,12 @@
      "tipo": "ret",
      "pts": [
       [
-       -1.2,
-       17.0
+       -1.39,
+       15.8
       ],
       [
-       0.9,
-       17.85
+       1.39,
+       16.62
       ]
      ],
      "cor": "som",

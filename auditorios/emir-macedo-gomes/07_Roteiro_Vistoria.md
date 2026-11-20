@@ -17,7 +17,7 @@
 | 4 | **Níveis do piso** | Nível a laser em grade 2 × 2 m na plateia; soleiras das 3 portas; piso do palco; topo de cada degrau | Perfil da arquibancada, rampas |
 | 5 | **Última fileira** | Distância até o palco e até a parede do fundo; altura do encosto | Linhas de visão |
 | 6 | **Estrutura do piso** | Tipo (laje no solo, laje elevada), juntas, trincas; pedir projeto estrutural à SEDU | Arquibancada |
-| 7 | **Portas do fundo pelo lado externo** | Cotas do piso externo, largura livre, espaço disponível, sentido de abertura, barra antipânico | Compatibilização de saídas |
+| 7 | **Portas do fundo** (cantos, paredes laterais) | Posição exata (distância à parede do fundo), largura livre, sentido de abertura, barra antipânico, cota da soleira e do lado externo | Escadas e corredor do fundo |
 | 8 | **Quadro elétrico** | Foto do quadro do auditório e do QGBT; disjuntor geral, fases, circuitos livres, aterramento; medir corrente em uso | QD-AV, LED, luz |
 | 9 | **Poltronas** | Modelo, estofamento (sim/não), fixação, estado, largura entre braços, passagem livre com assento rebatido | TR vazio, reaproveitamento, visibilidade |
 

@@ -29,6 +29,7 @@ cota_piso(n) = h(n) + P − olho           (monotônica, ≥ 0)
   1. Desnível total ≤ 1,00 m e corredores em rampa (≤ 6,25 % médio, ≤ 8 % por segmento) → **rota acessível até o fundo** (preferido).
   2. Se exceder, corredores com degraus (2 por fileira quando o espelho > 0,18 m), guarda-corpos e P.C.R. nas zonas planas.
 - **Sempre verificar:** saídas no nível original, pé-direito livre no fundo (≥ 2,50 m), estrutura existente e revisão do PSCIP.
+- **Portas existentes nunca ficam bloqueadas.** Localize todas as portas na planta (símbolos de porta e setas de rota de fuga). Se houver portas no fundo, mantenha o corredor de acesso a elas no nível original e termine a arquibancada com guarda-corpo, ligando o topo ao corredor por escadas (solução usada no ABL e no Emir).
 - Benefício acústico a declarar: menos incidência rasante do som direto, melhor voz natural e caminho de cabos no vazio (com lã mineral).
 
 ## Etapa 4 — Acústica
