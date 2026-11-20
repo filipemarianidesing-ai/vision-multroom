@@ -1,0 +1,483 @@
+<title>Maquete Construtiva Emir</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: visor 3D em tela cheia; linha do tempo de etapas embaixo; painel recolhível; botão ✕ para modo apresentação. Visual escuro de canteiro técnico. */
+:root {
+  --bg: #10151F; --panel: rgba(18, 25, 38, 0.93); --line: #2B3850;
+  --fg: #ECEFF4; --muted: #A3AEC2; --accent: #F2A541; --aco: #7FB2D9;
+  --f-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --f-head: 'Space Grotesk', 'Inter', Arial, sans-serif;
+  color-scheme: dark;
+}
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--fg); font-family: var(--f-ui); overflow: hidden; }
+#cena { position: fixed; inset: 0; }
+button { font: inherit; font-size: 13px; color: var(--fg); background: #1B2740; border: 1px solid var(--line); border-radius: 7px; padding: 7px 11px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button.ativo { background: var(--accent); color: #151A24; border-color: var(--accent); font-weight: 600; }
+.painel { position: fixed; box-sizing: border-box; top: calc(12px + env(safe-area-inset-top, 0px)); left: max(12px, env(safe-area-inset-left, 0px)); width: min(360px, calc(100vw - 24px)); background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 9px; max-height: calc(100% - 190px); overflow: auto; backdrop-filter: blur(6px); }
+.painel > * { flex-shrink: 0; }
+.topo { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.selo { background: #F2C14E; color: #14213D; font-weight: 700; font-size: 10.5px; letter-spacing: .06em; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; }
+.acoes { display: flex; gap: 6px; }
+h1 { font-family: var(--f-head); font-size: 18px; margin: 0; line-height: 1.2; text-wrap: balance; }
+.rotulo { font-size: 10.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.grupo { display: flex; flex-wrap: wrap; gap: 6px; }
+#detalhes { display: none; flex-direction: column; gap: 9px; }
+.painel.aberto #detalhes { display: flex; }
+.spec { font-size: 12.5px; line-height: 1.5; color: var(--fg); margin: 0; }
+.spec ul { margin: 4px 0 0; padding-left: 18px; }
+.nota { color: var(--muted); font-size: 11px; line-height: 1.4; margin: 0; }
+.etapas { position: fixed; box-sizing: border-box; left: 50%; transform: translateX(-50%); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); width: min(980px, calc(100vw - 24px)); background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+.trilho { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
+.trilho button { flex: 1 0 auto; display: flex; gap: 6px; align-items: center; white-space: nowrap; }
+.trilho b { font-family: var(--f-head); font-size: 14px; }
+#legEtapa { font-size: 13px; line-height: 1.45; margin: 0; color: var(--fg); min-height: 2.9em; }
+#legEtapa strong { color: var(--accent); }
+.controles { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+#btAbrir { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); left: max(12px, env(safe-area-inset-left, 0px)); background: var(--panel); font-size: 14px; padding: 8px 14px; z-index: 5; }
+body.limpo .painel, body.limpo .etapas { display: none; }
+body:not(.limpo) #btAbrir { display: none; }
+@media (max-width: 700px) {
+  .painel { max-height: 40%; width: calc(100vw - 16px); left: max(8px, env(safe-area-inset-left, 0px)); top: calc(8px + env(safe-area-inset-top, 0px)); }
+  .etapas { width: calc(100vw - 16px); bottom: calc(8px + env(safe-area-inset-bottom, 0px)); }
+  #legEtapa { font-size: 12px; }
+  h1 { font-size: 15px; }
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap">
+
+<div id="cena" aria-label="Maquete construtiva 3D do auditório"></div>
+<button id="btAbrir" aria-label="Mostrar painéis">☰ Painel</button>
+
+<div class="painel" id="painel">
+  <div class="topo">
+    <span class="selo">Simulação de pré-projeto</span>
+    <div class="acoes">
+      <button id="btDet" aria-expanded="false" aria-controls="detalhes">Detalhes ▴</button>
+      <button id="btFechar" title="Esconder painéis" aria-label="Esconder painéis e mostrar só a maquete">✕</button>
+    </div>
+  </div>
+  <h1>Auditório Emir de Macedo Gomes · maquete construtiva</h1>
+  <div class="grupo" id="vistas">
+    <button data-v="geral" class="ativo">Geral</button>
+    <button data-v="estrutura">Estrutura</button>
+    <button data-v="poltronas">Poltronas</button>
+    <button data-v="difusor">Difusores</button>
+    <button data-v="fundo">Da última fileira</button>
+  </div>
+  <div id="detalhes">
+    <div class="rotulo">Especificação desta etapa</div>
+    <div class="spec" id="spec"></div>
+    <p class="nota">Pré-dimensionamento para apresentação. Perfis, cargas e fixações são validados pelo engenheiro estrutural com ART (NBR 6120, NBR 8800, NBR 14762). Pé-direito de 5,5 m é hipótese até a vistoria. Caixas Line Bonsai com medidas ilustrativas.</p>
+  </div>
+</div>
+
+<div class="etapas" aria-label="Etapas da obra">
+  <div class="trilho" id="trilho"></div>
+  <p id="legEtapa"></p>
+  <div class="controles">
+    <button id="btRebater" aria-pressed="false">Rebater assentos</button>
+    <button id="btCorte" aria-pressed="false">Corte na arquibancada</button>
+    <button id="btPlay">▶ Montar etapa por etapa</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function () {
+  // ===================== geometria (da planta calibrada)
+  const PE = 5.5, H_INF = 3.2, XW = 9.30, YF = 18.70, XB = 6.26;
+  const PERFIL = [0,0,0,0.01,0.04,0.07,0.11,0.15,0.20,0.26,0.32,0.39,0.46,0.54,0.62];
+  const FR = PERFIL.map((_, i) => 2.05 + i);
+  const K = 22.677, XC = 242.1, YB = 441.5, M = (x, y) => [(x - XC) / K, (YB - y) / K];
+  const IN = 73.2, OUT = 53.9;
+  const SEQ = [[IN,28.7],[OUT,63.4],[IN,74],[IN,76],[OUT,110.6],[IN,121.3],[IN,123.2],[OUT,157.7],[IN,168.4],[IN,198.8],[OUT,233.5],[IN,244.1],[IN,246.1],[OUT,280.6],[IN,291.3],[IN,293.2],[OUT,327.9],[IN,338.5],[IN,368.9],[OUT,403.5],[IN,414.2],[IN,416.1],[OUT,450.8],[IN,461.3]];
+  const ZZ_E = SEQ.map(([x, y]) => M(x, y)), ZZ_D = ZZ_E.map(([x, y]) => [-x, y]);
+  const PALCO_SUP = [M(141.2,479),M(172.8,545),M(172.8,582.3),M(310.2,582.3),M(311.5,545),M(343.7,479)];
+  const DECK = 0.04;   // chapa + acabamento
+
+  // ===================== etapas
+  const ETAPAS = [
+    { n: 'Existente', t: '<strong>Hoje:</strong> plateia plana em +0,20, palco 1,00 m acima, paredes superiores em dente de serra e palco em leque.',
+      s: '<ul><li>Plateia 18,60 × 19,45 m (361,74 m²)</li><li>Palco 89,59 m², boca de 9,00 m</li><li>15 fileiras, passo 1,00 m</li></ul>' },
+    { n: 'Estrutura metálica', t: '<strong>Etapa 1:</strong> estrutura metálica leve da arquibancada: pilaretes, vigas por fileira e barrotes, chumbada no piso existente sem quebrar a laje.',
+      s: '<ul><li>Pilaretes tubo 50×50×3 mm a cada 1,20 m, com chapa de base chumbada</li><li>Vigas transversais U enrijecido 100×50×17×2,0 mm na frente e no fundo de cada fileira</li><li>Barrotes U 75×40×2,0 mm a cada 0,60 m</li><li>Rampas laterais com a mesma estrutura, ≤ 8 %</li><li>Pintura anticorrosiva</li></ul>' },
+    { n: 'Lã mineral + dutos', t: '<strong>Etapa 2:</strong> lã mineral no vão (o piso não ressoa como tambor) e eletrodutos do palco até a operação passando por baixo.',
+      s: '<ul><li>Lã de rocha 50 mm, 32 kg/m³, sobre o piso existente</li><li>2 eletrodutos Ø 2" (áudio/rede) e 1 Ø 1" (energia) até a FOH</li><li>Caixas de passagem com tampa a cada 6–8 m</li></ul>' },
+    { n: 'Deck e madeira', t: '<strong>Etapa 3:</strong> fechamento dos patamares com chapa e espelhos (degraus) revestidos em madeira, com fita de LED de balizamento.',
+      s: '<ul><li>Chapa OSB estrutural 18 mm + placa cimentícia 10 mm (resistência e massa)</li><li>Espelhos em compensado naval com lâmina de madeira (freijó)</li><li>Fita LED de balizamento em cada espelho (circulação no escuro)</li></ul>' },
+    { n: 'Carpete e corrimãos', t: '<strong>Etapa 4:</strong> carpete nos patamares e rampas, faixa antiderrapante nas bordas, corrimão duplo e guarda-corpo de vidro no patamar do fundo.',
+      s: '<ul><li>Carpete em placas, náilon, tráfego intenso, classe de reação ao fogo exigida pelo CBMES</li><li>Faixa antiderrapante contrastante na borda de cada patamar</li><li>Corrimão duplo em aço inox (0,70 e 0,92 m) nas rampas</li><li>Guarda-corpo de vidro laminado no fundo (NBR 14718)</li></ul>' },
+    { n: 'Poltronas', t: '<strong>Etapa 5:</strong> poltronas estofadas com assento rebatível, fixadas no patamar, e 6 espaços para cadeira de rodas. Use “Rebater assentos” para ver a passagem livre.',
+      s: '<ul><li>Poltrona estofada, encosto alto, assento rebatível por mola/contrapeso</li><li>Braço compartilhado, prancheta escamoteável opcional</li><li>Fixação no patamar com chumbador</li><li>6 espaços P.C.R. + 6 assentos reservados (Dec. 5.296/2004)</li></ul>' },
+    { n: 'Acústica', t: '<strong>Etapa 6:</strong> difusores de madeira no fundo, painéis absorventes em tecido, madeira ripada nas faces refletoras do dente de serra, cortinas e nuvens.',
+      s: '<ul><li>Difusor QRD em madeira (N = 7) no centro da parede do fundo, ≈ 4,0 × 2,4 m</li><li>Painéis em lã mineral 50 mm revestidos de tecido, nas paredes laterais e no fundo</li><li>Ripado de madeira nas faces do dente de serra voltadas ao palco (refletoras)</li><li>Nuvens acústicas no teto · cortinas em veludo no palco</li></ul>' },
+    { n: 'Som, LED e luz', t: '<strong>Etapa 7:</strong> Line Bonsai suspenso (2 × 8 caixas), 2 subwoofers 18" no chão, painel LED 5,00 × 2,81 m, varas de luz e posição de operação.',
+      s: '<ul><li>Line Bonsai: inclinações 10° a 32° por caixa (pré-ajuste)</li><li>Subwoofers 18" junto ao palco, desligáveis na palestra</li><li>Painel LED P2,6–2,9 em estrutura própria</li><li>Varas de luz LED com controle DMX</li></ul>' },
+  ];
+  let etapa = ETAPAS.length - 1;
+
+  // ===================== cena
+  const el = document.getElementById('cena');
+  const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(el.clientWidth, el.clientHeight);
+  renderer.shadowMap.enabled = true;
+  renderer.localClippingEnabled = true;
+  el.appendChild(renderer.domElement);
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x10151F);
+  const camera = new THREE.PerspectiveCamera(45, el.clientWidth / el.clientHeight, 0.05, 200);
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  scene.add(new THREE.HemisphereLight(0xe6eeff, 0x3a3f4a, 0.95));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.18));
+  const sol = new THREE.DirectionalLight(0xffffff, 0.7);
+  sol.position.set(-14, 24, 22); sol.castShadow = true; sol.shadow.mapSize.set(2048, 2048);
+  Object.assign(sol.shadow.camera, { left: -24, right: 24, top: 24, bottom: -24 });
+  scene.add(sol);
+
+  const corte = new THREE.Plane(new THREE.Vector3(-1, 0, 0), 0.0);   // mantém x < 0
+  const cortaveis = [];
+  function mat(c, o = {}, cortavel = false) {
+    const m = new THREE.MeshStandardMaterial(Object.assign({ color: c, roughness: 0.85, metalness: 0.05 }, o));
+    if (cortavel) cortaveis.push(m);
+    return m;
+  }
+  function texRuido(base, var_, tam = 128, listras = false) {
+    const c = document.createElement('canvas'); c.width = c.height = tam;
+    const x = c.getContext('2d'); x.fillStyle = base; x.fillRect(0, 0, tam, tam);
+    for (let i = 0; i < tam * tam / 6; i++) {
+      const a = Math.random() * var_; x.fillStyle = `rgba(255,255,255,${a})`;
+      x.fillRect(Math.random() * tam, Math.random() * tam, 1, 1);
+    }
+    if (listras) for (let i = 0; i < tam; i += 6) { x.fillStyle = `rgba(60,30,10,${0.08 + Math.random() * 0.12})`; x.fillRect(0, i, tam, 2); }
+    const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
+  }
+  const tCarpete = texRuido('#3A3F4A', 0.10); tCarpete.repeat.set(6, 6);
+  const tMadeira = texRuido('#9A6A3E', 0.06, 128, true); tMadeira.repeat.set(4, 1);
+  const tTecido = texRuido('#5B6E8F', 0.08); tTecido.repeat.set(3, 3);
+
+  const E = [];   // grupos por etapa (índice = etapa em que aparece)
+  for (let i = 0; i < ETAPAS.length; i++) { E.push(new THREE.Group()); scene.add(E[i]); }
+  const existentePiso = new THREE.Group(); scene.add(existentePiso);   // some a partir da etapa 3
+
+  function caixa(w, h, d, x, y, z, m, g) {
+    const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
+    b.position.set(x, y, z); b.castShadow = true; b.receiveShadow = true; g.add(b); return b;
+  }
+  function painel(a, b, y0, y1, m, g, esp = 0.06) {
+    const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz);
+    if (L < 0.02) return null;
+    const p = new THREE.Mesh(new THREE.BoxGeometry(L, y1 - y0, esp), m);
+    p.position.set((a[0] + b[0]) / 2, (y0 + y1) / 2, (a[1] + b[1]) / 2);
+    p.rotation.y = -Math.atan2(dz, dx); p.castShadow = p.receiveShadow = true; g.add(p); return p;
+  }
+  function instancias(geo, m, lista, g) {
+    const im = new THREE.InstancedMesh(geo, m, lista.length);
+    const o = new THREE.Object3D();
+    lista.forEach((t, i) => { o.position.set(t[0], t[1], t[2]); o.rotation.set(t[3] || 0, t[4] || 0, t[5] || 0); o.scale.set(t[6] || 1, t[7] || 1, t[8] || 1); o.updateMatrix(); im.setMatrixAt(i, o.matrix); });
+    im.castShadow = im.receiveShadow = true; g.add(im); return im;
+  }
+  const alturaEm = z => { let h = 0; FR.forEach((f, i) => { if (z >= f - 0.33) h = PERFIL[i]; }); return z > 16.72 ? 0.62 : h; };
+
+  // ===================== 0 — existente
+  const g0 = E[0];
+  caixa(2 * XW, 0.12, YF + 0.97, 0, -0.06, (YF - 0.97) / 2, mat(0x6B7080), g0);
+  caixa(2 * XW - 0.02, 0.01, YF + 0.95, 0, 0.005, (YF - 0.97) / 2, mat(0xA8A39A, { roughness: 0.6 }), existentePiso);   // piso cerâmico atual
+  const mPalco = mat(0x8A5E36, { map: tMadeira, roughness: 0.55 });
+  caixa(12.6, 1.0, 6.0, 0, 0.5, -3.97, mPalco, g0);
+  caixa(9.0, 1.0, 0.97, 0, 0.5, -0.485, mPalco, g0);
+  [-1, 1].forEach(s => caixa(3.0, 3.0, 2.35, s * 7.8, 1.5, -2.145, mat(0x3B4356), g0));
+  const mPar = mat(0xCDD2DB, { transparent: true, opacity: 0.30, side: THREE.DoubleSide, depthWrite: false });
+  const mParS = mat(0xDDE1E8, { transparent: true, opacity: 0.36, side: THREE.DoubleSide, depthWrite: false });
+  [-1, 1].forEach(s => painel([s * XW, -0.97], [s * XW, YF], 0, H_INF, mPar, g0, 0.15));
+  painel([-XW, YF], [XW, YF], 0, PE, mPar, g0, 0.15);
+  [ZZ_E, ZZ_D].forEach((zz, k) => {
+    for (let i = 0; i < zz.length - 1; i++) painel(zz[i], zz[i + 1], H_INF, PE, mParS, g0, 0.12);
+    const s = k ? 1 : -1, sh = new THREE.Shape();
+    sh.moveTo(s * XW, zz[0][1]); zz.forEach(p => sh.lineTo(p[0], p[1])); sh.lineTo(s * XW, zz[zz.length - 1][1]);
+    const f = new THREE.Mesh(new THREE.ShapeGeometry(sh), mPar); f.rotation.x = Math.PI / 2; f.position.y = H_INF; g0.add(f);
+  });
+  [-1, 1].forEach(s => painel([s * 4.5, -0.97], [s * XW, -0.97], 3.0, PE, mPar, g0, 0.15));
+  painel([-4.5, -0.97], [4.5, -0.97], 4.6, PE, mPar, g0, 0.15);
+  for (let i = 0; i < PALCO_SUP.length - 1; i++) painel(PALCO_SUP[i], PALCO_SUP[i + 1], 1.0, PE, mParS, g0, 0.1);
+
+  // ===================== 1 — estrutura metálica
+  const g1 = E[1];
+  const mAco = mat(0xC4572E, { metalness: 0.25, roughness: 0.55 }, true);
+  const mAcoEsc = mat(0x8F3B1E, { metalness: 0.25, roughness: 0.6 }, true);
+  const vigas = [], barrotes = [], pilaretes = [], bases = [];
+  const XS_PIL = []; for (let x = -XB; x <= XB + 0.01; x += 1.2522) XS_PIL.push(x);
+  const XS_BAR = []; for (let x = -XB + 0.05; x <= XB; x += 0.6) XS_BAR.push(x);
+  FR.forEach((f, i) => {
+    const h = PERFIL[i]; if (h < 0.035) return;
+    const z0 = f - 0.33, z1 = z0 + 1.0, ht = h - DECK;
+    [z0 + 0.03, z1 - 0.03].forEach(z => {
+      vigas.push([0, ht - 0.05, z]);
+      XS_PIL.forEach(x => { pilaretes.push([x, (ht - 0.1) / 2, z, 0, 0, 0, 1, Math.max(0.02, ht - 0.1) / 1, 1]); bases.push([x, 0.006, z]); });
+    });
+    XS_BAR.forEach(x => barrotes.push([x, ht - 0.0375, (z0 + z1) / 2]));
+  });
+  instancias(new THREE.BoxGeometry(2 * XB, 0.1, 0.05), mAco, vigas, g1);
+  instancias(new THREE.BoxGeometry(0.04, 0.075, 0.94), mAcoEsc, barrotes, g1);
+  instancias(new THREE.BoxGeometry(0.05, 1, 0.05), mAco, pilaretes, g1);
+  instancias(new THREE.BoxGeometry(0.15, 0.012, 0.15), mAcoEsc, bases, g1);
+  // patamar do fundo
+  const patV = [], patP = [];
+  for (let z = 16.75; z <= YF - 0.1; z += 0.6) { patV.push([0, 0.62 - DECK - 0.05, z]); [-8.8, -6, -3, 0, 3, 6, 8.8].forEach(x => patP.push([x, 0.25, z, 0, 0, 0, 1, 0.5, 1])); }
+  instancias(new THREE.BoxGeometry(2 * XW - 0.3, 0.1, 0.05), mAco, patV, g1);
+  instancias(new THREE.BoxGeometry(0.05, 1, 0.05), mAco, patP, g1);
+  // rampas laterais (vigas inclinadas + pilaretes)
+  const rampV = [], rampP = [];
+  [-1, 1].forEach(s => {
+    [XB + 0.1, (XB + XW) / 2, XW - 0.12].forEach(x => {
+      for (let i = 3; i < 15; i++) {
+        const z0 = FR[i] - 0.33, h0 = (PERFIL[i - 1] || 0) - DECK, h1 = PERFIL[i] - DECK;
+        const ang = Math.atan2(h1 - h0, 1.0);
+        rampV.push([s * x, (h0 + h1) / 2 - 0.05, z0 + 0.5, -ang]);
+        if (h1 > 0.12) rampP.push([s * x, (h1 - 0.1) / 2, z0 + 1.0, 0, 0, 0, 1, h1 - 0.1, 1]);
+      }
+    });
+  });
+  instancias(new THREE.BoxGeometry(0.05, 0.1, 1.0), mAco, rampV, g1);
+  instancias(new THREE.BoxGeometry(0.05, 1, 0.05), mAco, rampP, g1);
+
+  // ===================== 2 — lã mineral + dutos
+  const g2 = E[2];
+  const mLa = mat(0xE8C64A, { transparent: true, opacity: 0.55, roughness: 1 }, true);
+  FR.forEach((f, i) => { const h = PERFIL[i]; if (h < 0.11) return; caixa(2 * XB - 0.1, 0.05, 0.96, 0, 0.025, f + 0.17, mLa, g2); });
+  caixa(2 * XW - 0.2, 0.05, YF - 16.8, 0, 0.025, (16.72 + YF) / 2, mLa, g2);
+  const mDuto = mat(0x2E2E33, { roughness: 0.5 }, true);
+  [[-7.6, 0.06, 1.0, -7.6, 0.06, 17.3], [-7.6, 0.06, 17.3, 0, 0.06, 17.3], [-7.5, 0.06, 1.0, -7.5, 0.06, 17.2]].forEach(([x0, y0, z0, x1, y1, z1]) => {
+    const L = Math.hypot(x1 - x0, z1 - z0), d = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, L, 10), mDuto);
+    d.position.set((x0 + x1) / 2, y0, (z0 + z1) / 2); d.rotation.z = Math.PI / 2; d.rotation.y = -Math.atan2(z1 - z0, x1 - x0); g2.add(d);
+  });
+  [[-7.6, 6.5], [-7.6, 12.5], [-3.8, 17.3]].forEach(([x, z]) => caixa(0.3, 0.06, 0.3, x, 0.08, z, mat(0x55585F), g2));
+
+  // ===================== 3 — deck + madeira + LED de balizamento
+  const g3 = E[3];
+  const mDeck = mat(0xB89B6A, { roughness: 0.9 }, true);
+  const mEsp = mat(0x9A6A3E, { map: tMadeira, roughness: 0.5 }, true);
+  const mLed = new THREE.MeshBasicMaterial({ color: 0xFFE9B0 }); mLed.clippingPlanes = []; cortaveis.push(mLed);
+  FR.forEach((f, i) => {
+    const h = PERFIL[i]; if (h < 0.035) return;
+    caixa(2 * XB, DECK, 1.0, 0, h - DECK / 2, f + 0.17, mDeck, g3);
+    const hp = h - (PERFIL[i - 1] || 0);
+    if (hp > 0.005) { caixa(2 * XB, hp, 0.02, 0, (PERFIL[i - 1] || 0) + hp / 2, f - 0.33, mEsp, g3); caixa(2 * XB, 0.008, 0.005, 0, h - 0.012, f - 0.345, mLed, g3); }
+  });
+  caixa(2 * XW, DECK, YF - 16.72, 0, 0.62 - DECK / 2, (16.72 + YF) / 2, mDeck, g3);
+  caixa(2 * XB, 0.08, 0.02, 0, 0.58, 16.72, mEsp, g3);
+  const rampas = [];
+  [-1, 1].forEach(s => { for (let i = 3; i < 15; i++) { const z0 = FR[i] - 0.33, h0 = PERFIL[i - 1] || 0, h1 = PERFIL[i]; rampas.push([s, z0, h0, h1]); } });
+  rampas.forEach(([s, z0, h0, h1]) => {
+    const L = Math.hypot(1.0, h1 - h0);
+    const r = new THREE.Mesh(new THREE.BoxGeometry(XW - XB, DECK, L), mDeck);
+    r.position.set(s * (XB + XW) / 2, (h0 + h1) / 2 - DECK / 2, z0 + 0.5); r.rotation.x = -Math.atan2(h1 - h0, 1.0); r.receiveShadow = true; g3.add(r);
+  });
+
+  // ===================== 4 — carpete, antiderrapante, corrimãos, guarda-corpo
+  const g4 = E[4];
+  const mCarp = mat(0x4A505C, { map: tCarpete, roughness: 1 }, true);
+  const mFaixa = mat(0xE0B04A, { roughness: 0.8 }, true);
+  const plano = (x, z, w, d, y, m, g, rx = 0) => { const p = new THREE.Mesh(new THREE.PlaneGeometry(w, d), m); p.rotation.x = -Math.PI / 2 + rx; p.position.set(x, y, z); p.receiveShadow = true; g.add(p); return p; };
+  plano(0, (1.72 - 0.97) / 2, 2 * XW, 1.72 + 0.97, 0.012, mCarp, g4);
+  FR.forEach((f, i) => { const h = PERFIL[i]; plano(0, f + 0.17, 2 * XB, 1.0, h + 0.004 + (h > 0 ? 0 : 0.008), mCarp, g4); if (h - (PERFIL[i - 1] || 0) > 0.005) caixa(2 * XB, 0.004, 0.05, 0, h + 0.006, f - 0.31, mFaixa, g4); });
+  plano(0, (16.72 + YF) / 2, 2 * XW, YF - 16.72, 0.624, mCarp, g4);
+  [-1, 1].forEach(s => { plano(s * (XB + XW) / 2, (1.72 + 4.72) / 2, XW - XB, 3.0, 0.016, mCarp, g4); });
+  rampas.forEach(([s, z0, h0, h1]) => {
+    const L = Math.hypot(1.0, h1 - h0), p = plano(s * (XB + XW) / 2, z0 + 0.5, XW - XB, L, (h0 + h1) / 2 + 0.004, mCarp, g4);
+    p.rotation.x = -Math.PI / 2 - Math.atan2(h1 - h0, 1.0);
+  });
+  const mInox = mat(0xE3E7EC, { metalness: 0.3, roughness: 0.3 });
+  [-1, 1].forEach(s => [XB + 0.06, XW - 0.06].forEach(x => [0.70, 0.92].forEach(hc => {
+    const pts = []; for (let z = 4.4; z <= 16.9; z += 0.25) pts.push(new THREE.Vector3(s * x, alturaEm(Math.min(z, 16.7)) + hc, z));
+    const tubo = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 60, 0.02, 8), mInox); g4.add(tubo);
+    for (let z = 4.6; z <= 16.7; z += 1.5) caixa(0.03, hc, 0.03, s * x, alturaEm(z) + hc / 2, z, mInox, g4);
+  })));
+  const mVidro = new THREE.MeshPhysicalMaterial({ color: 0xBFE3F2, transparent: true, opacity: 0.25, roughness: 0.05, metalness: 0, side: THREE.DoubleSide });
+  caixa(2 * XB, 1.05, 0.02, 0, 0.62 + 0.525, 16.74, mVidro, g4);
+  caixa(2 * XB, 0.04, 0.06, 0, 0.62 + 1.07, 16.74, mInox, g4);
+
+  // ===================== 5 — poltronas com assento rebatível
+  const g5 = E[5];
+  const passo = (2 * XB) / 18;
+  const LUG = [];
+  const pcr = new Set(['2-0', '2-17', '9-0', '9-17']);
+  FR.forEach((f, i) => { for (let j = 0; j < 18; j++) { if (i === 0 && j < 4) continue; if (pcr.has(i + '-' + j)) continue; LUG.push([-XB + passo * (j + 0.5), PERFIL[i], f]); } });
+  const mEst = mat(0x2B4A86, { roughness: 0.95 }, true), mEstEsc = mat(0x1F3766, { roughness: 0.95 }, true);
+  const mPreto = mat(0x1B1D22, { roughness: 0.6, metalness: 0.3 }, true), mBraco = mat(0x6B4A2B, { map: tMadeira, roughness: 0.5 }, true);
+  const encosto = instancias(new THREE.BoxGeometry(0.54, 0.62, 0.09), mEst, LUG.map(([x, h, f]) => [x, h + 0.80, f + 0.60, -0.12]), g5);
+  instancias(new THREE.BoxGeometry(0.56, 0.66, 0.03), mPreto, LUG.map(([x, h, f]) => [x, h + 0.80, f + 0.655, -0.12]), g5);
+  const bracos = []; LUG.forEach(([x, h, f]) => { bracos.push([x - passo / 2, h + 0.62, f + 0.36]); });
+  FR.forEach((f, i) => bracos.push([XB, PERFIL[i] + 0.62, f + 0.36]));
+  instancias(new THREE.BoxGeometry(0.06, 0.05, 0.50), mBraco, bracos, g5);
+  instancias(new THREE.BoxGeometry(0.05, 0.6, 0.08), mPreto, bracos.map(([x, y, z]) => [x, y - 0.31, z + 0.05]), g5);
+  const assento = new THREE.InstancedMesh(new THREE.BoxGeometry(0.50, 0.09, 0.46), mEstEsc, LUG.length);
+  assento.castShadow = true; g5.add(assento);
+  const mP = new THREE.Matrix4(), mR = new THREE.Matrix4(), mT = new THREE.Matrix4().makeTranslation(0, 0, -0.23);
+  function posAssentos(t) {   // t: 0 aberto, 1 rebatido
+    const ang = t * 1.35;
+    LUG.forEach(([x, h, f], i) => {
+      mP.makeTranslation(x, h + 0.45, f + 0.53); mR.makeRotationX(ang);
+      assento.setMatrixAt(i, mP.clone().multiply(mR).multiply(mT));
+    });
+    assento.instanceMatrix.needsUpdate = true;
+  }
+  posAssentos(0);
+  const mPcr = mat(0x2F7DF6, { emissive: 0x0b2a66 });
+  [[0, 2], [17, 2], [0, 9], [17, 9]].forEach(([j, i]) => caixa(0.8, 0.012, 1.0, -XB + passo * (j + 0.5), PERFIL[i] + 0.012, FR[i] + 0.3, mPcr, g5));
+  caixa(2.6, 0.012, 1.4, -4.88, 0.024, 2.0, mPcr, g5);
+
+  // ===================== 6 — acústica
+  const g6 = E[6];
+  const mTec = mat(0x5B6E8F, { map: tTecido, roughness: 1 });
+  const mTecV = mat(0x7A3446, { map: tTecido, roughness: 1 });
+  const mRip = mat(0xA87447, { map: tMadeira, roughness: 0.45 });
+  // painéis absorventes em tecido, em módulos com junta
+  [-1, 1].forEach(s => { for (let z = 4.2; z < YF - 0.8; z += 1.25) painel([s * (XW - 0.09), z], [s * (XW - 0.09), z + 1.18], 1.2, H_INF - 0.15, mTec, g6, 0.05); });
+  for (let x = -XW + 0.3; x < -2.2; x += 1.25) painel([x, YF - 0.1], [Math.min(x + 1.18, -2.2), YF - 0.1], 1.0, 3.4, mTec, g6, 0.05);
+  for (let x = 2.2; x < XW - 0.3; x += 1.25) painel([x, YF - 0.1], [Math.min(x + 1.18, XW - 0.3), YF - 0.1], 1.0, 3.4, mTec, g6, 0.05);
+  // difusor QRD N=7 (profundidades n² mod 7), madeira
+  const qrd = [], nW = 28, nH = 16, wl = 4.0 / nW;
+  for (let a = 0; a < nW; a++) for (let b = 0; b < nH; b++) {
+    const d = 0.03 + 0.04 * (((a * a) + (b * b)) % 7);
+    qrd.push([-2.0 + wl * (a + 0.5), 1.0 + (2.4 / nH) * (b + 0.5), YF - 0.08 - d / 2, 0, 0, 0, 1, 1, d / 0.1]);
+  }
+  instancias(new THREE.BoxGeometry(wl * 0.92, 2.4 / nH * 0.92, 0.1), mRip, qrd, g6);
+  caixa(4.1, 2.5, 0.04, 0, 2.2, YF - 0.06, mat(0x3A2615), g6);
+  // dente de serra: ripado nas faces refletoras (metade frontal), tecido nas demais
+  [ZZ_E, ZZ_D].forEach(zz => {
+    for (let i = 0; i < zz.length - 1; i++) {
+      const a = zz[i], b = zz[i + 1]; if (Math.abs(a[0] - b[0]) < 0.05) continue;
+      const curta = Math.abs(a[1] - b[1]) < 0.6, ym = (a[1] + b[1]) / 2;
+      if (curta || ym > 9) { painel(a, b, H_INF + 0.25, PE - 0.3, mTecV, g6, 0.12); continue; }
+      const L = Math.hypot(b[0] - a[0], b[1] - a[1]), n = Math.floor(L / 0.07);
+      for (let k = 0; k < n; k++) {
+        const t0 = (k + 0.2) / n, t1 = (k + 0.8) / n;
+        painel([a[0] + (b[0] - a[0]) * t0, a[1] + (b[1] - a[1]) * t0], [a[0] + (b[0] - a[0]) * t1, a[1] + (b[1] - a[1]) * t1], H_INF + 0.25, PE - 0.3, mRip, g6, 0.14);
+      }
+    }
+  });
+  // nuvens acústicas
+  const mNuvem = mat(0xDCE2EA, { roughness: 1, transparent: true, opacity: 0.55 });
+  for (let z = 6.5; z < 17; z += 2.2) for (let x = -5; x <= 5; x += 2.5) {
+    const n = caixa(2.1, 0.05, 1.8, x, PE - 0.6, z, mNuvem, g6);
+    [-0.9, 0.9].forEach(dx => { const c = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x + dx, PE - 0.58, z), new THREE.Vector3(x + dx, PE, z)]), new THREE.LineBasicMaterial({ color: 0x8a94a6 })); g6.add(c); });
+  }
+  // cortinas com dobras
+  function cortina(x0, x1, z, y0, y1, cor, g) {
+    const L = Math.abs(x1 - x0), seg = Math.max(8, Math.round(L * 10));
+    const geo = new THREE.PlaneGeometry(L, y1 - y0, seg, 1);
+    const pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) pos.setZ(i, Math.sin(pos.getX(i) * 18) * 0.06);
+    geo.computeVertexNormals();
+    const m = new THREE.Mesh(geo, mat(cor, { side: THREE.DoubleSide, roughness: 1 }));
+    m.position.set((x0 + x1) / 2, (y0 + y1) / 2, z); m.castShadow = true; g.add(m); return m;
+  }
+  cortina(-3.0, 3.0, -6.1, 1.0, PE - 0.2, 0x15161A, g6);
+  [-1, 1].forEach(s => { [[-2.6, 4.05], [-4.0, 3.35]].forEach(([z, hw]) => { const c = cortina(s * (hw - 1.1), s * hw, z, 1.0, PE - 0.2, 0x15161A, g6); }); });
+  [-1, 1].forEach(s => cortina(s * 4.5, s * 3.3, -0.85, 1.0, 4.6, 0x7A1E2B, g6));
+  cortina(-4.5, 4.5, -0.85, 4.0, 4.6, 0x7A1E2B, g6);
+
+  // ===================== 7 — som, LED, luz, FOH
+  const g7 = E[7];
+  const cv = document.createElement('canvas'); cv.width = 1024; cv.height = 576;
+  const cx = cv.getContext('2d'); const gr = cx.createLinearGradient(0, 0, 1024, 576);
+  gr.addColorStop(0, '#103B66'); gr.addColorStop(1, '#0E7A5E'); cx.fillStyle = gr; cx.fillRect(0, 0, 1024, 576);
+  cx.fillStyle = '#F7F5F0'; cx.font = 'bold 64px Arial'; cx.textAlign = 'center'; cx.fillText('EEEM Emir de Macedo Gomes', 512, 260);
+  cx.font = '40px Arial'; cx.fillStyle = '#F2A541'; cx.fillText('Auditório', 512, 340);
+  const led = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 2.81), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cv) }));
+  led.position.set(0, 3.405, -3.0); g7.add(led);
+  caixa(5.1, 2.9, 0.12, 0, 3.405, -3.08, mat(0x111418), g7);
+  [-2.2, 2.2].forEach(x => caixa(0.08, 2.0, 0.6, x, 2.0, -3.2, mat(0x333842, { metalness: 0.6 }), g7));
+  const mVara = mat(0x8A8F99, { metalness: 0.6, roughness: 0.4 }), mRefl = mat(0x222428, { metalness: 0.4 });
+  [[3.0, 12.0, 4.9], [-1.9, 8.2, 5.0], [-3.6, 6.4, 5.0]].forEach(([z, L, y]) => {
+    const v = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, L, 8), mVara); v.rotation.z = Math.PI / 2; v.position.set(0, y, z); g7.add(v);
+    const nf = Math.round(L / 1.6); for (let i = 0; i < nf; i++) caixa(0.22, 0.3, 0.3, -L / 2 + L * (i + 0.5) / nf, y - 0.2, z, mRefl, g7);
+  });
+  caixa(1.8, 0.85, 0.8, -0.15, 0.62 + 0.425, 17.45, mat(0x1E2633), g7);
+  const ANG = [10, 11, 13, 15, 18, 21, 26, 32];
+  const mCx = mat(0x1B1E24, { roughness: 0.5, metalness: 0.2 }), mGr = mat(0x4FB3FF, { emissive: 0x0d3a66 });
+  [-1, 1].forEach(s => {
+    const grp = new THREE.Group(); grp.position.set(s * 5.2, 5.0, -0.4); grp.rotation.y = -s * THREE.MathUtils.degToRad(18); g7.add(grp);
+    caixa(0.6, 0.05, 0.42, 0, 0.04, 0.05, mat(0x6B7280, { metalness: 0.7 }), grp);
+    let topo = new THREE.Vector3();
+    ANG.forEach(a => {
+      const r = THREE.MathUtils.degToRad(a), up = new THREE.Vector3(0, Math.cos(r), Math.sin(r));
+      const c = topo.clone().addScaledVector(up, -0.085);
+      const b = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.163, 0.32), mCx); b.position.copy(c); b.rotation.x = r; grp.add(b);
+      const gg = new THREE.Mesh(new THREE.PlaneGeometry(0.41, 0.13), mGr); gg.position.z = 0.162; b.add(gg);
+      topo.addScaledVector(up, -0.17);
+    });
+    [-0.25, 0.25].forEach(dx => { const p = new THREE.Vector3(s * 5.2 + dx, 5.06, -0.35); g7.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([p, new THREE.Vector3(p.x, PE, p.z)]), new THREE.LineBasicMaterial({ color: 0x9aa7bd }))); });
+    const sub = caixa(0.56, 0.70, 0.75, s * 3.6, 0.36, 0.42, mat(0x151719, { roughness: 0.7 }), g7);
+    const cone = new THREE.Mesh(new THREE.CircleGeometry(0.22, 32), mat(0x2b2f36)); cone.position.set(0, 0.02, 0.376); sub.add(cone);
+  });
+
+  // ===================== interação
+  const trilho = document.getElementById('trilho');
+  trilho.innerHTML = ETAPAS.map((e, i) => `<button data-e="${i}"><b>${i}</b>${e.n}</button>`).join('');
+  function mostrar(i) {
+    etapa = i;
+    E.forEach((g, k) => { g.visible = k <= i; });
+    existentePiso.visible = i < 4;
+    trilho.querySelectorAll('button').forEach(b => b.classList.toggle('ativo', +b.dataset.e === i));
+    document.getElementById('legEtapa').innerHTML = ETAPAS[i].t;
+    document.getElementById('spec').innerHTML = `<b>${ETAPAS[i].n}</b>${ETAPAS[i].s}`;
+  }
+  trilho.addEventListener('click', e => { const b = e.target.closest('button'); if (b) { parar(); mostrar(+b.dataset.e); } });
+  let rebatido = 0, alvoReb = 0;
+  const btReb = document.getElementById('btRebater');
+  btReb.addEventListener('click', () => { alvoReb = alvoReb ? 0 : 1; btReb.setAttribute('aria-pressed', !!alvoReb); btReb.classList.toggle('ativo', !!alvoReb); btReb.textContent = alvoReb ? 'Abrir assentos' : 'Rebater assentos'; });
+  const btCorte = document.getElementById('btCorte');
+  btCorte.addEventListener('click', () => {
+    const on = btCorte.getAttribute('aria-pressed') !== 'true';
+    btCorte.setAttribute('aria-pressed', on); btCorte.classList.toggle('ativo', on);
+    cortaveis.forEach(m => { m.clippingPlanes = on ? [corte] : []; m.needsUpdate = true; });
+  });
+  let tPlay = null;
+  const btPlay = document.getElementById('btPlay');
+  function parar() { if (tPlay) { clearInterval(tPlay); tPlay = null; btPlay.textContent = '▶ Montar etapa por etapa'; } }
+  btPlay.addEventListener('click', () => {
+    if (tPlay) return parar();
+    let i = 0; mostrar(0); btPlay.textContent = '❚❚ Pausar';
+    tPlay = setInterval(() => { i++; if (i >= ETAPAS.length) return parar(); mostrar(i); }, 2600);
+  });
+  const VISTAS = {
+    geral: [[-13.5, 10.5, 23], [0, 1.0, 6.5]],
+    estrutura: [[-7.6, 2.6, 2.6], [-1.5, 0.2, 12.5]],
+    poltronas: [[-3.0, 1.75, 6.0], [-4.6, 0.75, 9.6]],
+    difusor: [[1.6, 2.1, 12.5], [0, 2.1, 18.6]],
+    fundo: [[0, 0.62 + 1.12 + 0.2, 16.6], [0, 2.4, -2]],
+  };
+  function vista(v) {
+    const [p, t] = VISTAS[v], asp = el.clientWidth / el.clientHeight, f = asp < 1 ? Math.min(2.0, 1.2 / asp) : 1;
+    const pos = (v === 'geral') ? p.map((c, i) => t[i] + (c - t[i]) * f) : p;
+    camera.position.set(...pos); controls.target.set(...t); controls.update();
+    document.querySelectorAll('#vistas button').forEach(b => b.classList.toggle('ativo', b.dataset.v === v));
+  }
+  document.getElementById('vistas').addEventListener('click', e => { if (e.target.dataset.v) vista(e.target.dataset.v); });
+  const painelEl = document.getElementById('painel'), btDet = document.getElementById('btDet');
+  function abrir(on) { painelEl.classList.toggle('aberto', on); btDet.setAttribute('aria-expanded', on); btDet.textContent = on ? 'Ocultar ▾' : 'Detalhes ▴'; }
+  abrir(window.innerWidth > 1100);
+  btDet.addEventListener('click', () => abrir(!painelEl.classList.contains('aberto')));
+  document.getElementById('btFechar').addEventListener('click', () => document.body.classList.add('limpo'));
+  document.getElementById('btAbrir').addEventListener('click', () => document.body.classList.remove('limpo'));
+  // estado inicial pela âncora: #etapa-N ou #vista
+  const h = location.hash.replace('#', '');
+  const mE = h.match(/^etapa-(\d)$/);
+  mostrar(mE ? Math.min(+mE[1], ETAPAS.length - 1) : ETAPAS.length - 1);
+  vista(VISTAS[h] ? h : 'geral');
+  window.addEventListener('hashchange', () => { const k = location.hash.replace('#', ''); const m2 = k.match(/^etapa-(\d)$/); if (m2) mostrar(+m2[1]); if (VISTAS[k]) vista(k); });
+  window.addEventListener('resize', () => { camera.aspect = el.clientWidth / el.clientHeight; camera.updateProjectionMatrix(); renderer.setSize(el.clientWidth, el.clientHeight); });
+  window.__maquete = { mostrar, vista, rebater: v => { alvoReb = v; rebatido = v; posAssentos(v); }, cortar: () => btCorte.click() };
+  (function loop() {
+    if (Math.abs(rebatido - alvoReb) > 0.001) { rebatido += (alvoReb - rebatido) * 0.12; posAssentos(rebatido); }
+    controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop);
+  })();
+})();
+</script>
