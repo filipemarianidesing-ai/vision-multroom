@@ -1,0 +1,275 @@
+{
+  "escola": {
+    "nome": "<NOME DA ESCOLA> — Auditório",
+    "cidade": "<cidade>/ES",
+    "rede": "SEDU/ES",
+    "processo": "<nº>",
+    "fonte_base": "<arquivo, prancha, revisão, data>"
+  },
+  "calibracao": {
+    "_nota": "Preencher a partir de duas cadeias de cotas impressas que conferem entre si (ver metodologia, Etapa 1).",
+    "pt_por_cm": null,
+    "x_face_interna_esquerda_pt": null,
+    "x_face_interna_direita_pt": null,
+    "y_face_interna_fundo_pt": null,
+    "y_borda_palco_pt": null,
+    "y_alinhamento_salas_apoio_pt": null
+  },
+  "geometria": {
+    "area_plateia_m2": null,
+    "area_palco_m2": null,
+    "largura_plateia_m": null,
+    "comprimento_plateia_m": null,
+    "boca_cena_m": null,
+    "largura_palco_entre_apoios_m": null,
+    "profundidade_palco_aprox_m": null,
+    "cota_plateia_m": null,
+    "cota_palco_m": null,
+    "altura_palco_sobre_plateia_m": null,
+    "pe_direito_m": null
+  },
+  "plateia": {
+    "lotacao_referencia": null,
+    "espacos_pcr_desenho": null,
+    "fileiras": null,
+    "assentos_por_fileira": null,
+    "passo_fileiras_m": null,
+    "largura_bloco_m": null,
+    "corredores_laterais_m": null,
+    "faixa_fundo_m": null,
+    "dist_olho_1a_fileira_ao_palco_m": null,
+    "altura_olho_sentado_m": 1.12,
+    "pontos_focais_acima_palco_m": [
+      0.0,
+      0.2,
+      0.4,
+      0.6
+    ]
+  },
+  "arquibancada": {
+    "fileiras_planas_frente": 3,
+    "arredondamento_m": 0.01,
+    "recomendado": "B — rampa acessível",
+    "cenarios": [
+      {
+        "nome": "A — visibilidade plena",
+        "foco_acima_palco_m": 0.4,
+        "C_m": 0.08
+      },
+      {
+        "nome": "B — rampa acessível",
+        "foco_acima_palco_m": 0.4,
+        "C_m": 0.06
+      },
+      {
+        "nome": "C — mínimo",
+        "foco_acima_palco_m": 0.5,
+        "C_m": 0.06
+      }
+    ]
+  },
+  "acustica": {
+    "pe_direito_hipoteses_m": [
+      4.5,
+      5.5,
+      6.5
+    ],
+    "cenarios": [
+      {
+        "nome": "E0 existente (hip.: forro liso, poltronas estofadas)",
+        "superficies": [
+          {
+            "material": "plateia_estofada_vazia",
+            "area": 201.5
+          },
+          {
+            "material": "piso_ceramico",
+            "area": 160.2
+          },
+          {
+            "material": "piso_madeira_palco",
+            "area": 89.6
+          },
+          {
+            "material": "forro_gesso_liso",
+            "area": 451.3
+          },
+          {
+            "material": "alvenaria_rebocada_pintada",
+            "area_por_m_altura": 82.9
+          },
+          {
+            "material": "alvenaria_rebocada_pintada",
+            "area": -22.0
+          },
+          {
+            "material": "vidro_janela",
+            "area": 12.0
+          },
+          {
+            "material": "porta_madeira",
+            "area": 10.0
+          }
+        ]
+      },
+      {
+        "nome": "E0b existente (hip.: cadeiras rígidas)",
+        "superficies": [
+          {
+            "material": "plateia_rigida_vazia",
+            "area": 201.5
+          },
+          {
+            "material": "piso_ceramico",
+            "area": 160.2
+          },
+          {
+            "material": "piso_madeira_palco",
+            "area": 89.6
+          },
+          {
+            "material": "forro_gesso_liso",
+            "area": 451.3
+          },
+          {
+            "material": "alvenaria_rebocada_pintada",
+            "area_por_m_altura": 82.9
+          },
+          {
+            "material": "alvenaria_rebocada_pintada",
+            "area": -22.0
+          },
+          {
+            "material": "vidro_janela",
+            "area": 12.0
+          },
+          {
+            "material": "porta_madeira",
+            "area": 10.0
+          }
+        ]
+      },
+      {
+        "nome": "T1 essencial (painéis 120 m² + cortinas 60 m²)",
+        "superficies": [
+          {
+            "material": "plateia_estofada_vazia",
+            "area": 201.5
+          },
+          {
+            "material": "piso_ceramico",
+            "area": 160.2
+          },
+          {
+            "material": "piso_madeira_palco",
+            "area": 89.6
+          },
+          {
+            "material": "forro_gesso_liso",
+            "area": 451.3
+          },
+          {
+            "material": "alvenaria_rebocada_pintada",
+            "area_por_m_altura": 82.9
+          },
+          {
+            "material": "alvenaria_rebocada_pintada",
+            "area": -202.0
+          },
+          {
+            "material": "painel_la_mineral_50mm",
+            "area": 120.0
+          },
+          {
+            "material": "cortina_veludo_pregueada",
+            "area": 60.0
+          },
+          {
+            "material": "vidro_janela",
+            "area": 12.0
+          },
+          {
+            "material": "porta_madeira",
+            "area": 10.0
+          }
+        ]
+      },
+      {
+        "nome": "T2 completo (T1 + nuvens 150 m² + difusor 20 m²)",
+        "superficies": [
+          {
+            "material": "plateia_estofada_vazia",
+            "area": 201.5
+          },
+          {
+            "material": "piso_ceramico",
+            "area": 160.2
+          },
+          {
+            "material": "piso_madeira_palco",
+            "area": 89.6
+          },
+          {
+            "material": "forro_gesso_liso",
+            "area": 301.3
+          },
+          {
+            "material": "painel_la_mineral_50mm_plenum100",
+            "area": 150.0
+          },
+          {
+            "material": "alvenaria_rebocada_pintada",
+            "area_por_m_altura": 82.9
+          },
+          {
+            "material": "alvenaria_rebocada_pintada",
+            "area": -222.0
+          },
+          {
+            "material": "painel_la_mineral_50mm",
+            "area": 120.0
+          },
+          {
+            "material": "difusor_madeira",
+            "area": 20.0
+          },
+          {
+            "material": "cortina_veludo_pregueada",
+            "area": 60.0
+          },
+          {
+            "material": "vidro_janela",
+            "area": 12.0
+          },
+          {
+            "material": "porta_madeira",
+            "area": 10.0
+          }
+        ]
+      }
+    ]
+  },
+  "som": {
+    "main_x_m": 7.0,
+    "main_altura_m": 3.0,
+    "delay_x_m": 9.25,
+    "delay_y_m": 11.4,
+    "delay_altura_m": 3.5
+  },
+  "video": {
+    "recuo_tela_em_relacao_borda_palco_m": 3.0,
+    "led_largura_m": 5.0,
+    "led_altura_m": 2.81,
+    "pitches_mm": [
+      2.6,
+      2.9,
+      3.9
+    ],
+    "consumo_medio_w_m2": 200,
+    "consumo_max_w_m2": 600,
+    "peso_kg_m2": 30,
+    "projecao_luminancia_alvo_cd_m2": 200,
+    "projecao_ganho_tela": 1.0
+  },
+  "_instrucoes": "Copie para auditorios/<escola>/dados/escola.json, preencha os campos null com dados da planta (marcando hipóteses) e rode calc_auditorio.py. Áreas de superfícies acústicas em m² ou por metro de altura."
+}
