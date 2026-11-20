@@ -33,7 +33,11 @@ th { color: var(--muted); font-weight: 600; }
 .painel { box-sizing: border-box; }
 .painel > * { flex-shrink: 0; }
 .topo { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-#btDet { padding: 4px 10px; font-size: 12px; }
+#btDet, #btFechar { padding: 4px 10px; font-size: 12px; }
+.acoes { display: flex; gap: 6px; }
+#btAbrir { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); left: max(12px, env(safe-area-inset-left, 0px)); font-size: 14px; padding: 8px 14px; background: var(--panel); z-index: 5; }
+body.limpo .painel, body.limpo .legenda { display: none; }
+body:not(.limpo) #btAbrir { display: none; }
 #detalhes { display: none; flex-direction: column; gap: 10px; }
 .painel.aberto #detalhes { display: flex; }
 .leg-mob { display: none; }
@@ -52,11 +56,15 @@ th { color: var(--muted); font-weight: 600; }
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap">
 
 <div id="cena" aria-label="Maquete 3D do auditório"></div>
+<button id="btAbrir" aria-label="Mostrar painel">☰ Painel</button>
 
 <div class="painel" id="painel">
   <div class="topo">
     <span class="selo">Simulação de pré-projeto</span>
-    <button id="btDet" aria-expanded="false" aria-controls="detalhes">Detalhes ▴</button>
+    <div class="acoes">
+      <button id="btDet" aria-expanded="false" aria-controls="detalhes">Detalhes ▴</button>
+      <button id="btFechar" aria-label="Esconder painel e mostrar só a maquete" title="Esconder painel">✕</button>
+    </div>
   </div>
   <h1>Auditório EEEM Emir de Macedo Gomes</h1>
   <div class="grupo" id="vistas">
@@ -319,7 +327,9 @@ th { color: var(--muted); font-weight: 600; }
   };
   const painel = document.getElementById('painel'), btDet = document.getElementById('btDet');
   function abrir(on) { painel.classList.toggle('aberto', on); btDet.setAttribute('aria-expanded', on); btDet.textContent = on ? 'Ocultar ▾' : 'Detalhes ▴'; }
-  abrir(window.innerWidth > 640);
+  abrir(window.innerWidth > 1100);
+  document.getElementById('btFechar').addEventListener('click', () => document.body.classList.add('limpo'));
+  document.getElementById('btAbrir').addEventListener('click', () => document.body.classList.remove('limpo'));
   btDet.addEventListener('click', () => abrir(!painel.classList.contains('aberto')));
   function vista(v) {
     const [p, t] = VISTAS[v];
