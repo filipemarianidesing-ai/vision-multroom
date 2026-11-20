@@ -26,6 +26,34 @@ Y_APOIO = -0.97                # alinhamento frontal das salas de apoio
 Y_PALCO_FUNDO = -6.97          # parede de fundo do palco (gráfico)
 XB = 6.26                      # bloco de poltronas (±)
 ROW_FRONT = [2.05 + i for i in range(15)]          # borda frontal de cada fileira (1 = junto ao palco)
+# ---- paredes superiores (projeção) extraídas dos vetores da base, convertidas para metros
+K = 22.677; XC = 242.1; YB = 441.5
+def M(xpt, ypt): return [round((xpt - XC) / K, 3), round((YB - ypt) / K, 3)]
+_IN, _OUT = 73.2, 53.9
+_seq = [(_IN, 28.7), (_OUT, 63.4), (_IN, 74.0), (_IN, 76.0), (_OUT, 110.6), (_IN, 121.3), (_IN, 123.2), (_OUT, 157.7),
+        (_IN, 168.4), (_IN, 198.8), (_OUT, 233.5), (_IN, 244.1), (_IN, 246.1), (_OUT, 280.6), (_IN, 291.3), (_IN, 293.2),
+        (_OUT, 327.9), (_IN, 338.5), (_IN, 368.9), (_OUT, 403.5), (_IN, 414.2), (_IN, 416.1), (_OUT, 450.8), (_IN, 461.3)]
+ZZ_E = [M(x, y) for x, y in _seq]                       # lado esquerdo da planta
+ZZ_D = [[-x, y] for x, y in ZZ_E]                        # espelho (conferido: vértices x = 411,0 / 430,4 pt)
+PALCO_SUP = [M(141.2, 479.0), M(172.8, 545.0), M(172.8, 582.3), M(310.2, 582.3), M(311.5, 545.0), M(343.7, 479.0)]
+PILARES = [M(73.2, 183.6), M(73.2, 353.7), M(411.0, 183.6), M(411.0, 353.7)]   # símbolos ⊗ (natureza a confirmar)
+
+def camada_paredes(rotulos=True):
+    it = []
+    for s_, zz in ((-1, ZZ_E), (1, ZZ_D)):
+        faixa = [[s_ * XW, zz[0][1]]] + zz + [[s_ * XW, zz[-1][1]]]
+        it.append({"tipo": "poli", "pts": faixa, "cor": (0.35, 0.35, 0.35), "opacidade": 0.10, "espessura": 0.01})
+        it.append({"tipo": "poli", "pts": zz, "fechado": False, "preenchido": False, "cor": (0.12, 0.12, 0.12), "espessura": 1.6})
+    it.append({"tipo": "poli", "pts": PALCO_SUP, "fechado": False, "preenchido": False, "cor": (0.12, 0.12, 0.12), "espessura": 1.6})
+    for q in PILARES:
+        it.append({"tipo": "circ", "pts": [q], "raio_m": 0.16, "cor": (0.12, 0.12, 0.12), "opacidade": 0.9})
+    if rotulos:
+        it.append(T(-9.15, 15.0, "parede superior em dente de serra", cor=(0.12, 0.12, 0.12), rot=90, tam=5.6, negrito=True))
+        it.append(T(-2.6, -6.6, "contorno superior do palco em leque", cor=(0.12, 0.12, 0.12), tam=5.6, negrito=True))
+    return it
+
+LEG_PAREDE = ((0.12, 0.12, 0.12), "linha", "Paredes superiores (projeção da base): dente de serra recuado 1,00–1,85 m na plateia; leque no palco (8,93 → 6,1 m). Faixa cinza: área sob a parede superior; altura livre a levantar. ● = símbolo ⊗ da base (pilar/pendural?).")
+
 PERFIL_B = [0, 0, 0, 0.01, 0.04, 0.07, 0.11, 0.15, 0.20, 0.26, 0.32, 0.39, 0.46, 0.54, 0.62]
 PERFIL_A = [0, 0, 0, 0.04, 0.09, 0.15, 0.22, 0.31, 0.40, 0.49, 0.60, 0.71, 0.83, 0.95, 1.08]
 
@@ -89,8 +117,8 @@ for s in (-1, 1):
     ang_c = 90 + (-28 if s < 0 else 28)  # mira em direção ao centro-fundo
     som.append({"tipo": "leque", "pts": [[s * 7.0, -0.8]], "raio_m": 18.0, "ang_ini": ang_c - 48, "ang_fim": ang_c + 48, "cor": "som", "opacidade": 0.05})
     som.append(R(s * 2.6 - 0.35, -0.6, s * 2.6 + 0.35, 0.0, cor="som", opacidade=0.8, tag=f"SUB-{1 if s<0 else 2}", tag_desloc=[-8, 16]))
-    som.append(R(s * 9.25 - (0.2 if s > 0 else 0), 11.2, s * 9.25 + (0.2 if s < 0 else 0), 11.6, cor="som", opacidade=0.6, tracejado=True,
-                 tag=f"DLY-{1 if s<0 else 2}*", tag_desloc=[-34 if s > 0 else 4, -6]))
+    som.append(R(s * 7.40 - (0.25 if s > 0 else 0), 10.75, s * 7.40 + (0.25 if s < 0 else 0), 11.05, cor="som", opacidade=0.6, tracejado=True,
+                 tag=f"DLY-{1 if s<0 else 2}*", tag_desloc=[-38 if s > 0 else 6, -6]))
     for xm in (1.6, 3.6):
         som.append(R(s * xm - 0.3, -1.25, s * xm + 0.3, -0.85, cor="som", opacidade=0.5, preenchido=True))
 for xf in (-2.0, 0.0, 2.0):
@@ -130,17 +158,17 @@ for x in (-4.5, -2.7, -0.9, 0.9, 2.7, 4.5):
     luz.append(C(x, 3.0, raio_m=0.18, cor="luz"))
     luz.append(S([x, 3.0], [x * 0.6, -1.2], cor="luz", espessura=0.5, tracejado=True))
 luz.append(L([[-5.0, 8.0], [5.0, 8.0]], cor="luz", espessura=1.4, tracejado=True, tag="VARA FOH-2 (completo)", tag_desloc=[70, -4]))
-luz.append(L([[-5.8, -1.9], [5.8, -1.9]], cor="luz", espessura=2.0, tag="VARA PALCO-1 (wash/preenchimento)", tag_desloc=[30, 18]))
-for x in (-4.6, -2.8, -1.0, 1.0, 2.8, 4.6):
+luz.append(L([[-4.1, -1.9], [4.1, -1.9]], cor="luz", espessura=2.0, tag="VARA PALCO-1 (8,2 m)", tag_desloc=[40, 18]))
+for x in (-3.6, -2.2, -0.8, 0.8, 2.2, 3.6):
     luz.append(C(x, -1.9, raio_m=0.16, cor="luz"))
-luz.append(L([[-5.8, -3.5], [5.8, -3.5]], cor="luz", espessura=2.0, tag="VARA PALCO-2 (contraluz)", tag_desloc=[50, 14]))
-for x in (-4.2, -1.4, 1.4, 4.2):
-    luz.append(C(x, -3.5, raio_m=0.16, cor="luz"))
-    luz.append(S([x, -3.5], [x, -1.2], cor="luz", espessura=0.5, tracejado=True))
+luz.append(L([[-3.2, -3.6], [3.2, -3.6]], cor="luz", espessura=2.0, tag="VARA PALCO-2 (6,4 m, contraluz)", tag_desloc=[40, 14]))
+for x in (-2.7, -0.9, 0.9, 2.7):
+    luz.append(C(x, -3.6, raio_m=0.16, cor="luz"))
+    luz.append(S([x, -3.6], [x, -1.2], cor="luz", espessura=0.5, tracejado=True))
 for s in (-1, 1):
-    for y in (-1.2, -4.2):
-        luz.append(R(s * 5.9 - 0.2, y - 0.2, s * 5.9 + 0.2, y + 0.2, cor="luz", opacidade=0.8))
-luz.append(T(-6.2, -5.0, "TORRES LATERAIS (luz cruzada)", cor="luz", tam=5.8))
+    for x, y in ((4.6, -1.15), (2.75, -4.8)):
+        luz.append(R(s * x - 0.2, y - 0.2, s * x + 0.2, y + 0.2, cor="luz", opacidade=0.8))
+luz.append(T(-6.2, -5.4, "TORRES (luz cruzada) dentro do leque", cor="luz", tam=5.8))
 luz.append(T(-5.6, -6.3, "Cenário/moving heads (completo) na vara PALCO-2", cor="luz", tam=5.8))
 luz.append(R(-1.2, 17.0, 0.9, 17.85, cor="luz", opacidade=0.5, tag="FOH: mesa DMX", tag_desloc=[-30, -16]))
 luz.append(R(-8.4, -1.5, -7.8, -2.2, cor="luz", opacidade=0.9, tag="SPLITTER DMX / QD-LUZ", tag_desloc=[-20, 30]))
@@ -153,18 +181,29 @@ acu = []
 for s in (-1, 1):
     x0 = s * XW; x1 = s * (XW - 0.25)
     acu.append(R(min(x0, x1), 4.0, max(x0, x1), 18.7, cor="acu", opacidade=0.85))
-acu.append(T(-8.9, 9.5, "PAINEL ABSORVENTE (1,2–3,6 m)", cor="acu", rot=90, tam=6, negrito=True, txt_desloc=[12, 0]))
-acu.append(T(8.4, 9.5, "PAINEL ABSORVENTE (1,2–3,6 m)", cor="acu", rot=90, tam=6, negrito=True))
+acu.append(T(-8.9, 9.5, "PAREDE INFERIOR: painel 1,2 m → forro", cor="acu", rot=90, tam=5.6, negrito=True, txt_desloc=[12, 0]))
+acu.append(T(8.55, 9.5, "PAREDE INFERIOR: painel 1,2 m → forro", cor="acu", rot=90, tam=5.6, negrito=True))
+for zz in (ZZ_E, ZZ_D):
+    for a, b in zip(zz[:-1], zz[1:]):
+        if abs(a[0] - b[0]) < 0.05: continue
+        curta = abs(a[1] - b[1]) < 0.6
+        ymed = (a[1] + b[1]) / 2
+        if curta or ymed > 9.0:
+            acu.append(L([a, b], cor="acu", espessura=3.2))
+        else:
+            acu.append(L([a, b], cor=(0.6, 0.4, 0.1), espessura=3.2))
+acu.append(T(-6.9, 6.2, "faces voltadas ao palco: REFLETORAS", cor=(0.6, 0.4, 0.1), tam=5.6, negrito=True))
+acu.append(T(-6.9, 14.2, "faces superiores: ABSORVENTES", cor="acu", tam=5.6, negrito=True))
 acu.append(R(-XW, 18.45, XW, 18.7, cor="acu", opacidade=0.85, tag="FUNDO: absorvente + difusor central (completo)", tag_desloc=[-150, -10]))
 acu.append(R(-2.0, 18.3, 2.0, 18.45, cor=(0.6, 0.4, 0.1), opacidade=0.9))
 acu.append(R(-6.0, 6.0, 6.0, 17.0, cor="acu", opacidade=0.10, tracejado=True, tag="NUVENS / FORRO ACÚSTICO ≈150 m² (completo)", tag_desloc=[-100, 10]))
 acu.append(R(-6.0, 0.5, 6.0, 5.5, cor=(0.4, 0.4, 0.4), opacidade=0.06, tracejado=True))
 acu.append(T(-4.8, 3.2, "Teto frontal refletor (mantém reflexão útil da fala)", cor="cinza", tam=6))
-acu.append(L([[-6.3, -6.85], [6.3, -6.85]], cor="acu", espessura=3.0, tag="CORTINA DE FUNDO", tag_desloc=[30, -2]))
+acu.append(L([[-3.0, -6.05], [3.0, -6.05]], cor="acu", espessura=3.0, tag="CORTINA DE FUNDO", tag_desloc=[30, -2]))
 for s in (-1, 1):
-    for y in (-2.4, -4.6):
-        acu.append(L([[s * 4.6, y], [s * 6.3, y]], cor="acu", espessura=2.4))
-acu.append(T(-6.2, -5.5, "PERNAS/BAMBOLINAS", cor="acu", tam=5.8))
+    for y, hw in ((-2.6, 4.05), (-4.0, 3.35)):
+        acu.append(L([[s * (hw - 1.2), y], [s * hw, y]], cor="acu", espessura=2.4))
+acu.append(T(-6.2, -5.5, "PERNAS no leque (ou existentes?)", cor="acu", tam=5.8))
 acu.append(L([[-4.5, -0.15], [4.5, -0.15]], cor="acu", espessura=1.4, tracejado=True, tag="CORTINA BOCA DE CENA", tag_desloc=[40, 16]))
 acu.append(T(-9.1, 1.0, "Janelas/elementos na parede: verificar vedação", cor="alerta", tam=5.6))
 acu.append(T(-4.0, 13.5, "Medir TR e ruído de fundo antes de fechar áreas", cor="acu", tam=6.2, negrito=True))
@@ -177,9 +216,9 @@ inf.append(L([[-7.0, -1.8], [-3.5, -0.55], [3.5, -0.55]], cor="infra", espessura
 inf.append(L([[-7.0, -1.8], [0.0, -6.2]], cor="infra", espessura=1.2, tracejado=True))
 inf.append(L([[-7.0, -1.8], [-7.0, -0.85]], cor="infra", espessura=1.2))
 inf.append(L([[-7.0, -0.9], [7.0, -0.9]], cor="infra", espessura=1.0, tracejado=True))
-inf.append(L([[-7.6, 11.4], [-9.1, 11.4]], cor="infra", espessura=0.8, tracejado=True))
-inf.append(L([[7.6, 11.4], [9.1, 11.4]], cor="infra", espessura=0.8, tracejado=True))
-inf.append(L([[-7.6, 16.9], [7.6, 16.9], [7.6, 11.4]], cor="infra", espessura=0.8, tracejado=True))
+inf.append(L([[-7.6, 10.9], [-7.45, 10.9]], cor="infra", espessura=0.8, tracejado=True))
+inf.append(L([[7.6, 10.9], [7.45, 10.9]], cor="infra", espessura=0.8, tracejado=True))
+inf.append(L([[-7.6, 16.9], [7.6, 16.9], [7.6, 10.9]], cor="infra", espessura=0.8, tracejado=True))
 inf.append(R(-7.2, -1.5, -6.6, -2.2, cor="infra", opacidade=0.9, tag="RACK AV", tag_desloc=[-36, 4]))
 inf.append(R(-8.4, -1.5, -7.8, -2.2, cor="alerta", opacidade=0.8, tag="QD-AV (novo)", tag_desloc=[-52, 22]))
 for (x, y, n) in [(-3.5, -0.55, "CP1"), (3.5, -0.55, "CP2"), (0, -6.2, "CP3"), (-5.6, -4.5, "CP4")]:
@@ -192,7 +231,7 @@ inf.append(T(-5.0, 7.5, "Plenum da arquibancada = caminho de cabos protegido", c
 inf.append(T(-5.0, 8.3, "(prever caixas de passagem com tampa a cada 6–8 m)", cor="infra", tam=6))
 inf.append(R(-1.2, 17.0, 0.9, 17.85, cor="som", opacidade=0.5, tag="FOH: 2 TUG + rede + áudio", tag_desloc=[-56, -16]))
 
-LEG_BASE = [("cinza", "ret", "Base: prancha 02/08 PSCIP (esmaecida). Equipamentos de incêndio, rotas e saídas existentes devem ser preservados.")]
+LEG_BASE = [("cinza", "ret", "Base: prancha 02/08 PSCIP (esmaecida). Equipamentos de incêndio, rotas e saídas existentes devem ser preservados."), LEG_PAREDE]
 
 layout = {"pranchas": [
     {"codigo": "ARQ-01", "titulo": "Arquibancada — elevação do piso", "descricao": "Arquitetura: perfil B (rampa acessível), lugares reservados, operação e pontos de compatibilização",
@@ -211,7 +250,7 @@ layout = {"pranchas": [
         "Hoje, com piso plano, da 4ª fileira em diante a cabeça da frente encobre o apresentador da cintura para baixo (C < 0,06 m).",
         "Saídas do fundo: (a) degraus + rampa junto às portas, (b) nova soleira com patamar/rampa externa, ou (c) relocar a saída. Decisão depende da vistoria externa e da revisão do PSCIP no CBMES.",
         "Estrutura da arquibancada: estrutura metálica leve + painéis cimentícios/OSB com lã mineral no vazio (evita efeito tambor) ou alvenaria + laje. Carga de uso conforme NBR 6120 — validar com engenheiro estrutural.",
-        "Pé-direito livre sobre o patamar do fundo deve ser verificado (meta ≥ 2,50 m livres abaixo de luminárias, dutos e caixas).",
+        "Pé-direito livre sobre o patamar do fundo e, principalmente, NAS RAMPAS LATERAIS: elas ficam sob a faixa da parede superior em dente de serra (1,00–1,85 m da parede). Se ali houver forro/viga rebaixado, a elevação de até 0,62 m pode reduzir a altura livre — medir na vistoria (meta ≥ 2,50 m livres).",
         "Contagem gráfica do desenho: 14 fileiras × 18 + 14 poltronas na 1ª fileira = 266 poltronas + 2 espaços P.C.R. Legenda indica 270 lug. — validar lotação aprovada.",
      ]},
     {"codigo": "SOM-01", "titulo": "Sonorização — posições e cobertura", "descricao": "Sistema principal frontal, subgraves, retornos, reforços opcionais, operação e rack",
@@ -229,6 +268,8 @@ layout = {"pranchas": [
         "Colunas direcionais concentram energia na plateia e reduzem reflexões em paredes e teto — principal ganho de inteligibilidade em sala reverberante.",
         "Cobertura, SPL, STI e margem antes da microfonia: confirmar em simulação (EASE/fabricante) com pé-direito e materiais levantados.",
         "FOH no centro-fundo: escuta representativa da plateia. Alternativa: fileira 11–12 central com supressão de 4 lugares.",
+        "Reforços DLY (se necessários) na face reta da parede superior junto ao símbolo ⊗ (≈ 11 m da borda): ponto alto, sem sombra da faixa rebaixada, alinhado às fileiras do fundo.",
+        "As faces do dente de serra voltadas ao palco refletem a energia das colunas para a plateia; mirar as colunas para não excitar as faces curtas (voltadas ao fundo).",
         "Rack na sala de apoio esquerda (junto à plataforma): exige ventilação/climatização, porta com chave e acesso frontal e traseiro.",
      ]},
     {"codigo": "VID-01", "titulo": "Imagem — painel LED e pontos de vídeo", "descricao": "Painel LED no palco, visibilidade, pontos de conexão e alternativa por projeção",
@@ -256,7 +297,8 @@ layout = {"pranchas": [
      ],
      "notas": [
         "Frontal: 40–50° de elevação sobre o apresentador, facas/recortes para não lavar a tela.",
-        "Preenchimento (vara PALCO-1) reduz sombras; contraluz (vara PALCO-2) destaca pessoas do fundo — só acima do LED se o pé-direito permitir; senão, torres laterais.",
+        "Varas do palco dimensionadas DENTRO do contorno em leque (8,93 m na boca → 6,1 m no fundo): PALCO-1 com 8,2 m e PALCO-2 com 6,4 m. Torres ficam junto às faces do leque.",
+        "Preenchimento (vara PALCO-1) reduz sombras; contraluz (vara PALCO-2) destaca pessoas do fundo — só acima do LED se o pé-direito permitir; senão, torres.",
         "Cenas programadas: Palestra, Cerimônia/Formatura, Apresentação, Vídeo, Plateia/Intervalo. Acionamento simples por botoeira/tablet; mesa DMX completa para o técnico.",
         "Cargas: refletores LED reduzem consumo e calor; circuitos e pontos DMX a confirmar com o quadro elétrico.",
         "Fixações em teto/estrutura exigem validação estrutural, cabo de segurança em cada refletor e acesso seguro para foco (NR-35).",
@@ -273,7 +315,9 @@ layout = {"pranchas": [
         "Estimativa (Sabine, hipóteses de pé-direito 4,5–6,5 m): TR atual 1,4–2,2 s com poltronas estofadas e até 4–5 s com cadeiras rígidas vazias. Meta pré-projeto: 0,8–1,1 s (500–1 kHz, ocupado).",
         "Cenário essencial (≈ 120 m² de painéis + 60 m² de cortinas) leva a ≈ 0,9–1,2 s; completo (+ ≈ 150 m² de nuvens + difusor) a ≈ 0,6–0,9 s.",
         "Áreas finais só após medir TR (ISO 3382-2) e ruído de fundo (NBR 10152:2017) e levantar pé-direito, forro e materiais.",
-        "Paredes laterais do terço frontal e teto frontal permanecem refletores, para reforçar a voz natural nas primeiras fileiras.",
+        "Paredes superiores em dente de serra: as faces longas voltadas ao palco (metade frontal) ficam REFLETORAS — elas já distribuem a voz para a plateia; as faces curtas (voltadas ao fundo) e todas as faces da metade posterior recebem absorção, evitando eco de retorno ao palco.",
+        "Parede inferior (sob a faixa da parede superior): painéis de 1,2 m até o forro/viga dessa faixa; altura a levantar.",
+        "Contorno do palco em leque: cortinas de fundo (≈ 6 m) e pernas acompanham o leque. Se o serrilhado da base representar cortinas existentes, avaliar reaproveitamento.",
         "Verificar ruído da climatização e transmissão por janelas, portas e cobertura; propor vedação apenas onde a medição mostrar transmissão relevante.",
         "Painéis não podem cobrir extintores, sinalização, iluminação de emergência ou detectores.",
      ]},
@@ -292,6 +336,8 @@ layout = {"pranchas": [
         "Caixas de passagem acessíveis; nenhum cabo solto em rotas de fuga; identificação de cabos e portas nas duas pontas.",
      ]},
 ]}
+for _pr in layout["pranchas"]:
+    _pr["itens"] = camada_paredes() + _pr["itens"]
 json.dump(layout, open(os.path.join(HERE, "layout.json"), "w"), ensure_ascii=False, indent=1)
 
 # ================= gera pranchas base

@@ -8,7 +8,8 @@ Fluxo padrão para transformar a **planta de qualquer escola** em um pré-projet
 3. Registrar em `escola.json → calibracao`: as faces internas (x esquerda/direita, y fundo), a borda do palco e o alinhamento do palco.
 4. Detectar as fileiras (perfil de pixels escuros no raster a 288 dpi) e o passo; contar poltronas por fileira. Comparar com a lotação do rótulo e **registrar divergências**.
 5. Associar cada medida aos pontos de início e fim na prancha (tabela do diagnóstico).
-6. **Se a planta for raster ou foto:** pedir PDF vetorial/DWG. Se não houver, calibrar pela maior cota legível e marcar tudo como [H].
+6. **Nunca assumir paredes retas.** Varrer TODAS as linhas da base: tracejadas ("projeção parede sup.", forro, vigas), serrilhadas, chanfros e leques. Extrair os vértices (agrupar por cor/espessura) e desenhar essas linhas em todas as pranchas. Paredes em dente de serra, leque ou curvas mudam o tratamento acústico (faces refletoras × absorventes), a posição de caixas e varas, a altura livre sob faixas rebaixadas e a área de superfície. Símbolos não identificados (ex.: ⊗) vão para a vistoria.
+7. **Se a planta for raster ou foto:** pedir PDF vetorial/DWG. Se não houver, calibrar pela maior cota legível e marcar tudo como [H].
 
 ## Etapa 2 — Diagnóstico
 - Confirmado [P], calculado [C], hipótese [H], vistoria [V]. Nunca misturar.

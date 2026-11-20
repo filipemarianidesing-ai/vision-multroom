@@ -270,5 +270,27 @@
     "peso_kg_m2": 30,
     "projecao_luminancia_alvo_cd_m2": 200,
     "projecao_ganho_tela": 1.0
+  },
+  "paredes_superiores": {
+    "_nota": "Projeção 'PAREDE SUP.' da base: plateia em dente de serra; palco em leque. Coordenadas em metros (x eixo do palco, + = direita da planta; y = distância à borda do palco). Vértices completos em gerar_pranchas_emir.py (ZZ_E/ZZ_D/PALCO_SUP).",
+    "plateia_recuo_vertice_externo_m": 1.0,
+    "plateia_recuo_vertice_interno_m": 1.85,
+    "passo_dente_m": 2.08,
+    "face_longa_m": 1.75,
+    "face_curta_m": 0.97,
+    "trechos_retos_y_m": [
+      3.86,
+      11.36
+    ],
+    "desenvolvimento_por_lado_m": 24.9,
+    "palco_leque": {
+      "largura_frente_m": 8.93,
+      "y_frente_m": -1.65,
+      "largura_fundo_m": 6.06,
+      "y_fim_leque_m": -4.57,
+      "y_fundo_m": -6.22
+    },
+    "altura_inicio_m": null,
+    "altura_forro_faixa_m": null
   }
 }

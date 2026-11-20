@@ -28,7 +28,9 @@ Legenda das fontes: **[P]** = planta-base (`base/Planta_Auditorio_Emir_de_Macedo
 | Apoio | 2 salas de 6,81 m², 2 sanitários de 3,12 m², 2 depósitos de 2,58 m² | rótulos | [P] |
 | Saídas | 2 portas no fundo (cantos) + 1 porta na frente à esquerda, junto ao palco | símbolos de porta PV2 | [P] |
 | Incêndio | extintores (água 2A, pó BC 20BC), hidrante HP-13 2×15 m, iluminação de emergência, rotas de fuga sinalizadas | simbologia vermelha | [P] |
-| Paredes superiores | linhas "PROJEÇÃO PAREDE SUP." em ziguezague nas duas laterais | linhas tracejadas | [P] — forma real [V] |
+| Paredes superiores da plateia | **dente de serra** recuado da parede inferior: vértice externo a 1,00 m e vértice interno a 1,85 m da face interna; dentes com passo ≈ 2,08 m (face longa ≈ 1,75 m voltada ao palco, face curta ≈ 0,97 m voltada ao fundo); 2 trechos retos de 1,34 m na linha interna junto aos símbolos ⊗ (a 3,9 m e 11,4 m da borda do palco); vai do fundo (0,5 m da parede) até o alinhamento das salas de apoio. Desenvolvimento ≈ 24,9 m por lado (contra 19,0 m de parede reta) | linhas tracejadas "PROJEÇÃO PAREDE SUP.", vértices extraídos do vetor (x = 53,9 / 73,2 pt à esquerda; 430,4 / 411,0 pt à direita) | [P]; altura de início e fechamento [V] |
+| Contorno superior do palco | **leque (trapézio)**: 8,93 m de largura a 1,65 m da borda, fechando para 6,12 m a 4,57 m da borda e seguindo paralelo até 6,22 m (fundo com 6,06 m) | linha serrilhada fina ao redor do palco | [P]; se são paredes, painéis ou cortinas [V] |
+| Símbolos ⊗ | 4 pontos na linha interna do dente de serra (2 por lado) | círculo com X sobre a projeção | [P]; pilar, pendural ou ponto de luz [V] |
 
 **Calibração do desenho:** 1 cm real = 0,2268 pt na prancha (escala ≈ 1:125). Obtida pela largura interna 18,60 m (421,8 pt entre as faces internas) e conferida na cadeia 330|600 (465 cm = 105,5 pt). Todas as pranchas derivadas usam essa calibração.
 
@@ -38,6 +40,20 @@ Legenda das fontes: **[P]** = planta-base (`base/Planta_Auditorio_Emir_de_Macedo
 2. **Lugares reservados insuficientes:** Decreto 5.296/2004, art. 23 exige pelo menos 2 % da lotação para P.C.R. (**6 espaços** para 270) e mais 2 % para P.M.R./deficiência visual/obesos (**6 assentos**). O desenho mostra **2 espaços P.C.R.**, todos na 1ª fileira. [C]
 3. **18 assentos por fileira sem corredor central**, com acesso pelas duas pontas. → Conferir o limite de assentos entre corredores e a passagem livre entre fileiras na NT 10/2013 do CBMES. [V]
 4. **Passagem entre fileiras:** passo de 1,00 m com poltronas desenhadas com ≈ 0,67 m de profundidade. A passagem livre real depende do rebatimento do assento. [V]
+
+## 2.1 Paredes não retas: o que muda no projeto
+
+O auditório **não é uma caixa retangular**. Acima da parede de baixo, as laterais da plateia são em dente de serra, recuadas 1,00–1,85 m para dentro. O palco fecha em leque, de 8,93 m para 6,1 m. Isso é desenho acústico intencional: as faces longas, voltadas ao palco, devolvem a voz para a plateia, e o leque do palco funciona como concha. As pranchas foram refeitas sobre essa geometria:
+
+| Disciplina | Ajuste por causa das paredes |
+|---|---|
+| Arquibancada | As rampas laterais ficam sob a faixa da parede superior. Se ali houver forro ou viga rebaixada, a elevação de até 0,62 m reduz a altura livre. **Primeira medida da vistoria.** |
+| Acústica | Faces longas da metade frontal **ficam refletoras** (não tratar). Faces curtas, voltadas ao fundo, e todas as faces da metade posterior recebem absorção (evita eco de retorno ao palco). A parede inferior recebe painéis de 1,2 m até o forro da faixa. O desenvolvimento das paredes superiores é ≈ 30 % maior que o de paredes retas, o que entra na área de tratamento. |
+| Som | As colunas são miradas para usar as faces longas como reforço e evitar as faces curtas. Os reforços com delay (se necessários) vão na face reta da parede superior junto ao ⊗, a ≈ 11 m da borda: ponto alto, sem a sombra da faixa rebaixada. |
+| Luz | As varas do palco cabem dentro do leque: PALCO-1 com 8,2 m e PALCO-2 com 6,4 m. As torres ficam junto às faces do leque. As varas e as nuvens da plateia ficam dentro da linha interna do dente de serra (±7,45 m). |
+| Imagem | Na posição do LED (3,0 m da borda) o leque tem ≈ 8,0 m. O painel de 5,0 m deixa ≈ 1,5 m livre de cada lado. |
+| Cortinas | A cortina de fundo fica com ≈ 6 m e as pernas acompanham o leque. Se o serrilhado da base for cortina existente, avaliar o reaproveitamento. |
+| Volume/TR | A faixa sob a parede superior (≈ 27 m² por lado) provavelmente tem pé-direito menor, o que reduz o volume. Os cálculos de TR seguem em três hipóteses até a medição. |
 
 ## 3. Problemas que o projeto resolve
 

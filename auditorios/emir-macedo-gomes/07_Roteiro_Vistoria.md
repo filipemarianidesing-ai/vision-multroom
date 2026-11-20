@@ -10,6 +10,7 @@
 
 | # | O que medir/fotografar | Como | Afeta |
 |---|---|---|---|
+| 0 | **Paredes superiores em dente de serra e leque do palco** | Altura em que começa a parede superior; altura do forro/viga na faixa entre a parede inferior e o dente de serra (sobre os corredores); material e acabamento de cada face; confirmar recuos de 1,00/1,85 m e passo de 2,08 m; identificar os 4 símbolos ⊗ (pilar? pendural? luminária?); no palco, se o contorno serrilhado é parede, painel ou cortina, e a altura | Rampas da arquibancada, tratamento acústico, delays, varas, cortinas |
 | 1 | **Pé-direito** da plateia | Trena laser em grade 3 × 3 (frente/meio/fundo × esquerda/centro/direita), até o forro e até a estrutura. Anotar vigas, tesouras e inclinação | TR, LED, varas, caixas, arquibancada |
 | 2 | Pé-direito do **palco** e altura livre da boca de cena | Trena laser; foto da boca e do teto do palco | LED, cortinas, contraluz |
 | 3 | **Forro/cobertura** | Tipo (gesso, mineral, laje, telha), estado, alçapões, posição de luminárias, difusores de ar e detectores | Nuvens, fixações |

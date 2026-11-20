@@ -194,7 +194,7 @@ class Prancha:
             else:
                 sh.draw_rect(pymupdf.Rect(X0, y - 7, X0 + 13, y)); sh.finish(color=c, fill=c, fill_opacity=0.35, width=0.8)
             sh.commit()
-            r = pymupdf.Rect(X0 + 18, y - 8, A3.width - 22, y + 14)
+            r = pymupdf.Rect(X0 + 18, y - 8, A3.width - 22, y + 48)
             used = self.page.insert_textbox(r, txt, fontsize=6.3, fontname="dj", color=(0.1, 0.1, 0.1))
             lines = max(1, math.ceil(len(txt) / 62))
             y += 9 * lines + 3
