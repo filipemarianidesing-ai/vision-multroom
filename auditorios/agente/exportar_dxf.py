@@ -139,9 +139,13 @@ def main(esc_p, lay_p, base_p, out_p, perfil_p=None):
             h = P["perfil_m"][i]
             ya, yb = yf - 0.33, yf + 0.67
             z = z0 + h
-            msp.add_3dface([(-xb, ya, z), (xb, ya, z), (xb, yb, z), (-xb, yb, z)], dxfattribs={"layer": l3})
-            if h > prev:
-                msp.add_3dface([(-xb, ya, z0 + prev), (xb, ya, z0 + prev), (xb, ya, z), (-xb, ya, z)], dxfattribs={"layer": l3})
+            xa = P.get("meio_corredor_central_m", 0.0)   # corredor central: patamares em dois blocos
+            for x0, x1 in ([(-xb, -xa), (xa, xb)] if xa else [(-xb, xb)]):
+                msp.add_3dface([(x0, ya, z), (x1, ya, z), (x1, yb, z), (x0, yb, z)], dxfattribs={"layer": l3})
+                if h > prev:
+                    msp.add_3dface([(x0, ya, z0 + prev), (x1, ya, z0 + prev), (x1, ya, z), (x0, ya, z)], dxfattribs={"layer": l3})
+            if xa and i >= 1:   # rampa do corredor central entre a cota anterior e a atual
+                msp.add_3dface([(-xa, ya, z0 + prev), (xa, ya, z0 + prev), (xa, yb, z), (-xa, yb, z)], dxfattribs={"layer": l3})
             msp.add_text(f"F{i+1} {z:+.2f}".replace(".", ","), height=0.15, dxfattribs={"layer": l3}).set_placement((-xb - 1.2, yf + 0.3, z))
             prev = h
         zt = z0 + P["perfil_m"][-1]

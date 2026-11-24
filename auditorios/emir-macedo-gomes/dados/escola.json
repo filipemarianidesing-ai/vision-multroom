@@ -35,7 +35,7 @@
     "assentos_por_fileira": 18,
     "passo_fileiras_m": 1.0,
     "largura_bloco_m": 12.52,
-    "corredores_laterais_m": 3.04,
+    "corredores_laterais_m": 2.29,
     "faixa_fundo_m": 1.99,
     "dist_olho_1a_fileira_ao_palco_m": 2.4,
     "altura_olho_sentado_m": 1.12,
@@ -44,7 +44,9 @@
       0.2,
       0.4,
       0.6
-    ]
+    ],
+    "corredor_central_m": 1.5,
+    "blocos": "2 × 9 poltronas"
   },
   "arquibancada": {
     "fileiras_planas_frente": 3,

@@ -27,7 +27,7 @@ Os dois cenários usam a mesma base: a infraestrutura do essencial já fica pron
 
 | Acréscimo | Itens | Justificativa |
 |---|---|---|
-| Arquibancada | Elevação do piso no perfil B (ARQ-01), rampas com corrimão (ARQ-02), guarda-corpo de vidro (ARQ-03), 2 escadas de 4 degraus até o corredor do fundo, que segue no nível atual e mantém as duas portas (ARQ-04) | Todas as fileiras veem o palco; melhora o som direto; o vazio sob os patamares vira caminho de cabos |
+| Arquibancada | Elevação do piso no perfil B (ARQ-01), corredor central de 1,50 m para a entrada da formatura e rampas laterais com corrimão (ARQ-02), guarda-corpo de vidro (ARQ-03), 2 escadas de 4 degraus até o corredor do fundo, que segue no nível atual e mantém as duas portas (ARQ-04) | Todas as fileiras veem o palco; melhora o som direto; o vazio sob os patamares vira caminho de cabos |
 | Painel LED | 5,00 × 2,81 m P2,6–2,9 + processadora + estrutura (VID-01/02/05) | Imagem com luz acesa, cenário digital para formaturas e teatro |
 | Graves e palco | 2 subgraves embutidos no palco, stagebox digital, 4 retornos, 4 canais sem fio | Música e apresentações |
 | Luz cênica | Vara FOH-2, moving heads, torres laterais, mesa DMX completa | Teatro, música, formaturas |

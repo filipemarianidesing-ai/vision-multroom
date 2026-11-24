@@ -73,6 +73,7 @@ body:not(.limpo) #btAbrir { display: none; }
     <button data-v="fundo">Da última fileira</button>
     <button data-v="palco">Do palco</button>
     <button data-v="topo">Planta</button>
+    <button data-v="formatura">Entrada da formatura</button>
   </div>
   <div id="detalhes">
   <p class="sub">Sistema Line Bonsai: duas colunas suspensas de 8 caixas, com ângulos para cobrir da 1ª à 15ª fileira, mais 2 subwoofers de 18" no chão. Paredes em dente de serra e palco em leque, conforme a planta.</p>
@@ -92,6 +93,7 @@ body:not(.limpo) #btAbrir { display: none; }
     <span><i style="background:#1A1A1A;border:1px solid #666"></i>Subwoofer 18" (2, no chão)</span>
     <span><i style="background:#8E6FD8"></i>Arquibancada (até +0,82)</span>
   <span><i style="background:#2E8B57"></i>Corredor do fundo +0,20 e portas</span>
+  <span><i style="background:#8E2236"></i>Corredor central 1,50 m (formatura)</span>
     <span><i style="background:#D9558B"></i>Superfície absorvente</span>
     <span><i style="background:#9C6B3C"></i>Face refletora (voltada ao palco)</span>
   </div>
@@ -103,6 +105,7 @@ body:not(.limpo) #btAbrir { display: none; }
   <span><i style="background:#1A1A1A;border:1px solid #666"></i>Subwoofer 18" (2, no chão)</span>
   <span><i style="background:#8E6FD8"></i>Arquibancada (até +0,82)</span>
   <span><i style="background:#2E8B57"></i>Corredor do fundo +0,20 e portas</span>
+  <span><i style="background:#8E2236"></i>Corredor central 1,50 m (formatura)</span>
   <span><i style="background:#D9558B"></i>Superfície absorvente</span>
   <span><i style="background:#9C6B3C"></i>Face refletora (voltada ao palco)</span>
   <span><i style="background:#3FD39A"></i>Painel LED 5,00 × 2,81 m</span>
@@ -112,7 +115,7 @@ body:not(.limpo) #btAbrir { display: none; }
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 (function () {
-  const PE_DIREITO = 5.5, H_INF = 3.2, XW = 9.30, Y_FUNDO = 18.70, XB = 6.26;
+  const PE_DIREITO = 5.5, H_INF = 3.2, XW = 9.30, Y_FUNDO = 18.70, XA = 0.75, BW = 6.26, XB = XA + BW, BC = (XA + XB) / 2, XE = XB + 0.84;
   const PERFIL = [0,0,0,0.01,0.04,0.07,0.11,0.15,0.20,0.26,0.32,0.39,0.46,0.54,0.62];
   const FRENTES = PERFIL.map((_, i) => 2.05 + i);
   const K = 22.677, XC = 242.1, YB = 441.5;
@@ -171,19 +174,27 @@ body:not(.limpo) #btAbrir { display: none; }
   caixa(2 * XW, 0.1, Y_FUNDO + 0.97, 0, -0.05, (Y_FUNDO - 0.97) / 2, mPiso);
   FRENTES.forEach((yf, i) => {
     const h = PERFIL[i]; if (h <= 0) return;
-    caixa(2 * XB, h, 1.0, 0, h / 2, yf + 0.17, mTier);
+    [-1, 1].forEach(s => caixa(BW, h, 1.0, s * BC, h / 2, yf + 0.17, mTier));
   });
   // corredor do fundo mantido em +0,20 (liga as 2 portas) e escadas de 4 degraus
   const mCorr = mat(0x2E8B57, { roughness: 0.9 });
   caixa(2 * XW, 0.012, Y_FUNDO - 16.72, 0, 0.006, (16.72 + Y_FUNDO) / 2, mCorr);
   [-1, 1].forEach(s => {
-    [0.465, 0.31, 0.155].forEach((hh, k) => caixa(1.6, hh, 0.30, s * 7.1, hh / 2, 16.72 + 0.15 + 0.30 * k, mTier));
+    [0.465, 0.31, 0.155].forEach((hh, k) => caixa(1.6, hh, 0.30, s * XE, hh / 2, 16.72 + 0.15 + 0.30 * k, mTier));
     caixa(0.08, 2.1, 1.4, s * (XW - 0.04), 1.05, 17.8, mat(0x2FBF71, { emissive: 0x0d4d2a }));
     caixa(0.1, 0.18, 0.5, s * (XW - 0.06), 2.35, 17.8, mat(0x22C55E, { emissive: 0x16a34a }));
   });
   const mVidroGC = mat(0xBFE3F2, { transparent: true, opacity: 0.35 });
-  caixa(2 * XB, 1.1, 0.02, 0, 0.62 + 0.55, 16.72, mVidroGC);
-  [-1, 1].forEach(s => caixa(1.4, 1.1, 0.02, s * 8.6, 0.62 + 0.55, 16.72, mVidroGC));
+  [-1, 1].forEach(s => { caixa(BW, 1.1, 0.02, s * BC, 0.62 + 0.55, 16.72, mVidroGC); caixa(XW - XB - 1.64, 1.1, 0.02, s * (XB + 1.64 + XW) / 2, 0.62 + 0.55, 16.72, mVidroGC); });
+  // escada central (entrada da formatura) e corredor central em rampa, com passadeira
+  const mPass = mat(0x8E2236, { roughness: 0.95 });
+  [0.465, 0.31, 0.155].forEach((hh, k) => caixa(2 * XA, hh, 0.30, 0, hh / 2, 16.72 + 0.15 + 0.30 * k, mPass));
+  caixa(2 * XA, 0.012, FRENTES[3] - 0.33 - 1.72, 0, 0.012, (1.72 + FRENTES[3] - 0.33) / 2, mPass);
+  for (let i = 3; i < 15; i++) {
+    const z0 = FRENTES[i] - 0.33, h0 = PERFIL[i - 1] || 0, h1 = PERFIL[i], L = Math.hypot(1.0, h1 - h0);
+    const r = new THREE.Mesh(new THREE.BoxGeometry(2 * XA, 0.05, L), mPass);
+    r.position.set(0, Math.max(0.025, (h0 + h1) / 2), z0 + 0.5); r.rotation.x = -Math.atan2(h1 - h0, 1.0); r.receiveShadow = true; scene.add(r);
+  }
   [-1, 1].forEach(s => {   // rampas laterais acompanhando o perfil
     for (let i = 3; i < 15; i++) {
       const z0 = FRENTES[i] - 0.33, z1 = z0 + 1.0, h0 = PERFIL[i - 1] || 0, h1 = PERFIL[i];
@@ -201,17 +212,18 @@ body:not(.limpo) #btAbrir { display: none; }
 
   // ---------- poltronas (fileira 1 começa após os 2 espaços P.C.R. do desenho)
   const mAss = mat(0x2D5B9E, { roughness: 0.9 }), mEnc = mat(0x244A82, { roughness: 0.9 });
-  const passo = (2 * XB) / 18;
+  const passo = BW / 9;
+  const sx = j => j < 9 ? -XB + passo * (j + 0.5) : XA + passo * (j - 9 + 0.5);
   const nAss = 15 * 18;
   const assento = new THREE.InstancedMesh(new THREE.BoxGeometry(0.52, 0.12, 0.48), mAss, nAss);
   const encosto = new THREE.InstancedMesh(new THREE.BoxGeometry(0.52, 0.55, 0.1), mEnc, nAss);
   const dm = new THREE.Object3D(); let n = 0;
-  const pcr = new Set(['2-0', '2-17', '9-0', '9-17', '14-0', '14-17', '14-7', '14-8', '14-9', '14-10']);
+  const pcr = new Set(['2-0', '2-17', '9-0', '9-17', '14-0', '14-17', '14-9', '14-10', '14-11']);
   FRENTES.forEach((yf, i) => {
     for (let j = 0; j < 18; j++) {
       if (i === 0 && j < 4) continue;
       if (pcr.has(i + '-' + j)) continue;
-      const x = -XB + passo * (j + 0.5), h = PERFIL[i];
+      const x = sx(j), h = PERFIL[i];
       dm.position.set(x, h + 0.45, yf + 0.3); dm.updateMatrix(); assento.setMatrixAt(n, dm.matrix);
       dm.position.set(x, h + 0.75, yf + 0.6); dm.updateMatrix(); encosto.setMatrixAt(n, dm.matrix); n++;
     }
@@ -220,8 +232,8 @@ body:not(.limpo) #btAbrir { display: none; }
   assento.castShadow = encosto.castShadow = true;
   scene.add(assento, encosto);
   const mPcr = mat(0x2F7DF6, { emissive: 0x0b2a66 });
-  [[0, 2], [17, 2], [0, 9], [17, 9], [0, 14], [17, 14]].forEach(([j, i]) => caixa(0.8, 0.02, 1.0, -XB + passo * (j + 0.5), PERFIL[i] + 0.02, FRENTES[i] + 0.3, mPcr));
-  caixa(-3.58 + 6.19, 0.02, 1.5, (-6.19 - 3.58) / 2, 0.02, 2.0, mPcr);
+  [[0, 2], [17, 2], [0, 9], [17, 9], [0, 14], [17, 14]].forEach(([j, i]) => caixa(0.8, 0.02, 1.0, sx(j), PERFIL[i] + 0.02, FRENTES[i] + 0.3, mPcr));
+  caixa(2.6, 0.02, 1.5, -XB + 1.38, 0.02, 2.0, mPcr);
 
   // ---------- paredes
   const mParede = mat(0xC9CED8, { transparent: true, opacity: 0.32, side: THREE.DoubleSide, depthWrite: false });
@@ -274,7 +286,7 @@ body:not(.limpo) #btAbrir { display: none; }
     const nf = Math.round(L / 1.6);
     for (let i = 0; i < nf; i++) caixa(0.22, 0.3, 0.3, -L / 2 + L * (i + 0.5) / nf, y - 0.2, z, mRefl, G.luz);
   });
-  caixa(2.4, 0.85, 0.7, 0, 0.62 + 0.425, 16.25, mat(0x1E2633), scene);   // FOH na F15
+  caixa(2.0, 0.85, 0.7, XA + passo * 1.5, 0.62 + 0.425, 16.25, mat(0x1E2633), scene);   // FOH na F15, ao lado do corredor central
 
   // ---------- Line Bonsai
   const mCx = mat(0x1B1E24, { roughness: 0.5, metalness: 0.2 }), mGrade = mat(0x4FB3FF, { emissive: 0x0d3a66, roughness: 0.4 });
@@ -334,6 +346,7 @@ body:not(.limpo) #btAbrir { display: none; }
     geral: [[-17, 13, 27], [0, 1.5, 6]],
     lateral: [[-30, 6.5, 6.5], [0, 2.2, 6.5]],
     fundo: [[-3.2, 0.62 + 1.12 + 0.2, 16.3], [0, 2.4, -2]],
+    formatura: [[0.0, 2.1, 18.4], [0, 0.6, 3.5]],
     palco: [[0, 2.9, -1.2], [0, 1.2, 12]],
     topo: [[0, 38, 6.5], [0, 0, 6.4]],
   };
@@ -351,6 +364,7 @@ body:not(.limpo) #btAbrir { display: none; }
     document.querySelectorAll('#vistas button').forEach(b => b.classList.toggle('ativo', b.dataset.v === v));
     G.paredes.visible = v === 'lateral' ? false : document.getElementById('cbParedes').checked;
     G.acu.visible = v === 'lateral' ? false : document.getElementById('cbAcu').checked;
+    G.raios.visible = v === 'formatura' ? false : document.getElementById('cbRaios').checked;
   }
   document.getElementById('vistas').addEventListener('click', e => { if (e.target.dataset.v) vista(e.target.dataset.v); });
   [['cbRaios', 'raios'], ['cbParedes', 'paredes'], ['cbAcu', 'acu'], ['cbLuz', 'luz']].forEach(([id, g]) =>

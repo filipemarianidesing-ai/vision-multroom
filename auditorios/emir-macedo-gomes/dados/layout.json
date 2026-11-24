@@ -605,11 +605,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        1.7199999999999998
       ],
       [
-       6.26,
+       -0.75,
+       2.7199999999999998
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.06,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       1.7199999999999998
+      ],
+      [
+       7.01,
        2.7199999999999998
       ]
      ],
@@ -621,11 +637,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        2.5
       ],
       [
-       -6.41,
+       -7.16,
        2.5
       ]
      ],
@@ -642,11 +658,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        2.7199999999999998
       ],
       [
-       6.26,
+       -0.75,
+       3.7199999999999998
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.06,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       2.7199999999999998
+      ],
+      [
+       7.01,
        3.7199999999999998
       ]
      ],
@@ -658,11 +690,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        3.5
       ],
       [
-       -6.41,
+       -7.16,
        3.5
       ]
      ],
@@ -679,11 +711,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        3.7199999999999998
       ],
       [
-       6.26,
+       -0.75,
+       4.72
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.06,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       3.7199999999999998
+      ],
+      [
+       7.01,
        4.72
       ]
      ],
@@ -695,11 +743,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        4.5
       ],
       [
-       -6.41,
+       -7.16,
        4.5
       ]
      ],
@@ -716,11 +764,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        4.72
       ],
       [
-       6.26,
+       -0.75,
+       5.72
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.06806451612903225,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       4.72
+      ],
+      [
+       7.01,
        5.72
       ]
      ],
@@ -732,11 +796,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        5.5
       ],
       [
-       -6.41,
+       -7.16,
        5.5
       ]
      ],
@@ -753,11 +817,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        5.72
       ],
       [
-       6.26,
+       -0.75,
+       6.72
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.09225806451612903,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       5.72
+      ],
+      [
+       7.01,
        6.72
       ]
      ],
@@ -769,11 +849,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        6.5
       ],
       [
-       -6.41,
+       -7.16,
        6.5
       ]
      ],
@@ -790,11 +870,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        6.72
       ],
       [
-       6.26,
+       -0.75,
+       7.72
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.11645161290322581,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       6.72
+      ],
+      [
+       7.01,
        7.72
       ]
      ],
@@ -806,11 +902,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        7.5
       ],
       [
-       -6.41,
+       -7.16,
        7.5
       ]
      ],
@@ -827,11 +923,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        7.720000000000001
       ],
       [
-       6.26,
+       -0.75,
+       8.72
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.14870967741935484,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       7.720000000000001
+      ],
+      [
+       7.01,
        8.72
       ]
      ],
@@ -843,11 +955,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        8.5
       ],
       [
-       -6.41,
+       -7.16,
        8.5
       ]
      ],
@@ -864,11 +976,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        8.72
       ],
       [
-       6.26,
+       -0.75,
+       9.72
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.18096774193548387,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       8.72
+      ],
+      [
+       7.01,
        9.72
       ]
      ],
@@ -880,11 +1008,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        9.5
       ],
       [
-       -6.41,
+       -7.16,
        9.5
       ]
      ],
@@ -901,11 +1029,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        9.72
       ],
       [
-       6.26,
+       -0.75,
+       10.72
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.22129032258064518,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       9.72
+      ],
+      [
+       7.01,
        10.72
       ]
      ],
@@ -917,11 +1061,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        10.5
       ],
       [
-       -6.41,
+       -7.16,
        10.5
       ]
      ],
@@ -938,11 +1082,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        10.72
       ],
       [
-       6.26,
+       -0.75,
+       11.72
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.2696774193548387,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       10.72
+      ],
+      [
+       7.01,
        11.72
       ]
      ],
@@ -954,11 +1114,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        11.5
       ],
       [
-       -6.41,
+       -7.16,
        11.5
       ]
      ],
@@ -975,11 +1135,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        11.72
       ],
       [
-       6.26,
+       -0.75,
+       12.72
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.31806451612903225,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       11.72
+      ],
+      [
+       7.01,
        12.72
       ]
      ],
@@ -991,11 +1167,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        12.5
       ],
       [
-       -6.41,
+       -7.16,
        12.5
       ]
      ],
@@ -1012,11 +1188,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        12.72
       ],
       [
-       6.26,
+       -0.75,
+       13.72
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.37451612903225806,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       12.72
+      ],
+      [
+       7.01,
        13.72
       ]
      ],
@@ -1028,11 +1220,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        13.5
       ],
       [
-       -6.41,
+       -7.16,
        13.5
       ]
      ],
@@ -1049,11 +1241,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        13.72
       ],
       [
-       6.26,
+       -0.75,
+       14.72
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.4309677419354839,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       13.72
+      ],
+      [
+       7.01,
        14.72
       ]
      ],
@@ -1065,11 +1273,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        14.5
       ],
       [
-       -6.41,
+       -7.16,
        14.5
       ]
      ],
@@ -1086,11 +1294,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        14.72
       ],
       [
-       6.26,
+       -0.75,
+       15.72
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.495483870967742,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       14.72
+      ],
+      [
+       7.01,
        15.72
       ]
      ],
@@ -1102,11 +1326,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        15.5
       ],
       [
-       -6.41,
+       -7.16,
        15.5
       ]
      ],
@@ -1123,11 +1347,27 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        15.72
       ],
       [
-       6.26,
+       -0.75,
+       16.720000000000002
+      ]
+     ],
+     "cor": "arq",
+     "opacidade": 0.56,
+     "espessura": 0.4
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       0.75,
+       15.72
+      ],
+      [
+       7.01,
        16.720000000000002
       ]
      ],
@@ -1139,11 +1379,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.41,
+       -7.16,
        16.5
       ],
       [
-       -6.41,
+       -7.16,
        16.5
       ]
      ],
@@ -1177,19 +1417,19 @@
      "espessura": 0.6,
      "tag": "CORREDOR DO FUNDO +0,20 (rota de fuga mantida)",
      "tag_desloc": [
-      -118,
-      -4
+      -250,
+      14
      ]
     },
     {
      "tipo": "ret",
      "pts": [
       [
-       -7.9,
+       -8.65,
        16.72
       ],
       [
-       -6.3,
+       -7.05,
        17.62
       ]
      ],
@@ -1201,11 +1441,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.3,
+       -7.05,
        17.02
       ],
       [
-       -7.9,
+       -8.65,
        17.02
       ]
      ],
@@ -1216,11 +1456,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.3,
+       -7.05,
        17.32
       ],
       [
-       -7.9,
+       -8.65,
        17.32
       ]
      ],
@@ -1231,11 +1471,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.3,
+       -7.05,
        17.619999999999997
       ],
       [
-       -7.9,
+       -8.65,
        17.619999999999997
       ]
      ],
@@ -1246,11 +1486,11 @@
      "tipo": "seta",
      "pts": [
       [
-       -7.1,
+       -7.85,
        16.8
       ],
       [
-       -7.1,
+       -7.85,
        17.55
       ]
      ],
@@ -1261,11 +1501,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -7.85,
+       -8.6,
        17.95
       ],
       [
-       -7.85,
+       -8.6,
        17.95
       ]
      ],
@@ -1279,7 +1519,7 @@
      "tipo": "linha",
      "pts": [
       [
-       -7.9,
+       -8.65,
        16.72
       ],
       [
@@ -1294,11 +1534,11 @@
      "tipo": "ret",
      "pts": [
       [
-       6.3,
+       7.05,
        16.72
       ],
       [
-       7.9,
+       8.65,
        17.62
       ]
      ],
@@ -1310,11 +1550,11 @@
      "tipo": "linha",
      "pts": [
       [
-       6.3,
+       7.05,
        17.02
       ],
       [
-       7.9,
+       8.65,
        17.02
       ]
      ],
@@ -1325,11 +1565,11 @@
      "tipo": "linha",
      "pts": [
       [
-       6.3,
+       7.05,
        17.32
       ],
       [
-       7.9,
+       8.65,
        17.32
       ]
      ],
@@ -1340,11 +1580,11 @@
      "tipo": "linha",
      "pts": [
       [
-       6.3,
+       7.05,
        17.619999999999997
       ],
       [
-       7.9,
+       8.65,
        17.619999999999997
       ]
      ],
@@ -1355,11 +1595,11 @@
      "tipo": "seta",
      "pts": [
       [
-       7.1,
+       7.85,
        16.8
       ],
       [
-       7.1,
+       7.85,
        17.55
       ]
      ],
@@ -1370,11 +1610,11 @@
      "tipo": "linha",
      "pts": [
       [
-       6.8999999999999995,
+       7.6499999999999995,
        17.95
       ],
       [
-       6.8999999999999995,
+       7.6499999999999995,
        17.95
       ]
      ],
@@ -1388,7 +1628,7 @@
      "tipo": "linha",
      "pts": [
       [
-       7.9,
+       8.65,
        16.72
       ],
       [
@@ -1407,7 +1647,7 @@
        4.72
       ],
       [
-       -6.26,
+       -7.01,
        16.72
       ]
      ],
@@ -1419,11 +1659,11 @@
      "tipo": "seta",
      "pts": [
       [
-       -7.8,
+       -8.155000000000001,
        5.2
       ],
       [
-       -7.8,
+       -8.155000000000001,
        15.8
       ]
      ],
@@ -1434,11 +1674,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -8.05,
+       -8.405000000000001,
        10.0
       ],
       [
-       -8.05,
+       -8.405000000000001,
        10.0
       ]
      ],
@@ -1453,11 +1693,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.34,
+       -7.09,
        4.72
       ],
       [
-       -6.34,
+       -7.09,
        16.72
       ]
      ],
@@ -1485,7 +1725,7 @@
      "tipo": "ret",
      "pts": [
       [
-       6.26,
+       7.01,
        4.72
       ],
       [
@@ -1501,11 +1741,11 @@
      "tipo": "seta",
      "pts": [
       [
-       7.8,
+       8.155000000000001,
        5.2
       ],
       [
-       7.8,
+       8.155000000000001,
        15.8
       ]
      ],
@@ -1516,11 +1756,11 @@
      "tipo": "linha",
      "pts": [
       [
-       7.55,
+       7.905000000000001,
        10.0
       ],
       [
-       7.55,
+       7.905000000000001,
        10.0
       ]
      ],
@@ -1535,11 +1775,11 @@
      "tipo": "linha",
      "pts": [
       [
-       6.34,
+       7.09,
        4.72
       ],
       [
-       6.34,
+       7.09,
        16.72
       ]
      ],
@@ -1567,11 +1807,26 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.26,
+       -7.01,
        16.72
       ],
       [
-       6.26,
+       -0.75,
+       16.72
+      ]
+     ],
+     "cor": "arq",
+     "espessura": 1.6
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       0.75,
+       16.72
+      ],
+      [
+       7.01,
        16.72
       ]
      ],
@@ -1582,11 +1837,238 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -0.75,
+       1.72
+      ],
+      [
+       0.75,
+       16.72
+      ]
+     ],
+     "cor": [
+      1,
+      1,
+      1
+     ],
+     "opacidade": 0.85,
+     "espessura": 0.01
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       -0.75,
+       1.72
+      ],
+      [
+       0.75,
+       16.72
+      ]
+     ],
+     "cor": [
+      0.56,
+      0.13,
+      0.21
+     ],
+     "opacidade": 0.3,
+     "espessura": 0.8,
+     "tag": "CORREDOR CENTRAL 1,50 m (rampa ≤ 8 %)",
+     "tag_desloc": [
+      -80,
+      80
+     ]
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       -0.75,
+       16.72
+      ],
+      [
+       0.75,
+       17.62
+      ]
+     ],
+     "cor": [
+      0.56,
+      0.13,
+      0.21
+     ],
+     "opacidade": 0.45,
+     "espessura": 0.8
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       -0.75,
+       17.02
+      ],
+      [
+       0.75,
+       17.02
+      ]
+     ],
+     "cor": [
+      0.56,
+      0.13,
+      0.21
+     ],
+     "espessura": 0.6
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       -0.75,
+       17.32
+      ],
+      [
+       0.75,
+       17.32
+      ]
+     ],
+     "cor": [
+      0.56,
+      0.13,
+      0.21
+     ],
+     "espessura": 0.6
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       -0.75,
+       17.619999999999997
+      ],
+      [
+       0.75,
+       17.619999999999997
+      ]
+     ],
+     "cor": [
+      0.56,
+      0.13,
+      0.21
+     ],
+     "espessura": 0.6
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       -1.1,
+       17.95
+      ],
+      [
+       -1.1,
+       17.95
+      ]
+     ],
+     "texto": "ESCADA CENTRAL 4 deg.",
+     "espessura": 0.01,
+     "cor": [
+      0.56,
+      0.13,
+      0.21
+     ],
+     "tam": 5.6,
+     "negrito": true
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       -8.9,
+       18.25
+      ],
+      [
+       -0.25,
+       18.25
+      ]
+     ],
+     "cor": [
+      0.1,
+      0.55,
+      0.3
+     ],
+     "espessura": 1.6,
+     "tracejado": true
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       -0.25,
+       18.25
+      ],
+      [
+       -0.25,
+       17.0
+      ]
+     ],
+     "cor": [
+      0.1,
+      0.55,
+      0.3
+     ],
+     "espessura": 1.6,
+     "tracejado": true
+    },
+    {
+     "tipo": "seta",
+     "pts": [
+      [
+       -0.25,
+       16.6
+      ],
+      [
+       -0.25,
+       5.0
+      ]
+     ],
+     "cor": [
+      0.1,
+      0.55,
+      0.3
+     ],
+     "espessura": 1.6,
+     "tracejado": true
+    },
+    {
+     "tipo": "linha",
+     "pts": [
+      [
+       -0.6,
+       9.5
+      ],
+      [
+       -0.6,
+       9.5
+      ]
+     ],
+     "texto": "ENTRADA DA FORMATURA",
+     "espessura": 0.01,
+     "cor": [
+      0.1,
+      0.55,
+      0.3
+     ],
+     "rot": 90,
+     "tam": 6.2,
+     "negrito": true
+    },
+    {
+     "tipo": "ret",
+     "pts": [
+      [
+       -7.01,
        3.52
       ],
       [
-       -5.46,
+       -6.21,
        4.5200000000000005
       ]
      ],
@@ -1602,11 +2084,11 @@
      "tipo": "ret",
      "pts": [
       [
-       5.46,
+       6.21,
        3.52
       ],
       [
-       6.26,
+       7.01,
        4.5200000000000005
       ]
      ],
@@ -1622,11 +2104,11 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        10.520000000000001
       ],
       [
-       -5.46,
+       -6.21,
        11.520000000000001
       ]
      ],
@@ -1642,11 +2124,11 @@
      "tipo": "ret",
      "pts": [
       [
-       5.46,
+       6.21,
        10.520000000000001
       ],
       [
-       6.26,
+       7.01,
        11.520000000000001
       ]
      ],
@@ -1662,11 +2144,11 @@
      "tipo": "ret",
      "pts": [
       [
-       -6.26,
+       -7.01,
        15.72
       ],
       [
-       -5.46,
+       -6.21,
        16.720000000000002
       ]
      ],
@@ -1682,11 +2164,11 @@
      "tipo": "ret",
      "pts": [
       [
-       5.46,
+       6.21,
        15.72
       ],
       [
-       6.26,
+       7.01,
        16.720000000000002
       ]
      ],
@@ -1724,19 +2206,19 @@
      "tipo": "ret",
      "pts": [
       [
-       -1.39,
+       0.8,
        15.8
       ],
       [
-       1.39,
+       2.85,
        16.62
       ]
      ],
      "cor": "som",
      "opacidade": 0.5,
-     "tag": "FOH na F15 (4 lugares)",
+     "tag": "FOH na F15 (3 lugares)",
      "tag_desloc": [
-      -40,
+      -20,
       20
      ]
     },
@@ -1891,7 +2373,7 @@
     [
      "arq",
      "trac",
-     "Corredores laterais em rampa (3,04 m) com corrimão duplo nos dois lados; inclinação variável ≤ 8 %; desnível total 0,62 m."
+     "Corredores laterais em rampa (2,29 m) com corrimão duplo nos dois lados; inclinação variável ≤ 8 %; desnível total 0,62 m."
     ],
     [
      "arq",
@@ -1915,12 +2397,22 @@
     [
      "som",
      "ret",
-     "Posição de operação (FOH) — centro da fileira 15, no lugar de 4 poltronas."
+     "Posição de operação (FOH) — fileira 15, ao lado do corredor central, no lugar de 3 poltronas."
+    ],
+    [
+     [
+      0.56,
+      0.13,
+      0.21
+     ],
+     "ret",
+     "Corredor central de 1,50 m em rampa (≤ 8 %) e escada central de 4 degraus: entrada dos formandos pela porta do fundo (percurso tracejado em verde)."
     ]
    ],
    "notas": [
     "Perfil B calculado para ver o apresentador a partir de 0,40 m acima do piso do palco com poltronas alternadas (C ≈ 0,06 m). Perfil A (C = 0,08) leva o fundo a +1,28 e exige degraus. Ver corte ARQ-02.",
     "Hoje, com piso plano, da 4ª fileira em diante a cabeça da frente encobre o apresentador da cintura para baixo (C < 0,06 m).",
+    "Corredor central (pedido da direção, 24/11/2026): 1,50 m no eixo, em rampa que acompanha as fileiras, com passadeira e LED nas bordas. Mantém 18 poltronas por fileira (2 blocos de 9); os corredores laterais passam a 2,29 m. Cada poltrona fica a no máximo 4 lugares de um corredor.",
     "Portas do fundo: o corredor do fundo (1,98 m) continua em +0,20 ligando as duas portas, como no projeto de incêndio. A arquibancada termina na F15 (+0,82) com guarda-corpo de vidro e duas escadas de 4 degraus descem ao corredor junto às portas (solução semelhante à do ABL). Cadeirantes saem pela rampa até a porta da frente. Revisão do PSCIP continua necessária pela mudança de layout.",
     "Estrutura da arquibancada: estrutura metálica leve + painéis cimentícios/OSB com lã mineral no vazio (evita efeito tambor) ou alvenaria + laje. Carga de uso conforme NBR 6120 — validar com engenheiro estrutural.",
     "Pé-direito livre sobre a F15 e, principalmente, NAS RAMPAS LATERAIS: elas ficam sob a faixa da parede superior em dente de serra (1,00–1,85 m da parede). Se ali houver forro/viga rebaixado, a elevação de até 0,62 m pode reduzir a altura livre — medir na vistoria (meta ≥ 2,50 m livres).",
@@ -2848,11 +3340,11 @@
      "tipo": "ret",
      "pts": [
       [
-       -1.39,
+       0.8,
        15.8
       ],
       [
-       1.39,
+       2.85,
        16.62
       ]
      ],
@@ -2952,11 +3444,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.26,
+       -7.01,
        5.7
       ],
       [
-       6.26,
+       7.01,
        5.7
       ]
      ],
@@ -2986,11 +3478,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.26,
+       -7.01,
        11.7
       ],
       [
-       6.26,
+       7.01,
        11.7
       ]
      ],
@@ -3020,11 +3512,11 @@
      "tipo": "linha",
      "pts": [
       [
-       -6.26,
+       -7.01,
        18.6
       ],
       [
-       6.26,
+       7.01,
        18.6
       ]
      ],
@@ -3137,7 +3629,7 @@
     "Line Bonsai: cada caixa mira uma faixa da plateia (caixas 1–2 → F13–F15; 3–4 → F9–F11; 5–6 → F5–F7; 7–8 → F1–F3). Meta: ±3 dB (2 kHz) em toda a plateia. Ângulos finais no software do fabricante.",
     "Suspenso, o som chega por cima das cabeças a todas as fileiras e concentra a energia na plateia, com menos reflexão nas paredes. Suspensão exige pontos de fixação validados pelo estrutural (peso do conjunto + bumper + cabos de segurança).",
     "Cobertura, SPL, STI e margem antes da microfonia: confirmar em simulação (EASE/fabricante) com pé-direito e materiais levantados.",
-    "FOH no centro da fileira 15 (4 lugares a menos), fora do corredor do fundo: escuta representativa e rota de fuga livre.",
+    "FOH na fileira 15, ao lado do corredor central (3 lugares a menos): escuta representativa, sem ocupar corredores.",
     "Reforços DLY (se necessários) na face reta da parede superior junto ao símbolo ⊗ (≈ 11 m da borda): ponto alto, sem sombra da faixa rebaixada, alinhado às fileiras do fundo.",
     "As faces do dente de serra voltadas ao palco refletem a energia das colunas para a plateia; mirar as colunas para não excitar as faces curtas (voltadas ao fundo).",
     "Rack na sala de apoio esquerda (junto à plataforma): exige ventilação/climatização, porta com chave e acesso frontal e traseiro."
@@ -3858,11 +4350,11 @@
      "tipo": "ret",
      "pts": [
       [
-       -1.39,
+       0.8,
        15.8
       ],
       [
-       1.39,
+       2.85,
        16.62
       ]
      ],
@@ -5122,11 +5614,11 @@
      "tipo": "ret",
      "pts": [
       [
-       -1.39,
+       0.8,
        15.8
       ],
       [
-       1.39,
+       2.85,
        16.62
       ]
      ],
@@ -7748,11 +8240,11 @@
      "tipo": "ret",
      "pts": [
       [
-       -1.39,
+       0.8,
        15.8
       ],
       [
-       1.39,
+       2.85,
        16.62
       ]
      ],

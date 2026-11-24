@@ -1,6 +1,6 @@
 {
  "cota_plateia_m": 0.2,
- "meia_largura_bloco_m": 6.26,
+ "meia_largura_bloco_m": 7.01,
  "y_fundo_m": 18.7,
  "frentes_fileiras_m": [
   2.05,
@@ -39,8 +39,8 @@
  "patamar_fundo": false,
  "escadas": [
   {
-   "x0": -7.9,
-   "x1": -6.3,
+   "x0": -8.65,
+   "x1": -7.05,
    "y0": 16.72,
    "piso": 0.3,
    "degraus": [
@@ -50,8 +50,19 @@
    ]
   },
   {
-   "x0": 6.3,
-   "x1": 7.9,
+   "x0": 7.05,
+   "x1": 8.65,
+   "y0": 16.72,
+   "piso": 0.3,
+   "degraus": [
+    0.465,
+    0.31,
+    0.155
+   ]
+  },
+  {
+   "x0": -0.75,
+   "x1": 0.75,
    "y0": 16.72,
    "piso": 0.3,
    "degraus": [
@@ -60,5 +71,6 @@
     0.155
    ]
   }
- ]
+ ],
+ "meio_corredor_central_m": 0.75
 }
