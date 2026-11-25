@@ -99,3 +99,35 @@ def test_pipeline(tmp_path):
     assert "reverberação" in mapa.lower() or "reverberacao" in mapa.lower()
     # reindexar com original idêntico é idempotente
     rodar([str(FERR / "indexar.py"), str(pdf), "--slug", "teste"], raiz)
+
+
+def test_pdf_protegido_por_senha(tmp_path):
+    from pypdf import PdfReader, PdfWriter
+    raiz = tmp_path / "assessoria"
+    pdf = tmp_path / "base.pdf"
+    gerar_pdf(pdf, tmp_path)
+    senha = "senha-ficticia-de-teste"
+    w = PdfWriter(clone_from=PdfReader(str(pdf)))
+    w.encrypt(user_password=senha, owner_password=senha + "-dono")
+    protegido = tmp_path / "protegido.pdf"
+    with protegido.open("wb") as f:
+        w.write(f)
+    # sem senha: falha com mensagem clara
+    env = {k: v for k, v in os.environ.items() if k != "APOSTILA_SENHA"}
+    env["ASSESSORIA_RAIZ"] = str(raiz)
+    r = subprocess.run([sys.executable, "-I", str(FERR / "indexar.py"), str(protegido), "--slug", "prot"],
+                       capture_output=True, text=True, env=env)
+    assert r.returncode != 0 and "senha" in (r.stderr + r.stdout).lower()
+    # com senha via ambiente: indexa
+    env["APOSTILA_SENHA"] = senha
+    r = subprocess.run([sys.executable, "-I", str(FERR / "indexar.py"), str(protegido), "--slug", "prot"],
+                       capture_output=True, text=True, env=env)
+    assert r.returncode == 0, r.stderr
+    assert json.loads(r.stdout)["paginas"] == 3
+    res = json.loads(subprocess.run([sys.executable, "-I", str(FERR / "buscar.py"), "sabine", "--json"],
+                                    capture_output=True, text=True, env=env).stdout)
+    assert res and res[0]["pagina_pdf"] == 2
+    # a senha nunca é gravada em disco
+    for arq in raiz.rglob("*"):
+        if arq.is_file() and arq.suffix != ".pdf":
+            assert senha.encode() not in arq.read_bytes(), arq

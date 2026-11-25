@@ -45,6 +45,9 @@ Para que a sessão inteira *seja* o coordenador: `claude --agent coordenador-pro
 3. O original é preservado (somente leitura, SHA-256), cada página vira texto (OCR automático quando a página é
    digitalizada), a numeração impressa é comparada com a do PDF, fórmulas/tabelas são sinalizadas para conferência
    visual e a base de busca é atualizada.
+   **PDF com senha:** `APOSTILA_SENHA='…' python3 -I assessoria/ferramentas/apostila/indexar.py arquivo.pdf` (ou
+   `--pedir-senha` no terminal). A senha fica só na memória do processo — não é gravada em nenhum arquivo nem no git.
+   Para renderizar páginas desse PDF depois, use a mesma variável.
 4. Consulte: `/consultar-apostila tempo de reverberação` ou
    `python3 -I assessoria/ferramentas/apostila/buscar.py "tempo de reverberação"`.
 

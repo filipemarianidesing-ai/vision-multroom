@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import getpass
 import hashlib
 import json
 import os
@@ -47,6 +48,10 @@ DIR_ORIGINAIS = DIR_APOSTILAS / "originais"
 DIR_INDICE = DIR_APOSTILAS / "indice"
 DB_PATH = DIR_INDICE / "busca.sqlite"
 TAXONOMIA = Path(__file__).with_name("taxonomia.json")
+
+# Senha de abertura de PDFs protegidos: só em memória (nunca gravada em arquivo/manifest/git).
+PDF_SENHA_ARGS: list[str] = []
+PDF_SENHA: str | None = None
 
 MIN_CHARS_TEXTO = 80          # abaixo disso a página é considerada sem camada de texto
 OCR_DPI = 300
@@ -103,10 +108,28 @@ def romano_para_int(s: str) -> int | None:
 
 
 # ----------------------------------------------------------------------------- extração
+def configurar_senha(senha: str) -> None:
+    """Define a senha de abertura (user password) para poppler e pypdf. Mantida só em memória."""
+    global PDF_SENHA, PDF_SENHA_ARGS
+    PDF_SENHA = senha
+    PDF_SENHA_ARGS = ["-upw", senha]
+
+
+def verificar_abertura(pdf: Path) -> None:
+    """Falha com mensagem clara se o PDF exigir senha e ela estiver ausente ou incorreta."""
+    r = run(["pdfinfo", *PDF_SENHA_ARGS, str(pdf)])
+    if r.returncode != 0:
+        msg = (r.stderr or "").lower()
+        if "password" in msg or "incorrect" in msg or "encrypt" in msg:
+            sys.exit("ERRO: o PDF é protegido por senha e a senha não foi informada ou está incorreta. "
+                     "Defina APOSTILA_SENHA no ambiente (ou use --pedir-senha). A senha não é gravada.")
+        sys.exit(f"ERRO ao abrir o PDF: {r.stderr.strip()}")
+
+
 def metadados_pdf(pdf: Path) -> dict:
     meta: dict = {}
     if tem("pdfinfo"):
-        r = run(["pdfinfo", str(pdf)])
+        r = run(["pdfinfo", *PDF_SENHA_ARGS, str(pdf)])
         for linha in r.stdout.splitlines():
             if ":" in linha:
                 k, v = linha.split(":", 1)
@@ -133,6 +156,8 @@ def sumario_pdf(pdf: Path) -> list[dict]:
         return []
     try:
         rd = PdfReader(str(pdf))
+        if rd.is_encrypted:
+            rd.decrypt(PDF_SENHA or "")
         itens: list[dict] = []
 
         def walk(nodes, nivel=0):
@@ -153,7 +178,7 @@ def sumario_pdf(pdf: Path) -> list[dict]:
 
 
 def texto_pagina(pdf: Path, n: int) -> str:
-    r = run(["pdftotext", "-layout", "-enc", "UTF-8", "-f", str(n), "-l", str(n), str(pdf), "-"])
+    r = run(["pdftotext", *PDF_SENHA_ARGS, "-layout", "-enc", "UTF-8", "-f", str(n), "-l", str(n), str(pdf), "-"])
     return r.stdout.replace("\f", "")
 
 
@@ -181,7 +206,7 @@ def ocr_imagem(png: Path) -> tuple[str, float | None]:
 def ocr_pagina(pdf: Path, n: int) -> tuple[str, float | None]:
     with tempfile.TemporaryDirectory() as td:
         base = Path(td) / "pg"
-        run(["pdftoppm", "-r", str(OCR_DPI), "-f", str(n), "-l", str(n), "-png", "-singlefile", str(pdf), str(base)])
+        run(["pdftoppm", *PDF_SENHA_ARGS, "-r", str(OCR_DPI), "-f", str(n), "-l", str(n), "-png", "-singlefile", str(pdf), str(base)])
         png = base.with_suffix(".png")
         if not png.exists():
             return "", None
@@ -315,9 +340,12 @@ def indexar(arquivo: Path, slug: str | None, forcar_ocr: bool, extra: dict) -> d
         texto, conf = ocr_imagem(original)
         paginas.append({"pagina_pdf": 1, "texto": texto, "metodo": "ocr", "conf_ocr": conf})
     else:
+        verificar_abertura(original)
         meta = metadados_pdf(original)
+        meta["protegido_por_senha"] = bool(PDF_SENHA)
         if meta.get("criptografado"):
-            avisos.append("PDF criptografado/protegido: a extração pode estar incompleta.")
+            avisos.append("PDF criptografado: original preservado como recebido (protegido). "
+                          "Renderização/consulta das imagens exige a mesma senha (APOSTILA_SENHA).")
         n = meta.get("paginas") or 0
         if n == 0:
             sys.exit("ERRO: não foi possível determinar o número de páginas (PDF danificado?).")
@@ -436,7 +464,13 @@ def main() -> None:
     ap.add_argument("--titulo")
     ap.add_argument("--autor")
     ap.add_argument("--edicao")
+    ap.add_argument("--pedir-senha", action="store_true",
+                    help="PDF protegido: pede a senha no terminal (não aparece na tela nem no histórico)")
     a = ap.parse_args()
+    # Senha: variável de ambiente APOSTILA_SENHA ou --pedir-senha. Nunca por argumento de linha de comando.
+    senha = os.environ.get("APOSTILA_SENHA") or (getpass.getpass("Senha do PDF: ") if a.pedir_senha else None)
+    if senha:
+        configurar_senha(senha)
     if a.slug and len(a.arquivos) > 1:
         sys.exit("--slug só pode ser usado com um arquivo por vez.")
     for arq in a.arquivos:

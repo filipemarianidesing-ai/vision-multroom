@@ -9,7 +9,11 @@ Arquivo: `$0` · slug opcional: `$1` · título `$2` · autor `$3` · edição `
 
 1. **Identifique todos os arquivos recebidos** (se `$0` for uma pasta, liste os PDFs/imagens). Não presuma ter
    acesso a arquivos que não estão no disco — se o usuário disse que anexou mas o arquivo não existe, diga isso.
-2. Rode para cada arquivo:
+2. **PDF protegido por senha:** peça a senha ao usuário se ainda não foi informada e passe-a SOMENTE pela variável
+   de ambiente no próprio comando (`APOSTILA_SENHA='...' python3 -I ...`). **Nunca** grave a senha em arquivos,
+   manifest, CATALOGO, commits, memória ou relatórios; não a repita na resposta. No CATALOGO registre apenas
+   "protegido por senha: sim". O original é preservado exatamente como recebido (continua protegido).
+   Rode para cada arquivo:
    `python3 -I assessoria/ferramentas/apostila/indexar.py "<arquivo>" [--slug <slug>] [--titulo ..] [--autor ..] [--edicao ..]`
    O original é copiado para `assessoria/referencias/apostilas/originais/<slug>/` (somente leitura, SHA-256).
 3. Leia o JSON de saída e `indice/<slug>/estrutura.md`. Para as páginas com `conferir_visualmente`,

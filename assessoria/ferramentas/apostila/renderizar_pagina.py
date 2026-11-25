@@ -8,6 +8,7 @@ Uso:
 
 Saída: referencias/apostilas/indice/<slug>/imagens/pNNNN.png — abra com a ferramenta Read
 (que exibe imagens) e compare com o texto extraído antes de citar valores.
+PDF protegido: defina APOSTILA_SENHA no ambiente (a senha não é gravada).
 """
 import argparse
 import json
@@ -35,7 +36,9 @@ def main() -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     for p in a.paginas:
         base = out_dir / f"p{p:04d}"
-        subprocess.run(["pdftoppm", "-r", str(a.dpi), "-f", str(p), "-l", str(p), "-png", "-singlefile",
+        senha = os.environ.get("APOSTILA_SENHA")
+        pw = ["-upw", senha] if senha else []
+        subprocess.run(["pdftoppm", *pw, "-r", str(a.dpi), "-f", str(p), "-l", str(p), "-png", "-singlefile",
                         str(original), str(base)], check=True)
         print(base.with_suffix(".png"))
 
