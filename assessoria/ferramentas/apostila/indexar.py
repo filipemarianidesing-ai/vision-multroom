@@ -65,7 +65,11 @@ MAX_BYTES_ZIP = 2_000_000_000  # proteção contra ZIP malformado/gigante
 # de venda são removidas do texto indexado para não aparecerem em buscas e citações.
 RE_LINHA_LICENCA = re.compile(r"^.*\b(licensed to|licenciado para|licen[çc]a de uso)\b.*$", re.I | re.M)
 RE_EMAIL = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
-RE_CPF = re.compile(r"\b\d{3}\.\d{3}\.\d{3}-\d{2}\b")         # confiança média (%) abaixo da qual a página é sinalizada
+RE_CPF = re.compile(r"\b\d{3}\.\d{3}\.\d{3}-\d{2}\b")
+# Linhas inteiras removidas mesmo quando o OCR deforma o cabeçalho (ex.: "@" lido como " O "):
+RE_LINHA_DADOS = re.compile(
+    r"^.*(\b[A-Z]{2}\d{12,}\b|\b\d{3}\.\d{3}\.\d{3}-\d{2}\b|"
+    r"\b(hotmail|gmail|outlook|yahoo|live|icloud|uol|bol|terra)\s*\.\s*com(\.br)?\b).*$", re.I | re.M)         # confiança média (%) abaixo da qual a página é sinalizada
 
 SIMBOLOS_FORMULA = set("=√∑Σπ∫±×÷≈≤≥²³αβγδλρθΔΩμ·∝∞")
 RE_NUM_RODAPE = [
@@ -235,6 +239,7 @@ def remover_dados_licenca(texto: str) -> tuple[str, int]:
     """Remove linhas de licença e mascara e-mails/CPFs. Retorna (texto, nº de remoções)."""
     n = 0
     texto, k = RE_LINHA_LICENCA.subn("[linha de licença removida]", texto); n += k
+    texto, k = RE_LINHA_DADOS.subn("[linha com dados pessoais removida]", texto); n += k
     texto, k = RE_EMAIL.subn("[e-mail removido]", texto); n += k
     texto, k = RE_CPF.subn("[documento removido]", texto); n += k
     return texto, n
