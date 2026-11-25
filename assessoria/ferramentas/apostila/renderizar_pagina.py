@@ -31,6 +31,10 @@ def main() -> None:
     if not man_path.exists():
         sys.exit(f"Documento '{a.slug}' não indexado.")
     man = json.loads(man_path.read_text(encoding="utf-8"))
+    if man.get("imagens_paginas"):          # apostila recebida como imagens de página (ZIP)
+        for p in a.paginas:
+            print(RAIZ / man["imagens_paginas"][p - 1])
+        return
     original = RAIZ / man["caminho_original"]
     out_dir = DIR_INDICE / a.slug / "imagens"
     out_dir.mkdir(parents=True, exist_ok=True)

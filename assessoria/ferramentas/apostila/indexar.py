@@ -39,6 +39,7 @@ import subprocess
 import sys
 import tempfile
 import unicodedata
+import zipfile
 from collections import Counter
 from pathlib import Path
 
@@ -55,7 +56,16 @@ PDF_SENHA: str | None = None
 
 MIN_CHARS_TEXTO = 80          # abaixo disso a página é considerada sem camada de texto
 OCR_DPI = 300
-OCR_CONF_BAIXA = 70.0         # confiança média (%) abaixo da qual a página é sinalizada
+OCR_CONF_BAIXA = 70.0
+ESCALA_OCR_IMAGENS = 3        # imagens de baixa resolução (ex.: 96 dpi) são ampliadas antes do OCR
+EXT_IMAGEM = {".png", ".jpg", ".jpeg", ".tif", ".tiff", ".bmp", ".webp"}
+MAX_BYTES_ZIP = 2_000_000_000  # proteção contra ZIP malformado/gigante
+
+# Linhas de licença/rastreamento com dados pessoais (nome, e-mail, CPF) inseridas por plataformas
+# de venda são removidas do texto indexado para não aparecerem em buscas e citações.
+RE_LINHA_LICENCA = re.compile(r"^.*\b(licensed to|licenciado para|licen[çc]a de uso)\b.*$", re.I | re.M)
+RE_EMAIL = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
+RE_CPF = re.compile(r"\b\d{3}\.\d{3}\.\d{3}-\d{2}\b")         # confiança média (%) abaixo da qual a página é sinalizada
 
 SIMBOLOS_FORMULA = set("=√∑Σπ∫±×÷≈≤≥²³αβγδλρθΔΩμ·∝∞")
 RE_NUM_RODAPE = [
@@ -182,8 +192,16 @@ def texto_pagina(pdf: Path, n: int) -> str:
     return r.stdout.replace("\f", "")
 
 
-def ocr_imagem(png: Path) -> tuple[str, float | None]:
-    """OCR de uma imagem. Retorna (texto, confiança média em %)."""
+def ocr_imagem(png: Path, escala: float = 1.0) -> tuple[str, float | None]:
+    """OCR de uma imagem (ampliada por 'escala' quando > 1). Retorna (texto, confiança média em %)."""
+    if escala and escala != 1.0:
+        from PIL import Image  # type: ignore
+        with tempfile.TemporaryDirectory() as td:
+            im = Image.open(png).convert("L")
+            im = im.resize((int(im.width * escala), int(im.height * escala)), Image.LANCZOS)
+            tmp = Path(td) / "ampliada.png"
+            im.save(tmp, dpi=(int(96 * escala),) * 2)
+            return ocr_imagem(tmp, 1.0)
     r = run(["tesseract", str(png), "stdout", "-l", "por+eng", "--psm", "3"])
     texto = r.stdout
     conf = None
@@ -213,25 +231,100 @@ def ocr_pagina(pdf: Path, n: int) -> tuple[str, float | None]:
         return ocr_imagem(png)
 
 
-def numero_impresso(texto: str) -> tuple[str | None, str | None]:
-    """Procura número de página impresso nas 3 primeiras/últimas linhas não vazias."""
-    linhas = [l for l in texto.splitlines() if l.strip()]
-    if not linhas:
+def remover_dados_licenca(texto: str) -> tuple[str, int]:
+    """Remove linhas de licença e mascara e-mails/CPFs. Retorna (texto, nº de remoções)."""
+    n = 0
+    texto, k = RE_LINHA_LICENCA.subn("[linha de licença removida]", texto); n += k
+    texto, k = RE_EMAIL.subn("[e-mail removido]", texto); n += k
+    texto, k = RE_CPF.subn("[documento removido]", texto); n += k
+    return texto, n
+
+
+def numero_impresso(texto: str, pagina_pdf: int | None = None) -> tuple[str | None, str | None]:
+    """Procura número de página impresso nas 3 primeiras/últimas linhas não vazias.
+    Quando há mais de um número (ex.: página do livro no cabeçalho + nº sequencial de exportação no
+    rodapé), prefere o que difere da posição no arquivo, pois o sequencial não é a página impressa."""
+    achados = []
+    for r in _candidatos_numero(texto):
+        achados.append(r)
+    if not achados:
         return None, None
+    for val, pos in achados:
+        if pagina_pdf is None or val != str(pagina_pdf):
+            return val, pos
+    return achados[0]
+
+
+def _candidatos_numero(texto: str):
+    linhas = [l for l in texto.splitlines() if l.strip() and "removid" not in l]
+    if not linhas:
+        return
     candidatos = [("rodape", l) for l in reversed(linhas[-3:])] + [("cabecalho", l) for l in linhas[:3]]
     for pos, linha in candidatos:
         # número isolado nas extremidades de uma linha de cabeçalho/rodapé
         partes = re.split(r"\s{3,}", linha.strip())
-        for trecho in [linha.strip(), partes[0], partes[-1]]:
+        trechos = [linha.strip(), partes[0], partes[-1]]
+        if pos == "cabecalho":   # "Capítulo 1 Título .... 3"  ou  "4 .... Capítulo 1 Título"
+            m_fim = re.search(r"[A-Za-zÀ-ÿ)]\s+(\d{1,4})\s*$", linha.strip())
+            m_ini = re.match(r"^\s*(\d{1,4})\s+[A-Za-zÀ-ÿ]", linha)
+            trechos += [g.group(1) for g in (m_fim, m_ini) if g]
+        for trecho in trechos:
             for rx in RE_NUM_RODAPE:
                 m = rx.match(trecho)
                 if m:
                     val = m.group(1)
                     if val.isdigit() and 0 < int(val) < 3000:
-                        return val, pos
+                        yield val, pos
+                        break
                     if not val.isdigit() and romano_para_int(val) and len(linha.strip()) <= 8:
-                        return val.lower(), pos
-    return None, None
+                        yield val.lower(), pos
+                        break
+            else:
+                continue
+            break
+
+
+def reconciliar_numeracao(paginas: list[dict]) -> int | None:
+    """Escolhe a página impressa de cada página usando TODOS os números candidatos (cabeçalho/rodapé)
+    e a diferença (página no arquivo − impressa) dominante no documento.
+    - Números iguais à posição no arquivo são tratados como possível numeração sequencial de exportação
+      e só valem se não houver diferença dominante diferente de zero.
+    - Páginas sem candidato coerente, situadas DENTRO de uma sequência contínua coerente, recebem a
+      numeração inferida (flag 'numeracao_inferida'); fora dela ficam com o detectado + flag de irregularidade.
+    Retorna a diferença dominante."""
+    for p in paginas:
+        p["_cands"] = [(v, pos) for v, pos in _candidatos_numero(p["texto"]) if v.isdigit()]
+    difs = Counter(p["pagina_pdf"] - int(v) for p in paginas for v, _ in p["_cands"])
+    nao_zero = [(d, n) for d, n in difs.most_common() if d != 0]
+    if nao_zero and nao_zero[0][1] >= max(3, 0.2 * len(paginas)):
+        dom = nao_zero[0][0]
+    elif difs:
+        dom = difs.most_common(1)[0][0]
+    else:
+        dom = None
+    coerentes = []
+    for p in paginas:
+        p["pagina_impressa"], p["pos_numero"], p["numeracao"] = None, None, "nao_detectada"
+        if dom is not None:
+            for v, pos in p["_cands"]:
+                if p["pagina_pdf"] - int(v) == dom:
+                    p["pagina_impressa"], p["pos_numero"], p["numeracao"] = v, pos, "detectada"
+                    coerentes.append(p["pagina_pdf"])
+                    break
+    if coerentes:
+        ini, fim = min(coerentes), max(coerentes)
+        for p in paginas:
+            if p["numeracao"] == "detectada":
+                continue
+            if ini < p["pagina_pdf"] < fim and p["pagina_pdf"] - dom > 0:
+                p["pagina_impressa"], p["numeracao"] = str(p["pagina_pdf"] - dom), "inferida_pela_sequencia"
+            else:
+                outros = [v for v, _ in p["_cands"] if v != str(p["pagina_pdf"])]
+                if outros:
+                    p["pagina_impressa"], p["numeracao"] = outros[0], "irregular"
+    for p in paginas:
+        p["candidatos_numero"] = [v for v, _ in p.pop("_cands")]
+    return dom
 
 
 def sinais_formula_tabela(texto: str) -> dict:
@@ -327,13 +420,46 @@ def indexar(arquivo: Path, slug: str | None, forcar_ocr: bool, extra: dict) -> d
     slug = slug or slugify(arquivo.stem)
     original = preservar_original(arquivo, slug)
 
-    eh_imagem = original.suffix.lower() in {".png", ".jpg", ".jpeg", ".tif", ".tiff"}
+    eh_imagem = original.suffix.lower() in EXT_IMAGEM
+    eh_zip = original.suffix.lower() == ".zip"
     saida = DIR_INDICE / slug
     (saida / "paginas").mkdir(parents=True, exist_ok=True)
 
     avisos: list[str] = []
     paginas: list[dict] = []
-    if eh_imagem:
+    imagens_paginas: list[str] = []
+    if eh_zip:
+        if not ocr_ok:
+            sys.exit("ERRO: ZIP de imagens exige OCR e o tesseract não está instalado.")
+        dir_img = saida / "imagens-originais"
+        dir_img.mkdir(parents=True, exist_ok=True)
+        with zipfile.ZipFile(original) as z:
+            infos = [i for i in z.infolist() if not i.is_dir() and Path(i.filename).suffix.lower() in EXT_IMAGEM]
+            ignorados = [i.filename for i in z.infolist() if not i.is_dir() and i not in infos]
+            if sum(i.file_size for i in infos) > MAX_BYTES_ZIP:
+                sys.exit("ERRO: conteúdo do ZIP grande demais.")
+            def ordem(i):
+                nums = re.findall(r"\d+", Path(i.filename).stem)
+                return (int(nums[-1]) if nums else 10**9, i.filename)
+            infos.sort(key=ordem)
+            for k, info in enumerate(infos, 1):
+                destino = dir_img / f"p{k:04d}{Path(info.filename).suffix.lower()}"   # nome seguro
+                destino.write_bytes(z.read(info))
+                imagens_paginas.append(str(destino.relative_to(RAIZ)))
+        if ignorados:
+            avisos.append(f"Arquivos do ZIP ignorados (não são imagens): {ignorados}")
+        from PIL import Image  # type: ignore
+        w, h = Image.open(RAIZ / imagens_paginas[0]).size if imagens_paginas else (0, 0)
+        meta = {"paginas": len(imagens_paginas), "tipo": "zip_de_imagens",
+                "resolucao_px": f"{w}x{h}", "nomes_originais_ordenados": [i.filename for i in infos]}
+        if w and w < 1500:
+            avisos.append(f"Imagens de baixa resolução ({w}x{h} px, ~{round(w / 8.27)} dpi em A4): OCR feito com "
+                          f"ampliação {ESCALA_OCR_IMAGENS}x; símbolos pequenos, índices e expoentes exigem conferência visual.")
+        for k, rel in enumerate(imagens_paginas, 1):
+            texto, conf = ocr_imagem(RAIZ / rel, ESCALA_OCR_IMAGENS if w and w < 1500 else 1.0)
+            paginas.append({"pagina_pdf": k, "texto": texto, "metodo": "ocr", "conf_ocr": conf})
+            print(f"  página {k}/{len(imagens_paginas)}: ocr (conf {conf}%)", file=sys.stderr)
+    elif eh_imagem:
         meta = {"paginas": 1}
         if not ocr_ok:
             sys.exit("ERRO: imagem exige OCR e o tesseract não está instalado.")
@@ -364,14 +490,31 @@ def indexar(arquivo: Path, slug: str | None, forcar_ocr: bool, extra: dict) -> d
             paginas.append({"pagina_pdf": i, "texto": txt, "metodo": metodo, "conf_ocr": conf})
             print(f"  página {i}/{n}: {metodo}" + (f" (conf {conf}%)" if conf is not None else ""), file=sys.stderr)
 
-    # numeração impressa e consistência
-    offsets = []
+    # dados pessoais de licença: removidos do texto indexado
+    removidos = 0
     for p in paginas:
-        imp, pos = numero_impresso(p["texto"])
-        p["pagina_impressa"], p["pos_numero"] = imp, pos
-        if imp and imp.isdigit():
-            offsets.append(p["pagina_pdf"] - int(imp))
-    offset_tipico = Counter(offsets).most_common(1)[0][0] if offsets else None
+        p["texto"], k = remover_dados_licenca(p["texto"])
+        removidos += k
+    if removidos:
+        avisos.append(f"{removidos} ocorrência(s) de linha de licença/e-mail/CPF removidas do texto indexado "
+                      "(o original permanece intacto).")
+
+    # numeração impressa e consistência
+    offset_tipico = reconciliar_numeracao(paginas)
+
+    # curadoria manual (sobrevive a reindexações): indice/<slug>/curadoria.json
+    #   {"metadados": {"titulo": ..., "autor": ..., "edicao": ...},
+    #    "paginas_impressas": {"<pág. no arquivo>": "<impressa>" | null}, "notas": "..."}
+    curadoria = {}
+    cur_path = saida / "curadoria.json"
+    if cur_path.exists():
+        curadoria = json.loads(cur_path.read_text(encoding="utf-8"))
+        for k, v in curadoria.get("paginas_impressas", {}).items():
+            for p in paginas:
+                if p["pagina_pdf"] == int(k):
+                    p["pagina_impressa"], p["numeracao"] = v, "curada"
+        for k, v in curadoria.get("metadados", {}).items():
+            extra[k] = extra.get(k) or v
 
     for p in paginas:
         p.update(sinais_formula_tabela(p["texto"]))
@@ -388,8 +531,11 @@ def indexar(arquivo: Path, slug: str | None, forcar_ocr: bool, extra: dict) -> d
             flags.append("NAO_LIDA")
         if p["formula_provavel"] or p["tabela_provavel"]:
             flags.append("conferir_visualmente")
-        imp = p["pagina_impressa"]
-        if imp and imp.isdigit() and offset_tipico is not None and p["pagina_pdf"] - int(imp) != offset_tipico:
+        if p["numeracao"] == "curada":
+            flags.append("numeracao_curada")
+        elif p["numeracao"] == "inferida_pela_sequencia":
+            flags.append("numeracao_inferida")
+        elif p["numeracao"] == "irregular":
             flags.append("numeracao_impressa_irregular")
         p["flags"] = flags
         (saida / "paginas" / f"p{p['pagina_pdf']:04d}.txt").write_text(p["texto"], encoding="utf-8")
@@ -401,7 +547,7 @@ def indexar(arquivo: Path, slug: str | None, forcar_ocr: bool, extra: dict) -> d
     if baixa:
         avisos.append(f"OCR com baixa confiança (<{OCR_CONF_BAIXA}%) nas páginas: {baixa}")
 
-    sumario = [] if eh_imagem else sumario_pdf(original)
+    sumario = [] if (eh_imagem or eh_zip) else sumario_pdf(original)
     manifest = {
         "slug": slug,
         "arquivo": original.name,
@@ -411,6 +557,7 @@ def indexar(arquivo: Path, slug: str | None, forcar_ocr: bool, extra: dict) -> d
         "indexado_em": dt.datetime.now().isoformat(timespec="seconds"),
         "metadados": {**meta, **{k: v for k, v in extra.items() if v}},
         "ocr_disponivel": ocr_ok,
+        "imagens_paginas": imagens_paginas,
         "offset_tipico_pdf_menos_impressa": offset_tipico,
         "avisos": avisos,
         "sumario_pdf": sumario,

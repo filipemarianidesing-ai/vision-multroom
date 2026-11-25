@@ -13,7 +13,8 @@ Siga o `CLAUDE.md` do projeto.
 - `python3 -I assessoria/ferramentas/apostila/buscar.py --listar` — documentos indexados.
 - `python3 -I assessoria/ferramentas/apostila/buscar.py "termos" [--doc slug] [--limite N]` — busca (sem acentos, BM25).
 - `python3 -I assessoria/ferramentas/apostila/buscar.py --pagina <slug> <pág_pdf>` — texto integral da página.
-- `assessoria/referencias/apostilas/indice/<slug>/mapa-assuntos.md`, `estrutura.md`, `manifest.json`.
+- `assessoria/referencias/apostilas/indice/<slug>/mapa-curado.md` (preferencial), `conferencia.md` (fórmulas transcritas
+  e ressalvas técnicas — LEIA antes de citar fórmulas), `mapa-assuntos.md`, `estrutura.md`, `manifest.json`.
 - Fórmulas/tabelas (páginas com flag `conferir_visualmente` ou OCR): renderize com
   `python3 -I assessoria/ferramentas/apostila/renderizar_pagina.py <slug> <pág>` e confira a imagem com Read
   antes de citar símbolos, índices, expoentes e unidades.

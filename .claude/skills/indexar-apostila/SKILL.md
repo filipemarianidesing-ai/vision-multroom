@@ -19,11 +19,15 @@ Arquivo: `$0` · slug opcional: `$1` · título `$2` · autor `$3` · edição `
 3. Leia o JSON de saída e `indice/<slug>/estrutura.md`. Para as páginas com `conferir_visualmente`,
    `ocr_baixa_confianca` ou `numeracao_impressa_irregular`, renderize uma amostra representativa
    (`renderizar_pagina.py <slug> <pág>`), abra a imagem com Read e compare com o texto extraído. Registre
-   divergências (símbolos, índices, expoentes, unidades) em `indice/<slug>/conferencia.md`.
+   divergências (símbolos, índices, expoentes, unidades) e TRANSCREVA as fórmulas conferidas em
+   `indice/<slug>/conferencia.md` (o OCR costuma corromper fórmulas mesmo com texto corrido correto).
+   Formatos aceitos: PDF (com ou sem senha), imagem única ou **ZIP de imagens de página** (ordenadas pelo número no nome).
 4. Confirme título, autor, edição e data na capa/ficha catalográfica (renderize a p. 1–3) e registre no
    `assessoria/referencias/apostilas/CATALOGO.md` (somente metadados; não copie conteúdo).
-5. Revise `mapa-assuntos.md` (automático) e acrescente no topo um **mapa de assuntos curado** por capítulo,
-   com páginas PDF e impressas.
+5. Correções de numeração e metadados confirmados vão em `indice/<slug>/curadoria.json`
+   (`{"metadados": {...}, "paginas_impressas": {"<posição>": "<impressa>"|null}, "notas": "..."}`) — aplicado a cada
+   reindexação. O `mapa-assuntos.md` é automático (sobrescrito); escreva o **mapa curado** em `mapa-curado.md`,
+   validando o sumário contra os títulos do miolo. Remoção de dados pessoais de licença é automática.
 6. Relate ao usuário: arquivos, páginas, método de leitura (texto/OCR), páginas não lidas ou de baixa confiança,
    diferença entre numeração do PDF e impressa, mapa de assuntos e pendências de leitura.
 
