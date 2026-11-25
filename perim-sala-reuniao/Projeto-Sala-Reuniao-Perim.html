@@ -211,7 +211,7 @@ ol.q b{font-weight:600}
   <section class="sheet" aria-labelledby="hdt">
     <div class="sheet-h"><h2 id="hdt">Detalhe do ripado</h2><span class="no">Prancha 06 · corte horizontal</span></div>
     <div class="sheet-b"><div class="draw" id="svgDet"></div>
-    <p class="note">Ripa de 25 mm de frente por 40 mm de profundidade, cortada de MDF 25 mm revestido, com fita de borda na frente e vão de 15 mm. A face aberta fica perto de 37%: o som passa entre as ripas e é absorvido pela lã. As ripas são montadas na marcenaria em módulos de 15 ripas (60 cm), presas por trás em travessas de MDF 15 mm preto. Na obra, cada módulo é parafusado no metalon através do vão, e a cabeça do parafuso some no fundo preto. Profundidade total: cerca de 105 mm.</p></div>
+    <p class="note">Ripa de 25 mm de frente por 40 mm de profundidade, cortada de MDF 25 mm revestido, com fita de borda na frente e vão de 15 mm. A face aberta fica perto de 37%: o som passa entre as ripas e é absorvido pela lã. As ripas são montadas na marcenaria em módulos de 15 ripas (60 cm), presas por trás em travessas de MDF 15 mm preto. Na obra, cada módulo é parafusado no metalon através do vão, e a cabeça do parafuso some no fundo preto. Profundidade total: cerca de 135 mm, que é o necessário para a tela ficar totalmente embutida: suporte slim de até 35 mm mais tela de até 100 mm. A frente da tela fica alinhada com a frente das ripas.</p></div>
   </section>
 </div>
 
@@ -234,13 +234,14 @@ ol.q b{font-weight:600}
   <div class="sheet-h"><h2 id="hq">Pontos a confirmar antes da execução</h2><span class="no">Pendências</span></div>
   <div class="sheet-b">
     <ol class="q">
-      <li><b>Ficha técnica da tela Bluecase BTIIRWR85-01.</b> O nicho foi desenhado para uma tela de cerca de 1,95 × 1,18 m, com 10 cm de profundidade e uns 70 kg, que é a medida típica de 85" interativa. Antes de cortar as ripas, é preciso confirmar a medida externa, o peso e o padrão VESA.</li>
+      <li><b>Ficha técnica da tela Bluecase BTIIRWR85-01.</b> A Bluecase não publica a ficha deste modelo. Telas interativas de 85" e 86" de outras marcas medem de 1,95 a 1,96 m de largura, 1,15 a 1,17 m de altura e 82 a 99 mm de profundidade, com 65 a 78 kg. O nicho de 2,00 × 1,22 m e o painel de 135 mm foram dimensionados para o pior caso. Medir a tela real (ou pedir a ficha ao fornecedor) antes de cortar as ripas e conferir o padrão VESA do suporte.</li>
       <li><b>Comprimento da mesa.</b> Estimei 3,00 × 1,10 m pelas fotos. Isso define o eixo da TV e a posição da nuvem.</li>
       <li><b>Material da parede da TV.</b> Se for drywall, o suporte precisa de reforço interno (madeira ou metalon) entre os montantes. Se for alvenaria, basta chumbar com bucha química.</li>
       <li><b>Forro existente.</b> Confirmar se é gesso e onde passam as estruturas, para fixar os tirantes da nuvem e dos baffles e abrir os 4 furos das caixas.</li>
       <li><b>Cor do tecido dos difusores.</b> O modelo 3D tem 4 opções. Escolher a definitiva com amostra física.</li>
       <li><b>Padrão e espessura do MDF.</b> Levar uma amostra da mesa ao fornecedor para casar o padrão amadeirado. Confirmar se o padrão existe em 25 mm. Se não existir, a alternativa é MDF 18 mm com ripas de 18 × 40 mm (cerca de 106 ripas e fita de borda de 22 mm). Confirmar também o comprimento da chapa (2,75 m), que define a altura das ripas.</li>
-      <li><b>Profundidade da TV.</b> Com metalon 50 × 30, o painel fica com cerca de 105 mm e a tela sai uns 2 cm à frente das ripas. Para deixar a tela alinhada com o ripado, troque por metalon 80 × 40.</li>
+      <li><b>Profundidade do painel.</b> Com metalon 80 × 40, o painel tem cerca de 135 mm e a tela fica embutida mesmo que tenha 100 mm de profundidade. Se a tela real tiver até 90 mm, dá para usar metalon 60 × 40 e o painel cai para cerca de 115 mm. A frente da tela deve ficar alinhada ou até 5 mm à frente das ripas, nunca recuada: o toque é infravermelho, pela moldura, e a mão precisa alcançar as bordas da tela.</li>
+      <li><b>Ventilação da tela embutida.</b> Manter a folga de 2,5 cm em volta da tela aberta, principalmente em cima, para o calor sair. Não vedar o nicho.</li>
       <li><b>Ar-condicionado.</b> O split da parede do fundo sopra na direção da nuvem, que começa a 0,95 m dessa parede. Conferir se o fluxo de ar não bate direto no painel.</li>
     </ol>
   </div>
@@ -1307,8 +1308,8 @@ const R={W:4.12,L:5.64,H:3.20,
   sideWin:{z0:3.50,z1:5.50,y0:1.20,y1:2.20},
   frontWin:{x0:.35,x1:2.75,y0:1.10,y1:2.10},
   door:{x0:3.05,x1:3.95,h:2.10},
-  panel:{z0:0,z1:3.50,d:.105,y0:.10,y1:2.80,sw:.025,sd:.04,pitch:.040},
-  tv:{zc:1.75,w:1.95,h:1.18,y0:.95,d:.10,x0:.025},
+  panel:{z0:0,z1:3.50,d:.135,y0:.10,y1:2.80,sw:.025,sd:.04,pitch:.040},
+  tv:{zc:1.75,w:1.96,h:1.17,y0:.95,d:.10,x0:.035},
   niche:{w:2.00,h:1.22},
   table:{x0:0,x1:3.00,z0:1.20,z1:2.30,h:.75},
   diff:[[.15,1.05],[1.30,2.20],[2.45,3.35]], diffY:[.80,2.40],
@@ -1377,7 +1378,7 @@ const fmt=(v,d=2)=>v.toFixed(d).replace('.',',');
     ['Painel ripado',`Ripas de 25 × 40 mm: ${n} no total, sendo 37 inteiras de 2,70 m e 50 na região da TV (0,83 m abaixo e 0,65 m acima do nicho)`,`${n} ripas`],
     ['Painel ripado','Fita de borda no mesmo padrão, 35 mm aparada para 25 mm, na frente de cada ripa','≈ 260 m'],
     ['Painel ripado','Chapa de MDF 15 mm preto (ou cru pintado de preto) para as travessas dos módulos, em filetes de 60 mm','1 chapa'],
-    ['Painel ripado','Metalon 50 × 30 galvanizado (ou com fundo anticorrosivo), na horizontal a 0,15 / 0,75 / 1,35 / 1,95 / 2,55 / 2,75 m, com verticais no nicho e nas pontas','5 barras de 6 m'],
+    ['Painel ripado','Metalon 80 × 40 galvanizado (ou com fundo anticorrosivo), na horizontal a 0,15 / 0,75 / 1,35 / 1,95 / 2,55 / 2,75 m, com verticais no nicho e nas pontas','5 barras de 6 m'],
     ['Painel ripado','Parabolt 3/8" ou bucha 10 com parafuso sextavado para fixar o metalon na parede, a cada ≈ 50 cm','≈ 50 un'],
     ['Painel ripado','Lã de PET 50 mm (ou lã de rocha 50 mm, 32 a 48 kg/m³) entre as barras de metalon','≈ 9 m²'],
     ['Painel ripado','Feltro agulhado preto ou TNT preto grosso, atrás das ripas e no fundo do nicho','≈ 13 m²'],
@@ -1527,7 +1528,7 @@ const svg=(w,h,inner,label)=>`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label
   const tU0=uz(R.tv.zc+R.tv.w/2);
   g+=`<rect class="s-dark" x="${U(tU0)}" y="${V(R.tv.y0+R.tv.h)}" width="${R.tv.w*S}" height="${R.tv.h*S}" style="stroke:var(--muted);stroke-width:1"/>`;
   g+=`<text class="t-w" x="${U(uz(R.tv.zc))}" y="${V(R.tv.y0+R.tv.h/2)}" text-anchor="middle">TELA INTERATIVA 85"</text>`;
-  g+=`<text class="t-w" x="${U(uz(R.tv.zc))}" y="${V(R.tv.y0+R.tv.h/2)+16}" text-anchor="middle" style="font-weight:400;font-family:var(--f-body)">Bluecase BTIIRWR85-01 · ≈1,95 × 1,18</text>`;
+  g+=`<text class="t-w" x="${U(uz(R.tv.zc))}" y="${V(R.tv.y0+R.tv.h/2)+16}" text-anchor="middle" style="font-weight:400;font-family:var(--f-body)">Bluecase BTIIRWR85-01 · ≈1,96 × 1,17</text>`;
   // camera
   g+=`<rect class="s-white" x="${U(uz(R.tv.zc)-.1)}" y="${V(2.33)}" width="${.2*S}" height="${.08*S}" style="stroke-dasharray:3 2"/>`;
   g+=`<text class="t-mu" x="${U(uz(R.tv.zc))}" y="${V(2.33)-6}" text-anchor="middle" style="fill:var(--sheet)">câmera (opcional)</text>`;
@@ -1595,29 +1596,26 @@ const svg=(w,h,inner,label)=>`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label
   let g='';
   g+=`<rect class="s-hatch" x="${X(0)}" y="${Y(-14)}" width="${len*k}" height="${14*k}"/>`;
   g+=`<line class="s-thin" x1="${X(0)}" y1="${Y(0)}" x2="${X(len)}" y2="${Y(0)}" style="stroke-width:1.6"/>`;
-  // lã entre metalons
+  const D=80, F=D+15+2, FR=F+40; // metalon 80, travessa 15, tecido 2, ripa 40 -> 137
+  // lã 50 mm encostada na parede, 30 mm de ar
   g+=`<rect class="s-wool" x="${X(0)}" y="${Y(0)}" width="${len*k}" height="${50*k}"/>`;
-  // metalon 50x30 (corte de uma vertical do nicho/ponta, ilustrativo) - tubo oco
-  [[25],[245]].forEach(([x])=>{g+=`<rect x="${X(x)}" y="${Y(0)}" width="${30*k}" height="${50*k}" style="fill:var(--muted)"/>`;
-    g+=`<rect x="${X(x)+1.5*k}" y="${Y(1.5)}" width="${27*k}" height="${47*k}" style="fill:var(--sheet)"/>`});
-  // travessa MDF 15 preto
-  g+=`<rect class="s-dark" x="${X(0)}" y="${Y(50)}" width="${len*k}" height="${15*k}"/>`;
-  // tecido
-  g+=`<rect x="${X(0)}" y="${Y(65)}" width="${len*k}" height="${2*k}" style="fill:var(--ink)"/>`;
-  // ripas 25x40, vão 15
-  for(let x=10;x+25<=len;x+=40){g+=`<rect class="s-wood" x="${X(x)}" y="${Y(67)}" width="${25*k}" height="${40*k}" style="fill:var(--oak-soft)"/>`;
-    g+=`<rect x="${X(x)}" y="${Y(105.5)}" width="${25*k}" height="${1.5*k}" style="fill:var(--oak)"/>`}
-  // parafuso pelo vão
-  g+=`<line x1="${X(42.5)}" y1="${Y(47)}" x2="${X(42.5)}" y2="${Y(80)}" style="stroke:var(--warn);stroke-width:2.5"/>`;
-  g+=`<text class="t-mu" x="${X(48)}" y="${Y(122)}" style="fill:var(--warn)">autobrocante pelo vão de 15 mm</text>`;
-  g+=`<line class="s-hair" x1="${X(46)}" y1="${Y(118)}" x2="${X(43)}" y2="${Y(82)}" style="stroke:var(--warn)"/>`;
+  // metalon 80x40 (tubo oco)
+  [[25],[235]].forEach(([x])=>{g+=`<rect x="${X(x)}" y="${Y(0)}" width="${40*k}" height="${D*k}" style="fill:var(--muted)"/>`;
+    g+=`<rect x="${X(x)+1.5*k}" y="${Y(1.5)}" width="${37*k}" height="${(D-3)*k}" style="fill:var(--sheet)"/>`});
+  g+=`<rect class="s-dark" x="${X(0)}" y="${Y(D)}" width="${len*k}" height="${15*k}"/>`;
+  g+=`<rect x="${X(0)}" y="${Y(D+15)}" width="${len*k}" height="${2*k}" style="fill:var(--ink)"/>`;
+  for(let x=10;x+25<=len;x+=40){g+=`<rect class="s-wood" x="${X(x)}" y="${Y(F)}" width="${25*k}" height="${40*k}" style="fill:var(--oak-soft)"/>`;
+    g+=`<rect x="${X(x)}" y="${Y(FR-1.5)}" width="${25*k}" height="${1.5*k}" style="fill:var(--oak)"/>`}
+  g+=`<line x1="${X(42.5)}" y1="${Y(D-3)}" x2="${X(42.5)}" y2="${Y(D+28)}" style="stroke:var(--warn);stroke-width:2.5"/>`;
+  g+=`<text class="t-mu" x="${X(48)}" y="${Y(FR+16)}" style="fill:var(--warn)">autobrocante pelo vão de 15 mm</text>`;
+  g+=`<line class="s-hair" x1="${X(46)}" y1="${Y(FR+12)}" x2="${X(43)}" y2="${Y(D+30)}" style="stroke:var(--warn)"/>`;
   const lab=(y,t)=>g+=`<line class="s-hair" x1="${X(len)}" y1="${Y(y)}" x2="${X(len)+18}" y2="${Y(y)}"/><text class="t" x="${X(len)+22}" y="${Y(y)+4}">${t}</text>`;
-  lab(-7,'parede existente'); lab(20,'lã de PET ou de rocha 50 mm'); lab(40,'metalon 50 × 30 (horizontal)'); lab(57,'travessa MDF 15 mm preto'); lab(66,'tecido preto'); lab(87,'ripa MDF 25 × 40 mm'); lab(106,'fita de borda na frente');
-  g+=dimV(X(0)-14,Y(0),Y(107),'≈105 mm');
-  g+=dimH(X(10),X(35),Y(107)+30,'25');
-  g+=dimH(X(35),X(50),Y(107)+30,'15');
-  g+=`<text class="t-mu" x="${X(len/2)}" y="${Y(-20)}" text-anchor="middle">lado da parede</text><text class="t-mu" x="${X(len/2)}" y="${Y(160)}" text-anchor="middle">lado da sala</text>`;
-  document.getElementById('svgDet').innerHTML=svg(X(len)+220,Y(168),g,'Detalhe do painel ripado');
+  lab(-7,'parede existente'); lab(25,'lã de PET ou de rocha 50 mm'); lab(65,'metalon 80 × 40 (horizontal)'); lab(D+7,'travessa MDF 15 mm preto'); lab(D+16,'tecido preto'); lab(F+20,'ripa MDF 25 × 40 mm'); lab(FR,'fita de borda na frente');
+  g+=dimV(X(0)-14,Y(0),Y(FR),'≈135 mm');
+  g+=dimH(X(10),X(35),Y(FR)+34,'25');
+  g+=dimH(X(35),X(50),Y(FR)+34,'15');
+  g+=`<text class="t-mu" x="${X(len/2)}" y="${Y(-20)}" text-anchor="middle">lado da parede</text><text class="t-mu" x="${X(len/2)}" y="${Y(190)}" text-anchor="middle">lado da sala</text>`;
+  document.getElementById('svgDet').innerHTML=svg(X(len)+220,Y(198),g,'Detalhe do painel ripado');
 })();
 
 /* ===================== 3D ===================== */
