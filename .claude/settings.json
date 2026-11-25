@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(python3 -I assessoria/ferramentas/apostila/buscar.py:*)",
+      "Bash(python3 -I assessoria/ferramentas/apostila/renderizar_pagina.py:*)",
+      "Bash(python3 -I assessoria/ferramentas/apostila/indexar.py:*)",
+      "Bash(python3 assessoria/ferramentas/novo_projeto.py:*)",
+      "Bash(python3 -m pytest -q assessoria/ferramentas/testes:*)",
+      "Bash(pdfinfo:*)",
+      "Bash(pdftotext:*)",
+      "Bash(pdftoppm:*)",
+      "Read(assessoria/**)",
+      "Grep(assessoria/**)",
+      "Glob(assessoria/**)",
+      "Bash(python3 assessoria/ferramentas/base/base.py:*)",
+      "Bash(python3 assessoria/ferramentas/verificar_privacidade.py:*)"
+    ],
+    "deny": [
+      "Bash(git add -f assessoria/projetos:*)",
+      "Bash(git add --force assessoria/projetos:*)",
+      "Bash(git add -f assessoria/referencias/apostilas:*)",
+      "Bash(git add --force assessoria/referencias/apostilas:*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/assessoria/ferramentas/verificar_privacidade.py",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}

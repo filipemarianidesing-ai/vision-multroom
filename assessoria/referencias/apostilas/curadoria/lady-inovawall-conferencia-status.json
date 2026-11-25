@@ -1,0 +1,60 @@
+{
+  "documento": "lady-inovawall",
+  "gerado_em": "2026-11-25",
+  "aviso": "Somente a situação da conferência; transcrições e correções ficam no pacote privado.",
+  "resumo": {
+    "conferida_sem_ressalva": 3,
+    "conferida_com_ressalva": 3
+  },
+  "itens": [
+    {
+      "id": "dado-composicao",
+      "posicao": 12,
+      "pagina_impressa": "22",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "dado-espessura",
+      "posicao": 12,
+      "pagina_impressa": "22",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "dado-densidade",
+      "posicao": 12,
+      "pagina_impressa": "22",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "dado-nrc",
+      "posicao": 12,
+      "pagina_impressa": "22",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "dado-reacao-fogo",
+      "posicao": 12,
+      "pagina_impressa": "22",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-isolacao",
+      "posicao": 2,
+      "pagina_impressa": "2–3",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    }
+  ],
+  "paginas_com_pendencia": []
+}

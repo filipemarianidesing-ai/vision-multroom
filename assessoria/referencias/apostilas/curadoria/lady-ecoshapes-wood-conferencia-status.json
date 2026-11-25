@@ -1,0 +1,62 @@
+{
+  "documento": "lady-ecoshapes-wood",
+  "gerado_em": "2026-11-25",
+  "aviso": "Somente a situação da conferência; transcrições e correções ficam no pacote privado.",
+  "resumo": {
+    "conferida_sem_ressalva": 4,
+    "pendente": 2
+  },
+  "itens": [
+    {
+      "id": "dado-composicao",
+      "posicao": 9,
+      "pagina_impressa": null,
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "dado-espessura",
+      "posicao": 9,
+      "pagina_impressa": null,
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "dado-impressao",
+      "posicao": 9,
+      "pagina_impressa": null,
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "dado-acustico",
+      "posicao": 9,
+      "pagina_impressa": null,
+      "tipo": "unidade/conceito",
+      "situacao": "pendente",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "dado-reacao-fogo",
+      "posicao": 9,
+      "pagina_impressa": null,
+      "tipo": "unidade/conceito",
+      "situacao": "pendente",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-impress-woos",
+      "posicao": 9,
+      "pagina_impressa": null,
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    }
+  ],
+  "paginas_com_pendencia": [
+    9
+  ]
+}
