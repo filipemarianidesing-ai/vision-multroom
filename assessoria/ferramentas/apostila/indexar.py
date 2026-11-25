@@ -511,7 +511,10 @@ def indexar(arquivo: Path, slug: str | None, forcar_ocr: bool, extra: dict) -> d
     #   {"metadados": {"titulo": ..., "autor": ..., "edicao": ...},
     #    "paginas_impressas": {"<pág. no arquivo>": "<impressa>" | null}, "notas": "..."}
     curadoria = {}
-    cur_path = saida / "curadoria.json"
+    # versão canônica (versionada no repositório, sem conteúdo licenciado) tem prioridade
+    cur_path = DIR_APOSTILAS / "curadoria" / f"{slug}.json"
+    if not cur_path.exists():
+        cur_path = saida / "curadoria.json"
     if cur_path.exists():
         curadoria = json.loads(cur_path.read_text(encoding="utf-8"))
         for k, v in curadoria.get("paginas_impressas", {}).items():

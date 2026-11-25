@@ -28,6 +28,22 @@ RAIZ = Path(os.environ.get("ASSESSORIA_RAIZ") or Path(__file__).resolve().parent
 DB_PATH = RAIZ / "referencias" / "apostilas" / "indice" / "busca.sqlite"
 
 
+CURADORIA = RAIZ / "referencias" / "apostilas" / "curadoria"
+ROTULO = {"conferida_sem_ressalva": "conferida", "conferida_com_ressalva": "conferida c/ ressalva",
+          "correcao_proposta": "CORREÇÃO PROPOSTA — usar forma corrigida", "pendente": "PENDENTE — não usar em dimensionamento final",
+          "ilegivel": "ILEGÍVEL — não usar"}
+
+
+def situacao_pagina(doc: str, pagina_pdf: int) -> list[str]:
+    """Situação da conferência técnica dos itens (fórmulas/tabelas) de uma página."""
+    st = CURADORIA / f"{doc}-conferencia-status.json"
+    if not st.exists():
+        return ["conferência técnica: sem registro para este documento"]
+    import json as _j
+    itens = [i for i in _j.loads(st.read_text(encoding="utf-8"))["itens"] if i["posicao"] == int(pagina_pdf)]
+    return [f"{i['id']}: {ROTULO.get(i['situacao'], i['situacao'])}" for i in itens]
+
+
 def conectar() -> sqlite3.Connection:
     if not DB_PATH.exists():
         sys.exit("Nenhuma apostila indexada ainda. Rode indexar.py (veja assessoria/README.md).")
@@ -70,6 +86,10 @@ def main() -> None:
         arq, imp, met, conf, txt = row
         print(f"=== {arq} — página PDF {pg} | impressa: {imp or 'não detectada'} | leitura: {met}"
               + (f" (OCR conf. {conf}%)" if conf is not None else "") + " ===")
+        sit = situacao_pagina(slug, pg)
+        if sit:
+            print("--- conferência técnica desta página: " + " | ".join(sit))
+            print("--- transcrições/correções: indice/" + slug + "/conferencia.json")
         print(txt)
         return
 
@@ -99,7 +119,9 @@ def main() -> None:
     for i, r in enumerate(res, 1):
         imp = f", impressa {r['pagina_impressa']}" if r["pagina_impressa"] else ", impressa n/d"
         ocr = f" [OCR {r['conf_ocr']}%]" if r["leitura"] == "ocr" else ""
-        print(f"{i}. {r['arquivo']} — p. PDF {r['pagina_pdf']}{imp}{ocr}\n   {r['trecho']}\n")
+        sit = situacao_pagina(r["doc"], r["pagina_pdf"])
+        sit_txt = ("\n   conferência: " + " | ".join(sit)) if sit else ""
+        print(f"{i}. {r['arquivo']} — p. PDF {r['pagina_pdf']}{imp}{ocr}\n   {r['trecho']}{sit_txt}\n")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,25 @@
+{
+  "_pasta_backup_drive": {
+    "titulo": "Mariani Assessor - Base Privada (nao compartilhar)",
+    "drive_folder_id": "1kXm0nwPRO-2weNcTrjCVevfJxJCXVNH5",
+    "permissoes_verificadas_em": "2026-11-25 (somente o proprietário)"
+  },
+  "fundamentos-de-acustica": {
+    "descricao": "Apostila Fundamentos da Acústica (Portal Acústica, fev/2023) — exportação em imagens de página",
+    "armazenamento": "Google Drive privado do usuário (conta conectada ao Claude); acesso exige autenticação",
+    "origem": {
+      "titulo": "Apostila+Fundamentos+de+Acústica-1725438095-ExportedImages.zip",
+      "drive_file_id": "1Tac-t1TioKnBchAXXfJnNtsJOVd55tO7",
+      "sha256": "ae42be0600d5a1877df290d3c238ed1b9f0b949a888315745320ce6e894bafde",
+      "bytes": 5775639
+    },
+    "backup": {
+      "titulo": "base-fundamentos-de-acustica-20261125-v1.zip",
+      "drive_file_id": "1PMuNcd9ju4Vug5YAlqPLn2xjFtaXEFcz",
+      "sha256": "0bc7036f75708147a7af49c5306efafa482eb229b80efe7dcbf8b9448622fe73",
+      "bytes": 80982,
+      "criado_em": "2026-11-25T14:54:56",
+      "conteudo": "índice (texto por página, manifest, mapas) + conferência técnica"
+    }
+  }
+}

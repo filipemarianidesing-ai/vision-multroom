@@ -1,0 +1,529 @@
+{
+  "documento": "fundamentos-de-acustica",
+  "gerado_em": "2026-11-25",
+  "aviso": "Somente a situação da conferência; transcrições e correções ficam no pacote privado.",
+  "resumo": {
+    "conferida_sem_ressalva": 30,
+    "conferida_com_ressalva": 23,
+    "correcao_proposta": 9,
+    "ilegivel": 2
+  },
+  "itens": [
+    {
+      "id": "eq-1.1",
+      "posicao": 13,
+      "pagina_impressa": "6",
+      "tipo": "formula",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "eq-1.2",
+      "posicao": 13,
+      "pagina_impressa": "6",
+      "tipo": "formula",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "eq-1.3",
+      "posicao": 13,
+      "pagina_impressa": "6",
+      "tipo": "formula",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "eq-1.6",
+      "posicao": 21,
+      "pagina_impressa": "14",
+      "tipo": "formula",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "eq-1.7",
+      "posicao": 22,
+      "pagina_impressa": "15",
+      "tipo": "formula",
+      "situacao": "correcao_proposta",
+      "tem_correcao_proposta": true
+    },
+    {
+      "id": "eq-1.8",
+      "posicao": 23,
+      "pagina_impressa": "16",
+      "tipo": "formula",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-1.1",
+      "posicao": 23,
+      "pagina_impressa": "16",
+      "tipo": "tabela",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "eq-1.9",
+      "posicao": 30,
+      "pagina_impressa": "23",
+      "tipo": "formula",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "eq-1.12",
+      "posicao": 38,
+      "pagina_impressa": "31",
+      "tipo": "formula",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "eq-1.13",
+      "posicao": 38,
+      "pagina_impressa": "31",
+      "tipo": "formula",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "eq-1.14",
+      "posicao": 38,
+      "pagina_impressa": "31",
+      "tipo": "formula",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-T20-T30",
+      "posicao": 38,
+      "pagina_impressa": "31",
+      "tipo": "unidade/conceito",
+      "situacao": "correcao_proposta",
+      "tem_correcao_proposta": true
+    },
+    {
+      "id": "txt-sumario-paginacao",
+      "posicao": 6,
+      "pagina_impressa": "5–6",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-faixa-audivel",
+      "posicao": 8,
+      "pagina_impressa": "1",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-limiar-dor-60Pa",
+      "posicao": 9,
+      "pagina_impressa": "2",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.2",
+      "posicao": 10,
+      "pagina_impressa": "3",
+      "tipo": "figura",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-NBR16313-definicao-som",
+      "posicao": 10,
+      "pagina_impressa": "3",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.3",
+      "posicao": 12,
+      "pagina_impressa": "5",
+      "tipo": "figura",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.4",
+      "posicao": 13,
+      "pagina_impressa": "6",
+      "tipo": "figura",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "eq-1.4",
+      "posicao": 14,
+      "pagina_impressa": "7",
+      "tipo": "formula",
+      "situacao": "correcao_proposta",
+      "tem_correcao_proposta": true
+    },
+    {
+      "id": "txt-c-343-20C",
+      "posicao": 14,
+      "pagina_impressa": "7",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-def-coef-absorcao",
+      "posicao": 16,
+      "pagina_impressa": "9",
+      "tipo": "unidade/conceito",
+      "situacao": "correcao_proposta",
+      "tem_correcao_proposta": true
+    },
+    {
+      "id": "txt-reflexao-180graus",
+      "posicao": 17,
+      "pagina_impressa": "10",
+      "tipo": "unidade/conceito",
+      "situacao": "correcao_proposta",
+      "tem_correcao_proposta": true
+    },
+    {
+      "id": "txt-3dB-especifico-residual",
+      "posicao": 20,
+      "pagina_impressa": "13",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-limiar-audicao-dor-p13",
+      "posicao": 20,
+      "pagina_impressa": "13",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "eq-1.5",
+      "posicao": 20,
+      "pagina_impressa": "13",
+      "tipo": "formula",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-decibel-1dB-20+20",
+      "posicao": 21,
+      "pagina_impressa": "14",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-ex-1.7-alto-falante",
+      "posicao": 22,
+      "pagina_impressa": "15",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-ex-1.6-intermediarios",
+      "posicao": 22,
+      "pagina_impressa": "15",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-ex-media-53,3",
+      "posicao": 24,
+      "pagina_impressa": "17",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-canal-auditivo",
+      "posicao": 24,
+      "pagina_impressa": "17",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-ressonancia-canal-3kHz",
+      "posicao": 25,
+      "pagina_impressa": "18",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.11",
+      "posicao": 26,
+      "pagina_impressa": "19",
+      "tipo": "figura",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-ponderacao-ABCDZ",
+      "posicao": 27,
+      "pagina_impressa": "20",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.12",
+      "posicao": 27,
+      "pagina_impressa": "20",
+      "tipo": "figura",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.13",
+      "posicao": 28,
+      "pagina_impressa": "21",
+      "tipo": "figura",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.16",
+      "posicao": 29,
+      "pagina_impressa": "22",
+      "tipo": "figura",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-lei-snell-reflexao",
+      "posicao": 29,
+      "pagina_impressa": "22",
+      "tipo": "unidade/conceito",
+      "situacao": "correcao_proposta",
+      "tem_correcao_proposta": true
+    },
+    {
+      "id": "txt-potencia-intensidade-unidades",
+      "posicao": 30,
+      "pagina_impressa": "23",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "eq-1.10",
+      "posicao": 31,
+      "pagina_impressa": "24",
+      "tipo": "formula",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "eq-1.11",
+      "posicao": 31,
+      "pagina_impressa": "24",
+      "tipo": "formula",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-L90-L50-L10",
+      "posicao": 31,
+      "pagina_impressa": "24",
+      "tipo": "unidade/conceito",
+      "situacao": "correcao_proposta",
+      "tem_correcao_proposta": true
+    },
+    {
+      "id": "fig-1.19",
+      "posicao": 32,
+      "pagina_impressa": "25",
+      "tipo": "figura",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-faixa-20Hz-20kHz-bandas",
+      "posicao": 32,
+      "pagina_impressa": "25",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.21",
+      "posicao": 33,
+      "pagina_impressa": "26",
+      "tipo": "figura",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-1.2",
+      "posicao": 33,
+      "pagina_impressa": "26",
+      "tipo": "tabela",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-def-terco-oitava",
+      "posicao": 33,
+      "pagina_impressa": "26",
+      "tipo": "unidade/conceito",
+      "situacao": "correcao_proposta",
+      "tem_correcao_proposta": true
+    },
+    {
+      "id": "tab-1.3",
+      "posicao": 33,
+      "pagina_impressa": "26",
+      "tipo": "tabela",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.22",
+      "posicao": 34,
+      "pagina_impressa": "27",
+      "tipo": "figura",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.23-1.24",
+      "posicao": 35,
+      "pagina_impressa": "28",
+      "tipo": "figura",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-isolamento-x-condicionamento",
+      "posicao": 36,
+      "pagina_impressa": "29",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-fast-slow-125ms",
+      "posicao": 37,
+      "pagina_impressa": "30",
+      "tipo": "unidade/conceito",
+      "situacao": "correcao_proposta",
+      "tem_correcao_proposta": true
+    },
+    {
+      "id": "txt-ponderacao-A-desconsidera",
+      "posicao": 37,
+      "pagina_impressa": "30",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-T60-milionesimo",
+      "posicao": 38,
+      "pagina_impressa": "31",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.25",
+      "posicao": 40,
+      "pagina_impressa": "33",
+      "tipo": "figura",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-fonte-pontual-6dB",
+      "posicao": 41,
+      "pagina_impressa": "34",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.26",
+      "posicao": 41,
+      "pagina_impressa": "34",
+      "tipo": "figura",
+      "situacao": "ilegivel",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-fonte-linear-3dB-exemplo",
+      "posicao": 42,
+      "pagina_impressa": "35",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-fonte-plana-tubo",
+      "posicao": 42,
+      "pagina_impressa": "35",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-ISO3382-dodecaedro",
+      "posicao": 43,
+      "pagina_impressa": "36",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.29",
+      "posicao": 44,
+      "pagina_impressa": "37",
+      "tipo": "figura",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "fig-1.30",
+      "posicao": 44,
+      "pagina_impressa": "37",
+      "tipo": "figura",
+      "situacao": "ilegivel",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-arquivos-CLF",
+      "posicao": 45,
+      "pagina_impressa": "38",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "txt-bibliografia",
+      "posicao": 46,
+      "pagina_impressa": "39",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    }
+  ],
+  "paginas_com_pendencia": [
+    41,
+    44
+  ]
+}

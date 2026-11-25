@@ -71,6 +71,13 @@ Quando fizer sentido, compare alternativas **econômica / intermediária / maior
 técnicas. Inclua links das fontes externas e **arquivo + página** da apostila.
 
 ### Apostila e referências
+- **Início de sessão:** o hook informa o estado da base (DISPONÍVEL / PRECISA SER RECONSTRUÍDA). Se precisar,
+  execute `/restaurar-base` antes de qualquer resposta que dependa da apostila; se o Drive estiver inacessível,
+  diga isso claramente e não cite a apostila. Após indexar ou curar, execute `/salvar-base <slug>`.
+- **Conferência técnica:** antes de usar uma fórmula/tabela da apostila, consulte a situação em
+  `curadoria/<slug>-conferencia-status.json` e a transcrição/correção em `indice/<slug>/conferencia.json`.
+  Itens `pendente` ou `ilegivel` NÃO podem fundamentar dimensionamento final; itens `correcao_proposta` devem ser
+  usados na forma corrigida, citando a divergência com a apostila e a fonte da correção.
 - Busca: `python3 -I assessoria/ferramentas/apostila/buscar.py "termos"` · página: `--pagina <slug> <pág>` ·
   lista: `--listar`. Conferência visual: `renderizar_pagina.py <slug> <pág>`.
 - Citar sempre **arquivo — p. PDF X (impressa Y)**; informar leitura por OCR. Não presumir ter lido páginas não lidas.

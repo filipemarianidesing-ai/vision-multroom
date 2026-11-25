@@ -12,6 +12,7 @@ assessoria/referencias/apostilas/originais/*
 !assessoria/referencias/apostilas/originais/.gitkeep
 assessoria/referencias/apostilas/indice/*
 !assessoria/referencias/apostilas/indice/.gitkeep
+# curadoria/ e fontes.json NÃO são ignorados: só metadados, numeração, hashes e situação da conferência.
 
 # Memória local de agentes e configurações pessoais
 .claude/agent-memory-local/

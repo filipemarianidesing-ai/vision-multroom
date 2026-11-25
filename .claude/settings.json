@@ -12,13 +12,27 @@
       "Bash(pdftoppm:*)",
       "Read(assessoria/**)",
       "Grep(assessoria/**)",
-      "Glob(assessoria/**)"
+      "Glob(assessoria/**)",
+      "Bash(python3 assessoria/ferramentas/base/base.py:*)"
     ],
     "deny": [
       "Bash(git add -f assessoria/projetos:*)",
       "Bash(git add --force assessoria/projetos:*)",
       "Bash(git add -f assessoria/referencias/apostilas:*)",
       "Bash(git add --force assessoria/referencias/apostilas:*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh",
+            "timeout": 60
+          }
+        ]
+      }
     ]
   }
 }
