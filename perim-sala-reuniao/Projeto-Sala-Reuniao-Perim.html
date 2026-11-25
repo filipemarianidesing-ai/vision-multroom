@@ -1385,7 +1385,7 @@ const fmt=(v,d=2)=>v.toFixed(d).replace('.',',');
     ['Painel ripado','Rodapé recuado em MDF 15 mm preto (ou perfil de alumínio preto), 3,50 × 0,10 m','1 peça'],
     ['Painel ripado','Parafusos 3,5 × 30 mm (ripa na travessa) e autobrocantes 4,2 × 32 mm (travessa no metalon)','≈ 500 + 100'],
     ['Painel ripado','Fita de LED 4000 K com perfil de alumínio, embaixo da faixa superior','3,50 m'],
-    ['Painel ripado','Compartimento técnico: módulo ripado de 0,60 × 0,60 m com fecho magnético ou de toque','1 un'],
+    ['Painel ripado','Compartimento técnico: porta ripada de 0,75 × 0,60 m (19 ripas, do lado da janela) com fecho magnético','1 un'],
     ['Tela','Bluecase BTIIRWR85-01, 85" interativa','1 un'],
     ['Tela','Suporte fixo slim para 85", carga mínima de 80 kg (conferir VESA)','1 un'],
     ['Difusores','Painel em lã de vidro 50 mm / 48 kg/m³ com moldura e revestimento em tecido acústico, 0,90 × 1,60 m','3 un'],
@@ -1533,8 +1533,8 @@ const svg=(w,h,inner,label)=>`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label
   g+=`<rect class="s-white" x="${U(uz(R.tv.zc)-.1)}" y="${V(2.33)}" width="${.2*S}" height="${.08*S}" style="stroke-dasharray:3 2"/>`;
   g+=`<text class="t-mu" x="${U(uz(R.tv.zc))}" y="${V(2.33)-6}" text-anchor="middle" style="fill:var(--sheet)">câmera (opcional)</text>`;
   // compartimento técnico
-  g+=`<rect class="s-dash" x="${U(uz(3.45))}" y="${V(.70)}" width="${.6*S}" height="${.6*S}" style="stroke:var(--sheet);stroke-width:1.6"/>`;
-  g+=`<text class="t-mu" x="${U(uz(3.15))}" y="${V(.4)+3}" text-anchor="middle" style="fill:var(--sheet)">técnico</text>`;
+  g+=`<rect class="s-dash" x="${U(uz(3.50))}" y="${V(.70)}" width="${.745*S}" height="${.6*S}" style="stroke:var(--sheet);stroke-width:1.6"/>`;
+  g+=`<text class="t-mu" x="${U(uz(3.13))}" y="${V(.4)+3}" text-anchor="middle" style="fill:var(--sheet)">técnico</text>`;
   // mesa em corte
   g+=`<rect class="s-wood" x="${U(uz(R.table.z1))}" y="${V(.75)}" width="${1.1*S}" height="${.04*S}"/>`;
   g+=`<rect class="s-wood" x="${U(uz(R.table.z1)+.3)}" y="${V(.71)}" width="${.5*S}" height="${.71*S}" style="opacity:.6"/>`;
