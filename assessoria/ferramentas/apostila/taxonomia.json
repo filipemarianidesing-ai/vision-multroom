@@ -1,0 +1,16 @@
+{
+  "Fundamentos de acústica": ["frequência", "comprimento de onda", "velocidade do som", "pressão sonora", "decibel", "nível de pressão sonora", "potência sonora", "intensidade sonora", "oitava", "terço de oitava", "ponderação A", "ponderação C", "lei do inverso do quadrado", "campo livre", "campo difuso", "campo próximo", "campo distante"],
+  "Psicoacústica e audição": ["audição", "limiar", "curvas isoaudíveis", "fon", "efeito Haas", "precedência", "mascaramento", "eco"],
+  "Acústica de salas": ["reverberação", "tempo de reverberação", "Sabine", "Eyring", "Millington", "RT60", "T30", "T20", "EDT", "constante da sala", "distância crítica", "campo reverberante", "reflexão", "difração", "modos", "ressonância", "Schroeder", "flutter", "focalização"],
+  "Inteligibilidade": ["inteligibilidade", "STI", "STIPA", "RASTI", "%ALcons", "ALcons", "C50", "C80", "D50", "clareza", "definição", "relação sinal-ruído"],
+  "Materiais e tratamento": ["absorção", "coeficiente de absorção", "NRC", "SAA", "absorvedor", "membrana", "Helmholtz", "ressonador", "lã de vidro", "lã de rocha", "espuma", "difusor", "difusão", "forro acústico", "painel", "bass trap"],
+  "Isolamento e ruído": ["isolamento", "perda de transmissão", "Rw", "STC", "DnT", "massa-mola-massa", "lei da massa", "frequência de coincidência", "ruído de impacto", "L'nT", "flanco", "transmissão lateral", "vedação", "piso flutuante", "drywall", "ruído de fundo", "NC", "NR", "ruído ambiental", "vibração", "isolador", "atenuador"],
+  "Normas e legislação": ["NBR", "ABNT", "ISO", "IEC", "10151", "10152", "15575", "12179", "CONAMA", "NR-15", "legislação", "lei municipal", "norma"],
+  "Eletroacústica — transdutores": ["alto-falante", "caixa acústica", "sensibilidade", "impedância", "Thiele", "Small", "Fs", "Qts", "Vas", "diretividade", "fator de diretividade", "índice de diretividade", "ângulo de cobertura", "corneta", "driver", "tweeter", "woofer", "subwoofer", "line array", "coluna", "cardioide"],
+  "Eletroacústica — amplificação e linhas": ["amplificador", "potência RMS", "headroom", "fator de amortecimento", "linha de 70 V", "70V", "100V", "tensão constante", "transformador", "tap", "bitola", "perda no cabo", "ohms"],
+  "Microfones e ganho": ["microfone", "dinâmico", "condensador", "phantom", "padrão polar", "cardióide", "supercardióide", "realimentação", "microfonia", "ganho antes da microfonia", "PAG", "NAG"],
+  "Processamento e sistemas": ["DSP", "equalizador", "equalização", "filtro", "crossover", "Linkwitz", "Butterworth", "delay", "atraso", "alinhamento", "polaridade", "fase", "limitador", "compressor", "gate", "AEC", "matriz", "mixer", "mesa de som"],
+  "Áudio digital e redes": ["Dante", "AES67", "AVB", "AES/EBU", "SIP", "VoIP", "multicast", "PoE", "taxa de amostragem", "latência", "rede", "IP"],
+  "Medições": ["medição", "medidor de nível", "sonômetro", "calibrador", "classe 1", "classe 2", "resposta em frequência", "resposta ao impulso", "FFT", "função de transferência", "RTA", "ruído rosa", "sweep", "Smaart", "REW", "coerência"],
+  "Aplicações": ["sonorização", "auditório", "igreja", "templo", "escola", "sala de aula", "quadra", "ginásio", "teatro", "cinema", "home theater", "estúdio", "restaurante", "área externa", "evacuação", "emergência", "aviso", "chamada", "embarcação"]
+}

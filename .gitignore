@@ -1,0 +1,23 @@
+# --- Assessor técnico Mariani -------------------------------------------------
+# Repositório PÚBLICO: dados de clientes e conteúdo de apostilas (material protegido)
+# nunca devem ser versionados aqui. Guarde-os em armazenamento privado.
+
+# Projetos de clientes (mantém apenas o modelo)
+assessoria/projetos/*
+!assessoria/projetos/_modelo/
+!assessoria/projetos/README.md
+
+# Apostilas: originais, texto extraído, imagens e base de busca
+assessoria/referencias/apostilas/originais/*
+!assessoria/referencias/apostilas/originais/.gitkeep
+assessoria/referencias/apostilas/indice/*
+!assessoria/referencias/apostilas/indice/.gitkeep
+
+# Memória local de agentes e configurações pessoais
+.claude/agent-memory-local/
+.claude/settings.local.json
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/

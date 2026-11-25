@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(python3 -I assessoria/ferramentas/apostila/buscar.py:*)",
+      "Bash(python3 -I assessoria/ferramentas/apostila/renderizar_pagina.py:*)",
+      "Bash(python3 -I assessoria/ferramentas/apostila/indexar.py:*)",
+      "Bash(python3 assessoria/ferramentas/novo_projeto.py:*)",
+      "Bash(python3 -m pytest -q assessoria/ferramentas/testes:*)",
+      "Bash(pdfinfo:*)",
+      "Bash(pdftotext:*)",
+      "Bash(pdftoppm:*)",
+      "Read(assessoria/**)",
+      "Grep(assessoria/**)",
+      "Glob(assessoria/**)"
+    ],
+    "deny": [
+      "Bash(git add -f assessoria/projetos:*)",
+      "Bash(git add --force assessoria/projetos:*)",
+      "Bash(git add -f assessoria/referencias/apostilas:*)",
+      "Bash(git add --force assessoria/referencias/apostilas:*)"
+    ]
+  }
+}
