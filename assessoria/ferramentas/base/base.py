@@ -182,7 +182,26 @@ def cmd_status_conferencia(a) -> None:
            "paginas_com_pendencia": sorted({i["posicao"] for i in itens if i["situacao"] in ("pendente", "ilegivel")})}
     dst = CURADORIA / f"{a.slug}-conferencia-status.json"
     dst.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    _gerar_conferencia_md(a.slug, reg)
     print(dst, resumo)
+
+
+def _gerar_conferencia_md(slug: str, reg: dict) -> None:
+    """Versão legível PRIVADA (fica no índice, nunca no git), gerada do conferencia.json."""
+    esc = lambda s: (str(s) if s else "—").replace("|", "\\|").replace("\n", " ")
+    L = [f"# Conferência técnica — {slug} (PRIVADO — conteúdo licenciado)", "",
+         "Gerado de `conferencia.json` (fonte de verdade) por `base.py status-conferencia`. Colunas separadas: "
+         "transcrição fiel | correção proposta | justificativa e fonte | situação | revisão independente.",
+         "Itens `pendente`/`ilegivel` não fundamentam dimensionamento final. `correcao_proposta` sem revisão "
+         "independente deve ser confirmada antes de uso em entregável.", "",
+         "| ID | Pos. (impr.) | Tipo | Transcrição fiel | Correção proposta | Justificativa / fonte | Situação | Revisão independente |",
+         "|---|---|---|---|---|---|---|---|"]
+    for i in sorted(reg["itens"], key=lambda x: (x["posicao"], x["id"])):
+        jf = " / ".join(x for x in (i.get("justificativa"), i.get("fonte_da_correcao"), i.get("verificacao_norma"),
+                                    i.get("observacao")) if x)
+        L.append(f"| {i['id']} | {i['posicao']} ({esc(i.get('pagina_impressa'))}) | {i['tipo']} | {esc(i['transcricao_fiel'])} | "
+                 f"{esc(i.get('correcao_proposta'))} | {esc(jf)} | {i['situacao']} | {esc(i.get('revisao_independente'))} |")
+    (INDICE / slug / "conferencia.md").write_text("\n".join(L) + "\n", encoding="utf-8")
 
 
 # ----------------------------------------------------------------------------- backup

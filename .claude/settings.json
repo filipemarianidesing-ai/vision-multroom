@@ -13,7 +13,8 @@
       "Read(assessoria/**)",
       "Grep(assessoria/**)",
       "Glob(assessoria/**)",
-      "Bash(python3 assessoria/ferramentas/base/base.py:*)"
+      "Bash(python3 assessoria/ferramentas/base/base.py:*)",
+      "Bash(python3 assessoria/ferramentas/verificar_privacidade.py:*)"
     ],
     "deny": [
       "Bash(git add -f assessoria/projetos:*)",
@@ -29,6 +30,18 @@
           {
             "type": "command",
             "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/assessoria/ferramentas/verificar_privacidade.py",
             "timeout": 60
           }
         ]

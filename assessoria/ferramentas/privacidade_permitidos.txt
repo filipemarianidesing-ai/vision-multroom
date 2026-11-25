@@ -1,0 +1,8 @@
+# Expressões públicas permitidas mesmo que coincidam com o texto de uma apostila
+# (títulos oficiais de normas, referências bibliográficas). Uma por linha.
+# Também lista valores FICTÍCIOS usados em testes (prefixo "ficticio:").
+Acústica — Medição de parâmetros de acústica de salas — Parte 2: Tempo de reverberação em salas comuns, ABNT, 2017
+ficticio:123.456.789-00
+ficticio:AB123456789012
+ficticio:HP123456789012345
+ficticio:Licensed to Fulano

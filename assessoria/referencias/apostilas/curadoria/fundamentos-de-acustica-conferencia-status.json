@@ -3,7 +3,7 @@
   "gerado_em": "2026-11-25",
   "aviso": "Somente a situação da conferência; transcrições e correções ficam no pacote privado.",
   "resumo": {
-    "conferida_sem_ressalva": 30,
+    "conferida_sem_ressalva": 31,
     "conferida_com_ressalva": 23,
     "correcao_proposta": 9,
     "ilegivel": 2
@@ -515,6 +515,14 @@
     },
     {
       "id": "txt-bibliografia",
+      "posicao": 46,
+      "pagina_impressa": "39",
+      "tipo": "unidade/conceito",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "ref-bibliografia-1",
       "posicao": 46,
       "pagina_impressa": "39",
       "tipo": "unidade/conceito",
