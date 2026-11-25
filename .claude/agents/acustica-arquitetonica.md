@@ -37,6 +37,13 @@ Siga o `CLAUDE.md` do projeto. Raciocine como engenheiro e pense na execução e
    (econômica/intermediária/maior desempenho), cuidados de instalação, segurança contra incêndio do material
    (exigir laudo de reação ao fogo do fabricante — não presuma) e manutenção.
 
+## Materiais de fornecedores
+Consulte `assessoria/referencias/materiais/materiais.json` e use `assessoria/ferramentas/calc/materiais.py`
+(recusa material sem dado; NRC só como [E] em 250–2000 Hz). Catálogos indexados podem ser lidos com
+`buscar.py --doc <slug>`. Liste as lacunas e proponha o pedido ao fornecedor
+(`assessoria/modelos/solicitacao-dados-fornecedor.md`). Alegações como "alta performance" ou "reduz ruídos externos"
+não são dado técnico.
+
 ## Retorno ao coordenador
 Resultados classificados como [F]/[S]/[C]/[E]/[M]/[NV], memória de cálculo (modelo
 `assessoria/modelos/memoria-calculo.md`), fontes com link ou apostila arquivo+página, limitações e

@@ -21,5 +21,41 @@
       "criado_em": "2026-11-25T15:49:04",
       "conteudo": "índice (texto por página, manifest, mapas) + conferência técnica"
     }
+  },
+  "lady-ecoshapes-wood": {
+    "descricao": "Catálogo Ecoshapes Wood — Lady Acústica (Rev. 003, Jul/2025)",
+    "armazenamento": "Google Drive privado do usuário",
+    "origem": {
+      "titulo": "Lady_Acustica_Catalogo_EcoshapesWood_JUN25.pdf",
+      "drive_file_id": "1wtZ0gkjt1th6BmI2fhuLNmhi9SPHK1kb",
+      "sha256": "f55a65b7a362bef4e93928749f0a0a4294f9af5c4af9b4e9fd9d7c96253b718c",
+      "bytes": 987262
+    },
+    "backup": {
+      "titulo": "base-lady-ecoshapes-wood-20261125-v1.zip",
+      "drive_file_id": "14vZOAvS5lF0SKJIZ1ZIIDWyaOzGjDZlA",
+      "sha256": "266d9202a63cc19dceb7da24051fdc1169bc3404cdeb9244d296a51f7ba9779a",
+      "bytes": 10491,
+      "criado_em": "2026-11-25T16:40:45",
+      "conteudo": "índice (texto por página, manifest, mapas) + conferência técnica"
+    }
+  },
+  "lady-inovawall": {
+    "descricao": "Catálogo Wall Panels Inovawall — Lady Acústica (Rev. 003, Jun/2022)",
+    "armazenamento": "Google Drive privado do usuário",
+    "origem": {
+      "titulo": "Lady_Acustica_Catalogo_WallPanels_Inovawall.pdf",
+      "drive_file_id": "19RU9A3FaiSS3SkXy0vCLeUer4LjW4ddz",
+      "sha256": "9fd7629c5828857d35cc116be814792b1542e0ce5f3ea36e4c8e96d51ef6d7aa",
+      "bytes": 2557712
+    },
+    "backup": {
+      "titulo": "base-lady-inovawall-20261125-v1.zip",
+      "drive_file_id": "1Xa5vJFVBjlYeqfhosbGFywSuPWqaKT68",
+      "sha256": "53d6c66c1164dc49044c2527744158f125a24303858847c1ee02c4c007003955",
+      "bytes": 13181,
+      "criado_em": "2026-11-25T16:40:45",
+      "conteudo": "índice (texto por página, manifest, mapas) + conferência técnica"
+    }
   }
 }

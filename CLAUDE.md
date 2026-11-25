@@ -81,6 +81,10 @@ técnicas. Inclua links das fontes externas e **arquivo + página** da apostila.
   `curadoria/<slug>-conferencia-status.json` e a transcrição/correção em `indice/<slug>/conferencia.json`.
   Itens `pendente` ou `ilegivel` NÃO podem fundamentar dimensionamento final; itens `correcao_proposta` devem ser
   usados na forma corrigida, citando a divergência com a apostila e a fonte da correção.
+- **Materiais de fornecedores:** use `assessoria/referencias/materiais/materiais.json` (fonte, verificação, lacunas e
+  `uso_em_calculo` de cada produto) e, nos scripts, `assessoria/ferramentas/calc/materiais.py`, que recusa material sem
+  dado acústico e só aceita NRC como estimativa [E] em 250–2000 Hz. Alegações comerciais sem número não são dado.
+  Para obter dados que faltam: `assessoria/modelos/solicitacao-dados-fornecedor.md`.
 - Busca: `python3 -I assessoria/ferramentas/apostila/buscar.py "termos"` · página: `--pagina <slug> <pág>` ·
   lista: `--listar`. Conferência visual: `renderizar_pagina.py <slug> <pág>`.
 - Citar sempre **arquivo — p. PDF X (impressa Y)**; informar leitura por OCR. Não presumir ter lido páginas não lidas.

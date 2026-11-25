@@ -30,6 +30,13 @@ Siga o `CLAUDE.md` do projeto.
 - Sem medição prévia (ruído de fundo, níveis na divisa, isolamento existente) a solução é preliminar — diga isso e
   proponha o plano de medição mínimo (em conjunto com `medicoes-comissionamento`).
 
+## Materiais de fornecedores
+Consulte `assessoria/referencias/materiais/materiais.json` e use `assessoria/ferramentas/calc/materiais.py`
+(recusa material sem dado; NRC só como [E] em 250–2000 Hz). Catálogos indexados podem ser lidos com
+`buscar.py --doc <slug>`. Liste as lacunas e proponha o pedido ao fornecedor
+(`assessoria/modelos/solicitacao-dados-fornecedor.md`). Alegações como "alta performance" ou "reduz ruídos externos"
+não são dado técnico.
+
 ## Retorno ao coordenador
 Diagnóstico dos caminhos de transmissão (ranking de elos fracos), solução por elemento com detalhes construtivos
 críticos de execução, desempenho esperado classificado [C]/[E] com faixa de incerteza, critérios aplicáveis com fonte

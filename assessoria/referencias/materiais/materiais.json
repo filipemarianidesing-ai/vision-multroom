@@ -1,0 +1,57 @@
+{
+  "_sobre": {
+    "descricao": "Base de materiais acústicos de fornecedores para uso nos projetos da Mariani. Apenas dados técnicos factuais (redigidos pela assessoria), com fonte (arquivo + página) e situação da verificação. Catálogos originais ficam na base privada (Drive).",
+    "regras": [
+      "Coeficientes por banda (alfa_por_banda) só entram com relatório de ensaio identificado (norma, laboratório, montagem). Sem isso: null.",
+      "NRC é número único (média 250–2000 Hz, arredondada): NÃO usar para cálculo por banda; no máximo pré-dimensionamento grosseiro em 500–1000 Hz, rotulado [E].",
+      "Absorção não é isolamento: nenhum painel desta base deve ser apresentado como solução de isolamento sem ensaio do sistema construtivo.",
+      "Reação ao fogo: a classe declarada no catálogo não substitui o laudo; a exigência depende do estado (CBM) e do uso da edificação."
+    ],
+    "atualizado_em": "2026-11-25"
+  },
+  "materiais": [
+    {
+      "id": "lady-inovawall-28mm",
+      "fabricante": "Lady Acústica (Ladytex)",
+      "linha": "Wall Panels — Inovawall",
+      "tipo": "painel absorvente de parede (sistema com perfil termoplástico, núcleo de lã de vidro e tecido; junta seca; paredes retas e curvas; troca de tecido sem remover a estrutura)",
+      "composicao": "lã de vidro (núcleo) + perfil termoplástico + tecido",
+      "espessura_mm": 28,
+      "tolerancia_espessura_mm": 1,
+      "densidade_kg_m3": 80,
+      "nrc": {"valor": 0.80, "descricao_no_catalogo": "Média NRC 0.80", "norma_ensaio": null, "laboratorio": null, "montagem": null},
+      "alfa_por_banda": null,
+      "reacao_ao_fogo": {"declarado": "II-A (IT nº 10, Decreto Estadual SP 56.819) e II-A-D2 (ABNT NBR 16626)", "relatorio_ensaio": "número informado no catálogo", "laudo_conferido": false},
+      "tratamentos_opcionais_tecido": ["retardante de chamas", "anti-manchas", "anti-microbiano"],
+      "aplicacoes_citadas": ["corporativo", "cinemas", "auditórios", "centros de convenções", "hotéis", "hospitais"],
+      "fonte": {"documento": "lady-inovawall", "arquivo": "Lady_Acustica_Catalogo_WallPanels_Inovawall.pdf", "edicao": "Rev. 003 — Jun/2022", "paginas": "dados técnicos: posição 12 (impressas 22–23); tratamentos: posição 10 (18–19); aplicações: posição 9 (16–17)"},
+      "verificacao": "valores conferidos na imagem do catálogo em 2026-11-25",
+      "uso_em_calculo": "NRC 0,80 apenas como estimativa [E] de α em 500–1000 Hz para pré-dimensionamento; para RT por banda e dimensionamento final exigir α por banda (ISO 354) com a montagem real. Esperado (física de absorvedores porosos, não catálogo): absorção baixa abaixo de ~250 Hz para 28 mm aplicado direto na parede.",
+      "lacunas_solicitar_ao_fornecedor": ["α por banda 125–4000 Hz (relatório ISO 354 ou ASTM C423), com tipo de montagem", "laudo de reação ao fogo completo e validade", "dimensões máximas de módulo e peso por m²", "influência do tecido escolhido na absorção"],
+      "alegacoes_sem_dado": ["isolação térmica", "reduz ruídos externos"]
+    },
+    {
+      "id": "lady-ecoshapes-wood",
+      "fabricante": "Lady Acústica (Ladytex)",
+      "linha": "Ecoshapes Wood (Impress Wood)",
+      "tipo": "placa de PET reciclado com impressão digital UV imitando madeira (base Ecoshapes)",
+      "composicao": "70% PET reciclado",
+      "espessura_mm": [9, 3],
+      "densidade_kg_m3": null,
+      "nrc": null,
+      "alfa_por_banda": null,
+      "reacao_ao_fogo": {"declarado": null, "laudo_conferido": false},
+      "impressao": {"metragem_minima": "1/2 placa (placa 1200×1200 mm = 1,44 m²; o catálogo grafa '1,44m (1/2 placa)' — conferir)", "cores": "CMYK", "resolucao_dpi": "150–300", "arquivo": "PDF", "bases": ["White", "Sand"]},
+      "fonte": {"documento": "lady-ecoshapes-wood", "arquivo": "Lady_Acustica_Catalogo_EcoshapesWood_JUN25.pdf", "edicao": "Rev. 003 — Jul/2025", "paginas": "dados técnicos: posição 9"},
+      "verificacao": "valores conferidos na imagem do catálogo em 2026-11-25",
+      "uso_em_calculo": "NÃO USAR em cálculo acústico: o catálogo não informa α, NRC nem norma de ensaio. Usar só como acabamento estético até receber a ficha técnica da base Ecoshapes. Esperado (física, não catálogo): placas finas de PET (3–9 mm) sem câmara de ar absorvem pouco em médias e baixas frequências.",
+      "lacunas_solicitar_ao_fornecedor": ["ficha técnica da base Ecoshapes 9 mm e 3 mm: α por banda (ISO 354) com montagem (direto, com câmara, em baffle)", "densidade/gramatura", "laudo de reação ao fogo", "dimensões disponíveis por formato"],
+      "alegacoes_sem_dado": ["alta performance em redução de ruído", "desempenho acústico"]
+    }
+  ],
+  "outras_linhas_citadas_pelo_fabricante": {
+    "fonte": "catálogos acima, página 'Soluções Lady' (Ecoshapes posição 10; Inovawall posição 13)",
+    "itens": ["Wallpanels", "Cortinas", "Wall Wood", "Baffles", "Nuvens", "Ceiling Wood", "Luminárias acústicas", "Mesa e ambiente (divisores)", "Cabines e biombos acústicos", "Mascaramento de som", "Projetos especiais"],
+    "observacao": "Somente nomes de linhas; nenhum dado técnico dessas linhas foi recebido."
+  }
+}
