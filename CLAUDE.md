@@ -32,6 +32,9 @@ Este repositório contém duas coisas independentes:
 
 Acione **somente** os especialistas úteis; tarefas independentes em paralelo, dependentes em sequência.
 Na sessão principal, demandas técnicas seguem o protocolo do coordenador (ou use `claude --agent coordenador-projetos`).
+A delegação real aos especialistas exige que o coordenador seja a **sessão principal** (a sessão normal seguindo o
+protocolo, `/consulta-tecnica`, ou `claude --agent coordenador-projetos`). Acionado como subagente, ele pode não ter a
+ferramenta Agent — nesse caso deve declarar isso, e nenhuma autorrevisão pode ser chamada de revisão independente.
 
 ### Evidência e honestidade técnica
 Separe sempre, com rótulos:

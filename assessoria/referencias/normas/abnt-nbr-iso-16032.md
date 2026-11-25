@@ -16,5 +16,5 @@
 | Limitações | Só metadados. Descritores citados por fontes secundárias (LAeq,nT, LASmax,nT) não foram conferidos. |
 
 ## Citação na apostila "Fundamentos da Acústica" (Portal Acústica, fev/2023)
-- p. PDF 37 / impressa 30, OCR com conf. 95,4%: nível máximo ponderado em A, constante slow, "ao avaliar o ruído de equipamentos prediais de acordo com a ISO NBR 16032".
+- p. PDF 37 / impressa 30, OCR com conf. 95,4%: a apostila associa o nível máximo ponderado em A com constante slow à avaliação de ruído de equipamentos prediais e designa a norma como "ISO NBR 16032" (paráfrase; designação incorreta — ver acima).
 - Divergências: (1) a designação está **errada**. O correto é "ABNT NBR ISO 16032"; "NBR 16032" sozinha remete à norma de estufas agrícolas. (2) A apostila não dá ano. Em fev/2023 valia a edição 2020, cancelada em 23/07/2025 e substituída pela 2025.

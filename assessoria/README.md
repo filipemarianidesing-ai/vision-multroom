@@ -35,6 +35,8 @@ assessoria/
 **Demanda técnica (recomendado):** abra o Claude Code na raiz do repositório e escreva a demanda, ou use
 `/consulta-tecnica <demanda>`. A sessão segue o protocolo do coordenador e aciona os especialistas.
 Para que a sessão inteira *seja* o coordenador: `claude --agent coordenador-projetos`.
+Não acione o coordenador como subagente de outra sessão para trabalho que exige delegação: nessa forma ele pode não
+conseguir acionar os especialistas (verificado em teste em 2026-11-25).
 
 **Chamar um especialista diretamente:** "Use o agente eletroacustica-sonorizacao para…" ou `@agente` no prompt.
 
@@ -62,11 +64,19 @@ pode precisar ser reinstalado: `apt-get install -y tesseract-ocr tesseract-ocr-p
    documentos, preenche o que puder, delega, faz a revisão independente e salva o relatório em `relatorios/`.
 
 ## Privacidade e persistência — IMPORTANTE
-- O repositório é **público**. Projetos de clientes e conteúdo das apostilas ficam **fora do git** (`.gitignore`).
-- O container do Claude Code na nuvem é **temporário**: o que não está no git se perde ao fim da sessão.
-  Opções: (a) tornar este repositório privado e remover essas linhas do `.gitignore`; (b) criar um repositório
-  privado só para `assessoria/projetos` e `referencias/apostilas`; (c) usar o Claude Code localmente, onde os
-  arquivos ficam no seu computador; (d) guardar no Google Drive da empresa.
+- O repositório é **público**. Projetos de clientes e conteúdo das apostilas ficam **fora do git** (`.gitignore`), e um
+  hook bloqueia commits com dados pessoais, cabeçalho de licença ou trechos idênticos ao texto das apostilas
+  (`assessoria/ferramentas/verificar_privacidade.py`).
+- **Apostilas entre sessões:** o original e um pacote de backup (índice + conferência técnica) ficam no **Google Drive
+  privado** (pasta "Mariani Assessor - Base Privada"). O repositório guarda só IDs, hashes SHA-256, numeração curada e a
+  situação da conferência (`referencias/apostilas/fontes.json` e `curadoria/`).
+  - Ao iniciar uma sessão, o hook informa: **DISPONÍVEL** ou **PRECISA SER RECONSTRUÍDA**; nesse caso o assistente executa
+    `/restaurar-base` (download pelo conector Drive, verificação de integridade, reaplicação da curadoria). Se o Drive não
+    estiver acessível, ele informa **INACESSÍVEL** e não cita a apostila.
+  - Depois de indexar ou alterar curadoria/conferência: `/salvar-base <slug>` (nova versão; versões anteriores mantidas).
+  - Diagnóstico manual: `python3 assessoria/ferramentas/base/base.py estado`.
+- **Projetos de clientes** continuam sem persistência automática: guarde-os em armazenamento privado (Drive da empresa,
+  repositório privado ou Claude Code local). O container na nuvem é temporário.
 
 ## Testes
 `python3 -m pytest -q assessoria/ferramentas/testes`
