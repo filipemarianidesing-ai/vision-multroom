@@ -1,0 +1,753 @@
+<title>Sala de Reunião Perim</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: folha de projeto técnico — coluna única de pranchas, desenhos em quadro com carimbo, cotas em mono */
+:root{
+  --paper:#f4f6f5; --sheet:#ffffff; --ink:#1d272b; --muted:#5a676b; --line:#d3dad8; --grid:#e7ecea;
+  --oak:#b07d45; --oak-soft:#ead9c2; --glass:#2f7fb3; --glass-soft:#d6e8f3; --fabric:#2f5563; --dark:#22282b;
+  --ok:#2e7d4f; --warn:#a8641a;
+  --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-body:"IBM Plex Sans","Segoe UI",Roboto,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#121718; --sheet:#1a2124; --ink:#e4eae8; --muted:#9caaad; --line:#2f393c; --grid:#232b2e;
+  --oak:#d6a46c; --oak-soft:#3b2f22; --glass:#72b4de; --glass-soft:#1d3442; --fabric:#7fa6b3; --dark:#0b0e0f;
+  --ok:#6cc08f; --warn:#e0a35a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#121718; --sheet:#1a2124; --ink:#e4eae8; --muted:#9caaad; --line:#2f393c; --grid:#232b2e;
+  --oak:#d6a46c; --oak-soft:#3b2f22; --glass:#72b4de; --glass-soft:#1d3442; --fabric:#7fa6b3; --dark:#0b0e0f;
+  --ok:#6cc08f; --warn:#e0a35a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(30px,5vw,46px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:22px;font-weight:700}
+h3{font-size:16px;font-weight:700}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header{padding-top:36px;display:flex;flex-direction:column;gap:14px}
+.lead{font-size:17px;color:var(--muted)}
+.specs{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);background:var(--sheet);border-radius:4px;overflow:hidden}
+.specs div{flex:1 1 140px;padding:12px 16px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.specs div:last-child{border-right:0}
+.specs b{font-family:var(--f-mono);font-weight:500;font-size:18px;font-variant-numeric:tabular-nums}
+.specs span{font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;display:flex;flex-direction:column}
+.sheet-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--line)}
+.sheet-h .no{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.sheet-b{padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));gap:28px}
+.draw{overflow-x:auto}
+.draw svg{display:block;width:100%;height:auto;min-width:420px}
+#viewer{position:relative;height:min(68vh,560px);min-height:340px;background:var(--grid);overflow:hidden}
+#viewer canvas{display:block;width:100%;height:100%;touch-action:none}
+.hint{position:absolute;left:12px;bottom:10px;font-size:12px;color:var(--muted);background:var(--sheet);padding:4px 8px;border-radius:3px;border:1px solid var(--line)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tools .sep{width:1px;height:22px;background:var(--line);margin:0 4px}
+button.chip{font:500 13px var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+button.chip[aria-pressed="true"]{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+button.chip:focus-visible,button.sw:focus-visible{outline:2px solid var(--oak);outline-offset:2px}
+button.sw{width:26px;height:26px;border-radius:50%;border:2px solid var(--sheet);box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
+button.sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink)}
+.tools label{font-size:13px;color:var(--muted)}
+.items{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.item{background:var(--sheet);padding:16px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.item .tag{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.dot{width:10px;height:10px;border-radius:2px;display:inline-block}
+.item p{font-size:14px;color:var(--muted)}
+.item ul{margin:0;padding-left:18px;font-size:14px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+.tbl{overflow-x:auto}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-weight:500;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+td.n,th.n{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.tot td{font-weight:600;border-top:2px solid var(--ink)}
+tr.sub td{color:var(--muted)}
+.rt{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px}
+.rt div{border:1px solid var(--line);border-radius:4px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.rt .f{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.rt .v{font-family:var(--f-mono);font-size:22px;font-variant-numeric:tabular-nums}
+.rt .v s{color:var(--muted);font-size:16px}
+.pill{font-family:var(--f-mono);font-size:11px;padding:2px 8px;border-radius:999px;align-self:flex-start}
+.pill.ok{color:var(--ok);border:1px solid var(--ok)}
+.pill.warn{color:var(--warn);border:1px solid var(--warn)}
+.note{font-size:13px;color:var(--muted)}
+ol.q{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;max-width:80ch}
+ol.q b{font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:6px}
+/* SVG classes */
+.s-wall{fill:none;stroke:var(--ink);stroke-width:7}
+.s-wallf{fill:var(--ink)}
+.s-thin{fill:none;stroke:var(--ink);stroke-width:1.2}
+.s-hair{fill:none;stroke:var(--muted);stroke-width:.8}
+.s-dash{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:5 4}
+.s-glass{stroke:var(--glass);stroke-width:5;fill:none}
+.s-glassf{fill:var(--glass-soft);stroke:var(--glass);stroke-width:1.5}
+.s-erase{stroke:var(--sheet);stroke-width:9}
+.s-wood{fill:var(--oak-soft);stroke:var(--oak);stroke-width:1.2}
+.s-oak{fill:var(--oak)}
+.s-dark{fill:var(--dark)}
+.s-fab{fill:var(--fabric);opacity:.85}
+.s-cloud{fill:var(--grid);stroke:var(--ink);stroke-width:1.4}
+.s-spk{fill:var(--sheet);stroke:var(--ink);stroke-width:1.4}
+.s-led{stroke:var(--warn);stroke-width:3}
+.s-chair{fill:var(--muted)}
+.s-red{fill:#b8322f}
+.s-white{fill:var(--sheet);stroke:var(--ink);stroke-width:1.2}
+.s-sofa{fill:var(--dark)}
+.s-wool{fill:#e3c75a;opacity:.55}
+.s-felt{fill:var(--dark)}
+.s-hatch{fill:url(#hatch)}
+.t{font-family:var(--f-body);font-size:12px;fill:var(--ink)}
+.t-b{font-family:var(--f-display);font-weight:700;font-size:12.5px;fill:var(--ink)}
+.t-m{font-family:var(--f-mono);font-size:11px;fill:var(--ink)}
+.t-mu{font-family:var(--f-body);font-size:11px;fill:var(--muted)}
+.t-w{font-family:var(--f-display);font-weight:700;font-size:12px;fill:#fff}
+.t-g{fill:var(--glass)}
+.dim{stroke:var(--muted);stroke-width:.9;fill:none}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Projeto de interiores e acústica · Rev. 01 · 24/11/2026</div>
+  <h1>Sala de Reunião Perim</h1>
+  <p class="lead">Painel ripado no mesmo padrão da mesa, com a tela interativa de 85" embutida. Difusores em tecido na parede oposta, nuvem acústica e baffles no forro, e 4 caixas de som embutidas. A mesa e as cadeiras continuam.</p>
+  <div class="specs">
+    <div><b>4,12 × 5,64 m</b><span>Planta</span></div>
+    <div><b>3,20 m</b><span>Pé-direito</span></div>
+    <div><b>23,2 m²</b><span>Área</span></div>
+    <div><b>74,4 m³</b><span>Volume</span></div>
+    <div><b id="rtHead">1,4 → 0,4 s</b><span>Reverberação a 500 Hz</span></div>
+  </div>
+</header>
+
+<section class="sheet" aria-labelledby="h3d">
+  <div class="sheet-h"><h2 id="h3d">Modelo 3D</h2><span class="no">Prancha 01</span></div>
+  <div class="sheet-b" style="padding-bottom:0">
+    <div class="tools" role="group" aria-label="Câmera">
+      <button class="chip" data-view="geral" aria-pressed="true">Visão geral</button>
+      <button class="chip" data-view="cabeceira" aria-pressed="false">Da cabeceira</button>
+      <button class="chip" data-view="entrada" aria-pressed="false">Da porta</button>
+      <button class="chip" data-view="tv" aria-pressed="false">Parede da TV</button>
+      <button class="chip" data-view="forro" aria-pressed="false">Forro</button>
+      <span class="sep"></span>
+      <button class="chip" id="tgCeil" aria-pressed="true">Elementos do forro</button>
+      <span class="sep"></span>
+      <label>Tecido</label>
+      <button class="sw" data-fab="#2f5563" style="background:#2f5563" aria-label="Azul petróleo" aria-pressed="true"></button>
+      <button class="sw" data-fab="#4b5057" style="background:#4b5057" aria-label="Grafite" aria-pressed="false"></button>
+      <button class="sw" data-fab="#6d7150" style="background:#6d7150" aria-label="Verde oliva" aria-pressed="false"></button>
+      <button class="sw" data-fab="#b9ad96" style="background:#b9ad96" aria-label="Areia" aria-pressed="false"></button>
+    </div>
+  </div>
+  <div id="viewer" style="margin-top:14px"><div class="hint">Arraste para girar · role ou pinça para aproximar</div></div>
+</section>
+
+<section class="sheet" aria-labelledby="hint">
+  <div class="sheet-h"><h2 id="hint">O que entra na sala</h2><span class="no">Resumo</span></div>
+  <div class="sheet-b">
+    <div class="items">
+      <div class="item"><div class="tag"><i class="dot" style="background:var(--oak)"></i>Parede esquerda · 3,50 × 3,20 m</div>
+        <h3>Painel ripado com TV embutida</h3>
+        <p>Ripas de MDF 25 mm no padrão da mesa, montadas em módulos sobre estrutura de metalon, com lã acústica e tecido preto atrás. Ripas de 0,10 a 2,80 m e faixa lisa com LED até o teto. A tela fica num nicho no eixo da mesa e, na base, um compartimento com porta ripada guarda o amplificador e o mini PC.</p></div>
+      <div class="item"><div class="tag"><i class="dot" style="background:var(--fabric)"></i>Parede direita · 3 × (0,90 × 1,60 m)</div>
+        <h3>Difusores acústicos em tecido</h3>
+        <p>Três painéis de lã de vidro de 50 mm revestidos em tecido, de frente para a TV e na altura da cabeça de quem está sentado. Eles cortam o eco entre as duas paredes laterais.</p></div>
+      <div class="item"><div class="tag"><i class="dot" style="background:var(--muted)"></i>Forro · sobre a mesa</div>
+        <h3>Nuvem acústica 2,80 × 1,60 m</h3>
+        <p>Painel suspenso a 2,90 m do piso, com perfis de LED embutidos que substituem a placa de luz atual. Absorve pelos dois lados, bem onde a voz bate primeiro.</p></div>
+      <div class="item"><div class="tag"><i class="dot" style="background:var(--muted)"></i>Forro · área do sofá e da porta</div>
+        <h3>6 baffles verticais</h3>
+        <p>Lâminas de 2,40 × 0,30 m penduradas a cada 36 cm. Tratam a metade da sala que fica entre a nuvem e a entrada.</p></div>
+      <div class="item"><div class="tag"><i class="dot" style="background:var(--ink)"></i>Forro · 4 pontos</div>
+        <h3>Sonorização</h3>
+        <p>Quatro caixas de 6,5" embutidas em volta da nuvem, cobrindo os 7 lugares da mesa. O amplificador fica no compartimento do painel.</p></div>
+      <div class="item"><div class="tag"><i class="dot" style="background:var(--glass)"></i>Atrás do painel</div>
+        <h3>Infraestrutura</h3>
+        <p>Tomada dupla e 2 pontos de rede atrás da tela, eletroduto até a caixa de tomada da mesa para HDMI e USB do toque, e um nicho opcional acima da tela para câmera de videoconferência.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="two">
+  <section class="sheet" aria-labelledby="hpl">
+    <div class="sheet-h"><h2 id="hpl">Planta baixa</h2><span class="no">Prancha 02 · cotas em m</span></div>
+    <div class="sheet-b"><div class="draw" id="svgPlan"></div>
+      <div class="legend"><span><i class="dot" style="background:var(--glass)"></i>Vidro</span><span><i class="dot" style="background:var(--oak)"></i>Painel ripado</span><span><i class="dot" style="background:var(--fabric)"></i>Difusores</span></div></div>
+  </section>
+  <section class="sheet" aria-labelledby="hfo">
+    <div class="sheet-h"><h2 id="hfo">Planta de forro</h2><span class="no">Prancha 03 · cotas em m</span></div>
+    <div class="sheet-b"><div class="draw" id="svgCeil"></div>
+      <div class="legend"><span><i class="dot" style="background:var(--grid);outline:1px solid var(--ink)"></i>Nuvem</span><span><i class="dot" style="background:var(--warn)"></i>LED linear</span><span>⊗ Caixa de som</span></div></div>
+  </section>
+</div>
+
+<section class="sheet" aria-labelledby="hel">
+  <div class="sheet-h"><h2 id="hel">Elevação da parede esquerda: painel ripado e TV</h2><span class="no">Prancha 04 · vista de dentro da sala</span></div>
+  <div class="sheet-b"><div class="draw" id="svgElevL"></div>
+  <p class="note">As ripas têm 2,70 m porque a chapa de MDF tem 2,75 m de comprimento. Por isso o painel tem três faixas: rodapé recuado preto de 0 a 0,10 m, ripas de 0,10 a 2,80 m e faixa lisa no mesmo padrão de 2,80 m até o teto, com fita de LED embaixo iluminando as ripas. O nicho tem 2,00 × 1,22 m (exatamente 50 ripas), com 2,5 cm de folga em volta da tela para ventilação. A base da tela fica a 0,95 m, 20 cm acima do tampo, então dá para usar o toque de pé ao lado da mesa.</p></div>
+</section>
+
+<div class="two">
+  <section class="sheet" aria-labelledby="her">
+    <div class="sheet-h"><h2 id="her">Elevação da parede direita</h2><span class="no">Prancha 05</span></div>
+    <div class="sheet-b"><div class="draw" id="svgElevR"></div></div>
+  </section>
+  <section class="sheet" aria-labelledby="hdt">
+    <div class="sheet-h"><h2 id="hdt">Detalhe do ripado</h2><span class="no">Prancha 06 · corte horizontal</span></div>
+    <div class="sheet-b"><div class="draw" id="svgDet"></div>
+    <p class="note">Ripa de 25 mm de frente por 40 mm de profundidade, cortada de MDF 25 mm revestido, com fita de borda na frente e vão de 15 mm. A face aberta fica perto de 37%: o som passa entre as ripas e é absorvido pela lã. As ripas são montadas na marcenaria em módulos de 15 ripas (60 cm), presas por trás em travessas de MDF 15 mm preto. Na obra, cada módulo é parafusado no metalon através do vão, e a cabeça do parafuso some no fundo preto. Profundidade total: cerca de 135 mm, que é o necessário para a tela ficar totalmente embutida: suporte slim de até 35 mm mais tela de até 100 mm. A frente da tela fica alinhada com a frente das ripas.</p></div>
+  </section>
+</div>
+
+<section class="sheet" aria-labelledby="hac">
+  <div class="sheet-h"><h2 id="hac">Cálculo acústico</h2><span class="no">Sabine · sala com 8 pessoas</span></div>
+  <div class="sheet-b">
+    <p>Hoje a sala é quase toda de superfícies duras: porcelanato, vidro em 4 janelas, alvenaria pintada e forro liso. A voz fica soando por mais de um segundo. Para reunião com videoconferência, a meta é um tempo de reverberação entre 0,4 e 0,6 s.</p>
+    <div class="rt" id="rtCards"></div>
+    <div class="tbl"><table id="acTable"></table></div>
+    <p class="note">A absorção é dada em m² Sabine. Os coeficientes são valores de referência de catálogo e o forro existente foi considerado de gesso liso. O resultado é uma estimativa de projeto: depois da obra, vale medir o tempo de reverberação com a sala montada.</p>
+  </div>
+</section>
+
+<section class="sheet" aria-labelledby="hmt">
+  <div class="sheet-h"><h2 id="hmt">Lista de materiais</h2><span class="no">Quantitativo preliminar</span></div>
+  <div class="sheet-b"><div class="tbl"><table id="matTable"></table></div></div>
+</section>
+
+<section class="sheet" aria-labelledby="hq">
+  <div class="sheet-h"><h2 id="hq">Pontos a confirmar antes da execução</h2><span class="no">Pendências</span></div>
+  <div class="sheet-b">
+    <ol class="q">
+      <li><b>Ficha técnica da tela Bluecase BTIIRWR85-01.</b> A Bluecase não publica a ficha deste modelo. Telas interativas de 85" e 86" de outras marcas medem de 1,95 a 1,96 m de largura, 1,15 a 1,17 m de altura e 82 a 99 mm de profundidade, com 65 a 78 kg. O nicho de 2,00 × 1,22 m e o painel de 135 mm foram dimensionados para o pior caso. Medir a tela real (ou pedir a ficha ao fornecedor) antes de cortar as ripas e conferir o padrão VESA do suporte.</li>
+      <li><b>Comprimento da mesa.</b> Estimei 3,00 × 1,10 m pelas fotos. Isso define o eixo da TV e a posição da nuvem.</li>
+      <li><b>Material da parede da TV.</b> Se for drywall, o suporte precisa de reforço interno (madeira ou metalon) entre os montantes. Se for alvenaria, basta chumbar com bucha química.</li>
+      <li><b>Forro existente.</b> Confirmar se é gesso e onde passam as estruturas, para fixar os tirantes da nuvem e dos baffles e abrir os 4 furos das caixas.</li>
+      <li><b>Cor do tecido dos difusores.</b> O modelo 3D tem 4 opções. Escolher a definitiva com amostra física.</li>
+      <li><b>Padrão e espessura do MDF.</b> Levar uma amostra da mesa ao fornecedor para casar o padrão amadeirado. Confirmar se o padrão existe em 25 mm. Se não existir, a alternativa é MDF 18 mm com ripas de 18 × 40 mm (cerca de 106 ripas e fita de borda de 22 mm). Confirmar também o comprimento da chapa (2,75 m), que define a altura das ripas.</li>
+      <li><b>Profundidade do painel.</b> Com metalon 80 × 40, o painel tem cerca de 135 mm e a tela fica embutida mesmo que tenha 100 mm de profundidade. Se a tela real tiver até 90 mm, dá para usar metalon 60 × 40 e o painel cai para cerca de 115 mm. A frente da tela deve ficar alinhada ou até 5 mm à frente das ripas, nunca recuada: o toque é infravermelho, pela moldura, e a mão precisa alcançar as bordas da tela.</li>
+      <li><b>Ventilação da tela embutida.</b> Manter a folga de 2,5 cm em volta da tela aberta, principalmente em cima, para o calor sair. Não vedar o nicho.</li>
+      <li><b>Ar-condicionado.</b> O split da parede do fundo sopra na direção da nuvem, que começa a 0,95 m dessa parede. Conferir se o fluxo de ar não bate direto no painel.</li>
+    </ol>
+  </div>
+</section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+/* ===================== DADOS DO PROJETO (metros) ===================== */
+const R={W:4.12,L:5.64,H:3.20,
+  backGlass:{y0:.40,y1:2.80},
+  sideWin:{z0:3.50,z1:5.50,y0:1.20,y1:2.20},
+  frontWin:{x0:.35,x1:2.75,y0:1.10,y1:2.10},
+  door:{x0:3.05,x1:3.95,h:2.10},
+  panel:{z0:0,z1:3.50,d:.135,y0:.10,y1:2.80,sw:.025,sd:.04,pitch:.040},
+  tv:{zc:1.75,w:1.96,h:1.17,y0:.95,d:.10,x0:.035},
+  niche:{w:2.00,h:1.22},
+  table:{x0:0,x1:3.00,z0:1.20,z1:2.30,h:.75},
+  diff:[[.15,1.05],[1.30,2.20],[2.45,3.35]], diffY:[.80,2.40],
+  cloud:{x0:.30,x1:3.10,z0:.95,z1:2.55,y:2.90},
+  spk:[[.90,.55],[2.70,.55],[.90,2.95],[2.70,2.95]],
+  baffle:{x0:.86,x1:3.26,z0:3.45,step:.36,n:6,h:.30},
+  sofa:{x0:.75,x1:2.75,z0:4.78,z1:5.56},
+  fridge:{x0:.05,x1:.55,z0:5.10,z1:5.60}
+};
+const fmt=(v,d=2)=>v.toFixed(d).replace('.',',');
+
+/* ===================== ACÚSTICA ===================== */
+(function(){
+  const V=R.W*R.L*R.H;
+  const glassBack=R.W*(R.backGlass.y1-R.backGlass.y0), glassSide=2*2.0, glassFront=2.4*1.0, door=0.9*2.1;
+  const glass=glassBack+glassSide+glassFront+door;
+  const walls=2*(R.W+R.L)*R.H-glass;
+  const fl=R.W*R.L;
+  const pnl=(R.panel.z1-R.panel.z0)*(R.panel.y1-R.panel.y0)-R.niche.w*R.niche.h;
+  const dif=3*.9*1.6, cl=(R.cloud.x1-R.cloud.x0)*(R.cloud.z1-R.cloud.z0), bfa=(R.baffle.x1-R.baffle.x0)*R.baffle.h*2;
+  // [nome, área, coef 125/500/2k] ou sabins diretos
+  const before=[
+    ['Piso porcelanato',fl,[.01,.02,.02]],
+    ['Forro de gesso liso',fl,[.25,.05,.07]],
+    ['Vidros (4 janelas + porta)',glass,[.18,.04,.02]],
+    ['Alvenaria pintada',walls,[.01,.02,.02]],
+    ['8 pessoas sentadas',8,[.20,.45,.50]],
+    ['Mesa, cadeiras e sofá',1,[1.0,1.5,1.5]],
+  ];
+  const added=[
+    ['Painel ripado com lã 50 mm',pnl,[.45,.90,.60],[.01,.02,.02]],
+    ['3 difusores em tecido 50 mm',dif,[.30,.95,.95],[.01,.02,.02]],
+    ['Nuvem acústica (2 faces)',cl,[.45,1.10,1.10],null],
+    ['6 baffles (2 faces)',bfa*6,[.15,.50,.60],null],
+  ];
+  const sum=a=>a.reduce((s,x)=>s+x,0);
+  const bRows=before.map(([n,a,c])=>[n,a,c.map(k=>a*k)]);
+  const aRows=added.map(([n,a,c,rm])=>[n,a,c.map((k,i)=>a*(k-(rm?rm[i]:0)))]);
+  const A0=[0,1,2].map(i=>sum(bRows.map(r=>r[2][i])));
+  const A1=[0,1,2].map(i=>A0[i]+sum(aRows.map(r=>r[2][i])));
+  const T=a=>.161*V/a;
+  const T0=A0.map(T), T1=A1.map(T);
+  const bands=['125 Hz','500 Hz','2 kHz'];
+  document.getElementById('rtHead').textContent=fmt(T0[1],1)+' → '+fmt(T1[1],1)+' s';
+  document.getElementById('rtCards').innerHTML=bands.map((b,i)=>{
+    const ok=T1[i]<=.6;
+    return `<div><span class="f">${b}</span><span class="v"><s>${fmt(T0[i])} s</s> → ${fmt(T1[i])} s</span><span class="pill ${ok?'ok':'warn'}">${ok?'dentro da meta':'acima da meta'}</span></div>`}).join('');
+  const row=(n,a,v,cls='')=>`<tr class="${cls}"><td>${n}</td><td class="n">${a}</td>${v.map(x=>`<td class="n">${fmt(x)}</td>`).join('')}</tr>`;
+  document.getElementById('acTable').innerHTML=
+    `<thead><tr><th>Superfície</th><th class="n">Área m²</th>${bands.map(b=>`<th class="n">${b}</th>`).join('')}</tr></thead><tbody>`+
+    `<tr class="sub"><td colspan="5"><b>Situação atual</b></td></tr>`+
+    bRows.map(([n,a,v])=>row(n,n.includes('pessoas')||n.includes('Mesa')?'–':fmt(a,1),v)).join('')+
+    row('Absorção atual','',A0,'tot')+
+    `<tr class="sub"><td colspan="5"><b>Projeto (já descontada a parede coberta)</b></td></tr>`+
+    aRows.map(([n,a,v])=>row(n,fmt(a,1),v)).join('')+
+    row('Absorção com o projeto','',A1,'tot')+
+    row('Reverberação atual (s)','',T0,'sub')+
+    row('Reverberação com o projeto (s)','',T1,'tot')+`</tbody>`;
+})();
+
+/* ===================== MATERIAIS ===================== */
+(function(){
+  const n=87;
+  const M=[
+    ['Painel ripado','Chapa de MDF 25 mm revestida nos dois lados (BP) no padrão amadeirado da mesa, 2,75 × 1,85 m. Rende ripas de 25 × 40 mm, a faixa superior, o acabamento lateral e a moldura do nicho','3 chapas'],
+    ['Painel ripado',`Ripas de 25 × 40 mm: ${n} no total, sendo 37 inteiras de 2,70 m e 50 na região da TV (0,83 m abaixo e 0,65 m acima do nicho)`,`${n} ripas`],
+    ['Painel ripado','Fita de borda no mesmo padrão, 35 mm aparada para 25 mm, na frente de cada ripa','≈ 260 m'],
+    ['Painel ripado','Chapa de MDF 15 mm preto (ou cru pintado de preto) para as travessas dos módulos, em filetes de 60 mm','1 chapa'],
+    ['Painel ripado','Metalon 80 × 40 galvanizado (ou com fundo anticorrosivo), na horizontal a 0,15 / 0,75 / 1,35 / 1,95 / 2,55 / 2,75 m, com verticais no nicho e nas pontas','5 barras de 6 m'],
+    ['Painel ripado','Parabolt 3/8" ou bucha 10 com parafuso sextavado para fixar o metalon na parede, a cada ≈ 50 cm','≈ 50 un'],
+    ['Painel ripado','Lã de PET 50 mm (ou lã de rocha 50 mm, 32 a 48 kg/m³) entre as barras de metalon','≈ 9 m²'],
+    ['Painel ripado','Feltro agulhado preto ou TNT preto grosso, atrás das ripas e no fundo do nicho','≈ 13 m²'],
+    ['Painel ripado','Rodapé recuado em MDF 15 mm preto (ou perfil de alumínio preto), 3,50 × 0,10 m','1 peça'],
+    ['Painel ripado','Parafusos 3,5 × 30 mm (ripa na travessa) e autobrocantes 4,2 × 32 mm (travessa no metalon)','≈ 500 + 100'],
+    ['Painel ripado','Fita de LED 4000 K com perfil de alumínio, embaixo da faixa superior','3,50 m'],
+    ['Painel ripado','Compartimento técnico: porta ripada de 0,75 × 0,60 m (19 ripas, do lado da janela) com fecho magnético','1 un'],
+    ['Tela','Bluecase BTIIRWR85-01, 85" interativa','1 un'],
+    ['Tela','Suporte fixo slim para 85", carga mínima de 80 kg (conferir VESA)','1 un'],
+    ['Difusores','Painel em lã de vidro 50 mm / 48 kg/m³ com moldura e revestimento em tecido acústico, 0,90 × 1,60 m','3 un'],
+    ['Nuvem','Painel de lã de vidro 50 mm com tecido e moldura de alumínio, 2 módulos de 1,40 × 1,60 m, com kit de cabos de aço','1 conjunto (4,5 m²)'],
+    ['Nuvem','Perfil de LED linear embutido, 4000 K, dimerizável','2 × 2,60 m'],
+    ['Baffles','Baffle em lã de vidro 50 mm revestido, 2,40 × 0,30 m, com cabos de suspensão','6 un'],
+    ['Som','Caixa de embutir no forro, 6,5" coaxial, com grelha branca','4 un'],
+    ['Som','Amplificador de 2 canais (ex.: 2 × 60 W), instalado no compartimento do painel','1 un'],
+    ['Som','Cabo paralelo PP 2 × 1,5 mm² para as caixas','≈ 40 m'],
+    ['Infraestrutura','Atrás da TV: tomada dupla 10 A, 2 pontos de rede e eletroduto até a caixa de tomada da mesa (HDMI e USB do toque)','1 conjunto'],
+    ['Infraestrutura','Opcional: nicho de 20 × 8 cm acima da tela para câmera de videoconferência','1 un'],
+  ];
+  document.getElementById('matTable').innerHTML='<thead><tr><th>Sistema</th><th>Especificação</th><th class="n">Quantidade</th></tr></thead><tbody>'+
+    M.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td class="n" style="white-space:normal">${r[2]}</td></tr>`).join('')+'</tbody>';
+})();
+
+/* ===================== DESENHOS SVG ===================== */
+const H=(s)=>s;
+function dimH(x1,x2,y,txt,ext){ // linha de cota horizontal
+  let s=`<line class="dim" x1="${x1}" y1="${y}" x2="${x2}" y2="${y}"/>`;
+  [x1,x2].forEach(x=>{s+=`<line class="dim" x1="${x-4}" y1="${y+4}" x2="${x+4}" y2="${y-4}"/>`;
+    if(ext!=null) s+=`<line class="dim" x1="${x}" y1="${ext}" x2="${x}" y2="${y+(ext>y?-3:3)}" stroke-dasharray="2 2"/>`});
+  return s+`<text class="t-m" x="${(x1+x2)/2}" y="${y-5}" text-anchor="middle">${txt}</text>`;
+}
+function dimV(x,y1,y2,txt,ext){
+  let s=`<line class="dim" x1="${x}" y1="${y1}" x2="${x}" y2="${y2}"/>`;
+  [y1,y2].forEach(y=>{s+=`<line class="dim" x1="${x-4}" y1="${y+4}" x2="${x+4}" y2="${y-4}"/>`;
+    if(ext!=null) s+=`<line class="dim" x1="${ext}" y1="${y}" x2="${x+(ext>x?-3:3)}" y2="${y}" stroke-dasharray="2 2"/>`});
+  const cy=(y1+y2)/2;
+  return s+`<text class="t-m" x="${x-6}" y="${cy}" text-anchor="middle" transform="rotate(-90 ${x-6} ${cy})">${txt}</text>`;
+}
+const svg=(w,h,inner,label)=>`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${label}"><defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1" style="stroke:var(--muted)"/></pattern></defs>${inner}</svg>`;
+
+/* ---- Planta baixa ---- */
+(function(){
+  const S=88, ox=110, oy=80, X=x=>ox+x*S, Y=z=>oy+z*S, W=R.W, L=R.L;
+  let g='';
+  // ripado
+  g+=`<rect class="s-wood" x="${X(0)}" y="${Y(0)}" width="${R.panel.d*S}" height="${3.5*S}"/>`;
+  for(let z=.05;z<3.5;z+=.09) g+=`<line class="s-hair" x1="${X(0)}" y1="${Y(z)}" x2="${X(R.panel.d)}" y2="${Y(z)}" style="stroke:var(--oak)"/>`;
+  g+=`<rect class="s-dark" x="${X(R.tv.x0)}" y="${Y(R.tv.zc-R.tv.w/2)}" width="${R.tv.d*S}" height="${R.tv.w*S}"/>`;
+  // difusores
+  R.diff.forEach(([a,b])=>g+=`<rect class="s-fab" x="${X(W-.05)}" y="${Y(a)}" width="${.05*S}" height="${(b-a)*S}"/>`);
+  // mesa + cadeiras
+  const t=R.table;
+  g+=`<rect class="s-wood" x="${X(t.x0+.11)}" y="${Y(t.z0)}" width="${(t.x1-t.x0-.11)*S}" height="${(t.z1-t.z0)*S}"/>`;
+  [.75,1.55,2.35].forEach(x=>{[t.z0-.3,t.z1+.3].forEach(z=>g+=`<circle class="s-chair" cx="${X(x)}" cy="${Y(z)}" r="${.24*S}"/>`)});
+  g+=`<circle class="s-red" cx="${X(3.42)}" cy="${Y(1.75)}" r="${.26*S}"/>`;
+  g+=`<text class="t-b" x="${X(1.65)}" y="${Y(1.79)}" text-anchor="middle">MESA (mantida)</text>`;
+  // sofá + frigobar
+  const s=R.sofa; g+=`<rect class="s-sofa" x="${X(s.x0)}" y="${Y(s.z0)}" width="${(s.x1-s.x0)*S}" height="${(s.z1-s.z0)*S}" rx="4"/>`;
+  g+=`<text class="t-w" x="${X((s.x0+s.x1)/2)}" y="${Y((s.z0+s.z1)/2)+4}" text-anchor="middle">SOFÁ</text>`;
+  const f=R.fridge; g+=`<rect class="s-white" x="${X(f.x0)}" y="${Y(f.z0)}" width="${(f.x1-f.x0)*S}" height="${(f.z1-f.z0)*S}"/>`;
+  // paredes
+  g+=`<rect class="s-wall" x="${X(0)-3.5}" y="${Y(0)-3.5}" width="${W*S+7}" height="${L*S+7}"/>`;
+  // vidros
+  g+=`<line class="s-glass" x1="${X(.02)}" y1="${Y(0)-3.5}" x2="${X(W-.02)}" y2="${Y(0)-3.5}"/>`;
+  [0,W].forEach(x=>g+=`<line class="s-glass" x1="${X(x)+(x?3.5:-3.5)}" y1="${Y(R.sideWin.z0)}" x2="${X(x)+(x?3.5:-3.5)}" y2="${Y(R.sideWin.z1)}"/>`);
+  g+=`<line class="s-glass" x1="${X(R.frontWin.x0)}" y1="${Y(L)+3.5}" x2="${X(R.frontWin.x1)}" y2="${Y(L)+3.5}"/>`;
+  // porta
+  const d=R.door, dw=(d.x1-d.x0)*S;
+  g+=`<line class="s-erase" x1="${X(d.x0)}" y1="${Y(L)+3.5}" x2="${X(d.x1)}" y2="${Y(L)+3.5}"/>`;
+  g+=`<path class="s-thin" d="M${X(d.x1)} ${Y(L)} L${X(d.x1)} ${Y(L)-dw} A${dw} ${dw} 0 0 0 ${X(d.x0)} ${Y(L)}"/>`;
+  // rótulos
+  g+=`<text class="t-b" x="${X(W/2)}" y="${Y(0)-38}" text-anchor="middle" style="fill:var(--glass)">FUNDO · vidro fixo a 0,40 m</text>`;
+  g+=`<text class="t-b" x="${X(W/2)}" y="${Y(L)+44}" text-anchor="middle">ENTRADA</text>`;
+  g+=`<text class="t-mu" x="${X(1.55)}" y="${Y(L)+20}" text-anchor="middle" style="fill:var(--glass)">janela 4</text>`;
+  g+=`<text class="t-mu" x="${X(3.5)}" y="${Y(L)+20}" text-anchor="middle">porta</text>`;
+  g+=`<text class="t-mu" x="${X(.33)}" y="${Y(5.0)}" text-anchor="middle">frigobar</text>`;
+  g+=`<text class="t-b" x="${X(.2)}" y="${Y(2.95)}" text-anchor="middle" style="fill:var(--oak)" transform="rotate(-90 ${X(.2)} ${Y(2.95)})">TV 85" + RIPADO</text>`;
+  g+=`<text class="t-b" x="${X(W-.18)}" y="${Y(1.75)}" text-anchor="middle" style="fill:var(--fabric)" transform="rotate(90 ${X(W-.18)} ${Y(1.75)})">3 DIFUSORES</text>`;
+  // cotas
+  g+=dimH(X(0),X(W),Y(0)-20,'4,12');
+  g+=dimV(X(W)+48,Y(0),Y(L),'5,64');
+  g+=dimV(X(0)-30,Y(0),Y(3.5),'3,50 ripado',X(0)-4);
+  g+=dimV(X(0)-30,Y(3.5),Y(5.5),'2,00 janela 2');
+  g+=dimV(X(0)-60,Y(t.z0),Y(t.z1),'1,10',X(0)-4);
+  g+=dimV(X(W)+22,Y(3.5),Y(5.5),'2,00 jan. 3');
+  g+=dimH(X(0),X(t.x1),Y(3.15),'3,00 mesa');
+  g+=dimH(X(t.x1),X(W),Y(3.15),'1,12');
+  document.getElementById('svgPlan').innerHTML=svg(ox*2+W*S+10,oy+L*S+70,g,'Planta baixa da sala');
+})();
+
+/* ---- Planta de forro ---- */
+(function(){
+  const S=88, ox=80, oy=70, X=x=>ox+x*S, Y=z=>oy+z*S, W=R.W, L=R.L, c=R.cloud, b=R.baffle;
+  let g='';
+  g+=`<rect class="s-wall" x="${X(0)-3.5}" y="${Y(0)-3.5}" width="${W*S+7}" height="${L*S+7}"/>`;
+  // ar-condicionado
+  g+=`<rect class="s-white" x="${X(2.9)}" y="${Y(0)}" width="${1.1*S}" height="${.24*S}" style="stroke-dasharray:3 2"/><text class="t-mu" x="${X(3.45)}" y="${Y(.15)+3}" text-anchor="middle">split</text>`;
+  // nuvem
+  g+=`<rect class="s-cloud" x="${X(c.x0)}" y="${Y(c.z0)}" width="${(c.x1-c.x0)*S}" height="${(c.z1-c.z0)*S}"/>`;
+  g+=`<line class="s-hair" x1="${X((c.x0+c.x1)/2)}" y1="${Y(c.z0)}" x2="${X((c.x0+c.x1)/2)}" y2="${Y(c.z1)}"/>`;
+  [c.z0+.25,c.z1-.25].forEach(z=>g+=`<line class="s-led" x1="${X(c.x0+.1)}" y1="${Y(z)}" x2="${X(c.x1-.1)}" y2="${Y(z)}"/>`);
+  g+=`<text class="t-b" x="${X((c.x0+c.x1)/2)}" y="${Y(1.72)}" text-anchor="middle">NUVEM 2,80 × 1,60</text>`;
+  g+=`<text class="t-mu" x="${X((c.x0+c.x1)/2)}" y="${Y(1.72)+16}" text-anchor="middle">h = 2,90 m · 2 módulos</text>`;
+  // mesa fantasma
+  g+=`<rect class="s-dash" x="${X(R.table.x0+.11)}" y="${Y(R.table.z0)}" width="${(R.table.x1-.11)*S}" height="${1.1*S}"/>`;
+  // caixas
+  R.spk.forEach(([x,z])=>{g+=`<circle class="s-spk" cx="${X(x)}" cy="${Y(z)}" r="11"/><path class="s-thin" d="M${X(x)-7} ${Y(z)-7}L${X(x)+7} ${Y(z)+7}M${X(x)+7} ${Y(z)-7}L${X(x)-7} ${Y(z)+7}"/>`});
+  // baffles
+  for(let i=0;i<b.n;i++){const z=b.z0+i*b.step; g+=`<rect class="s-wallf" x="${X(b.x0)}" y="${Y(z)-2}" width="${(b.x1-b.x0)*S}" height="4"/>`}
+  g+=`<text class="t-b" x="${X((b.x0+b.x1)/2)}" y="${Y(b.z0)-10}" text-anchor="middle">6 BAFFLES 2,40 × 0,30</text>`;
+  // LED placa área baffles? perfil entre baffles 3 e 4
+  g+=`<line class="s-led" x1="${X(b.x0+.2)}" y1="${Y(b.z0+2.5*b.step)}" x2="${X(b.x1-.2)}" y2="${Y(b.z0+2.5*b.step)}" stroke-dasharray="6 3"/>`;
+  // cotas
+  g+=dimH(X(0),X(c.x0),Y(c.z1)+24,'0,30',Y(c.z1));
+  g+=dimH(X(c.x0),X(c.x1),Y(c.z1)+24,'2,80');
+  g+=dimV(X(0)-24,Y(0),Y(c.z0),'0,95',X(0));
+  g+=dimV(X(0)-24,Y(c.z0),Y(c.z1),'1,60');
+  g+=dimH(X(.9),X(2.7),Y(0)-18,'1,80',Y(.55)-11);
+  g+=dimV(X(W)+26,Y(.55),Y(2.95),'2,40 entre caixas',X(2.7)+11);
+  g+=dimV(X(W)+26,Y(b.z0),Y(b.z0+b.step),'0,36');
+  g+=`<text class="t-mu" x="${X(W/2)}" y="${Y(L)+28}" text-anchor="middle">Projeção do forro vista de cima, na mesma orientação da planta baixa</text>`;
+  document.getElementById('svgCeil').innerHTML=svg(ox*2+W*S+20,oy+L*S+44,g,'Planta de forro');
+})();
+
+/* ---- Elevação esquerda (de dentro: esquerda = entrada, direita = fundo) ---- */
+(function(){
+  const S=110, ox=70, oy=40, W=R.L, Hh=R.H, U=u=>ox+u*S, V=y=>oy+(Hh-y)*S;
+  const uz=z=>R.L-z; // z -> u
+  let g='';
+  // painel ripado: ripas
+  const p0=uz(R.panel.z1), p1=uz(R.panel.z0);
+  const P=R.panel;
+  g+=`<rect class="s-felt" x="${U(p0)}" y="${V(P.y1)}" width="${(p1-p0)*S}" height="${(P.y1-P.y0)*S}"/>`;
+  g+=`<rect class="s-dark" x="${U(p0)}" y="${V(P.y0)}" width="${(p1-p0)*S}" height="${P.y0*S}" style="opacity:.75"/>`;
+  g+=`<rect class="s-wood" x="${U(p0)}" y="${V(Hh)}" width="${(p1-p0)*S}" height="${(Hh-P.y1)*S}"/>`;
+  g+=`<line class="s-led" x1="${U(p0+.05)}" y1="${V(P.y1)+2}" x2="${U(p1-.05)}" y2="${V(P.y1)+2}"/>`;
+  g+=`<text class="t" x="${U((p0+p1)/2)}" y="${V(3.0)+4}" text-anchor="middle" style="fill:var(--oak)">faixa lisa no padrão da mesa + LED</text>`;
+  const nU0=uz(R.tv.zc+R.niche.w/2), nU1=uz(R.tv.zc-R.niche.w/2), ny0=R.tv.y0-.02, ny1=ny0+R.niche.h;
+  for(let i=0;i<87;i++){const u=p1-.035-P.sw-i*P.pitch;
+    const inN=(u+P.sw>nU0&&u<nU1);
+    if(!inN) g+=`<rect class="s-oak" x="${U(u)}" y="${V(P.y1)}" width="${P.sw*S}" height="${(P.y1-P.y0)*S}"/>`;
+    else{g+=`<rect class="s-oak" x="${U(u)}" y="${V(ny0)}" width="${P.sw*S}" height="${(ny0-P.y0)*S}"/>`;
+      g+=`<rect class="s-oak" x="${U(u)}" y="${V(P.y1)}" width="${P.sw*S}" height="${(P.y1-ny1)*S}"/>`}
+  }
+  // nicho e tv
+  g+=`<rect class="s-felt" x="${U(nU0)}" y="${V(ny1)}" width="${R.niche.w*S}" height="${R.niche.h*S}"/>`;
+  const tU0=uz(R.tv.zc+R.tv.w/2);
+  g+=`<rect class="s-dark" x="${U(tU0)}" y="${V(R.tv.y0+R.tv.h)}" width="${R.tv.w*S}" height="${R.tv.h*S}" style="stroke:var(--muted);stroke-width:1"/>`;
+  g+=`<text class="t-w" x="${U(uz(R.tv.zc))}" y="${V(R.tv.y0+R.tv.h/2)}" text-anchor="middle">TELA INTERATIVA 85"</text>`;
+  g+=`<text class="t-w" x="${U(uz(R.tv.zc))}" y="${V(R.tv.y0+R.tv.h/2)+16}" text-anchor="middle" style="font-weight:400;font-family:var(--f-body)">Bluecase BTIIRWR85-01 · ≈1,96 × 1,17</text>`;
+  // camera
+  g+=`<rect class="s-white" x="${U(uz(R.tv.zc)-.1)}" y="${V(2.33)}" width="${.2*S}" height="${.08*S}" style="stroke-dasharray:3 2"/>`;
+  g+=`<text class="t-mu" x="${U(uz(R.tv.zc))}" y="${V(2.33)-6}" text-anchor="middle" style="fill:var(--sheet)">câmera (opcional)</text>`;
+  // compartimento técnico
+  g+=`<rect class="s-dash" x="${U(uz(3.50))}" y="${V(.70)}" width="${.745*S}" height="${.6*S}" style="stroke:var(--sheet);stroke-width:1.6"/>`;
+  g+=`<text class="t-mu" x="${U(uz(3.13))}" y="${V(.4)+3}" text-anchor="middle" style="fill:var(--sheet)">técnico</text>`;
+  // mesa em corte
+  g+=`<rect class="s-wood" x="${U(uz(R.table.z1))}" y="${V(.75)}" width="${1.1*S}" height="${.04*S}"/>`;
+  g+=`<rect class="s-wood" x="${U(uz(R.table.z1)+.3)}" y="${V(.71)}" width="${.5*S}" height="${.71*S}" style="opacity:.6"/>`;
+  // janela 2
+  const w=R.sideWin;
+  g+=`<rect class="s-glassf" x="${U(uz(w.z1))}" y="${V(w.y1)}" width="${(w.z1-w.z0)*S}" height="${(w.y1-w.y0)*S}"/>`;
+  g+=`<text class="t" x="${U(uz((w.z0+w.z1)/2))}" y="${V(1.7)+4}" text-anchor="middle" style="fill:var(--glass)">janela 2 (vidro fixo)</text>`;
+  // contorno
+  g+=`<rect class="s-thin" x="${U(0)}" y="${V(Hh)}" width="${W*S}" height="${Hh*S}" style="stroke-width:2"/>`;
+  g+=`<line class="s-thin" x1="${U(-.2)}" y1="${V(0)}" x2="${U(W+.2)}" y2="${V(0)}" style="stroke-width:2.5"/>`;
+  g+=`<text class="t-mu" x="${U(.05)}" y="${V(Hh)-8}">← entrada</text><text class="t-mu" x="${U(W-.05)}" y="${V(Hh)-8}" text-anchor="end">fundo →</text>`;
+  // cotas horizontais
+  const yb=V(0)+26, yb2=V(0)+52;
+  g+=dimH(U(0),U(uz(w.z1)),yb,'0,14',V(0));
+  g+=dimH(U(uz(w.z1)),U(uz(w.z0)),yb,'2,00',V(0));
+  g+=dimH(U(p0),U(nU0),yb,'0,75',V(0));
+  g+=dimH(U(nU0),U(nU1),yb,'2,00 nicho',V(0));
+  g+=dimH(U(nU1),U(W),yb,'0,75',V(0));
+  g+=dimH(U(p0),U(W),yb2,'3,50 painel ripado');
+  // verticais
+  g+=dimV(U(W)+30,V(0),V(R.tv.y0),'0,95',U(W));
+  g+=dimV(U(W)+30,V(R.tv.y0),V(R.tv.y0+R.tv.h),'1,18');
+  g+=dimV(U(W)+30,V(R.tv.y0+R.tv.h),V(Hh),'1,07');
+  g+=dimV(U(W)+58,V(0),V(P.y0),'0,10',U(W));
+  g+=dimV(U(W)+58,V(P.y0),V(P.y1),'2,70 ripas');
+  g+=dimV(U(W)+58,V(P.y1),V(Hh),'0,40',U(W));
+  g+=dimV(U(W)+86,V(0),V(Hh),'3,20');
+  g+=dimV(U(0)-22,V(0),V(w.y0),'1,20',U(0));
+  g+=dimV(U(0)-22,V(w.y0),V(w.y1),'1,00');
+  document.getElementById('svgElevL').innerHTML=svg(ox+W*S+110,oy+Hh*S+70,g,'Elevação da parede esquerda');
+})();
+
+/* ---- Elevação direita (de dentro: esquerda = fundo, direita = entrada) ---- */
+(function(){
+  const S=80, ox=50, oy=34, W=R.L, Hh=R.H, U=u=>ox+u*S, V=y=>oy+(Hh-y)*S;
+  let g='';
+  R.diff.forEach(([a,b],i)=>{g+=`<rect class="s-fab" x="${U(a)}" y="${V(R.diffY[1])}" width="${(b-a)*S}" height="${(R.diffY[1]-R.diffY[0])*S}" rx="3"/>`;
+    g+=`<text class="t-w" x="${U((a+b)/2)}" y="${V(1.6)+4}" text-anchor="middle">D${i+1}</text>`});
+  const w=R.sideWin;
+  g+=`<rect class="s-glassf" x="${U(w.z0)}" y="${V(w.y1)}" width="${2*S}" height="${1*S}"/>`;
+  g+=`<text class="t" x="${U(4.5)}" y="${V(1.7)+4}" text-anchor="middle" style="fill:var(--glass)">janela 3</text>`;
+  g+=`<rect class="s-dash" x="${U(1.20)}" y="${V(.75)}" width="${1.1*S}" height="${.75*S}"/><text class="t-mu" x="${U(1.75)}" y="${V(.4)}" text-anchor="middle">mesa (atrás)</text>`;
+  g+=`<rect class="s-thin" x="${U(0)}" y="${V(Hh)}" width="${W*S}" height="${Hh*S}" style="stroke-width:2"/>`;
+  g+=`<line class="s-thin" x1="${U(-.2)}" y1="${V(0)}" x2="${U(W+.2)}" y2="${V(0)}" style="stroke-width:2.5"/>`;
+  g+=`<text class="t-mu" x="${U(.05)}" y="${V(Hh)-8}">← fundo</text><text class="t-mu" x="${U(W-.05)}" y="${V(Hh)-8}" text-anchor="end">entrada →</text>`;
+  const yb=V(0)+24;
+  let prev=0; [[.15],[1.05],[1.30],[2.20],[2.45],[3.35],[3.50]].forEach(([u])=>{g+=dimH(U(prev),U(u),yb,fmt(u-prev),V(0));prev=u});
+  g+=dimH(U(3.5),U(5.5),yb,'2,00',V(0)); g+=dimH(U(5.5),U(W),yb,'0,14',V(0));
+  g+=dimV(U(0)-20,V(0),V(R.diffY[0]),'0,80',U(.15));
+  g+=dimV(U(0)-20,V(R.diffY[0]),V(R.diffY[1]),'1,60');
+  g+=dimV(U(W)+22,V(0),V(Hh),'3,20');
+  g+=`<text class="t-mu" x="${U(1.75)}" y="${V(Hh)+18}" text-anchor="middle">D2 centralizado no eixo da mesa e da TV</text>`;
+  document.getElementById('svgElevR').innerHTML=svg(ox+W*S+50,oy+Hh*S+50,g,'Elevação da parede direita');
+})();
+
+/* ---- Detalhe ripado (corte horizontal) ---- */
+(function(){
+  const k=2.2, ox=40, oy=40, len=300, X=mm=>ox+mm*k, Y=mm=>oy+mm*k;
+  let g='';
+  g+=`<rect class="s-hatch" x="${X(0)}" y="${Y(-14)}" width="${len*k}" height="${14*k}"/>`;
+  g+=`<line class="s-thin" x1="${X(0)}" y1="${Y(0)}" x2="${X(len)}" y2="${Y(0)}" style="stroke-width:1.6"/>`;
+  const D=80, F=D+15+2, FR=F+40; // metalon 80, travessa 15, tecido 2, ripa 40 -> 137
+  // lã 50 mm encostada na parede, 30 mm de ar
+  g+=`<rect class="s-wool" x="${X(0)}" y="${Y(0)}" width="${len*k}" height="${50*k}"/>`;
+  // metalon 80x40 (tubo oco)
+  [[25],[235]].forEach(([x])=>{g+=`<rect x="${X(x)}" y="${Y(0)}" width="${40*k}" height="${D*k}" style="fill:var(--muted)"/>`;
+    g+=`<rect x="${X(x)+1.5*k}" y="${Y(1.5)}" width="${37*k}" height="${(D-3)*k}" style="fill:var(--sheet)"/>`});
+  g+=`<rect class="s-dark" x="${X(0)}" y="${Y(D)}" width="${len*k}" height="${15*k}"/>`;
+  g+=`<rect x="${X(0)}" y="${Y(D+15)}" width="${len*k}" height="${2*k}" style="fill:var(--ink)"/>`;
+  for(let x=10;x+25<=len;x+=40){g+=`<rect class="s-wood" x="${X(x)}" y="${Y(F)}" width="${25*k}" height="${40*k}" style="fill:var(--oak-soft)"/>`;
+    g+=`<rect x="${X(x)}" y="${Y(FR-1.5)}" width="${25*k}" height="${1.5*k}" style="fill:var(--oak)"/>`}
+  g+=`<line x1="${X(42.5)}" y1="${Y(D-3)}" x2="${X(42.5)}" y2="${Y(D+28)}" style="stroke:var(--warn);stroke-width:2.5"/>`;
+  g+=`<text class="t-mu" x="${X(48)}" y="${Y(FR+16)}" style="fill:var(--warn)">autobrocante pelo vão de 15 mm</text>`;
+  g+=`<line class="s-hair" x1="${X(46)}" y1="${Y(FR+12)}" x2="${X(43)}" y2="${Y(D+30)}" style="stroke:var(--warn)"/>`;
+  const lab=(y,t)=>g+=`<line class="s-hair" x1="${X(len)}" y1="${Y(y)}" x2="${X(len)+18}" y2="${Y(y)}"/><text class="t" x="${X(len)+22}" y="${Y(y)+4}">${t}</text>`;
+  lab(-7,'parede existente'); lab(25,'lã de PET ou de rocha 50 mm'); lab(65,'metalon 80 × 40 (horizontal)'); lab(D+7,'travessa MDF 15 mm preto'); lab(D+16,'tecido preto'); lab(F+20,'ripa MDF 25 × 40 mm'); lab(FR,'fita de borda na frente');
+  g+=dimV(X(0)-14,Y(0),Y(FR),'≈135 mm');
+  g+=dimH(X(10),X(35),Y(FR)+34,'25');
+  g+=dimH(X(35),X(50),Y(FR)+34,'15');
+  g+=`<text class="t-mu" x="${X(len/2)}" y="${Y(-20)}" text-anchor="middle">lado da parede</text><text class="t-mu" x="${X(len/2)}" y="${Y(190)}" text-anchor="middle">lado da sala</text>`;
+  document.getElementById('svgDet').innerHTML=svg(X(len)+220,Y(198),g,'Detalhe do painel ripado');
+})();
+
+/* ===================== 3D ===================== */
+(function(){
+  const el=document.getElementById('viewer');
+  if(!window.THREE){el.insertAdjacentHTML('beforeend','<p class="hint" style="bottom:auto;top:12px">O modelo 3D não carregou. Verifique a conexão e recarregue a página.</p>');return}
+  const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const scene=new THREE.Scene();
+  const renderer=new THREE.WebGLRenderer({antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  el.prepend(renderer.domElement);
+  const cam=new THREE.PerspectiveCamera(50,1,.05,100);
+  const ctr=new THREE.OrbitControls(cam,renderer.domElement);
+  ctr.enableDamping=true; ctr.dampingFactor=.08;
+  const setBg=()=>scene.background=new THREE.Color(css('--grid')||'#e7ecea');
+  setBg();
+  try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',setBg)}catch(e){}
+  new MutationObserver(setBg).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+  // luzes
+  scene.add(new THREE.HemisphereLight(0xffffff,0x8a8070,.75));
+  const sun=new THREE.DirectionalLight(0xffffff,.55); sun.position.set(3,8,-4); sun.castShadow=true;
+  sun.shadow.mapSize.set(1024,1024); Object.assign(sun.shadow.camera,{left:-5,right:5,top:5,bottom:-5}); sun.target.position.set(2,0,2.8);
+  scene.add(sun,sun.target);
+  const pl=new THREE.PointLight(0xfff1dc,.35,8); pl.position.set(1.7,2.7,1.75); scene.add(pl);
+
+  // texturas
+  function woodTex(){const c=document.createElement('canvas');c.width=256;c.height=1024;const x=c.getContext('2d');
+    x.fillStyle='#c79a63';x.fillRect(0,0,256,1024);
+    for(let i=0;i<70;i++){x.strokeStyle=`rgba(${120+Math.random()*40|0},${80+Math.random()*30|0},${40},${.08+Math.random()*.12})`;x.lineWidth=1+Math.random()*3;
+      x.beginPath();let px=Math.random()*256;x.moveTo(px,0);for(let y=0;y<=1024;y+=32){px+=(Math.random()-.5)*6;x.lineTo(px,y)}x.stroke()}
+    const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.encoding=THREE.sRGBEncoding;return t}
+  function tileTex(){const c=document.createElement('canvas');c.width=c.height=256;const x=c.getContext('2d');
+    x.fillStyle='#d9d4cb';x.fillRect(0,0,256,256);x.strokeStyle='#b9b2a6';x.lineWidth=2;x.strokeRect(1,1,254,254);
+    const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(R.W/.8,R.L/.8);t.encoding=THREE.sRGBEncoding;return t}
+  const wt=woodTex();
+  const M={
+    wall:new THREE.MeshStandardMaterial({color:0xeceae6,roughness:.95}),
+    wood:new THREE.MeshStandardMaterial({map:wt,roughness:.6}),
+    slat:new THREE.MeshStandardMaterial({map:wt,roughness:.55}),
+    felt:new THREE.MeshStandardMaterial({color:0x151515,roughness:1}),
+    glass:new THREE.MeshPhysicalMaterial({color:0xbfdcef,transparent:true,opacity:.28,roughness:.05,metalness:0}),
+    frame:new THREE.MeshStandardMaterial({color:0xf2f2f2,roughness:.5}),
+    black:new THREE.MeshStandardMaterial({color:0x111111,roughness:.45}),
+    screen:new THREE.MeshStandardMaterial({color:0x0c1a26,roughness:.15,metalness:.3,emissive:0x0b2236,emissiveIntensity:.6}),
+    fabric:new THREE.MeshStandardMaterial({color:0x2f5563,roughness:1}),
+    cloud:new THREE.MeshStandardMaterial({color:0xf3f3f1,roughness:1}),
+    baffle:new THREE.MeshStandardMaterial({color:0xe9e9e6,roughness:1}),
+    led:new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xfff2d8,emissiveIntensity:1.2}),
+    chrome:new THREE.MeshStandardMaterial({color:0xcfd3d6,metalness:.9,roughness:.25}),
+    red:new THREE.MeshStandardMaterial({color:0xb8322f,roughness:.7}),
+    leather:new THREE.MeshStandardMaterial({color:0x17181a,roughness:.35}),
+    white:new THREE.MeshStandardMaterial({color:0xf7f7f7,roughness:.4}),
+    floor:new THREE.MeshStandardMaterial({map:tileTex(),roughness:.35}),
+    ceil:new THREE.MeshStandardMaterial({color:0xf6f6f4,roughness:1,side:THREE.DoubleSide}),
+    cable:new THREE.LineBasicMaterial({color:0x888888}),
+    blind:new THREE.MeshStandardMaterial({color:0xe8e2d6,roughness:.9,transparent:true,opacity:.92}),
+  };
+  const box=(w,h,d,m,x,y,z,parent=scene,shadow=true)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);
+    o.castShadow=shadow;o.receiveShadow=true;parent.add(o);return o};
+  const W=R.W,L=R.L,Hh=R.H,T=.12;
+
+  // piso
+  const floor=new THREE.Mesh(new THREE.PlaneGeometry(W,L),M.floor);floor.rotation.x=-Math.PI/2;floor.position.set(W/2,0,L/2);floor.receiveShadow=true;scene.add(floor);
+
+  // paredes com aberturas: plano ao longo de 'a' (0..len), altura y
+  function wall(len,ops,place){
+    const g=new THREE.Group(); const cuts=[0,len];ops.forEach(o=>cuts.push(o.a0,o.a1));
+    const xs=[...new Set(cuts)].sort((p,q)=>p-q);
+    for(let i=0;i<xs.length-1;i++){const a0=xs[i],a1=xs[i+1],w=a1-a0;if(w<1e-4)continue;const mid=(a0+a1)/2;
+      const op=ops.find(o=>mid>o.a0&&mid<o.a1);
+      const seg=(y0,y1)=>{if(y1-y0>1e-4)box(w,y1-y0,T,M.wall,mid,(y0+y1)/2,0,g)};
+      if(!op)seg(0,Hh);else{seg(0,op.y0);seg(op.y1,Hh);
+        if(op.glass){const gl=new THREE.Mesh(new THREE.BoxGeometry(w,op.y1-op.y0,.012),M.glass);gl.position.set(mid,(op.y0+op.y1)/2,0);g.add(gl);
+          box(w,.03,T+.01,M.frame,mid,op.y0,0,g,false);box(w,.03,T+.01,M.frame,mid,op.y1,0,g,false)}}
+    }
+    ops.forEach(o=>{if(o.glass){box(.03,o.y1-o.y0,T+.01,M.frame,o.a0,(o.y0+o.y1)/2,0,g,false);box(.03,o.y1-o.y0,T+.01,M.frame,o.a1,(o.y0+o.y1)/2,0,g,false)}});
+    place(g);scene.add(g);return g}
+  const walls={};
+  walls.back=wall(W,[{a0:0.001,a1:W-.001,y0:R.backGlass.y0,y1:R.backGlass.y1,glass:1}],g=>{g.position.set(0,0,-T/2)});
+  walls.front=wall(W,[{a0:R.frontWin.x0,a1:R.frontWin.x1,y0:R.frontWin.y0,y1:R.frontWin.y1,glass:1},{a0:R.door.x0,a1:R.door.x1,y0:0,y1:R.door.h,glass:1}],g=>{g.position.set(0,0,L+T/2)});
+  walls.left=wall(L,[{a0:R.sideWin.z0,a1:R.sideWin.z1,y0:R.sideWin.y0,y1:R.sideWin.y1,glass:1}],g=>{g.rotation.y=-Math.PI/2;g.position.set(-T/2,0,0)});
+  walls.right=wall(L,[{a0:R.sideWin.z0,a1:R.sideWin.z1,y0:R.sideWin.y0,y1:R.sideWin.y1,glass:1}],g=>{g.rotation.y=-Math.PI/2;g.position.set(W+T/2,0,0)});
+  const norms={back:[0,0,-1,W/2,0],front:[0,0,1,W/2,L],left:[-1,0,0,0,L/2],right:[1,0,0,W,L/2]};
+  // porta: puxador
+  // persianas verticais no fundo (abertas parcialmente)
+  const blinds=new THREE.Group();
+  for(let x=.05;x<W-.6;x+=.09){const b=box(.085,2.6,.006,M.blind,x,1.5,.08,blinds,false);b.rotation.y=.9}
+  scene.add(blinds);
+  // split
+  box(1.1,.3,.24,M.white,3.45,3.0,.14);
+
+  // forro
+  const ceil=new THREE.Mesh(new THREE.PlaneGeometry(W,L),M.ceil);ceil.rotation.x=Math.PI/2;ceil.position.set(W/2,Hh,L/2);scene.add(ceil);
+
+  // painel ripado (parede esquerda, x = 0)
+  const panel=new THREE.Group(), P=R.panel;
+  const slx=P.d-P.sd/2;
+  box(.004,P.y1-P.y0,3.5,M.felt,P.d-P.sd-.004,(P.y0+P.y1)/2,1.75,panel,false);
+  box(.06,P.y0-.01,3.5,M.felt,.03,(P.y0-.01)/2,1.75,panel,false);            // rodapé recuado
+  box(.025,R.H-P.y1,3.5,M.wood,P.d-.0125,(R.H+P.y1)/2,1.75,panel);            // faixa superior
+  box(.01,.006,3.4,M.led,P.d-.03,P.y1-.004,1.75,panel,false);                 // LED
+  const nz0=R.tv.zc-R.niche.w/2,nz1=R.tv.zc+R.niche.w/2,ny0=R.tv.y0-.02,ny1=ny0+R.niche.h;
+  for(let i=0;i<87;i++){const z=.035+.0125+i*P.pitch;
+    const inN=z+.0125>nz0&&z-.0125<nz1;
+    if(!inN) box(P.sd,P.y1-P.y0,P.sw,M.slat,slx,(P.y0+P.y1)/2,z,panel);
+    else{box(P.sd,ny0-P.y0,P.sw,M.slat,slx,(P.y0+ny0)/2,z,panel);box(P.sd,P.y1-ny1,P.sw,M.slat,slx,(P.y1+ny1)/2,z,panel)}
+  }
+  box(.02,R.niche.h,R.niche.w,M.felt,.01,(ny0+ny1)/2,R.tv.zc,panel,false);
+  // tela (sai ~2 cm à frente das ripas)
+  const tx=R.tv.x0;
+  box(R.tv.d,R.tv.h,R.tv.w,M.black,tx+R.tv.d/2,R.tv.y0+R.tv.h/2,R.tv.zc,panel);
+  box(.005,R.tv.h-.06,R.tv.w-.06,M.screen,tx+R.tv.d+.002,R.tv.y0+R.tv.h/2,R.tv.zc,panel,false);
+  scene.add(panel);
+
+  // difusores (parede direita)
+  const diffs=new THREE.Group();
+  R.diff.forEach(([a,b])=>box(.05,R.diffY[1]-R.diffY[0],b-a,M.fabric,W-.025,(R.diffY[0]+R.diffY[1])/2,(a+b)/2,diffs));
+  scene.add(diffs);
+
+  // mesa
+  const t=R.table;
+  box(t.x1-.11,.035,t.z1-t.z0,M.wood,(t.x1+.11)/2,t.h-.0175,(t.z0+t.z1)/2);
+  [.75,2.55].forEach(x=>box(.06,t.h-.035,.7,M.wood,x,(t.h-.035)/2,(t.z0+t.z1)/2));
+  // cadeiras
+  function chair(x,z,rot,mat){const g=new THREE.Group();
+    box(.46,.06,.44,mat,0,.47,0,g);const back=box(.44,.45,.05,mat,0,.75,.22,g);back.rotation.x=-.12;
+    box(.05,.4,.05,M.chrome,0,.25,0,g);
+    for(let i=0;i<5;i++){const s=box(.3,.025,.03,M.chrome,0,.05,0,g);s.rotation.y=i*Math.PI*2/5;s.translateX(.15)}
+    g.position.set(x,0,z);g.rotation.y=rot;scene.add(g)}
+  [.75,1.55,2.35].forEach(x=>{chair(x,t.z0-.32,Math.PI,M.black);chair(x,t.z1+.32,0,M.black)});
+  chair(3.42,1.75,Math.PI/2,M.red);
+  // sofá
+  const s=R.sofa,sw=s.x1-s.x0,sx=(s.x0+s.x1)/2;
+  box(sw,.42,.78,M.leather,sx,.21,(s.z0+s.z1)/2);box(sw,.42,.2,M.leather,sx,.63,s.z1-.1);
+  box(.18,.62,.78,M.leather,s.x0+.09,.31,(s.z0+s.z1)/2);box(.18,.62,.78,M.leather,s.x1-.09,.31,(s.z0+s.z1)/2);
+  // frigobar
+  box(.5,.85,.5,M.white,(R.fridge.x0+R.fridge.x1)/2,.425,(R.fridge.z0+R.fridge.z1)/2);
+
+  // elementos de forro
+  const ceilG=new THREE.Group();
+  const c=R.cloud,cw=c.x1-c.x0,cd=c.z1-c.z0;
+  box(cw/2-.01,.05,cd,M.cloud,c.x0+cw/4,c.y+.025,(c.z0+c.z1)/2,ceilG);
+  box(cw/2-.01,.05,cd,M.cloud,c.x1-cw/4,c.y+.025,(c.z0+c.z1)/2,ceilG);
+  [c.z0+.25,c.z1-.25].forEach(z=>box(cw-.2,.006,.04,M.led,(c.x0+c.x1)/2,c.y-.003,z,ceilG,false));
+  const cab=[];[[c.x0+.1,c.z0+.1],[c.x1-.1,c.z0+.1],[c.x0+.1,c.z1-.1],[c.x1-.1,c.z1-.1],[(c.x0+c.x1)/2,c.z0+.1],[(c.x0+c.x1)/2,c.z1-.1]].forEach(([x,z])=>cab.push(x,c.y+.05,z,x,Hh,z));
+  const b=R.baffle;
+  for(let i=0;i<b.n;i++){const z=b.z0+i*b.step;box(b.x1-b.x0,b.h,.05,M.baffle,(b.x0+b.x1)/2,Hh-.05-b.h/2,z,ceilG);
+    [b.x0+.15,b.x1-.15].forEach(x=>cab.push(x,Hh-.05,z,x,Hh,z))}
+  const cg=new THREE.BufferGeometry();cg.setAttribute('position',new THREE.Float32BufferAttribute(cab,3));ceilG.add(new THREE.LineSegments(cg,M.cable));
+  box(b.x1-b.x0-.4,.006,.05,M.led,(b.x0+b.x1)/2,Hh-.004,b.z0+2.5*b.step,ceilG,false);
+  scene.add(ceilG);
+  // caixas de som
+  const spkG=new THREE.Group();
+  R.spk.forEach(([x,z])=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,.012,32),M.white);m.position.set(x,Hh-.006,z);spkG.add(m);
+    const r=new THREE.Mesh(new THREE.TorusGeometry(.12,.006,6,32),M.chrome);r.rotation.x=Math.PI/2;r.position.set(x,Hh-.012,z);spkG.add(r)});
+  scene.add(spkG);
+
+  // vistas
+  const views={
+    geral:{p:[6.6,4.4,8.2],t:[1.9,1.0,2.4]},
+    cabeceira:{p:[3.75,1.22,1.75],t:[0,1.45,1.75]},
+    entrada:{p:[3.5,1.62,5.35],t:[.6,1.3,1.2]},
+    tv:{p:[4.0,1.6,4.6],t:[0,1.5,1.6]},
+    forro:{p:[2.5,.35,4.9],t:[1.8,3.1,1.6]},
+  };
+  let anim=null;
+  function go(name,instant){const v=views[name];const p0=cam.position.clone(),t0=ctr.target.clone();
+    const p1=new THREE.Vector3(...v.p),t1=new THREE.Vector3(...v.t);
+    if(instant||matchMedia('(prefers-reduced-motion: reduce)').matches){cam.position.copy(p1);ctr.target.copy(t1);ctr.update();return}
+    const st=performance.now();anim=n=>{let k=Math.min(1,(n-st)/700);k=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+      cam.position.lerpVectors(p0,p1,k);ctr.target.lerpVectors(t0,t1,k);if(k>=1)anim=null}}
+  document.querySelectorAll('[data-view]').forEach(bt=>bt.addEventListener('click',()=>{
+    document.querySelectorAll('[data-view]').forEach(o=>o.setAttribute('aria-pressed',o===bt));go(bt.dataset.view)}));
+  const tg=document.getElementById('tgCeil');
+  tg.addEventListener('click',()=>{const on=tg.getAttribute('aria-pressed')!=='true';tg.setAttribute('aria-pressed',on);ceilG.visible=on;spkG.visible=on});
+  document.querySelectorAll('[data-fab]').forEach(bt=>bt.addEventListener('click',()=>{
+    document.querySelectorAll('[data-fab]').forEach(o=>o.setAttribute('aria-pressed',o===bt));M.fabric.color.set(bt.dataset.fab)}));
+  go('geral',true);
+
+  function resize(){const w=el.clientWidth,h=el.clientHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
+  new ResizeObserver(resize).observe(el);resize();
+  const tmp=new THREE.Vector3();
+  function loop(n){requestAnimationFrame(loop);if(anim)anim(n);ctr.update();
+    const P=cam.position;
+    for(const k in norms){const [nx,,nz,cx,cz]=norms[k];const out=(P.x-cx)*nx+(P.z-cz)*nz>0;walls[k].visible=!out;
+      if(k==='left')panel.visible=!out;if(k==='right')diffs.visible=!out;if(k==='back')blinds.visible=!out}
+    ceil.visible=P.y<Hh;
+    renderer.render(scene,cam)}
+  requestAnimationFrame(loop);
+})();
+</script>

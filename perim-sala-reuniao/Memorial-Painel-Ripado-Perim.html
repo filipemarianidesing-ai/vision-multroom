@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Memorial Painel Ripado Perim</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: memorial técnico numerado — coluna de leitura de ~72ch, tabelas e figuras na largura da folha, cotas em mono */
+:root{
+  --paper:#f4f6f5; --sheet:#ffffff; --ink:#1d272b; --muted:#5a676b; --line:#d3dad8; --grid:#e7ecea;
+  --oak:#b07d45; --oak-soft:#ead9c2; --glass:#2f7fb3; --dark:#22282b; --warn:#a8641a; --wool:#e8cf6a;
+  --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-body:"IBM Plex Sans","Segoe UI",Roboto,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#121718; --sheet:#1a2124; --ink:#e4eae8; --muted:#9caaad; --line:#2f393c; --grid:#232b2e;
+  --oak:#d6a46c; --oak-soft:#3b2f22; --glass:#72b4de; --dark:#0b0e0f; --warn:#e0a35a; --wool:#8a7a35; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#121718; --sheet:#1a2124; --ink:#e4eae8; --muted:#9caaad; --line:#2f393c; --grid:#232b2e;
+  --oak:#d6a46c; --oak-soft:#3b2f22; --glass:#72b4de; --dark:#0b0e0f; --warn:#e0a35a; --wool:#8a7a35; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 56px}
+.doc{max-width:900px;margin:0 auto;background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:clamp(20px,4vw,48px);display:flex;flex-direction:column;gap:30px;margin-top:28px}
+h1,h2,h3{font-family:var(--f-display);margin:0;line-height:1.2;text-wrap:balance}
+h1{font-size:clamp(26px,4.4vw,38px);font-weight:800}
+h2{font-size:20px;font-weight:700;display:flex;gap:12px;align-items:baseline;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+h2 .n{font-family:var(--f-mono);font-weight:500;font-size:15px;color:var(--muted)}
+h3{font-size:15.5px;font-weight:700;display:flex;gap:10px;align-items:baseline}
+h3 .n{font-family:var(--f-mono);font-weight:500;font-size:13px;color:var(--muted)}
+p,li{max-width:72ch}
+p{margin:0}
+section{display:flex;flex-direction:column;gap:14px}
+.sub{display:flex;flex-direction:column;gap:8px}
+ul,ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:4px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ident{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.ident div{padding:10px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:2px;min-width:0}
+.ident span{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.ident b{font-weight:500}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-weight:500;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+td.n,th.n{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.m{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+figure{margin:0;display:flex;flex-direction:column;gap:8px}
+figure .draw{overflow-x:auto;border:1px solid var(--line);border-radius:4px;padding:10px;background:var(--sheet)}
+figure svg{display:block;width:100%;height:auto;min-width:560px}
+figcaption{font-size:13px;color:var(--muted)}
+.callout{border-left:3px solid var(--warn);padding:10px 14px;background:var(--paper);font-size:14px;max-width:none}
+.callout b{color:var(--warn)}
+.sign{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:28px;margin-top:24px}
+.sign div{border-top:1px solid var(--ink);padding-top:6px;font-size:13px;color:var(--muted)}
+.foot{font-size:12px;color:var(--muted);font-family:var(--f-mono)}
+/* svg */
+.s-thin{fill:none;stroke:var(--ink);stroke-width:1.2}
+.s-hair{fill:none;stroke:var(--muted);stroke-width:.8}
+.s-rail{stroke:var(--warn);stroke-width:1.4;stroke-dasharray:6 4}
+.s-mod{fill:var(--oak-soft);stroke:var(--oak);stroke-width:1.4}
+.s-dark{fill:var(--dark)}
+.s-wood{fill:var(--oak-soft);stroke:var(--oak);stroke-width:1}
+.s-wool{fill:var(--wool);opacity:.6}
+.s-glass{fill:none;stroke:var(--glass);stroke-width:4}
+.t{font-family:var(--f-body);font-size:12px;fill:var(--ink)}
+.t-b{font-family:var(--f-display);font-weight:700;font-size:13px;fill:var(--ink)}
+.t-m{font-family:var(--f-mono);font-size:11px;fill:var(--ink)}
+.t-mu{font-family:var(--f-body);font-size:11px;fill:var(--muted)}
+.t-w{font-family:var(--f-display);font-weight:700;font-size:12px;fill:#fff}
+.t-r{font-family:var(--f-mono);font-size:10.5px;fill:var(--warn)}
+.dim{stroke:var(--muted);stroke-width:.9;fill:none}
+</style>
+
+</head>
+<body>
+<article class="doc">
+<header style="display:flex;flex-direction:column;gap:12px">
+  <div class="eyebrow">Memorial descritivo e construtivo · Rev. 00 · 25/11/2026</div>
+  <h1>Painel ripado acústico com tela interativa embutida</h1>
+  <div class="ident">
+    <div><span>Cliente</span><b>Supermercados Perim</b></div>
+    <div><span>Ambiente</span><b>Sala de reunião</b></div>
+    <div><span>Local do painel</span><b>Parede esquerda (5,64 m)</b></div>
+    <div><span>Dimensões</span><b>3,50 × 3,20 × 0,135 m</b></div>
+    <div><span>Referência</span><b>Projeto Rev. 01</b></div>
+    <div><span>Responsável técnico</span><b>&nbsp;</b></div>
+  </div>
+</header>
+
+<section>
+  <h2><span class="n">1</span>Objeto</h2>
+  <p>Este memorial descreve os materiais, a fabricação e a montagem do painel ripado de madeira da sala de reunião. O painel tem três funções: acabamento decorativo no mesmo padrão da mesa existente, absorção acústica e embutir a tela interativa de 85" (Bluecase BTIIRWR85-01), com toda a infraestrutura escondida.</p>
+  <p>O painel ocupa o trecho de 3,50 m entre a janela 2 e a parede do fundo, do piso ao forro. É formado por módulos de ripas fabricados na marcenaria e parafusados numa estrutura de metalon fixada na parede, com lã acústica e tecido preto atrás.</p>
+</section>
+
+<section>
+  <h2><span class="n">2</span>Composição do painel</h2>
+  <div class="sub">
+    <h3><span class="n">2.1</span>Faixas na altura</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Faixa</th><th class="n">Altura</th><th>Acabamento</th></tr></thead>
+      <tbody>
+        <tr><td>Rodapé recuado</td><td class="m">0,00 a 0,10 m</td><td>MDF 15 mm preto, recuado 30 mm em relação às ripas. Protege as ripas da água da limpeza do piso.</td></tr>
+        <tr><td>Ripado</td><td class="m">0,10 a 2,80 m</td><td>Ripas de 2,70 m. A altura é limitada pelo comprimento da chapa de MDF (2,75 m).</td></tr>
+        <tr><td>Faixa superior</td><td class="m">2,80 a 3,20 m</td><td>MDF 25 mm no padrão da mesa, liso, com fita de LED embaixo iluminando as ripas.</td></tr>
+        <tr><td>Nicho da tela</td><td class="m">0,93 a 2,15 m</td><td>Vão de 2,00 × 1,22 m, centralizado no eixo da mesa (1,75 m da parede do fundo).</td></tr>
+      </tbody></table></div>
+  </div>
+  <div class="sub">
+    <h3><span class="n">2.2</span>Camadas, da parede para a sala</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Camada</th><th class="n">Espessura</th><th>Função</th></tr></thead>
+      <tbody>
+        <tr><td>Lã acústica (PET ou rocha), encostada na parede</td><td class="n">50 mm</td><td>Absorção sonora</td></tr>
+        <tr><td>Câmara de ar</td><td class="n">30 mm</td><td>Melhora a absorção de graves</td></tr>
+        <tr><td>Metalon 80 × 40 (horizontal)</td><td class="n">80 mm</td><td>Estrutura. Ocupa as duas camadas acima.</td></tr>
+        <tr><td>Travessa de MDF 15 mm preto</td><td class="n">15 mm</td><td>Une as ripas de cada módulo</td></tr>
+        <tr><td>Tecido preto</td><td class="n">≈ 2 mm</td><td>Esconde a lã e a estrutura atrás dos vãos</td></tr>
+        <tr><td>Ripa de MDF 25 × 40 mm</td><td class="n">40 mm</td><td>Acabamento e difusão</td></tr>
+        <tr><td><b>Total</b></td><td class="n"><b>≈ 135 mm</b></td><td>Suficiente para a tela ficar totalmente embutida (suporte de até 35 mm + tela de até 100 mm)</td></tr>
+      </tbody></table></div>
+  </div>
+  <figure>
+    <div class="draw" id="figSec"></div>
+    <figcaption>Figura 1. Corte horizontal do painel. Medidas em milímetros.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2><span class="n">3</span>Normas e referências</h2>
+  <ul>
+    <li>ABNT NBR 15316: Painéis de fibras de média densidade (MDF).</li>
+    <li>ABNT NBR 5410: Instalações elétricas de baixa tensão.</li>
+    <li>ABNT NBR 12179: Tratamento acústico em recintos fechados.</li>
+    <li>ABNT NBR 10152: Níveis de pressão sonora em ambientes internos.</li>
+    <li>Projeto da sala de reunião Perim, Rev. 01: plantas, elevações e cálculo acústico.</li>
+    <li>Manuais do fabricante da tela interativa e do suporte de parede.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="n">4</span>Especificação dos materiais</h2>
+  <div class="sub"><h3><span class="n">4.1</span>Ripas</h3>
+    <ul>
+      <li>Chapa de MDF 25 mm revestida nos dois lados (BP, melamínico), com classe de emissão de formaldeído E1 ou melhor.</li>
+      <li>Padrão amadeirado igual ao da mesa existente. A escolha deve ser feita com a chapa ao lado de uma amostra da mesa.</li>
+      <li>Ripa de <b>25 mm de frente por 40 mm de profundidade</b>, cortada em filetes de 40 mm no sentido do comprimento da chapa. As duas faces revestidas ficam nas laterais da ripa.</li>
+      <li>Fita de borda de PVC de 1 mm no mesmo padrão, 35 mm aparada para 25 mm, aplicada na frente de cada ripa com cola hot melt em coladeira de borda. A ponta inferior também recebe fita.</li>
+      <li>Vão de <b>15 mm</b> entre ripas. Passo de 40 mm. Total de <b>87 ripas</b>, com face aberta de cerca de 37%.</li>
+    </ul>
+    <p class="callout"><b>Alternativa:</b> se o padrão da mesa não existir em 25 mm, usar MDF 18 mm com ripa de 18 × 40 mm, vão de 15 mm, cerca de 106 ripas e fita de borda de 22 mm. As demais especificações não mudam.</p>
+  </div>
+  <div class="sub"><h3><span class="n">4.2</span>Travessas dos módulos</h3>
+    <ul>
+      <li>MDF 15 mm preto (BP preto, ou MDF cru com pintura esmalte preto fosco), em filetes de 60 mm de largura.</li>
+      <li>Uma travessa por nível de metalon que o módulo cruza. O comprimento é igual à largura do módulo.</li>
+    </ul>
+  </div>
+  <div class="sub"><h3><span class="n">4.3</span>Estrutura</h3>
+    <ul>
+      <li>Tubo de aço retangular (metalon) 80 × 40 mm, chapa #18 (1,25 mm), galvanizado.</li>
+      <li>Sem galvanização: lixar, aplicar fundo anticorrosivo e acabamento esmalte preto fosco.</li>
+      <li>Fixação na alvenaria com chumbador tipo parabolt 3/8" × 3" (ou bucha 10 com parafuso sextavado 6 × 70 mm), no máximo a cada 50 cm e com pelo menos 2 fixações por barra.</li>
+      <li>Em parede de drywall: reforço interno com madeira tratada ou metalon entre os montantes, na altura de cada barra e atrás do suporte da tela.</li>
+    </ul>
+  </div>
+  <div class="sub"><h3><span class="n">4.4</span>Absorção e tecido</h3>
+    <ul>
+      <li>Lã de PET (poliéster) 50 mm, de preferência. Não pinica, não solta fibra e dispensa encapsulamento.</li>
+      <li>Alternativa: lã de rocha 50 mm, 32 a 48 kg/m³. A instalação exige EPI (luvas, máscara PFF2 e óculos).</li>
+      <li>Tecido preto acusticamente transparente: TNT preto de 40 a 60 g/m², feltro agulhado preto fino ou tecido acústico preto. Não usar tecido plastificado ou emborrachado, porque ele bloqueia a passagem do som.</li>
+    </ul>
+  </div>
+  <div class="sub"><h3><span class="n">4.5</span>Fixações e colas</h3>
+    <ul>
+      <li>Ripa na travessa: parafuso para MDF 3,5 × 30 mm de cabeça chata, mais cola PVA, com um parafuso por cruzamento.</li>
+      <li>Travessa no metalon: parafuso autobrocante 4,2 × 32 mm de cabeça flangeada preta, com dois por travessa.</li>
+      <li>Tecido: grampo 10 mm na travessa, antes de parafusar as ripas.</li>
+      <li>Rodapé e acabamentos laterais: cola PU ou adesivo de montagem, mais parafusos ocultos.</li>
+    </ul>
+  </div>
+  <div class="sub"><h3><span class="n">4.6</span>Tela, iluminação e itens técnicos</h3>
+    <ul>
+      <li>Suporte de parede fixo slim para 85", com carga mínima de 100 kg, profundidade de até 35 mm e padrão VESA compatível com a tela.</li>
+      <li>Fita de LED 24 V, 4000 K, cerca de 10 W/m, em perfil de alumínio com difusor, com 3,50 m e fonte compatível. Ligar em interruptor próprio ou dimmer.</li>
+      <li>Porta técnica: 4 fechos magnéticos de 6 kg e 2 pinos guia, com puxador oculto (rebaixo na ripa) ou fecho de toque.</li>
+      <li>Requadro do nicho em MDF 15 mm preto, com 135 mm de profundidade.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">5</span>Modulação</h2>
+  <p>As ripas são numeradas de 01 a 87 a partir da parede do fundo. O primeiro eixo de ripa fica a 47,5 mm da parede do fundo, o que faz o nicho da tela coincidir exatamente com 50 ripas (19 a 68). A modulação é esta:</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Módulo</th><th>Ripas</th><th class="n">Qtd.</th><th class="n">Largura</th><th class="n">Altura</th><th>Posição</th></tr></thead>
+    <tbody id="modTable"></tbody>
+  </table></div>
+  <figure>
+    <div class="draw" id="figMod"></div>
+    <figcaption>Figura 2. Elevação do painel visto de dentro da sala, com os módulos e os níveis de metalon (tracejado). Cotas em metros.</figcaption>
+  </figure>
+  <p>Níveis das barras horizontais de metalon, medidos do piso até o eixo: <b>0,15 · 0,75 · 1,35 · 1,95 · 2,55 · 2,75 m</b>. As barras de 1,35 e 1,95 m são interrompidas no nicho. Barras verticais fecham as duas pontas do painel e as laterais do nicho.</p>
+</section>
+
+<section>
+  <h2><span class="n">6</span>Execução</h2>
+
+  <div class="sub"><h3><span class="n">6.1</span>Serviços preliminares</h3>
+    <ol>
+      <li>Proteger o piso e a mesa. Retirar a TV atual e o cabeamento aparente.</li>
+      <li>Conferir o prumo e a planeza da parede. Desvios acima de 5 mm em 2 m serão compensados com calços na estrutura.</li>
+      <li>Marcar com nível laser: o eixo da tela e da mesa (1,75 m da parede do fundo), os limites do painel (0 a 3,50 m), o contorno do nicho e os seis níveis de metalon.</li>
+      <li>Confirmar as medidas reais da tela (largura, altura, profundidade, peso e VESA) antes de liberar o corte das ripas.</li>
+    </ol>
+  </div>
+
+  <div class="sub"><h3><span class="n">6.2</span>Infraestrutura elétrica e de dados</h3>
+    <ol>
+      <li>Atrás da tela, dentro do nicho: caixa 4 × 4 com tomada dupla 2P+T de 10 A e 2 pontos de rede Cat6. Altura de 1,50 m, fora da área do suporte.</li>
+      <li>Eletroduto flexível de 1" dentro da cavidade, da caixa do nicho até a altura do tampo (0,70 m). A saída fica num vão de ripa atrás da mesa, onde chega à caixa de tomada da mesa para os cabos HDMI e USB do toque.</li>
+      <li>Cabos das 4 caixas de som descendo do forro pela cavidade até o compartimento técnico.</li>
+      <li>Tomada 2P+T dentro do compartimento técnico, para o amplificador e o mini PC.</li>
+      <li>Alimentação da fita de LED da faixa superior, com fonte em local acessível (compartimento técnico ou forro).</li>
+      <li>Tudo conforme a NBR 5410, com circuito protegido por disjuntor e DR.</li>
+    </ol>
+  </div>
+
+  <div class="sub"><h3><span class="n">6.3</span>Suporte da tela</h3>
+    <ol>
+      <li>Fixar o suporte direto na parede, nunca na estrutura de metalon, com os chumbadores indicados pelo fabricante.</li>
+      <li>Posicionar de modo que a base da tela fique a 0,95 m do piso e o centro fique no eixo de 1,75 m.</li>
+      <li>Conferir o nível. Pela soma suporte + tela, a frente da tela deve ficar entre 0 e 5 mm à frente da face das ripas, nunca recuada.</li>
+    </ol>
+  </div>
+
+  <div class="sub"><h3><span class="n">6.4</span>Estrutura de metalon</h3>
+    <ol>
+      <li>Cortar as barras e pintar os cortes com galvanização a frio ou fundo anticorrosivo.</li>
+      <li>Fixar primeiro as verticais das pontas e do nicho, no prumo.</li>
+      <li>Fixar as horizontais nos seis níveis, nivelando a face com calços. Tolerância de planeza: ±2 mm em 2 m, conferida com régua de alumínio.</li>
+      <li>Conferir as diagonais do nicho. As dimensões internas devem ser de 2,00 × 1,22 m.</li>
+    </ol>
+  </div>
+
+  <div class="sub"><h3><span class="n">6.5</span>Absorção</h3>
+    <ol>
+      <li>Encaixar a lã de 50 mm entre as barras, encostada na parede, sem amassar. Prender com pontos de cola de contato ou pinos plásticos.</li>
+      <li>No nicho, não colocar lã: cobrir a parede com o tecido preto. Isso deixa o espaço livre para a ventilação da tela.</li>
+    </ol>
+  </div>
+
+  <div class="sub"><h3><span class="n">6.6</span>Fabricação dos módulos (marcenaria)</h3>
+    <ol>
+      <li><b>Corte:</b> cortar as chapas de MDF 25 mm em filetes de 40 mm na esquadrejadeira, no sentido do comprimento. Separar os filetes por lote, para manter o mesmo tom de padrão em cada módulo.</li>
+      <li><b>Fita de borda:</b> aplicar na coladeira, na frente de cada filete, e aparar.</li>
+      <li><b>Comprimento:</b> cortar 2,70 m (módulos M01 e M02), 2,10 m (M13), 0,60 m (porta P01), 0,83 m (M03 a M07) e 0,65 m (M08 a M12). Passar fita na ponta inferior.</li>
+      <li><b>Gabarito:</b> montar uma mesa com batentes e espaçadores de 15 mm. As ripas ficam de face para baixo e a ponta inferior encostada no batente.</li>
+      <li><b>Tecido:</b> estender o tecido preto sobre as costas das ripas.</li>
+      <li><b>Travessas:</b> posicionar as travessas nas alturas dos níveis de metalon, colar e parafusar em cada ripa por trás (um parafuso 3,5 × 30 por cruzamento).</li>
+      <li><b>Conferência:</b> esquadro (diagonais iguais), vão de 15 ± 1 mm e ripas retas.</li>
+      <li><b>Identificação:</b> etiquetar cada módulo no verso (M01 a M13 e P01), com a seta "para cima".</li>
+    </ol>
+  </div>
+
+  <div class="sub"><h3><span class="n">6.7</span>Montagem na obra</h3>
+    <ol>
+      <li>Instalar o rodapé recuado preto (0 a 0,10 m) com cola PU, recuado 30 mm da face das ripas.</li>
+      <li>Instalar o requadro preto do nicho.</li>
+      <li>Montar primeiro os módulos de baixo do nicho (M03 a M07), do centro para as laterais, e em seguida os de cima (M08 a M12).</li>
+      <li>Montar os módulos do lado do fundo (M01, M02) e o módulo do lado da janela (M13).</li>
+      <li>Fixar cada travessa no metalon com 2 autobrocantes que passam pelo vão de 15 mm. A cabeça preta fica escondida no fundo.</li>
+      <li>Entre módulos, manter o mesmo vão de 15 mm, usando o espaçador. Conferir o prumo a cada módulo.</li>
+      <li>Instalar a porta técnica P01 com os ímãs e os pinos guia, e testar a abertura.</li>
+    </ol>
+  </div>
+
+  <div class="sub"><h3><span class="n">6.8</span>Faixa superior e acabamentos</h3>
+    <ol>
+      <li>Faixa superior em 2 peças de 1,75 × 0,40 m. A junta seca fica no eixo da tela.</li>
+      <li>Fixar na barra de 2,75 m e no forro, com parafusos ocultos.</li>
+      <li>Instalar o perfil de LED na parte de baixo da faixa, junto à frente, direcionado para as ripas.</li>
+      <li>Acabamentos laterais de 135 mm em MDF 25 mm no padrão, nas duas pontas do painel (junto à janela e junto à parede do fundo), de 0,10 a 2,80 m.</li>
+    </ol>
+  </div>
+
+  <div class="sub"><h3><span class="n">6.9</span>Instalação da tela e testes</h3>
+    <ol>
+      <li>Passar os cabos e encaixar a tela no suporte, com 2 pessoas no mínimo.</li>
+      <li>Conferir a folga de cerca de 2,5 cm em volta da tela. A folga de cima não pode ser fechada.</li>
+      <li>Testar o toque nos quatro cantos e nas bordas, a imagem pelo HDMI da mesa, a rede, o som nas 4 caixas e o LED.</li>
+      <li>Limpar o painel e retirar etiquetas e resíduos de cola.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">7</span>Controle de qualidade</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Item</th><th>Tolerância</th><th>Como conferir</th></tr></thead>
+    <tbody>
+      <tr><td>Vão entre ripas</td><td class="m">15 ± 1 mm</td><td>Espaçador de 15 mm</td></tr>
+      <tr><td>Prumo das ripas</td><td class="m">≤ 1 mm por metro</td><td>Nível de bolha ou laser</td></tr>
+      <tr><td>Planeza da face do painel</td><td class="m">± 2 mm em 2 m</td><td>Régua de alumínio</td></tr>
+      <tr><td>Nível da faixa superior e do nicho</td><td class="m">± 1 mm</td><td>Nível laser</td></tr>
+      <tr><td>Frente da tela em relação às ripas</td><td class="m">0 a +5 mm</td><td>Régua apoiada nas ripas</td></tr>
+      <tr><td>Padrão e tom das ripas</td><td>Sem variação visível entre módulos</td><td>Inspeção visual com a luz da sala</td></tr>
+    </tbody></table></div>
+</section>
+
+<section>
+  <h2><span class="n">8</span>Quantitativo de materiais</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Material</th><th>Especificação</th><th class="n">Qtd.</th></tr></thead>
+    <tbody>
+      <tr><td>MDF 25 mm BP</td><td>Padrão da mesa, 2,75 × 1,85 m (ripas, faixa superior e acabamentos)</td><td class="n">3 chapas</td></tr>
+      <tr><td>Fita de borda PVC</td><td>1 × 35 mm, mesmo padrão</td><td class="n">≈ 260 m</td></tr>
+      <tr><td>MDF 15 mm preto</td><td>Travessas, requadro do nicho e rodapé</td><td class="n">1 chapa</td></tr>
+      <tr><td>Metalon 80 × 40 #18</td><td>Galvanizado, barra de 6 m</td><td class="n">5 barras</td></tr>
+      <tr><td>Chumbador parabolt</td><td>3/8" × 3"</td><td class="n">≈ 50 un</td></tr>
+      <tr><td>Lã de PET ou de rocha</td><td>50 mm</td><td class="n">≈ 9 m²</td></tr>
+      <tr><td>Tecido preto acústico</td><td>TNT 40 a 60 g/m² ou feltro fino</td><td class="n">≈ 13 m²</td></tr>
+      <tr><td>Parafuso para MDF</td><td>3,5 × 30 mm, cabeça chata</td><td class="n">≈ 500 un</td></tr>
+      <tr><td>Parafuso autobrocante</td><td>4,2 × 32 mm, cabeça flangeada preta</td><td class="n">≈ 100 un</td></tr>
+      <tr><td>Cola PVA, cola PU, grampos 10 mm</td><td>Uso geral</td><td class="n">1 kit</td></tr>
+      <tr><td>Fita de LED com perfil</td><td>24 V, 4000 K, com difusor e fonte</td><td class="n">3,50 m</td></tr>
+      <tr><td>Fecho magnético e pino guia</td><td>Porta técnica</td><td class="n">4 + 2 un</td></tr>
+      <tr><td>Suporte de parede</td><td>Fixo slim 85", mínimo 100 kg, até 35 mm</td><td class="n">1 un</td></tr>
+      <tr><td>Elétrica e dados</td><td>Caixas 4 × 4, tomadas 2P+T 10 A, pontos Cat6, eletroduto flexível 1"</td><td class="n">1 conjunto</td></tr>
+    </tbody></table></div>
+  <p style="font-size:13px;color:var(--muted)">As quantidades já incluem cerca de 10% de perda. Conferir após confirmar as medidas da tela e o padrão do MDF.</p>
+</section>
+
+<section>
+  <h2><span class="n">9</span>Ferramentas, equipamentos e segurança</h2>
+  <ul>
+    <li><b>Marcenaria:</b> serra esquadrejadeira, coladeira de borda, parafusadeira, grampeador pneumático e gabarito de montagem com espaçadores de 15 mm.</li>
+    <li><b>Obra:</b> nível laser, régua de alumínio de 2 m, furadeira de impacto, serra policorte ou serra de fita para o metalon, parafusadeira de impacto, escada ou andaime baixo.</li>
+    <li><b>EPI:</b> óculos, luvas, protetor auricular, máscara PFF2 (obrigatória com lã de rocha) e calçado de segurança.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="n">10</span>Prazo estimado</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Etapa</th><th class="n">Duração</th></tr></thead>
+    <tbody>
+      <tr><td>Infraestrutura elétrica e suporte da tela</td><td class="n">1 dia</td></tr>
+      <tr><td>Estrutura de metalon e lã</td><td class="n">1 dia</td></tr>
+      <tr><td>Fabricação dos módulos (em paralelo)</td><td class="n">2 a 3 dias</td></tr>
+      <tr><td>Montagem dos módulos, faixa superior e acabamentos</td><td class="n">1 a 2 dias</td></tr>
+      <tr><td>Instalação da tela e testes</td><td class="n">½ dia</td></tr>
+    </tbody></table></div>
+</section>
+
+<section>
+  <h2><span class="n">11</span>Uso e manutenção</h2>
+  <ul>
+    <li>Limpeza com pano de microfibra seco ou levemente úmido. Não usar produtos abrasivos nem jogar água no painel.</li>
+    <li>Não fechar a folga em volta da tela nem cobrir os vãos das ripas na região do nicho, por causa da ventilação.</li>
+    <li>Os módulos são parafusados, então podem ser retirados para manutenção dos cabos. Guardar a identificação de cada um.</li>
+    <li>A porta técnica abre puxando. Manter o amplificador e o mini PC com espaço livre para ventilação.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="n">12</span>Pendências antes da execução</h2>
+  <ol>
+    <li>Medidas e peso reais da tela Bluecase BTIIRWR85-01, e padrão VESA. Se a tela tiver até 90 mm de profundidade, o metalon pode ser trocado por 60 × 40 e o painel fica com cerca de 115 mm.</li>
+    <li>Disponibilidade do padrão da mesa em MDF 25 mm e comprimento real da chapa.</li>
+    <li>Material da parede (alvenaria ou drywall), para definir as fixações.</li>
+    <li>Posição exata da caixa de tomada da mesa, para a saída do eletroduto.</li>
+  </ol>
+</section>
+
+<div class="sign">
+  <div>Responsável técnico</div>
+  <div>Supermercados Perim · aprovação</div>
+</div>
+<p class="foot">Memorial descritivo · Painel ripado · Sala de reunião Perim · Rev. 00</p>
+</article>
+
+<script>
+const fmt=(v,d=2)=>v.toFixed(d).replace('.',',');
+function dimH(x1,x2,y,txt,ext){let s=`<line class="dim" x1="${x1}" y1="${y}" x2="${x2}" y2="${y}"/>`;
+  [x1,x2].forEach(x=>{s+=`<line class="dim" x1="${x-4}" y1="${y+4}" x2="${x+4}" y2="${y-4}"/>`;if(ext!=null)s+=`<line class="dim" x1="${x}" y1="${ext}" x2="${x}" y2="${y+(ext>y?-3:3)}" stroke-dasharray="2 2"/>`});
+  return s+`<text class="t-m" x="${(x1+x2)/2}" y="${y-5}" text-anchor="middle">${txt}</text>`}
+function dimV(x,y1,y2,txt,ext){let s=`<line class="dim" x1="${x}" y1="${y1}" x2="${x}" y2="${y2}"/>`;
+  [y1,y2].forEach(y=>{s+=`<line class="dim" x1="${x-4}" y1="${y+4}" x2="${x+4}" y2="${y-4}"/>`;if(ext!=null)s+=`<line class="dim" x1="${ext}" y1="${y}" x2="${x+(ext>x?-3:3)}" y2="${y}" stroke-dasharray="2 2"/>`});
+  const cy=(y1+y2)/2;return s+`<text class="t-m" x="${x-6}" y="${cy}" text-anchor="middle" transform="rotate(-90 ${x-6} ${cy})">${txt}</text>`}
+const svg=(w,h,g,l)=>`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${l}"><defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" style="stroke:var(--muted)" stroke-width="1"/></pattern></defs>${g}</svg>`;
+
+/* Figura 1: corte horizontal */
+(function(){
+  const k=2.2, ox=70, oy=56, len=300, X=mm=>ox+mm*k, Y=mm=>oy+mm*k, D=80, F=D+17, FR=F+40;
+  let g=`<rect x="${X(0)}" y="${Y(-14)}" width="${len*k}" height="${14*k}" style="fill:url(#hatch)"/>`;
+  g+=`<line class="s-thin" x1="${X(0)}" y1="${Y(0)}" x2="${X(len)}" y2="${Y(0)}" style="stroke-width:1.6"/>`;
+  g+=`<rect class="s-wool" x="${X(0)}" y="${Y(0)}" width="${len*k}" height="${50*k}"/>`;
+  [[25],[235]].forEach(([x])=>{g+=`<rect x="${X(x)}" y="${Y(0)}" width="${40*k}" height="${D*k}" style="fill:var(--muted)"/><rect x="${X(x)+1.5*k}" y="${Y(1.5)}" width="${37*k}" height="${(D-3)*k}" style="fill:var(--sheet)"/>`});
+  g+=`<rect class="s-dark" x="${X(0)}" y="${Y(D)}" width="${len*k}" height="${15*k}"/>`;
+  g+=`<rect x="${X(0)}" y="${Y(D+15)}" width="${len*k}" height="${2*k}" style="fill:var(--ink)"/>`;
+  for(let x=10;x+25<=len;x+=40){g+=`<rect class="s-wood" x="${X(x)}" y="${Y(F)}" width="${25*k}" height="${40*k}"/><rect x="${X(x)}" y="${Y(FR-1.5)}" width="${25*k}" height="${1.5*k}" style="fill:var(--oak)"/>`}
+  g+=`<line x1="${X(42.5)}" y1="${Y(D-3)}" x2="${X(42.5)}" y2="${Y(D+28)}" style="stroke:var(--warn);stroke-width:2.5"/>`;
+  g+=`<text class="t-r" x="${X(48)}" y="${Y(FR+30)}">autobrocante 4,2 × 32 pelo vão</text><line class="s-hair" x1="${X(46)}" y1="${Y(FR+26)}" x2="${X(43)}" y2="${Y(D+30)}" style="stroke:var(--warn)"/>`;
+  g+=`<line x1="${X(152.5)}" y1="${Y(D+2)}" x2="${X(152.5)}" y2="${Y(F+18)}" style="stroke:var(--oak);stroke-width:2.5"/>`;
+  g+=`<text class="t-mu" x="${X(158)}" y="${Y(FR+30)}">parafuso 3,5 × 30 (travessa → ripa)</text>`;
+  const lab=(y,t)=>g+=`<line class="s-hair" x1="${X(len)}" y1="${Y(y)}" x2="${X(len)+18}" y2="${Y(y)}"/><text class="t" x="${X(len)+22}" y="${Y(y)+4}">${t}</text>`;
+  lab(-7,'parede existente');lab(25,'lã 50 mm');lab(65,'metalon 80 × 40 #18');lab(D+7,'travessa MDF 15 preto');lab(D+16,'tecido preto');lab(F+20,'ripa MDF 25 × 40');lab(FR,'fita de borda PVC 1 mm');
+  g+=dimV(X(0)-14,Y(0),Y(50),'50');g+=dimV(X(0)-14,Y(50),Y(D),'30');g+=dimV(X(0)-40,Y(0),Y(FR),'≈ 135');
+  g+=dimH(X(10),X(35),Y(FR)+22,'25');g+=dimH(X(35),X(50),Y(FR)+22,'15');g+=dimH(X(50),X(90),Y(FR)+22,'passo 40');
+  g+=`<text class="t-mu" x="${X(len/2)}" y="${Y(-18)}" text-anchor="middle">lado da parede</text><text class="t-mu" x="${X(len/2)}" y="${Y(FR+48)}" text-anchor="middle">lado da sala</text>`;
+  document.getElementById('figSec').innerHTML=svg(X(len)+190,Y(FR+54),g,'Corte horizontal do painel');
+})();
+
+/* Modulação */
+(function(){
+  const P=.04, S0=.035, SW=.025, ny0=.93, ny1=2.15;
+  const mods=[
+    ['M01',1,9,.10,2.80,'Lado do fundo'],['M02',10,18,.10,2.80,'Lado do fundo'],
+    ['M03',19,28,.10,ny0,'Abaixo do nicho'],['M04',29,38,.10,ny0,'Abaixo do nicho'],['M05',39,48,.10,ny0,'Abaixo do nicho'],['M06',49,58,.10,ny0,'Abaixo do nicho'],['M07',59,68,.10,ny0,'Abaixo do nicho'],
+    ['M08',19,28,ny1,2.80,'Acima do nicho'],['M09',29,38,ny1,2.80,'Acima do nicho'],['M10',39,48,ny1,2.80,'Acima do nicho'],['M11',49,58,ny1,2.80,'Acima do nicho'],['M12',59,68,ny1,2.80,'Acima do nicho'],
+    ['M13',69,87,.70,2.80,'Lado da janela'],['P01',69,87,.10,.70,'Porta técnica, lado da janela'],
+  ];
+  const zS=i=>S0+(i-1)*P; // início da ripa i (a partir do fundo)
+  document.getElementById('modTable').innerHTML=mods.map(([n,a,b,y0,y1,pos])=>{
+    const q=b-a+1,w=q*SW+(q-1)*.015;
+    return `<tr><td class="m"><b>${n}</b></td><td class="m">${String(a).padStart(2,'0')} a ${String(b).padStart(2,'0')}</td><td class="n">${q}</td><td class="n">${fmt(w,3)} m</td><td class="n">${fmt(y1-y0)} m</td><td>${pos}</td></tr>`}).join('');
+  // figura: vista de dentro, esquerda = janela (z=3,50), direita = fundo (z=0)
+  const S=150, ox=60, oy=40, Hh=3.2, U=z=>ox+(3.5-z)*S, V=y=>oy+(Hh-y)*S;
+  let g='';
+  g+=`<rect class="s-dark" x="${U(3.5)}" y="${V(.10)}" width="${3.5*S}" height="${.10*S}" style="opacity:.8"/>`;
+  g+=`<rect class="s-mod" x="${U(3.5)}" y="${V(Hh)}" width="${3.5*S}" height="${.40*S}"/>`;
+  g+=`<line x1="${U(1.75)}" y1="${V(Hh)}" x2="${U(1.75)}" y2="${V(2.80)}" class="s-hair"/>`;
+  g+=`<text class="t" x="${U(2.62)}" y="${V(3.0)+4}" text-anchor="middle" style="fill:var(--oak)">faixa superior 1,75 + 1,75 · LED</text>`;
+  g+=`<rect class="s-dark" x="${U(2.75)}" y="${V(ny1)}" width="${2*S}" height="${(ny1-ny0)*S}"/>`;
+  g+=`<text class="t-w" x="${U(1.75)}" y="${V(1.54)+4}" text-anchor="middle">NICHO 2,00 × 1,22 · TELA 85"</text>`;
+  mods.forEach(([n,a,b,y0,y1])=>{const z0=zS(a),z1=zS(b)+SW;
+    g+=`<rect class="s-mod" x="${U(z1)}" y="${V(y1)}" width="${(z1-z0)*S}" height="${(y1-y0)*S}" ${n==='P01'?'style="stroke-dasharray:4 3"':''}/>`;
+    for(let i=a;i<=b;i++){const zz=zS(i);g+=`<rect x="${U(zz+SW)}" y="${V(y1)}" width="${SW*S}" height="${(y1-y0)*S}" style="fill:var(--oak);opacity:.35"/>`}
+    g+=`<text class="t-b" x="${U((z0+z1)/2)}" y="${V((y0+y1)/2)+5}" text-anchor="middle">${n}</text>`});
+  [.15,.75,1.35,1.95,2.55,2.75].forEach(y=>{
+    if(y===1.35||y===1.95){g+=`<line class="s-rail" x1="${U(3.5)}" y1="${V(y)}" x2="${U(2.75)}" y2="${V(y)}"/><line class="s-rail" x1="${U(.75)}" y1="${V(y)}" x2="${U(0)}" y2="${V(y)}"/>`}
+    else g+=`<line class="s-rail" x1="${U(3.5)}" y1="${V(y)}" x2="${U(0)}" y2="${V(y)}"/>`;
+    g+=`<text class="t-r" x="${U(0)+8}" y="${V(y)+4}">${fmt(y)}</text>`});
+  g+=`<rect class="s-thin" x="${U(3.5)}" y="${V(Hh)}" width="${3.5*S}" height="${Hh*S}" style="stroke-width:1.8"/>`;
+  g+=`<line class="s-thin" x1="${U(3.7)}" y1="${V(0)}" x2="${U(-.1)}" y2="${V(0)}" style="stroke-width:2.4"/>`;
+  g+=`<line class="s-glass" x1="${U(3.5)-3}" y1="${V(1.2)}" x2="${U(3.5)-3}" y2="${V(2.2)}"/>`;
+  g+=`<text class="t-mu" x="${U(3.5)}" y="${V(Hh)-8}">← janela 2</text><text class="t-mu" x="${U(0)}" y="${V(Hh)-8}" text-anchor="end">parede do fundo →</text>`;
+  const yb=V(0)+26;
+  g+=dimH(U(3.5),U(2.75),yb,'0,75',V(0));g+=dimH(U(2.75),U(.75),yb,'2,00',V(0));g+=dimH(U(.75),U(0),yb,'0,75',V(0));
+  g+=dimH(U(3.5),U(0),yb+26,'3,50');
+  g+=dimV(U(3.5)-22,V(0),V(.10),'0,10',U(3.5));g+=dimV(U(3.5)-22,V(.10),V(.70),'0,60');g+=dimV(U(3.5)-22,V(.70),V(2.80),'2,10');g+=dimV(U(3.5)-22,V(2.80),V(Hh),'0,40',U(3.5));
+  g+=dimV(U(0)+58,V(0),V(ny0),'0,93',U(0));g+=dimV(U(0)+58,V(ny0),V(ny1),'1,22');g+=dimV(U(0)+58,V(ny1),V(2.80),'0,65');g+=dimV(U(0)+86,V(0),V(Hh),'3,20');
+  document.getElementById('figMod').innerHTML=svg(U(0)+100,V(0)+66,g,'Elevação com a modulação do painel');
+})();
+</script>
+
+</body>
+</html>
