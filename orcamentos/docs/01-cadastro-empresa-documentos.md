@@ -47,6 +47,11 @@ Um CNAE, sozinho, não habilita para nenhuma licitação; um atestado sem CAT po
 - [ ] Fornecedores habituais e condições (frete para o interior do ES, prazos, garantias).
 - [ ] Equipamentos próprios (andaimes, PTA, instrumentos de medição) × locados.
 
+## Situação
+Cartão CNPJ, alteração JUCEES de 2024, certidão de inteiro teor (2022), CRF/FGTS e CND federal foram recebidos e
+conferidos em 26/11/2026. Resultado no cadastro privado `orcamentos/empresa/cadastro-empresa.md`. O responsável
+técnico ainda não foi definido.
+
 ## Dados já informados
 - Razão/nome: Mariani Áudio e Vídeo **[F]**
 - CNPJ: 07.782.644/0001-28 **[F]** — situação cadastral e CNAEs **[NV]** (pendente do cartão CNPJ atualizado)
