@@ -1,0 +1,152 @@
+{
+  "documento": "vicoustic-catalogo-hifi-cinema-2026",
+  "gerado_em": "2026-11-26",
+  "aviso": "Somente a situação da conferência; transcrições e correções ficam no pacote privado.",
+  "resumo": {
+    "pendente": 10,
+    "conferida_com_ressalva": 3,
+    "conferida_sem_ressalva": 3
+  },
+  "itens": [
+    {
+      "id": "tab-vic-vicpattern-ultra-wavewood-mkii",
+      "posicao": 9,
+      "pagina_impressa": "9",
+      "tipo": "tabela",
+      "situacao": "pendente",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-vicpattern-ultra-triangles-mkii",
+      "posicao": 11,
+      "pagina_impressa": "11",
+      "tipo": "tabela",
+      "situacao": "pendente",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-vicpattern-ultra-beat-xl",
+      "posicao": 13,
+      "pagina_impressa": "13",
+      "tipo": "tabela",
+      "situacao": "pendente",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-vicshape-3d",
+      "posicao": 15,
+      "pagina_impressa": "15",
+      "tipo": "tabela",
+      "situacao": "pendente",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-echo-frame",
+      "posicao": 17,
+      "pagina_impressa": "17",
+      "tipo": "tabela",
+      "situacao": "pendente",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-flexi-wave-ultra",
+      "posicao": 19,
+      "pagina_impressa": "19",
+      "tipo": "tabela",
+      "situacao": "pendente",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-cinema-round-ultra-vmt",
+      "posicao": 21,
+      "pagina_impressa": "21",
+      "tipo": "tabela",
+      "situacao": "pendente",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-wavewood-ultra-lite",
+      "posicao": 23,
+      "pagina_impressa": "23",
+      "tipo": "tabela",
+      "situacao": "pendente",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-piano-forte-fortissimo-vmt",
+      "posicao": 27,
+      "pagina_impressa": "27",
+      "tipo": "tabela",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-flat-panel-vmt",
+      "posicao": 31,
+      "pagina_impressa": "31",
+      "tipo": "tabela",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-vicstrip-spacer-kit",
+      "posicao": 35,
+      "pagina_impressa": "35",
+      "tipo": "tabela",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-cinema-round-premium",
+      "posicao": 37,
+      "pagina_impressa": "37",
+      "tipo": "tabela",
+      "situacao": "pendente",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-wavewood-diffuser-ultra-mkii",
+      "posicao": 39,
+      "pagina_impressa": "39",
+      "tipo": "tabela",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-cinema-round-ultra-fuser",
+      "posicao": 41,
+      "pagina_impressa": "41",
+      "tipo": "tabela",
+      "situacao": "pendente",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-multifuser-wood-mkii",
+      "posicao": 43,
+      "pagina_impressa": "43",
+      "tipo": "tabela",
+      "situacao": "conferida_sem_ressalva",
+      "tem_correcao_proposta": false
+    },
+    {
+      "id": "tab-vic-multifuser-dc4",
+      "posicao": 45,
+      "pagina_impressa": "45",
+      "tipo": "tabela",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    }
+  ],
+  "paginas_com_pendencia": [
+    9,
+    11,
+    13,
+    15,
+    17,
+    19,
+    21,
+    23,
+    37,
+    41
+  ]
+}

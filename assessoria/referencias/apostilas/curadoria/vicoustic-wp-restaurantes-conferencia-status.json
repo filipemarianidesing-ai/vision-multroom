@@ -1,0 +1,19 @@
+{
+  "documento": "vicoustic-wp-restaurantes",
+  "gerado_em": "2026-11-26",
+  "aviso": "Somente a situação da conferência; transcrições e correções ficam no pacote privado.",
+  "resumo": {
+    "conferida_com_ressalva": 1
+  },
+  "itens": [
+    {
+      "id": "tab-quantidade-tratamento",
+      "posicao": 25,
+      "pagina_impressa": "25",
+      "tipo": "tabela",
+      "situacao": "conferida_com_ressalva",
+      "tem_correcao_proposta": false
+    }
+  ],
+  "paginas_com_pendencia": []
+}

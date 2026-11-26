@@ -57,5 +57,120 @@
       "criado_em": "2026-11-25T16:40:45",
       "conteudo": "índice (texto por página, manifest, mapas) + conferência técnica"
     }
+  },
+  "vicoustic-catalogo-hifi-cinema-2026": {
+    "descricao": "Vicoustic Hi-Fi & Home Cinema Catalog 2026 — referência de mercado (fabricante)",
+    "armazenamento": "Original PÚBLICO no Google Drive do fabricante (cópia no Drive do usuário não enviada: limite de 3 MB por envio do conector). Pacote de índice/conferência no Drive privado.",
+    "origem_publica": {
+      "drive_file_id_fabricante": "1yzBgM08O_-FxeEBKcadacjdlV4NOhmZL",
+      "pagina": "https://vicoustic.com/pt/pages/catalogs"
+    },
+    "origem": {
+      "titulo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+      "drive_file_id": "1yzBgM08O_-FxeEBKcadacjdlV4NOhmZL",
+      "sha256": "25cf8d79a98fb616e4771a98b8a11900cce4c92074b2c25fec9be486a3fe727c",
+      "bytes": 8726502,
+      "observacao": "Se o fabricante atualizar ou remover o arquivo, o SHA-256 não conferirá e a restauração recusará — baixar a nova versão e reindexar."
+    },
+    "backup": {
+      "titulo": "base-vicoustic-catalogo-hifi-cinema-2026-20261126-v1.zip",
+      "drive_file_id": "1SqhpYT_jOiXEiVh67oJzvhTxobbu90FC",
+      "sha256": "017e0743e189853600364574a20540b2545d3dfb11ed2b6a10b76e55dcc2b2e1",
+      "bytes": 51233,
+      "criado_em": "2026-11-26T11:06:38",
+      "conteudo": "índice (texto por página, manifest, mapas) + conferência técnica"
+    }
+  },
+  "vicoustic-wp-restaurantes": {
+    "descricao": "Vicoustic White Paper Restaurantes (PT) — referência de mercado (fabricante)",
+    "armazenamento": "Original PÚBLICO no Google Drive do fabricante (cópia no Drive do usuário não enviada: limite de 3 MB por envio do conector). Pacote de índice/conferência no Drive privado.",
+    "origem_publica": {
+      "drive_file_id_fabricante": "1GcbooqXq8mfKa4yOHzCQXDofujgmPMyT",
+      "pagina": "https://vicoustic.com/pt/pages/white-papers"
+    },
+    "origem": {
+      "titulo": "Vicoustic-Public_Spaces-White_Paper-Restaurantes-PT.pdf",
+      "drive_file_id": "1GcbooqXq8mfKa4yOHzCQXDofujgmPMyT",
+      "sha256": "d91375c340bd7a04b336c467722d042c3f4a7ebd02ce72be644a8c29fd6f8f9c",
+      "bytes": 6287400,
+      "observacao": "Se o fabricante atualizar ou remover o arquivo, o SHA-256 não conferirá e a restauração recusará — baixar a nova versão e reindexar."
+    },
+    "backup": {
+      "titulo": "base-vicoustic-wp-restaurantes-20261126-v1.zip",
+      "drive_file_id": "1ERyQEFmbr9-S8aXWuP-2trTroBuhXHYZ",
+      "sha256": "441bf683b0769ae387226db5cae965825ccf9bc9746ebf327823fd59c89ed5c7",
+      "bytes": 37293,
+      "criado_em": "2026-11-26T11:06:38",
+      "conteudo": "índice (texto por página, manifest, mapas) + conferência técnica"
+    }
+  },
+  "vicoustic-wp-cinema": {
+    "descricao": "Vicoustic White Paper Cinema Rooms — referência de mercado (fabricante)",
+    "armazenamento": "Original PÚBLICO no Google Drive do fabricante (cópia no Drive do usuário não enviada: limite de 3 MB por envio do conector). Pacote de índice/conferência no Drive privado.",
+    "origem_publica": {
+      "drive_file_id_fabricante": "1zxmkxJ_Zyf7e-N2HMNI1z__JHQZ8l7DP",
+      "pagina": "https://vicoustic.com/pt/pages/white-papers"
+    },
+    "origem": {
+      "titulo": "Vicoustic-Hi-Fi_Home_Cinema-White_Paper-Cinema_Rooms.pdf",
+      "drive_file_id": "1zxmkxJ_Zyf7e-N2HMNI1z__JHQZ8l7DP",
+      "sha256": "f674a498e7b44c20497d0f33d56196694549643d3be301dd0ddf345713d8225a",
+      "bytes": 5750297,
+      "observacao": "Se o fabricante atualizar ou remover o arquivo, o SHA-256 não conferirá e a restauração recusará — baixar a nova versão e reindexar."
+    },
+    "backup": {
+      "titulo": "base-vicoustic-wp-cinema-20261126-v1.zip",
+      "drive_file_id": "1x_4Bsqi3xco_E_aj9-Nr_Vy6WqpT-O0W",
+      "sha256": "e38412e944e145ed7dfcf40c580707ebc51038cd92d650eb47dc8eb80ce529d1",
+      "bytes": 34945,
+      "criado_em": "2026-11-26T11:06:38",
+      "conteudo": "índice (texto por página, manifest, mapas) + conferência técnica"
+    }
+  },
+  "vicoustic-wp-salas-audicao": {
+    "descricao": "Vicoustic White Paper Listening Rooms — referência de mercado (fabricante)",
+    "armazenamento": "Original PÚBLICO no Google Drive do fabricante (cópia no Drive do usuário não enviada: limite de 3 MB por envio do conector). Pacote de índice/conferência no Drive privado.",
+    "origem_publica": {
+      "drive_file_id_fabricante": "1Ei4isxyEmAj4-xdLepT7X1GduQ-ASZld",
+      "pagina": "https://vicoustic.com/pt/pages/white-papers"
+    },
+    "origem": {
+      "titulo": "Vicoustic-Hi-Fi_Home_Cinema-White_Paper-Listening_Rooms.pdf",
+      "drive_file_id": "1Ei4isxyEmAj4-xdLepT7X1GduQ-ASZld",
+      "sha256": "8f75ff66abf3fb89ce01a4627f83ce3ef9734e6611c6beff18373e4cea9cbad5",
+      "bytes": 7957305,
+      "observacao": "Se o fabricante atualizar ou remover o arquivo, o SHA-256 não conferirá e a restauração recusará — baixar a nova versão e reindexar."
+    },
+    "backup": {
+      "titulo": "base-vicoustic-wp-salas-audicao-20261126-v1.zip",
+      "drive_file_id": "1pULMbUNBku-xSNReBy_JYctTKMpe2tR8",
+      "sha256": "d5c203599719a7c831911b9fad0b4fdecaf6e19212140646cd4263600d1b9336",
+      "bytes": 40422,
+      "criado_em": "2026-11-26T11:06:38",
+      "conteudo": "índice (texto por página, manifest, mapas) + conferência técnica"
+    }
+  },
+  "vicoustic-pet-hd-lookbook": {
+    "descricao": "UniVicoustic PET HD Line LookBook — referência de mercado (fabricante)",
+    "armazenamento": "Original PÚBLICO no Google Drive do fabricante (cópia no Drive do usuário não enviada: limite de 3 MB por envio do conector). Pacote de índice/conferência no Drive privado.",
+    "origem_publica": {
+      "drive_file_id_fabricante": "1x7EhcowXRGxCwzpWxfgrlDcvfNHxCLbe",
+      "pagina": "https://vicoustic.com/pt/pages/catalogs"
+    },
+    "origem": {
+      "titulo": "UniVicoustic-PET_HD_Line_LookBook.pdf",
+      "drive_file_id": "1x7EhcowXRGxCwzpWxfgrlDcvfNHxCLbe",
+      "sha256": "59e68bd39748c370d83dd6142ef4c193eac1d15134f92b3f7b80bbcd33312427",
+      "bytes": 3502749,
+      "observacao": "Se o fabricante atualizar ou remover o arquivo, o SHA-256 não conferirá e a restauração recusará — baixar a nova versão e reindexar."
+    },
+    "backup": {
+      "titulo": "base-vicoustic-pet-hd-lookbook-20261126-v1.zip",
+      "drive_file_id": "17dMvZFei-2J-KHkrJLsbbSck9sz5B6Md",
+      "sha256": "e295df14bc9be6610aac2e493bffaf4088997ac584188a019b1023da71905595",
+      "bytes": 14062,
+      "criado_em": "2026-11-26T11:06:38",
+      "conteudo": "índice (texto por página, manifest, mapas) + conferência técnica"
+    }
   }
 }

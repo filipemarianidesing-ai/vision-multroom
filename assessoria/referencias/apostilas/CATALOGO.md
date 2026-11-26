@@ -16,3 +16,17 @@ Observação: cópia licenciada ao usuário (uso interno). Arquivos curados por 
 | lady-ecoshapes-wood | Lady_Acustica_Catalogo_EcoshapesWood_JUN25.pdf | Ecoshapes Wood | Lady Acústica (Ladytex) | Rev. 003 — Jul/2025 | 11 | texto (10) + OCR (1) | posição 9: 70% PET reciclado, 9 e 3 mm; **sem dado acústico nem reação ao fogo** | 2026-11-25 |
 
 Dados estruturados para cálculo: `assessoria/referencias/materiais/materiais.json`.
+
+## Referências de mercado — Vicoustic (documentos públicos do fabricante, obtidos em 2026-11-26)
+
+| Slug | Arquivo | Páginas | Leitura | Uso |
+|---|---|---|---|---|
+| vicoustic-catalogo-hifi-cinema-2026 | Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf | 66 | texto (65) + OCR (1) | construções e curvas α/d/s em terços de oitava (16 produtos) |
+| vicoustic-wp-restaurantes | Vicoustic-Public_Spaces-White_Paper-Restaurantes-PT.pdf | 48 | texto | guia prático e quantidade de tratamento para restaurantes |
+| vicoustic-wp-cinema | Vicoustic-Hi-Fi_Home_Cinema-White_Paper-Cinema_Rooms.pdf | 56 | texto | guia de home cinema |
+| vicoustic-wp-salas-audicao | Vicoustic-Hi-Fi_Home_Cinema-White_Paper-Listening_Rooms.pdf | 64 | texto | guia de salas de audição |
+| vicoustic-pet-hd-lookbook | UniVicoustic-PET_HD_Line_LookBook.pdf | 28 | texto (20) + OCR (8) | linha PET HD (visual) |
+
+Originais públicos no Drive do fabricante (IDs em `fontes.json`); cópias no Drive da Mariani não enviadas (limite de
+3 MB por envio do conector). Dados estruturados: `assessoria/referencias/materiais/referencias-mercado-vicoustic.json`.
+Não obtidos (acima de 10 MB): catálogo Public Spaces 2026, catálogo Professional Audio 2026, white paper Control Rooms.
