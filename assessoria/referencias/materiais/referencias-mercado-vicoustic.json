@@ -1,0 +1,1328 @@
+{
+ "_sobre": {
+  "descricao": "Referências de mercado (benchmark) para a fabricação própria da Mariani: construção × desempenho acústico declarado pela Vicoustic. NÃO são produtos especificados. Dados factuais redigidos pela assessoria, com fonte (página do catálogo ou URL) e data.",
+  "regras": [
+   "Valores DECLARADOS pelo fabricante: o catálogo não informa norma, laboratório nem montagem dos ensaios. Usar como referência de projeto [S-declarado]; nunca como desempenho garantido do material fabricado pela Mariani.",
+   "Material fabricado pela Mariani só tem desempenho comprovado com ensaio próprio (ISO 354 / ABNT NBR ISO 354) da construção real.",
+   "Curvas em terços de oitava (100–5000 Hz). Para bandas de oitava, materiais.py usa a média aritmética dos três terços (prática da ISO 11654).",
+   "Reação ao fogo: 'matéria-prima classificada' NÃO é produto final ensaiado; espuma de PU aparece como Classe F/combustível."
+  ],
+  "coleta": "2026-11-26: catálogo Hi-Fi & Home Cinema 2026 (PDF público do fabricante) + 31 páginas de produto do site. O site passou a exigir verificação anti-robô após 31 páginas; a coleta foi interrompida (não houve tentativa de contorno)."
+ },
+ "catalogo_curvas": [
+  {
+   "id": "vic-vicpattern-ultra-wavewood-mkii",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "VicPattern Ultra Wavewood MKII",
+   "construcao": "lã de PET (VicPET Wool) + tecido + MDF ranhurado",
+   "dimensoes": null,
+   "nrc_declarado": 0.8,
+   "alfa_w_declarado": 0.8,
+   "classe_absorcao": "B",
+   "reacao_ao_fogo": "não disponível",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.09,
+      "125": 0.13,
+      "160": 0.28,
+      "200": 0.42,
+      "250": 0.63,
+      "315": 0.82,
+      "400": 0.95,
+      "500": 1.0,
+      "630": 0.94,
+      "800": 0.94,
+      "1000": 0.93,
+      "1250": 0.92,
+      "1600": 0.85,
+      "2000": 0.69,
+      "2500": 0.67,
+      "3150": 0.7,
+      "4000": 0.7,
+      "5000": 0.71
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 8–9"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-vicpattern-ultra-triangles-mkii",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "VicPattern Ultra Triangles MKII",
+   "construcao": "lã de PET + tecido + MDF",
+   "dimensoes": null,
+   "nrc_declarado": 0.75,
+   "alfa_w_declarado": 0.7,
+   "classe_absorcao": "C",
+   "reacao_ao_fogo": "não disponível",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.1,
+      "125": 0.16,
+      "160": 0.32,
+      "200": 0.44,
+      "250": 0.59,
+      "315": 0.75,
+      "400": 0.81,
+      "500": 0.91,
+      "630": 0.95,
+      "800": 1.0,
+      "1000": 0.96,
+      "1250": 0.8,
+      "1600": 0.74,
+      "2000": 0.67,
+      "2500": 0.63,
+      "3150": 0.62,
+      "4000": 0.61,
+      "5000": 0.62
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 10–11"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-vicpattern-ultra-beat-xl",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "VicPattern Ultra Beat XL",
+   "construcao": "lã de PET (preta) + MDF",
+   "dimensoes": null,
+   "nrc_declarado": 0.75,
+   "alfa_w_declarado": 0.75,
+   "classe_absorcao": "C",
+   "reacao_ao_fogo": "não disponível",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.09,
+      "125": 0.13,
+      "160": 0.22,
+      "200": 0.32,
+      "250": 0.46,
+      "315": 0.66,
+      "400": 0.61,
+      "500": 0.75,
+      "630": 0.82,
+      "800": 0.93,
+      "1000": 0.91,
+      "1250": 0.85,
+      "1600": 0.85,
+      "2000": 0.8,
+      "2500": 0.75,
+      "3150": 0.74,
+      "4000": 0.75,
+      "5000": 0.76
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 12–13"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-vicshape-3d",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "VicShape 3D / 3D Duo",
+   "construcao": "PET de alta densidade + moldura de madeira com folheado natural",
+   "dimensoes": null,
+   "nrc_declarado": 0.65,
+   "alfa_w_declarado": 0.65,
+   "classe_absorcao": "C",
+   "reacao_ao_fogo": "não disponível",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.06,
+      "125": 0.07,
+      "160": 0.2,
+      "200": 0.31,
+      "250": 0.47,
+      "315": 0.57,
+      "400": 0.59,
+      "500": 0.58,
+      "630": 0.65,
+      "800": 0.74,
+      "1000": 0.73,
+      "1250": 0.82,
+      "1600": 0.87,
+      "2000": 0.86,
+      "2500": 0.85,
+      "3150": 0.83,
+      "4000": 0.84,
+      "5000": 0.87
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 14–15"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-echo-frame",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "Echo Frame Collection",
+   "construcao": "PET de alta densidade + moldura de madeira com folheado natural",
+   "dimensoes": "1160×595×52 mm",
+   "nrc_declarado": 0.7,
+   "alfa_w_declarado": 0.65,
+   "classe_absorcao": "C",
+   "reacao_ao_fogo": "não disponível",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.01,
+      "125": 0.03,
+      "160": 0.13,
+      "200": 0.3,
+      "250": 0.41,
+      "315": 0.48,
+      "400": 0.53,
+      "500": 0.65,
+      "630": 0.82,
+      "800": 0.92,
+      "1000": 0.91,
+      "1250": 0.92,
+      "1600": 0.9,
+      "2000": 0.86,
+      "2500": 0.88,
+      "3150": 0.9,
+      "4000": 0.93,
+      "5000": 0.91
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 16–17"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-flexi-wave-ultra",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "Flexi Wave Ultra (absorvedor/difusor híbrido)",
+   "construcao": "espuma de poliuretano + tecido + laminado",
+   "dimensoes": "595×100×156 mm (modelo A)",
+   "nrc_declarado": 0.7,
+   "alfa_w_declarado": 0.45,
+   "classe_absorcao": "D",
+   "reacao_ao_fogo": "não disponível; espuma de PU combustível (FMVSS 302; Classe F EN 13501-1)",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.18,
+      "125": 0.3,
+      "160": 0.57,
+      "200": 0.83,
+      "250": 0.93,
+      "315": 1.0,
+      "400": 0.97,
+      "500": 0.93,
+      "630": 0.83,
+      "800": 0.67,
+      "1000": 0.53,
+      "1250": 0.42,
+      "1600": 0.38,
+      "2000": 0.44,
+      "2500": 0.39,
+      "3150": 0.34,
+      "4000": 0.37,
+      "5000": 0.34
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 18–19"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-cinema-round-ultra-vmt",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "Cinema Round Ultra VMT",
+   "construcao": "lã de PET + MDF",
+   "dimensoes": null,
+   "nrc_declarado": 0.9,
+   "alfa_w_declarado": 0.9,
+   "classe_absorcao": "A",
+   "reacao_ao_fogo": "não disponível",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.37,
+      "125": 0.59,
+      "160": 0.67,
+      "200": 0.83,
+      "250": 0.87,
+      "315": 1.0,
+      "400": 1.0,
+      "500": 1.0,
+      "630": 1.0,
+      "800": 0.88,
+      "1000": 0.9,
+      "1250": 0.72,
+      "1600": 0.81,
+      "2000": 0.91,
+      "2500": 0.9,
+      "3150": 0.9,
+      "4000": 0.94,
+      "5000": 0.9
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 20–21"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-wavewood-ultra-lite",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "Wavewood Ultra Lite",
+   "construcao": "MDF ranhurado com HPL + espuma de poliuretano",
+   "dimensoes": "595×595×44 mm",
+   "nrc_declarado": 0.75,
+   "alfa_w_declarado": 0.75,
+   "classe_absorcao": "C",
+   "reacao_ao_fogo": "não disponível; espuma de PU combustível (Classe F EN 13501-1)",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.09,
+      "125": 0.18,
+      "160": 0.39,
+      "200": 0.41,
+      "250": 0.53,
+      "315": 0.81,
+      "400": 0.76,
+      "500": 0.82,
+      "630": 0.91,
+      "800": 1.0,
+      "1000": 1.0,
+      "1250": 0.89,
+      "1600": 0.78,
+      "2000": 0.69,
+      "2500": 0.64,
+      "3150": 0.64,
+      "4000": 0.65,
+      "5000": 0.66
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 22–23"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-piano-forte-fortissimo-vmt",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "Piano / Forte / Fortissimo VMT",
+   "construcao": "lã de PET + ViCycle + MDF + aço laqueado",
+   "dimensoes": "60 / 60–120 / 120 mm (595×595)",
+   "nrc_declarado": null,
+   "alfa_w_declarado": 1.0,
+   "classe_absorcao": "A",
+   "reacao_ao_fogo": "não disponível",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": "Piano (60 mm)",
+     "valores_terco_oitava": {
+      "100": 0.11,
+      "125": 0.29,
+      "160": 0.5,
+      "200": 0.54,
+      "250": 0.71,
+      "315": 1.0,
+      "400": 1.0,
+      "500": 1.0,
+      "630": 1.0,
+      "800": 1.0,
+      "1000": 1.0,
+      "1250": 0.98,
+      "1600": 0.99,
+      "2000": 0.98,
+      "2500": 0.97,
+      "3150": 0.99,
+      "4000": 1.0,
+      "5000": 1.0
+     },
+     "anomalias_tipograficas": null
+    },
+    {
+     "tipo": "absorcao",
+     "modelo": "Forte (60–120 mm)",
+     "valores_terco_oitava": {
+      "100": 0.21,
+      "125": 0.38,
+      "160": 0.58,
+      "200": 0.66,
+      "250": 0.82,
+      "315": 1.0,
+      "400": 1.0,
+      "500": 1.0,
+      "630": 1.0,
+      "800": 1.0,
+      "1000": 1.0,
+      "1250": 0.98,
+      "1600": 0.98,
+      "2000": 1.0,
+      "2500": 0.98,
+      "3150": 1.0,
+      "4000": 1.0,
+      "5000": 1.0
+     },
+     "anomalias_tipograficas": null
+    },
+    {
+     "tipo": "absorcao",
+     "modelo": "Fortissimo (120 mm)",
+     "valores_terco_oitava": {
+      "100": 0.41,
+      "125": 0.56,
+      "160": 0.67,
+      "200": 0.8,
+      "250": 0.91,
+      "315": 1.0,
+      "400": 1.0,
+      "500": 1.0,
+      "630": 1.0,
+      "800": 1.0,
+      "1000": 1.0,
+      "1250": 0.98,
+      "1600": 0.99,
+      "2000": 1.0,
+      "2500": 1.0,
+      "3150": 1.0,
+      "4000": 1.0,
+      "5000": 1.0
+     },
+     "anomalias_tipograficas": [
+      "200 Hz: impresso '0,8' com uma casa decimal"
+     ]
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 26–27"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-flat-panel-vmt",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "Flat Panel VMT 20 mm e 40 mm",
+   "construcao": "lã de PET (VicPET Wool) com impressão VMT",
+   "dimensoes": "20 mm ou 40 mm",
+   "nrc_declarado": null,
+   "alfa_w_declarado": null,
+   "classe_absorcao": "D (20 mm) / C (40 mm)",
+   "reacao_ao_fogo": "Euroclass B-s2,d0 (20 e 40 mm); ASTM E84 Classe A",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": "40 mm (NRC 0,70; αw 0,60)",
+     "valores_terco_oitava": {
+      "100": 0.1,
+      "125": 0.13,
+      "160": 0.23,
+      "200": 0.26,
+      "250": 0.33,
+      "315": 0.37,
+      "400": 0.54,
+      "500": 0.74,
+      "630": 0.78,
+      "800": 0.8,
+      "1000": 0.84,
+      "1250": 0.86,
+      "1600": 0.88,
+      "2000": 0.9,
+      "2500": 0.93,
+      "3150": 0.94,
+      "4000": 0.97,
+      "5000": 0.97
+     },
+     "anomalias_tipograficas": null
+    },
+    {
+     "tipo": "absorcao",
+     "modelo": "20 mm (NRC 0,55; αw 0,45)",
+     "valores_terco_oitava": {
+      "100": 0.04,
+      "125": 0.03,
+      "160": 0.08,
+      "200": 0.13,
+      "250": 0.18,
+      "315": 0.21,
+      "400": 0.33,
+      "500": 0.48,
+      "630": 0.55,
+      "800": 0.64,
+      "1000": 0.76,
+      "1250": 0.86,
+      "1600": 0.88,
+      "2000": 0.9,
+      "2500": 0.93,
+      "3150": 0.94,
+      "4000": 0.97,
+      "5000": 0.97
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 30–31"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-vicstrip-spacer-kit",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "VicStrip Spacer Kit (ripas + câmara de ar + PET)",
+   "construcao": "4 ripas VicStrip 12 mm (lã de PET + HPL) + moldura VicSpacer XXL + câmara de ar + camada de PET",
+   "dimensoes": "2384×1194×66 mm",
+   "nrc_declarado": 0.85,
+   "alfa_w_declarado": 0.9,
+   "classe_absorcao": "A",
+   "reacao_ao_fogo": "não disponível",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.1,
+      "125": 0.28,
+      "160": 0.48,
+      "200": 0.48,
+      "250": 0.6,
+      "315": 0.87,
+      "400": 0.86,
+      "500": 0.97,
+      "630": 0.93,
+      "800": 0.98,
+      "1000": 1.0,
+      "1250": 0.91,
+      "1600": 0.91,
+      "2000": 0.88,
+      "2500": 0.85,
+      "3150": 0.86,
+      "4000": 0.86,
+      "5000": 0.8
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 34–35"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-cinema-round-premium",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "Cinema Round Premium",
+   "construcao": "espuma de poliuretano revestida de tecido",
+   "dimensoes": null,
+   "nrc_declarado": 0.95,
+   "alfa_w_declarado": 0.95,
+   "classe_absorcao": "A",
+   "reacao_ao_fogo": "Euroclass F",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.1,
+      "125": 0.26,
+      "160": 0.42,
+      "200": 0.51,
+      "250": 0.68,
+      "315": 0.98,
+      "400": 1.0,
+      "500": 1.0,
+      "630": 1.0,
+      "800": 1.0,
+      "1000": 1.0,
+      "1250": 0.92,
+      "1600": 0.96,
+      "2000": 1.0,
+      "2500": 1.0,
+      "3150": 1.0,
+      "4000": 1.0,
+      "5000": 1.0
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 36–37"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-wavewood-diffuser-ultra-mkii",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "Wavewood Diffuser Ultra MKII (simula sequência QRD)",
+   "construcao": "MDF/HPL (ver catálogo)",
+   "dimensoes": null,
+   "nrc_declarado": null,
+   "alfa_w_declarado": null,
+   "classe_absorcao": null,
+   "reacao_ao_fogo": "não informado",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.05,
+      "125": 0.08,
+      "160": 0.14,
+      "200": 0.23,
+      "250": 0.26,
+      "315": 0.23,
+      "400": 0.19,
+      "500": 0.19,
+      "630": 0.2,
+      "800": 0.25,
+      "1000": 0.34,
+      "1250": 0.51,
+      "1600": 0.52,
+      "2000": 0.47,
+      "2500": 0.4,
+      "3150": 0.35,
+      "4000": 0.33,
+      "5000": 0.3
+     },
+     "anomalias_tipograficas": [
+      "1600 Hz: impresso '052' (lido 0.52)"
+     ]
+    },
+    {
+     "tipo": "difusao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.0,
+      "125": 0.0,
+      "160": 0.0,
+      "200": 0.0,
+      "250": 0.0,
+      "315": 0.0,
+      "400": 0.01,
+      "500": 0.02,
+      "630": 0.04,
+      "800": 0.1,
+      "1000": 0.22,
+      "1250": 0.42,
+      "1600": 0.5,
+      "2000": 0.44,
+      "2500": 0.39,
+      "3150": 0.47,
+      "4000": 0.42,
+      "5000": 0.38
+     },
+     "anomalias_tipograficas": [
+      "2000 Hz: impresso '044' (lido 0.44)"
+     ]
+    },
+    {
+     "tipo": "espalhamento",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.0,
+      "125": 0.0,
+      "160": 0.0,
+      "200": 0.0,
+      "250": 0.0,
+      "315": 0.0,
+      "400": 0.01,
+      "500": 0.0,
+      "630": 0.0,
+      "800": 0.12,
+      "1000": 0.28,
+      "1250": 0.64,
+      "1600": 0.79,
+      "2000": 0.91,
+      "2500": 0.75,
+      "3150": 0.95,
+      "4000": 0.86,
+      "5000": 0.92
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 38–39"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-cinema-round-ultra-fuser",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "Cinema Round Ultra Fuser (difusor unidirecional com PET interno)",
+   "construcao": "lã de PET interna + MDF",
+   "dimensoes": "595×595×170 mm",
+   "nrc_declarado": null,
+   "alfa_w_declarado": null,
+   "classe_absorcao": null,
+   "reacao_ao_fogo": "não disponível",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.26,
+      "125": 0.4,
+      "160": 0.48,
+      "200": 0.58,
+      "250": 0.39,
+      "315": 0.34,
+      "400": 0.39,
+      "500": 0.34,
+      "630": 0.32,
+      "800": 0.3,
+      "1000": 0.24,
+      "1250": 0.18,
+      "1600": 0.15,
+      "2000": 0.14,
+      "2500": 0.12,
+      "3150": 0.12,
+      "4000": 0.12,
+      "5000": 0.13
+     },
+     "anomalias_tipograficas": null
+    },
+    {
+     "tipo": "difusao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.26,
+      "125": 0.35,
+      "160": 0.44,
+      "200": 0.52,
+      "250": 0.59,
+      "315": 0.63,
+      "400": 0.66,
+      "500": 0.75,
+      "630": 0.74,
+      "800": 0.76,
+      "1000": 0.78,
+      "1250": 0.79,
+      "1600": 0.81,
+      "2000": 0.83,
+      "2500": 0.83,
+      "3150": 0.83,
+      "4000": 0.84,
+      "5000": 0.84
+     },
+     "anomalias_tipograficas": null
+    },
+    {
+     "tipo": "espalhamento",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.07,
+      "125": 0.11,
+      "160": 0.15,
+      "200": 0.2,
+      "250": 0.26,
+      "315": 0.32,
+      "400": 0.4,
+      "500": 0.51,
+      "630": 0.62,
+      "800": 0.73,
+      "1000": 0.82,
+      "1250": 0.86,
+      "1600": 0.87,
+      "2000": 0.9,
+      "2500": 0.92,
+      "3150": 0.94,
+      "4000": 0.96,
+      "5000": 0.97
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 40–41"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-multifuser-wood-mkii",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "Multifuser Wood MKII 36 e 64 (difusor 2D)",
+   "construcao": "madeira maciça + compensado",
+   "dimensoes": "595×595×96 mm (modelo A)",
+   "nrc_declarado": null,
+   "alfa_w_declarado": null,
+   "classe_absorcao": null,
+   "reacao_ao_fogo": "Euroclass E; ASTM E84 Classe B",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": "MKII 36",
+     "valores_terco_oitava": {
+      "100": 0.03,
+      "125": 0.05,
+      "160": 0.07,
+      "200": 0.1,
+      "250": 0.12,
+      "315": 0.11,
+      "400": 0.16,
+      "500": 0.16,
+      "630": 0.15,
+      "800": 0.19,
+      "1000": 0.26,
+      "1250": 0.36,
+      "1600": 0.41,
+      "2000": 0.48,
+      "2500": 0.5,
+      "3150": 0.38,
+      "4000": 0.32,
+      "5000": 0.26
+     },
+     "anomalias_tipograficas": null
+    },
+    {
+     "tipo": "difusao",
+     "modelo": "MKII 36",
+     "valores_terco_oitava": {
+      "100": 0.0,
+      "125": 0.0,
+      "160": 0.0,
+      "200": 0.0,
+      "250": 0.01,
+      "315": 0.03,
+      "400": 0.08,
+      "500": 0.15,
+      "630": 0.2,
+      "800": 0.27,
+      "1000": 0.41,
+      "1250": 0.49,
+      "1600": 0.43,
+      "2000": 0.4,
+      "2500": 0.4,
+      "3150": 0.35,
+      "4000": 0.36,
+      "5000": 0.35
+     },
+     "anomalias_tipograficas": null
+    },
+    {
+     "tipo": "espalhamento",
+     "modelo": "MKII 36",
+     "valores_terco_oitava": {
+      "100": 0.01,
+      "125": 0.01,
+      "160": 0.01,
+      "200": 0.01,
+      "250": 0.01,
+      "315": 0.02,
+      "400": 0.06,
+      "500": 0.13,
+      "630": 0.25,
+      "800": 0.3,
+      "1000": 0.51,
+      "1250": 0.73,
+      "1600": 0.86,
+      "2000": 0.91,
+      "2500": 0.93,
+      "3150": 0.94,
+      "4000": 0.92,
+      "5000": 0.94
+     },
+     "anomalias_tipograficas": null
+    },
+    {
+     "tipo": "absorcao",
+     "modelo": "MKII 64",
+     "valores_terco_oitava": {
+      "100": 0.06,
+      "125": 0.07,
+      "160": 0.1,
+      "200": 0.15,
+      "250": 0.15,
+      "315": 0.22,
+      "400": 0.25,
+      "500": 0.27,
+      "630": 0.32,
+      "800": 0.43,
+      "1000": 0.5,
+      "1250": 0.55,
+      "1600": 0.51,
+      "2000": 0.45,
+      "2500": 0.47,
+      "3150": 0.44,
+      "4000": 0.39,
+      "5000": 0.4
+     },
+     "anomalias_tipograficas": null
+    },
+    {
+     "tipo": "difusao",
+     "modelo": "MKII 64",
+     "valores_terco_oitava": {
+      "100": 0.01,
+      "125": 0.01,
+      "160": 0.01,
+      "200": 0.01,
+      "250": 0.05,
+      "315": 0.13,
+      "400": 0.27,
+      "500": 0.44,
+      "630": 0.5,
+      "800": 0.53,
+      "1000": 0.49,
+      "1250": 0.38,
+      "1600": 0.3,
+      "2000": 0.33,
+      "2500": 0.4,
+      "3150": 0.41,
+      "4000": 0.38,
+      "5000": 0.36
+     },
+     "anomalias_tipograficas": null
+    },
+    {
+     "tipo": "espalhamento",
+     "modelo": "MKII 64",
+     "valores_terco_oitava": {
+      "100": 0.01,
+      "125": 0.01,
+      "160": 0.02,
+      "200": 0.03,
+      "250": 0.05,
+      "315": 0.1,
+      "400": 0.2,
+      "500": 0.41,
+      "630": 0.63,
+      "800": 0.7,
+      "1000": 0.76,
+      "1250": 0.85,
+      "1600": 0.87,
+      "2000": 0.89,
+      "2500": 0.83,
+      "3150": 0.89,
+      "4000": 0.92,
+      "5000": 0.9
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 42–43"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  },
+  {
+   "id": "vic-multifuser-dc4",
+   "fabricante": "Vicoustic (UniVicoustic)",
+   "produto": "Multifuser DC4 (difusor 2D com superfície superior inclinada)",
+   "construcao": "ver catálogo",
+   "dimensoes": null,
+   "nrc_declarado": null,
+   "alfa_w_declarado": null,
+   "classe_absorcao": null,
+   "reacao_ao_fogo": "não informado",
+   "curvas": [
+    {
+     "tipo": "absorcao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.01,
+      "125": 0.02,
+      "160": 0.09,
+      "200": 0.16,
+      "250": 0.09,
+      "315": 0.06,
+      "400": 0.1,
+      "500": 0.18,
+      "630": 0.1,
+      "800": 0.33,
+      "1000": 0.4,
+      "1250": 0.38,
+      "1600": 0.29,
+      "2000": 0.27,
+      "2500": 0.23,
+      "3150": 0.18,
+      "4000": 0.14,
+      "5000": 0.17
+     },
+     "anomalias_tipograficas": [
+      "400 Hz: impresso '0.1' com uma casa decimal",
+      "630 Hz: impresso '0.1' com uma casa decimal",
+      "1000 Hz: impresso '0.4' com uma casa decimal"
+     ]
+    },
+    {
+     "tipo": "difusao",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.0,
+      "125": 0.01,
+      "160": 0.01,
+      "200": 0.02,
+      "250": 0.05,
+      "315": 0.11,
+      "400": 0.22,
+      "500": 0.34,
+      "630": 0.41,
+      "800": 0.6,
+      "1000": 0.43,
+      "1250": 0.47,
+      "1600": 0.39,
+      "2000": 0.39,
+      "2500": 0.33,
+      "3150": 0.36,
+      "4000": 0.38,
+      "5000": 0.35
+     },
+     "anomalias_tipograficas": [
+      "800 Hz: impresso '0.6' com uma casa decimal"
+     ]
+    },
+    {
+     "tipo": "espalhamento",
+     "modelo": null,
+     "valores_terco_oitava": {
+      "100": 0.0,
+      "125": 0.01,
+      "160": 0.01,
+      "200": 0.01,
+      "250": 0.02,
+      "315": 0.05,
+      "400": 0.13,
+      "500": 0.22,
+      "630": 0.33,
+      "800": 0.72,
+      "1000": 0.89,
+      "1250": 0.9,
+      "1600": 0.92,
+      "2000": 0.95,
+      "2500": 0.97,
+      "3150": 0.98,
+      "4000": 0.97,
+      "5000": 0.86
+     },
+     "anomalias_tipograficas": null
+    }
+   ],
+   "fonte": {
+    "documento": "vicoustic-catalogo-hifi-cinema-2026",
+    "arquivo": "Vicoustic-Hi-Fi_Home_Cinema-Catalog-2026.pdf",
+    "paginas": "posições 44–45"
+   },
+   "ensaio": {
+    "norma": null,
+    "laboratorio": null,
+    "montagem": null,
+    "observacao": "catálogo não informa norma, laboratório nem montagem do ensaio — valores DECLARADOS pelo fabricante"
+   }
+  }
+ ],
+ "paginas_produto": [
+  {
+   "id": "vic-web-brixton",
+   "produto": "Brixton",
+   "construcao": "High Density PET",
+   "dimensoes": "A) 2400x1200x11mm / 94.5\"x47.2\"x0.4\"; B) 2760x1200x11mm / 94.5\"x47.2\"x0.4\" (LxAxP, unidade)",
+   "peso": "A) 7.20kg / 15.87lb; B) 8.28kg / 18.25lb (Un.)",
+   "nrc_declarado": "0.45",
+   "alfa_w_declarado": "0.25",
+   "classe_absorcao": "E",
+   "reacao_ao_fogo": "A matéria-prima (PET HD 12 mm) usada neste produto é classificada como B-s1,d0 segundo a EN 13501-1.",
+   "propriedades_termicas": null,
+   "localizacao": "Paredes",
+   "fixacao": "Flexi Glue Ultra",
+   "fonte": {
+    "url": "https://vicoustic.com/pt/products/brixton",
+    "consultado_em": "2026-11-26"
+   },
+   "com_camada_de_40mm_atras": "NRC 0,90 / αw 0,85 / classe B com 40 mm de Flat Panel PET atrás"
+  },
+  {
+   "id": "vic-web-embossed-vmt-aqualine",
+   "produto": "Embossed VMT Aqualine",
+   "construcao": "High Density PET",
+   "dimensoes": "2760x1200x11mm / 108.7\"x47.2\"x0.4\" (LxAxP, unidade)",
+   "peso": "7.96kg / 17.55lb (Un.)",
+   "nrc_declarado": "0.35",
+   "alfa_w_declarado": "0.25",
+   "classe_absorcao": "E",
+   "reacao_ao_fogo": "A matéria-prima (PET HD 12 mm) usada neste produto é classificada como B-s1,d0 segundo a EN 13501-1.",
+   "propriedades_termicas": null,
+   "localizacao": "Paredes",
+   "fixacao": "Flexi Glue Ultra",
+   "fonte": {
+    "url": "https://vicoustic.com/pt/products/embossed-vmt-aqualine",
+    "consultado_em": "2026-11-26"
+   },
+   "com_camada_de_40mm_atras": "NRC 0,90 / αw 0,90 / classe A com 40 mm de Flat Panel PET atrás"
+  },
+  {
+   "id": "vic-web-embossed-vmt-shard",
+   "produto": "Embossed VMT Shard",
+   "construcao": "High Density PET",
+   "dimensoes": "2760x1200x11mm / 108.7\"x47.2\"x0.4\" (LxAxP, unidade)",
+   "peso": "7.96kg / 17.55lb (Un.)",
+   "nrc_declarado": "0.25",
+   "alfa_w_declarado": "0.20",
+   "classe_absorcao": "E",
+   "reacao_ao_fogo": "A matéria-prima (PET HD 12 mm) usada neste produto é classificada como B-s1,d0 segundo a EN 13501-1.",
+   "propriedades_termicas": null,
+   "localizacao": "Paredes",
+   "fixacao": "Flexi Glue Ultra",
+   "fonte": {
+    "url": "https://vicoustic.com/pt/products/embossed-vmt-shard",
+    "consultado_em": "2026-11-26"
+   },
+   "com_camada_de_40mm_atras": "NRC 0,85 / αw 0,85 / classe B com 40 mm de Flat Panel PET atrás"
+  },
+  {
+   "id": "vic-web-flat-panel-pet-hd",
+   "produto": "Flat Panel PET HD",
+   "construcao": "High Density PET",
+   "dimensoes": "2800x1220x12mm / 110.2\"x48.0\"x0.5\" (LxAxP, unidade)",
+   "peso": "8.10kg / 17.86lb (Un.)",
+   "nrc_declarado": "0.45",
+   "alfa_w_declarado": "0.25",
+   "classe_absorcao": "E",
+   "reacao_ao_fogo": "B-s1,d0 EUA: Class A",
+   "propriedades_termicas": "Condutividade - 0.0418 W/mK Densidade: 2400gsm",
+   "localizacao": "Paredes",
+   "fixacao": "Flexi Glue Ultra",
+   "fonte": {
+    "url": "https://vicoustic.com/pt/products/flat-panel-pet-hd",
+    "consultado_em": "2026-11-26"
+   },
+   "com_camada_de_40mm_atras": "NRC 0,90 / αw 0,85 / classe B com 40 mm de Flat Panel PET atrás"
+  },
+  {
+   "id": "vic-web-soft-tiles-axis",
+   "produto": "Soft Tiles Axis",
+   "construcao": "High Density PET",
+   "dimensoes": "600x300x11mm / 23.6\"x11.8\"x0.4\" (LxAxP, unidade)",
+   "peso": "0.42kg / 0.93lb (Un.)",
+   "nrc_declarado": "0.25",
+   "alfa_w_declarado": "0.20",
+   "classe_absorcao": "E",
+   "reacao_ao_fogo": "A matéria-prima (PET HD 12 mm) usada neste produto é classificada como B-s1,d0 segundo a EN 13501-1.",
+   "propriedades_termicas": null,
+   "localizacao": "Paredes",
+   "fixacao": "Flexi Glue Ultra",
+   "fonte": {
+    "url": "https://vicoustic.com/pt/products/soft-tiles-axis",
+    "consultado_em": "2026-11-26"
+   }
+  },
+  {
+   "id": "vic-web-soft-tiles-bloom",
+   "produto": "Soft Tiles Bloom",
+   "construcao": "High Density PET",
+   "dimensoes": "600x300x11mm / 23.6\"x11.8\"x0.4\" (LxAxP, unidade)",
+   "peso": "0.42kg / 0.93lb (Un.)",
+   "nrc_declarado": "0.25",
+   "alfa_w_declarado": "0.20",
+   "classe_absorcao": "E",
+   "reacao_ao_fogo": "A matéria-prima (PET HD 12 mm) usada neste produto é classificada como B-s1,d0 segundo a EN 13501-1.",
+   "propriedades_termicas": null,
+   "localizacao": "Paredes",
+   "fixacao": "Flexi Glue Ultra",
+   "fonte": {
+    "url": "https://vicoustic.com/pt/products/soft-tiles-bloom",
+    "consultado_em": "2026-11-26"
+   }
+  },
+  {
+   "id": "vic-web-victiles-3d-brasilia",
+   "produto": "VicTiles 3D Brasília",
+   "construcao": "High Density PET",
+   "dimensoes": "Standard: 297.5x297.5x38mm / 11.7\"x11.7\"x1.5\"; XL: 595x595x38mm / 23.4\"x23.4\"x1.5\" (LxAxP, unidade)",
+   "peso": "Standard: 0.45kg / 0.99lb; XL: 1.8kg / 3.97lb (Un.)",
+   "nrc_declarado": "0.65",
+   "alfa_w_declarado": "0.65",
+   "classe_absorcao": "C",
+   "reacao_ao_fogo": "A matéria-prima (PET HD 12 mm) usada neste produto é classificada como B-s1,d0 segundo a EN 13501-1.",
+   "propriedades_termicas": null,
+   "localizacao": "Teto , Paredes",
+   "fixacao": "Double-sided Adhesive Pad (incluido)",
+   "fonte": {
+    "url": "https://vicoustic.com/pt/products/victiles-3d-brasilia",
+    "consultado_em": "2026-11-26"
+   }
+  },
+  {
+   "id": "vic-web-victiles-3d-porto",
+   "produto": "VicTiles 3D Porto",
+   "construcao": "High Density PET",
+   "dimensoes": "Standard: 297.5x297.5x38mm / 11.7\"x11.7\"x1.5\"; XL: 595x595x38mm / 23.4\"x23.4\"x1.5\" (LxAxP, unidade)",
+   "peso": "Standard: 0.45kg / 0.99lb; XL: 1.8kg / 3.97lb (Un.)",
+   "nrc_declarado": "0.65",
+   "alfa_w_declarado": "0.65",
+   "classe_absorcao": "C",
+   "reacao_ao_fogo": "A matéria-prima (PET HD 12 mm) usada neste produto é classificada como B-s1,d0 segundo a EN 13501-1.",
+   "propriedades_termicas": null,
+   "localizacao": "Teto , Paredes",
+   "fixacao": "Double-sided Adhesive Pad (incluido)",
+   "fonte": {
+    "url": "https://vicoustic.com/pt/products/victiles-3d-porto",
+    "consultado_em": "2026-11-26"
+   }
+  },
+  {
+   "id": "vic-web-wavewood-ultra-lite-mkii",
+   "produto": "Wavewood Ultra Lite MKII",
+   "construcao": "Laminado de alta pressão (HPL), MDF preto, Espuma de poliuretano",
+   "dimensoes": "595x595x44mm / 23.4\"x23.4\"x1.7\" (LxAxP, unidade)",
+   "peso": "1.65kg / 3.64lb (Un.)",
+   "nrc_declarado": "0.75",
+   "alfa_w_declarado": "0.75",
+   "classe_absorcao": "C",
+   "reacao_ao_fogo": "Não disponível. O produto contém espuma de poliuretano flexível, material combustível — FMVSS 302 (velocidade de combustão",
+   "propriedades_termicas": null,
+   "localizacao": "Teto , Paredes",
+   "fixacao": "Flexi Glue Ultra",
+   "fonte": {
+    "url": "https://vicoustic.com/pt/products/wavewood-ultra-lite-mkii",
+    "consultado_em": "2026-11-26"
+   }
+  }
+ ]
+}

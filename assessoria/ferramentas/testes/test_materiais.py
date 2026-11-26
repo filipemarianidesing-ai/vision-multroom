@@ -30,3 +30,27 @@ def test_nrc_nao_extrapola_bandas():
 def test_material_sem_dado_acustico_recusado():
     with pytest.raises(mt.DadoInsuficiente):
         mt.superficie("lady-ecoshapes-wood", 10, aproximar_por_nrc=True)
+
+
+def test_referencia_exige_aceite_e_converte_oitavas():
+    with pytest.raises(mt.DadoInsuficiente):
+        mt.superficie_referencia("vic-wavewood-ultra-lite", 10)
+    s = mt.superficie_referencia("vic-wavewood-ultra-lite", 10, aceitar_declarado=True)
+    assert set(s.alfa) == {125, 250, 500, 1000, 2000, 4000}
+    assert s.fonte.startswith("[S-declarado]")
+    c = mt.curva_referencia("vic-wavewood-ultra-lite")
+    assert s.alfa[500] == round((c[400] + c[500] + c[630]) / 3, 2)
+
+
+def test_espessura_aumenta_absorcao_em_baixa_frequencia():
+    # Piano 60 mm < Forte < Fortissimo 120 mm a 125 Hz (conferido na imagem do catálogo, p. 27)
+    p = mt.curva_referencia("vic-piano-forte-fortissimo-vmt", "Piano")[125]
+    f = mt.curva_referencia("vic-piano-forte-fortissimo-vmt", "Forte")[125]
+    ff = mt.curva_referencia("vic-piano-forte-fortissimo-vmt", "Fortissimo")[125]
+    assert (p, f, ff) == (0.29, 0.38, 0.56)
+
+
+def test_multiplas_curvas_exigem_modelo():
+    with pytest.raises(ValueError):
+        mt.curva_referencia("vic-flat-panel-vmt")
+    assert mt.curva_referencia("vic-flat-panel-vmt", "40 mm")[500] == 0.74

@@ -43,6 +43,9 @@ Consulte `assessoria/referencias/materiais/materiais.json` e use `assessoria/fer
 `buscar.py --doc <slug>`. Liste as lacunas e proponha o pedido ao fornecedor
 (`assessoria/modelos/solicitacao-dados-fornecedor.md`). Alegações como "alta performance" ou "reduz ruídos externos"
 não são dado técnico.
+Para painéis fabricados pela Mariani, compare a construção proposta com as referências de mercado
+(`assessoria/conhecimento/referencia-construtiva-paineis.md`; curvas em `referencias-mercado-vicoustic.json`) e deixe
+claro que o desempenho real depende de ensaio da construção fabricada.
 
 ## Retorno ao coordenador
 Resultados classificados como [F]/[S]/[C]/[E]/[M]/[NV], memória de cálculo (modelo

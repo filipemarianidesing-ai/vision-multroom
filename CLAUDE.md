@@ -85,6 +85,10 @@ técnicas. Inclua links das fontes externas e **arquivo + página** da apostila.
   `uso_em_calculo` de cada produto) e, nos scripts, `assessoria/ferramentas/calc/materiais.py`, que recusa material sem
   dado acústico e só aceita NRC como estimativa [E] em 250–2000 Hz. Alegações comerciais sem número não são dado.
   Para obter dados que faltam: `assessoria/modelos/solicitacao-dados-fornecedor.md`.
+- **Fabricação própria (a Mariani fabrica seus painéis):** referências de mercado com curvas por terço de oitava em
+  `assessoria/referencias/materiais/referencias-mercado-vicoustic.json` (valores DECLARADOS, ensaio não identificado →
+  `materiais.superficie_referencia(..., aceitar_declarado=True)`, rótulo [S-declarado]) e lições construtivas em
+  `assessoria/conhecimento/referencia-construtiva-paineis.md`. Desempenho do material Mariani só com ensaio próprio.
 - Busca: `python3 -I assessoria/ferramentas/apostila/buscar.py "termos"` · página: `--pagina <slug> <pág>` ·
   lista: `--listar`. Conferência visual: `renderizar_pagina.py <slug> <pág>`.
 - Citar sempre **arquivo — p. PDF X (impressa Y)**; informar leitura por OCR. Não presumir ter lido páginas não lidas.

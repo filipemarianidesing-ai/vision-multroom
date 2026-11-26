@@ -1,0 +1,21 @@
+{
+  "documento": "vicoustic-wp-cinema",
+  "gerado_em": "2026-11-26",
+  "aviso": "Somente a situação da conferência; transcrições e correções ficam no pacote privado.",
+  "resumo": {
+    "pendente": 1
+  },
+  "itens": [
+    {
+      "id": "doc-geral",
+      "posicao": 5,
+      "pagina_impressa": "5",
+      "tipo": "unidade/conceito",
+      "situacao": "pendente",
+      "tem_correcao_proposta": false
+    }
+  ],
+  "paginas_com_pendencia": [
+    5
+  ]
+}
