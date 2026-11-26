@@ -53,6 +53,6 @@ conferidos em 26/11/2026. Resultado no cadastro privado `orcamentos/empresa/cada
 técnico ainda não foi definido.
 
 ## Dados já informados
-- Razão/nome: Mariani Áudio e Vídeo **[F]**
-- CNPJ: 07.782.644/0001-28 **[F]** — situação cadastral e CNAEs **[NV]** (pendente do cartão CNPJ atualizado)
+- Nome comercial: Mariani Áudio e Vídeo **[F]**. Não é a razão social nem o nome de fantasia registrado (ver cadastro privado).
+- CNPJ: 07.782.644/0001-28. Situação cadastral e CNAEs conferidos no cartão CNPJ emitido em 14/01/2026 **[S]**.
 - Área de atuação de interesse: lista do pedido inicial **[F]** — **não comprova** CNAE nem habilitação.
