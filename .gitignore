@@ -22,3 +22,9 @@ assessoria/referencias/apostilas/indice/*
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# --- Orçamentista Público -----------------------------------------------------
+# Documentos da empresa, dados de obras/órgãos, cotações e tabelas baixadas: nunca versionar.
+orcamentos/empresa/
+orcamentos/obras/
+orcamentos/bases/

@@ -1,11 +1,14 @@
 # CLAUDE.md — Mariani Áudio & Vídeo
 
-Este repositório contém duas coisas independentes:
+Este repositório contém três coisas independentes:
 
 1. **App web "Mariani Vision Control"** (raiz: `index.html`, `config.json`, `api-simulador.js`, `sw.js`,
    `manifest.json`, imagens) — PWA de controle de zonas de áudio. Não altere sem pedido explícito.
 2. **Assessor técnico de acústica, eletroacústica e áudio profissional** (`assessoria/` + `.claude/`) —
    sistema de agentes que assessora os projetos da Mariani. Guia de uso: `assessoria/README.md`.
+3. **Orçamentista Público** (`orcamentos/` + `.claude/agents/orcamentista-publico.md`) — levantamento de serviços,
+   composições, pesquisa de preços e orçamentos para contratações públicas; planejamento do sistema web de
+   orçamentação em `orcamentos/docs/`. Dados de empresa, obras e bases ficam em pastas ignoradas pelo git.
 
 ---
 
