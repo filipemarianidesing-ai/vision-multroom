@@ -8,6 +8,7 @@ Agente de apoio (`.claude/agents/orcamentista-publico.md`) e planejamento do sis
 | [docs/02-fontes-oficiais-es.md](docs/02-fontes-oficiais-es.md) | Fontes oficiais e normas para obras escolares no ES |
 | [docs/03-demo-pintura-30m2.md](docs/03-demo-pintura-30m2.md) | Fluxo demonstrado com 30 m² de pintura |
 | [docs/04-arquitetura-sistema.md](docs/04-arquitetura-sistema.md) | Arquitetura, dependências, etapas e decisões |
+| [sistema/README.md](sistema/README.md) | **Sistema web (etapa 1 implementada e testada localmente)**: como rodar, testar, fazer backup |
 
 ## Uso do agente
 `claude --agent orcamentista-publico`, ou peça na sessão para acionar o subagente `orcamentista-publico`.
@@ -24,4 +25,4 @@ Agente de apoio (`.claude/agents/orcamentista-publico.md`) e planejamento do sis
 | Ler planilhas/PDFs enviados (edital, SINAPI, DER-ES) e montar planilha com rastreio | Executável agora, arquivo a arquivo |
 | Pesquisa web de fontes e normas | Executável, com conferência obrigatória no original |
 | Cálculo determinístico (Python/Decimal) e XLSX com fórmulas / PDF | Executável agora por script, por orçamento |
-| Login, perfis, cadastro persistente, importação validada, versões, modelos de serviço editáveis, backup | **Planejado** — exige o sistema web |
+| Login, perfis, cadastro persistente, importação validada, versões, modelos de serviço editáveis, backup | **Implementado e testado localmente** em `sistema/`; ainda **não publicado** |

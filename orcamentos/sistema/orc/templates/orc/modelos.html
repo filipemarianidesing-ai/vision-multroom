@@ -1,0 +1,4 @@
+{% extends "orc/base.html" %}{% block conteudo %}<h1>Modelos de serviço</h1><p class="suave">Perguntas e regras cadastradas que sugerem etapas, dependências e bloqueiam duplicidades — sem IA.</p>
+{% if perm.gerir_modelos %}<div class="acoes"><a class="btn" href="{% url 'modelo_novo' %}">Novo modelo</a></div>{% endif %}
+<div class="tabela"><table><tr><th>Modelo</th><th>Descrição</th><th>Ativo</th></tr>{% for m in modelos %}<tr><td><a href="{% url 'modelo' m.pk %}">{{ m.nome }}</a></td><td>{{ m.descricao|truncatechars:150 }}</td><td>{{ m.ativo|yesno:"sim,não" }}</td></tr>
+{% empty %}<tr><td colspan="3" class="suave">Nenhum modelo.</td></tr>{% endfor %}</table></div>{% endblock %}

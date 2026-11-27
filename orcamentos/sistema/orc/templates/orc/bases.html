@@ -1,0 +1,7 @@
+{% extends "orc/base.html" %}{% block conteudo %}<h1>Bases de referência</h1>
+{% if perm.importar_base %}<div class="acoes"><a class="btn" href="{% url 'base_importar' %}">Importar SINAPI</a><a class="btn sec" href="{% url 'consulta' %}">Consultar</a></div>{% endif %}
+<div class="tabela"><table><tr><th>Base</th><th>Localidade</th><th>Emissão</th><th>Situação</th><th>Arquivo</th><th>Importado por</th></tr>
+{% for b in bases %}<tr><td><a href="{% url 'base' b.pk %}">{{ b }}</a></td><td>{{ b.localidade }}</td><td>{{ b.data_emissao }}</td>
+<td><span class="tag {% if b.status == 'confirmada' %}confirmado{% elif b.status == 'previa' %}condicional{% else %}erro{% endif %}">{{ b.get_status_display }}</span></td>
+<td class="pequeno">{{ b.nome_arquivo }}<br><span class="suave">{{ b.sha256|truncatechars:20 }}</span></td><td>{{ b.importado_por|default:"—" }} {{ b.importado_em|date:"d/m/Y H:i" }}</td></tr>
+{% empty %}<tr><td colspan="6" class="suave">Nenhuma base importada.</td></tr>{% endfor %}</table></div>{% endblock %}

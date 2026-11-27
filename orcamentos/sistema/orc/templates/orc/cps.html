@@ -1,0 +1,4 @@
+{% extends "orc/base.html" %}{% block conteudo %}<h1>Composições próprias</h1><p class="suave">Códigos CP-xxx são internos da Mariani e não são oficiais.</p>
+{% if perm.editar_cadastros %}<div class="acoes"><a class="btn" href="{% url 'cp_nova' %}">Nova composição própria</a></div>{% endif %}
+<div class="tabela"><table><tr><th>Código</th><th>Descrição</th><th>Un</th><th>Ativa</th><th>Atualizada</th></tr>{% for c in cps %}<tr><td><a href="{% url 'cp' c.pk %}">{{ c.codigo }}</a></td><td>{{ c.descricao }}</td><td>{{ c.unidade }}</td><td>{{ c.ativa|yesno:"sim,não" }}</td><td>{{ c.atualizado_em|date:"d/m/Y" }}</td></tr>
+{% empty %}<tr><td colspan="5" class="suave">Nenhuma.</td></tr>{% endfor %}</table></div>{% endblock %}

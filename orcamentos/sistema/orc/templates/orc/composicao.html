@@ -1,0 +1,9 @@
+{% extends "orc/base.html" %}{% load orc_extras %}{% block conteudo %}<h1>{{ c.codigo }} — {{ c.descricao }}</h1>
+<p class="suave">{{ base }} · unidade {{ c.unidade }} · grupo {{ c.grupo }} · situação {{ c.situacao }} · linha {{ c.linha }} do arquivo {{ base.nome_arquivo }}</p>
+<div class="cartao"><b>Custo publicado:</b> {% if c.custo is None %}<span class="alerta">sem custo nesta UF/competência</span>{% else %}R$ {{ c.custo|moeda }}{% endif %}
+{% if c.pct_atribuido_sp %} · %AS {{ c.pct_atribuido_sp }} (parte do custo com preços atribuídos de São Paulo){% endif %}<br>
+<b>Recalculado pelo analítico:</b> {% if total is None %}<span class="alerta">não recalculável (item sem preço)</span>{% else %}R$ {{ total|moeda }} {% if total == c.custo %}<span class="tag confirmado">confere</span>{% else %}<span class="tag erro">diverge</span>{% endif %}{% endif %}</div>
+<div class="tabela"><table><tr><th>Tipo</th><th>Código</th><th>Descrição</th><th>Un</th><th class="n">Coeficiente</th><th class="n">Preço/custo unit.</th><th class="n">Parcial TRUNC(…;2)</th><th>Situação</th></tr>
+{% for l in linhas %}<tr><td>{{ l.item.tipo }}</td><td>{% if l.item.tipo == 'COMPOSICAO' %}<a href="{% url 'composicao' base.pk l.item.codigo %}">{{ l.item.codigo }}</a>{% else %}{{ l.item.codigo }}{% endif %}</td><td>{{ l.item.descricao }}</td><td>{{ l.item.unidade }}</td>
+<td class="n">{{ l.item.coeficiente|num4 }}</td><td class="n">{% if l.preco is None %}<span class="alerta">sem preço</span>{% else %}{{ l.preco|moeda }}{% endif %}</td><td class="n">{{ l.parcial|moeda }}</td><td>{{ l.item.situacao }}</td></tr>{% endfor %}</table></div>
+<p class="suave pequeno">Inclusões e exclusões de serviço devem ser conferidas no caderno técnico da composição (CAIXA). Esta tela mostra apenas o analítico importado.</p>{% endblock %}

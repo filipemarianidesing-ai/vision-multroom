@@ -1,0 +1,14 @@
+{% extends "orc/base.html" %}{% block conteudo %}<h1>Empresa</h1>
+{% if empresa %}<div class="cartao"><table>
+<tr><th>Razão social</th><td>{{ empresa.razao_social }}</td></tr><tr><th>Nome fantasia</th><td>{{ empresa.nome_fantasia }}</td></tr>
+<tr><th>Nome comercial</th><td>{{ empresa.nome_comercial }}</td></tr><tr><th>CNPJ</th><td>{{ empresa.cnpj }}</td></tr>
+<tr><th>Endereço</th><td>{{ empresa.endereco }} — {{ empresa.municipio }}/{{ empresa.uf }}</td></tr>
+<tr><th>Regime tributário</th><td>{{ empresa.regime_tributario|default:"não informado" }}</td></tr>
+<tr><th>Responsável técnico</th><td>{{ empresa.responsavel_tecnico|default:"não informado" }}</td></tr></table></div>
+{% else %}<p class="suave">Empresa não cadastrada.</p>{% endif %}
+{% if perm.empresa %}<div class="acoes"><a class="btn" href="{% url 'empresa_editar' %}">Editar cadastro</a><a class="btn sec" href="{% url 'documento_novo' %}">Adicionar documento</a></div>{% endif %}
+<h2>Documentos e validade</h2><div class="tabela"><table><tr><th>Tipo</th><th>Número</th><th>Emissão</th><th>Validade</th><th>Situação</th><th></th></tr>
+{% for d in documentos %}<tr><td>{{ d.tipo }}</td><td>{{ d.numero }}</td><td>{{ d.emissao|date:"d/m/Y" }}</td><td>{{ d.validade|date:"d/m/Y" }}</td>
+<td>{% if d.vencido %}<span class="tag erro">vencido</span>{% elif d.validade %}<span class="tag confirmado">válido</span>{% else %}—{% endif %}</td>
+<td>{% if perm.empresa %}<a href="{% url 'documento_editar' d.pk %}">editar</a>{% if d.arquivo %} · <a href="{% url 'documento_arquivo' d.pk %}">arquivo</a>{% endif %}{% endif %}</td></tr>
+{% empty %}<tr><td colspan="6" class="suave">Nenhum documento.</td></tr>{% endfor %}</table></div>{% endblock %}

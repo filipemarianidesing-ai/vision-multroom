@@ -1,0 +1,16 @@
+{% extends "orc/base.html" %}{% load orc_extras %}{% block conteudo %}<h1>Consulta à base</h1>
+<form method="get" class="cartao"><div class="grade">
+<p><label>Base</label><select name="base">{% for b in bases %}<option value="{{ b.pk }}" {% if b == base %}selected{% endif %}>{{ b }}</option>{% endfor %}</select></p>
+<p><label>Tipo</label><select name="tipo"><option value="composicao" {% if tipo == 'composicao' %}selected{% endif %}>Composições</option><option value="insumo" {% if tipo == 'insumo' %}selected{% endif %}>Insumos</option></select></p>
+<p><label>Código ou palavras da descrição</label><input name="q" value="{{ q }}" placeholder="ex.: pintura latex parede"></p>
+<p><label>Unidade</label><input name="unidade" value="{{ unidade }}" placeholder="M2, UN, M..."></p></div>
+{% if selecionar %}<input type="hidden" name="selecionar" value="{{ selecionar }}">{% endif %}<button class="btn">Pesquisar</button></form>
+{% if not bases %}<p class="alerta">Nenhuma base confirmada.</p>{% endif %}
+{% if resultados is not None %}<p class="suave">{{ resultados.paginator.count }} resultado(s). Data-base {{ base.competencia|date:"m/Y" }} · {{ base.get_regime_display }}.</p>
+<div class="tabela"><table><tr><th>Código</th><th>Descrição</th><th>Un</th><th class="n">{% if tipo == 'composicao' %}Custo{% else %}Preço{% endif %} (R$)</th>{% if tipo == 'composicao' %}<th>Grupo</th>{% endif %}{% if selecionar %}<th></th>{% endif %}</tr>
+{% for r in resultados %}<tr><td>{% if tipo == 'composicao' %}<a href="{% url 'composicao' base.pk r.codigo %}">{{ r.codigo }}</a>{% else %}{{ r.codigo }}{% endif %}</td><td>{{ r.descricao }}</td><td>{{ r.unidade }}</td>
+<td class="n">{% if tipo == 'composicao' %}{% if r.custo is None %}<span class="alerta">sem custo</span>{% else %}{{ r.custo|moeda }}{% endif %}{% else %}{% if r.preco is None %}<span class="alerta">sem preço</span>{% else %}{{ r.preco|moeda }}{% endif %}{% endif %}</td>
+{% if tipo == 'composicao' %}<td class="pequeno">{{ r.grupo }}</td>{% endif %}
+{% if selecionar %}<td><a class="btn peq" href="{% url 'item_novo' selecionar %}?tipo={{ tipo }}&codigo={{ r.codigo }}">usar</a></td>{% endif %}</tr>{% endfor %}</table></div>
+{% if resultados.has_other_pages %}<div class="acoes">{% if resultados.has_previous %}<a class="btn sec" href="?base={{ base.pk }}&tipo={{ tipo }}&q={{ q|urlencode }}&unidade={{ unidade }}&selecionar={{ selecionar|default:'' }}&pagina={{ resultados.previous_page_number }}">anterior</a>{% endif %}
+<span>página {{ resultados.number }}/{{ resultados.paginator.num_pages }}</span>{% if resultados.has_next %}<a class="btn sec" href="?base={{ base.pk }}&tipo={{ tipo }}&q={{ q|urlencode }}&unidade={{ unidade }}&selecionar={{ selecionar|default:'' }}&pagina={{ resultados.next_page_number }}">próxima</a>{% endif %}</div>{% endif %}{% endif %}{% endblock %}

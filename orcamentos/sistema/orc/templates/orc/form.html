@@ -1,0 +1,5 @@
+{% extends "orc/base.html" %}{% block titulo %}{{ titulo }}{% endblock %}{% block conteudo %}
+<h1>{{ titulo }}</h1>{% if ajuda %}<p class="suave">{{ ajuda }}</p>{% endif %}
+<div class="cartao"><form method="post" {% if multipart %}enctype="multipart/form-data"{% endif %}>{% csrf_token %}
+{{ form.non_field_errors }}{{ form.as_p }}<div class="acoes"><button class="btn" type="submit">Salvar</button>
+<a class="btn sec" href="javascript:history.back()">Voltar</a></div></form></div>{% endblock %}

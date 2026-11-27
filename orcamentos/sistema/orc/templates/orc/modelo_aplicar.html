@@ -1,0 +1,22 @@
+{% extends "orc/base.html" %}{% load orc_extras %}{% block conteudo %}<h1>{{ modelo.nome }} — {{ orc.titulo }}</h1>
+<p class="suave">{{ modelo.descricao }}</p>{% if not orc.base %}<div class="msg warning">O orçamento não tem base definida: referências da base ficarão pendentes.</div>{% endif %}
+{% for e in erros %}<div class="msg error">{{ e }}</div>{% endfor %}
+<form method="post">{% csrf_token %}<input type="hidden" name="modelo" value="{{ modelo.pk }}">
+<div class="cartao"><p><label>Ambiente</label><select name="ambiente"><option value="">— sem ambiente —</option>{% for a in ambientes %}<option value="{{ a.pk }}" {% if ambiente and a.pk == ambiente.pk %}selected{% endif %}>{{ a.nome }}</option>{% endfor %}</select></p>
+{% for p in perguntas %}<p><label>{{ p.texto }}{% if p.unidade %} ({{ p.unidade }}){% endif %}{% if p.obrigatoria %} *{% endif %}</label>
+{% with chave="p_"|add:p.chave %}{% if p.tipo == 'escolha' %}<select name="{{ chave }}"><option value="">—</option>{% for v, r in p.lista_opcoes %}<option value="{{ v }}" {% if valores|get:chave == v %}selected{% endif %}>{{ r }}</option>{% endfor %}</select>
+{% elif p.tipo == 'sim_nao' %}<select name="{{ chave }}"><option value="">—</option><option value="sim" {% if valores|get:chave == 'sim' %}selected{% endif %}>Sim</option><option value="nao" {% if valores|get:chave == 'nao' %}selected{% endif %}>Não</option></select>
+{% else %}<input name="{{ chave }}" value="{{ valores|get:chave|default:'' }}" {% if p.tipo == 'numero' %}inputmode="decimal"{% endif %}>{% endif %}{% endwith %}
+{% if p.ajuda %}<span class="helptext">{{ p.ajuda }}</span>{% endif %}</p>{% endfor %}
+<button class="btn sec" name="acao" value="visualizar">Ver etapas sugeridas</button></div>
+{% if sugestoes %}<h2>Etapas sugeridas</h2><div class="tabela"><table><tr><th>Incluir</th><th>Etapa</th><th>Classificação</th><th>Status</th><th>Referência</th><th class="n">Quantidade</th><th>Observações</th></tr>
+{% for s in sugestoes %}{% if s.ativa or s.erro or s.nota %}<tr>
+<td>{% if s.criavel %}<input type="checkbox" name="etapa" value="{{ s.regra.chave }}" checked>{% endif %}</td>
+<td>{{ s.regra.etapa }}</td><td>{{ s.regra.get_classificacao_display }}{% if s.bloqueada_por %}<br><span class="tag erro">bloqueada: já incluída em "{{ s.bloqueada_por }}"</span>{% endif %}</td>
+<td><span class="tag {{ s.regra.status_sugerido }}">{{ s.regra.get_status_sugerido_display }}</span></td>
+<td class="pequeno">{% if s.ref %}{{ s.ref.ref_base_rotulo }} {{ s.ref.ref_codigo }} — {{ s.ref.ref_descricao }} ({{ s.ref.ref_unidade }}) · custo {% if s.ref.custo_unitario is None %}<span class="alerta">sem custo</span>{% else %}R$ {{ s.ref.custo_unitario|moeda }}{% endif %}
+{% elif s.erro_ref %}<span class="erro">{{ s.erro_ref }}</span>{% elif s.regra.classificacao == 'item' %}<span class="alerta">referência a definir</span>{% else %}—{% endif %}</td>
+<td class="n">{{ s.quantidade|num4 }}</td><td class="pequeno">{{ s.regra.observacao }}{% if s.erro %}<br><span class="erro">{{ s.erro }}</span>{% endif %}{% if s.nota %}<br><span class="suave">{{ s.nota }}</span>{% endif %}
+{% if s.deps_faltando %}<br><span class="alerta">Depende de: {{ s.deps_faltando|join:", " }}</span>{% endif %}</td></tr>{% endif %}{% endfor %}</table></div>
+<details><summary>Etapas não aplicáveis com estas respostas</summary><ul>{% for s in sugestoes %}{% if not s.ativa and not s.erro and not s.nota %}<li>{{ s.regra.etapa }} <span class="suave">(condição: {{ s.regra.condicao }})</span></li>{% endif %}{% endfor %}</ul></details>
+<div class="acoes"><button class="btn" name="acao" value="confirmar">Incluir etapas marcadas no orçamento</button></div>{% endif %}</form>{% endblock %}

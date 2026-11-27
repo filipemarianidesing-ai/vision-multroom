@@ -1,0 +1,9 @@
+{% load static %}<!doctype html><html lang="pt-br"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block titulo %}Orçamentos{% endblock %} · Mariani</title><link rel="stylesheet" href="{% static 'orc/estilo.css' %}"></head><body>
+{% if user.is_authenticated %}<header><span class="marca">Orçamentos Mariani</span>
+<a href="{% url 'inicio' %}">Início</a><a href="{% url 'obras' %}">Obras</a><a href="{% url 'clientes' %}">Clientes</a>
+<a href="{% url 'consulta' %}">Consulta</a><a href="{% url 'bases' %}">Bases</a><a href="{% url 'modelos' %}">Modelos de serviço</a>
+<a href="{% url 'cps' %}">Composições próprias</a><a href="{% url 'cotacoes' %}">Cotações</a><a href="{% url 'empresa' %}">Empresa</a>
+{% if perm.gerir_usuarios %}<a href="{% url 'usuarios' %}">Usuários</a>{% endif %}{% if perm.auditoria %}<a href="{% url 'auditoria' %}">Auditoria</a>{% endif %}
+<span class="usuario">{{ user.get_username }}<form method="post" action="{% url 'logout' %}">{% csrf_token %}<button>Sair</button></form></span></header>{% endif %}
+<main>{% for m in messages %}<div class="msg {{ m.tags }}">{{ m }}</div>{% endfor %}{% block conteudo %}{% endblock %}</main></body></html>

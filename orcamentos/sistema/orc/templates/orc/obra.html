@@ -1,0 +1,12 @@
+{% extends "orc/base.html" %}{% load orc_extras %}{% block conteudo %}<h1>{{ obra.nome }}</h1>
+<p class="suave">{{ obra.cliente }} · {{ obra.endereco }} {{ obra.municipio }}/{{ obra.uf }}</p>{% if obra.descricao %}<p>{{ obra.descricao|linebreaksbr }}</p>{% endif %}
+{% if perm.editar_cadastros %}<div class="acoes"><a class="btn sec" href="{% url 'obra_editar' obra.pk %}">Editar obra</a><a class="btn sec" href="{% url 'ambiente_novo' obra.pk %}">Novo ambiente</a>
+{% if perm.editar_orcamento %}<a class="btn" href="{% url 'orcamento_novo' obra.pk %}">Novo orçamento</a>{% endif %}</div>{% endif %}
+<h2>Ambientes</h2><div class="tabela"><table><tr><th>Ambiente</th><th class="n">Comprimento (m)</th><th class="n">Largura (m)</th><th class="n">Pé-direito (m)</th><th>Observações</th><th></th></tr>
+{% for a in ambientes %}<tr><td>{{ a.nome }}</td><td class="n">{{ a.comprimento|num4 }}</td><td class="n">{{ a.largura|num4 }}</td><td class="n">{{ a.pe_direito|num4 }}</td><td>{{ a.observacoes }}</td>
+<td>{% if perm.editar_cadastros %}<a href="{% url 'ambiente_editar' a.pk %}">editar</a>
+<form method="post" action="{% url 'ambiente_excluir' a.pk %}" style="display:inline" onsubmit="return confirm('Excluir ambiente?')">{% csrf_token %}<button class="btn peq perigo">excluir</button></form>{% endif %}</td></tr>
+{% empty %}<tr><td colspan="6" class="suave">Nenhum ambiente cadastrado.</td></tr>{% endfor %}</table></div>
+<h2>Orçamentos</h2><div class="tabela"><table><tr><th>Título</th><th>Finalidade</th><th>Base</th><th>Atualizado</th></tr>
+{% for o in orcamentos %}<tr><td><a href="{% url 'orcamento' o.pk %}">{{ o.titulo }}</a></td><td>{{ o.get_finalidade_display }}</td><td>{{ o.base|default:"—" }}</td><td>{{ o.atualizado_em|date:"d/m/Y H:i" }}</td></tr>
+{% empty %}<tr><td colspan="4" class="suave">Nenhum orçamento.</td></tr>{% endfor %}</table></div>{% endblock %}

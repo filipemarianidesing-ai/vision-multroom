@@ -1,0 +1,3 @@
+{% extends "orc/base.html" %}{% block conteudo %}<h1>Detalhar serviço por modelo — {{ orc.titulo }}</h1>
+<form method="get" class="cartao"><p><label>Modelo de serviço</label><select name="modelo">{% for m in modelos %}<option value="{{ m.pk }}">{{ m.nome }}</option>{% endfor %}</select></p>
+<button class="btn">Continuar</button></form>{% endblock %}

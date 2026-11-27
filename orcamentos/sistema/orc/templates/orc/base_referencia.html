@@ -1,0 +1,24 @@
+{% extends "orc/base.html" %}{% load orc_extras %}{% block conteudo %}<h1>{{ base }}</h1>
+<div class="cartao"><table>
+<tr><th>Situação</th><td><span class="tag {% if base.status == 'confirmada' %}confirmado{% elif base.status == 'previa' %}condicional{% else %}erro{% endif %}">{{ base.get_status_display }}</span>
+{% if base.confirmado_em %} por {{ base.confirmado_por }} em {{ base.confirmado_em|date:"d/m/Y H:i" }}{% endif %}</td></tr>
+<tr><th>Fonte / UF / localidade</th><td>{{ base.get_fonte_display }} · {{ base.uf }} · {{ base.localidade }}</td></tr>
+<tr><th>Competência / emissão</th><td>{{ base.competencia|date:"m/Y" }} · emitido em {{ base.data_emissao }}</td></tr>
+<tr><th>Regime de encargos</th><td>{{ base.get_regime_display }}{% if base.encargos_horista %} · fatores do arquivo: horista {{ base.encargos_horista }} / mensalista {{ base.encargos_mensalista }}{% endif %}</td></tr>
+<tr><th>Arquivo original</th><td>{{ base.nome_arquivo }} — <a href="{% url 'base_arquivo' base.pk %}">baixar original</a><br><span class="pequeno suave">SHA-256 {{ base.sha256 }} · planilha {{ rel.planilha }} · leiaute {{ base.leiaute }}</span></td></tr>
+<tr><th>Importado</th><td>{{ base.importado_por|default:"—" }} em {{ base.importado_em|date:"d/m/Y H:i" }}</td></tr></table></div>
+{% if rel.erros %}<div class="cartao"><h2 class="erro">Erros (importação recusada)</h2><ul>{% for e in rel.erros %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+{% if rel.estatisticas %}<div class="cartao"><h2>Validação</h2><table class="pequeno">
+<tr><th>Insumos</th><td>{{ rel.estatisticas.insumos }} (sem preço na UF: {{ rel.estatisticas.insumos_sem_preco }})</td></tr>
+<tr><th>Composições</th><td>{{ rel.estatisticas.composicoes }} · sem custo na UF: {{ rel.estatisticas.zero_tratado_sem_custo }} (célula 0 com %AS vazio ou "SEM CUSTO" — gravadas como sem custo, não zero) · com %AS &gt; 0: {{ rel.estatisticas.com_pct_as }}</td></tr>
+<tr><th>Itens do analítico</th><td>{{ rel.estatisticas.itens_analitico }}</td></tr>
+<tr><th>Conferência analítica</th><td>{{ rel.estatisticas.conferencia_reproduzidas }} composições reproduzem o custo publicado (Σ TRUNC(coef×preço;2)) · {{ rel.estatisticas.conferencia_divergentes }} divergentes · {{ rel.estatisticas.conferencia_nao_recalculaveis }} não recalculáveis (item sem preço na UF)</td></tr>
+<tr><th>Unidades</th><td>{{ rel.estatisticas.unidades|join:", " }}</td></tr></table>
+{% if rel.avisos %}<details><summary>Avisos ({{ rel.estatisticas.avisos_total }})</summary><ul>{% for a in rel.avisos %}<li>{{ a }}</li>{% endfor %}</ul></details>{% endif %}</div>{% endif %}
+{% if base.status == 'previa' and perm.importar_base %}<div class="acoes">
+<form method="post" action="{% url 'base_confirmar' base.pk %}">{% csrf_token %}<button class="btn">Confirmar importação</button></form>
+<form method="post" action="{% url 'base_cancelar' base.pk %}">{% csrf_token %}<button class="btn perigo">Cancelar prévia</button></form></div>{% endif %}
+{% if n_ins %}<h2>Prévia — primeiros insumos ({{ n_ins }})</h2><div class="tabela"><table class="pequeno"><tr><th>Código</th><th>Descrição</th><th>Un</th><th>Origem</th><th class="n">Preço</th><th>Linha</th></tr>
+{% for i in amostra_ins %}<tr><td>{{ i.codigo }}</td><td>{{ i.descricao }}</td><td>{{ i.unidade }}</td><td>{{ i.origem_preco }}</td><td class="n">{{ i.preco|moeda }}</td><td>{{ i.linha }}</td></tr>{% endfor %}</table></div>
+<h2>Prévia — primeiras composições ({{ n_comp }})</h2><div class="tabela"><table class="pequeno"><tr><th>Código</th><th>Descrição</th><th>Un</th><th class="n">Custo</th><th>%AS</th><th>Situação</th></tr>
+{% for c in amostra_comp %}<tr><td><a href="{% url 'composicao' base.pk c.codigo %}">{{ c.codigo }}</a></td><td>{{ c.descricao }}</td><td>{{ c.unidade }}</td><td class="n">{{ c.custo|moeda }}</td><td>{{ c.pct_atribuido_sp|default_if_none:"—" }}</td><td>{{ c.situacao }}</td></tr>{% endfor %}</table></div>{% endif %}{% endblock %}

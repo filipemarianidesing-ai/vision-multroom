@@ -1,0 +1,9 @@
+{% extends "orc/base.html" %}{% block conteudo %}
+<h1>Início</h1>
+{% if not empresa %}<div class="msg warning">Empresa não cadastrada. <a href="{% url 'empresa_editar' %}">Cadastrar</a>.</div>{% endif %}
+{% for d in docs_vencidos %}<div class="msg error">Documento vencido: {{ d.tipo }} (validade {{ d.validade|date:"d/m/Y" }}).</div>{% endfor %}
+{% if not bases %}<div class="msg warning">Nenhuma base oficial confirmada. <a href="{% url 'base_importar' %}">Importar SINAPI</a>.</div>{% endif %}
+<div class="acoes"><a class="btn" href="{% url 'obra_nova' %}">Nova obra/serviço</a><a class="btn sec" href="{% url 'cliente_novo' %}">Novo cliente</a></div>
+<div class="grade"><div class="cartao"><h2>Obras recentes</h2><ul>{% for o in obras %}<li><a href="{% url 'obra' o.pk %}">{{ o.nome }}</a> <span class="suave">— {{ o.cliente }} ({{ o.n }} orç.)</span></li>{% empty %}<li class="suave">Nenhuma.</li>{% endfor %}</ul></div>
+<div class="cartao"><h2>Orçamentos recentes</h2><ul>{% for o in orcamentos %}<li><a href="{% url 'orcamento' o.pk %}">{{ o.titulo }}</a> <span class="suave">— {{ o.obra.nome }}</span></li>{% empty %}<li class="suave">Nenhum.</li>{% endfor %}</ul></div>
+<div class="cartao"><h2>Bases confirmadas</h2><ul>{% for b in bases %}<li><a href="{% url 'base' b.pk %}">{{ b }}</a></li>{% empty %}<li class="suave">Nenhuma.</li>{% endfor %}</ul></div></div>{% endblock %}

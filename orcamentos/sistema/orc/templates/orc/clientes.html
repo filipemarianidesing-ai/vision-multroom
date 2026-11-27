@@ -1,0 +1,6 @@
+{% extends "orc/base.html" %}{% block conteudo %}<h1>Clientes / órgãos</h1>
+{% if perm.editar_cadastros %}<div class="acoes"><a class="btn" href="{% url 'cliente_novo' %}">Novo cliente</a></div>{% endif %}
+<div class="tabela"><table><tr><th>Nome</th><th>Tipo</th><th>Município</th><th>Contato</th><th>Obras</th><th></th></tr>
+{% for c in clientes %}<tr><td>{{ c.nome }}</td><td>{{ c.get_tipo_display }}</td><td>{{ c.municipio }}/{{ c.uf }}</td><td>{{ c.contato }} {{ c.telefone }}</td><td>{{ c.n }}</td>
+<td>{% if perm.editar_cadastros %}<a href="{% url 'cliente_editar' c.pk %}">editar</a> · <a href="{% url 'obra_nova' %}?cliente={{ c.pk }}">nova obra</a>{% endif %}</td></tr>
+{% empty %}<tr><td colspan="6" class="suave">Nenhum cliente.</td></tr>{% endfor %}</table></div>{% endblock %}

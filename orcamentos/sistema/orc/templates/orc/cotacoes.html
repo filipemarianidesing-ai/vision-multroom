@@ -1,0 +1,8 @@
+{% extends "orc/base.html" %}{% load orc_extras %}{% block conteudo %}<h1>Cotações de fornecedores</h1>
+{% if perm.editar_cadastros %}<div class="acoes"><a class="btn" href="{% url 'cotacao_nova' %}">Nova cotação</a></div>{% endif %}
+<div class="tabela"><table><tr><th>#</th><th>Fornecedor</th><th>Especificação</th><th>Un</th><th class="n">Qtd</th><th class="n">Preço unit.</th><th class="n">Frete</th><th class="n">Unit. c/ frete</th><th>Data</th><th>Validade</th><th>Situação</th><th></th></tr>
+{% for c in cotacoes %}<tr><td>COT-{{ c.pk }}</td><td>{{ c.fornecedor }}</td><td>{{ c.especificacao|truncatechars:80 }}{% if c.inclui_instalacao %} <span class="tag">inclui instalação</span>{% endif %}</td><td>{{ c.unidade }}</td><td class="n">{{ c.quantidade|num4 }}</td>
+<td class="n">{{ c.preco_unitario|moeda }}</td><td class="n">{{ c.frete|moeda }}</td><td class="n">{{ c.preco_com_frete|moeda }}</td><td>{{ c.data|date:"d/m/Y" }}</td><td>{{ c.validade|date:"d/m/Y" }}</td>
+<td>{% if c.descartada %}<span class="tag erro">descartada</span>{% elif c.validade and c.validade < hoje %}<span class="tag condicional">vencida</span>{% else %}<span class="tag confirmado">ok</span>{% endif %}</td>
+<td>{% if perm.editar_cadastros %}<a href="{% url 'cotacao_editar' c.pk %}">editar</a>{% endif %}{% if c.arquivo %} · <a href="{% url 'cotacao_arquivo' c.pk %}">evidência</a>{% endif %}</td></tr>
+{% empty %}<tr><td colspan="12" class="suave">Nenhuma cotação.</td></tr>{% endfor %}</table></div>{% endblock %}

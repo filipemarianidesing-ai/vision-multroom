@@ -1,0 +1,39 @@
+# Implantação sugerida: app + PostgreSQL + Caddy (HTTPS automático) + rotina diária de backup.
+# NÃO TESTADO neste ambiente (sem Docker). Copie .env.exemplo para .env e preencha antes de subir.
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: orcamento
+      POSTGRES_USER: orc
+      POSTGRES_PASSWORD: ${ORC_DB_PASSWORD}
+    volumes: [pgdata:/var/lib/postgresql/data]
+  app:
+    build: { context: .., dockerfile: deploy/Dockerfile }
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      ORC_DB_HOST: db
+      ORC_DB_USER: orc
+    volumes: [dados:/dados, "${ORC_BACKUP_HOST_DIR:-./backups}:/dados/backups"]
+    depends_on: [db]
+  backup:
+    build: { context: .., dockerfile: deploy/Dockerfile }
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      ORC_DB_HOST: db
+      ORC_DB_USER: orc
+    volumes: [dados:/dados, "${ORC_BACKUP_HOST_DIR:-./backups}:/dados/backups"]
+    depends_on: [db]
+    # Backup diário (~02:00 do container), retenção 30 diários + 12 mensais.
+    command: sh -c 'while true; do sleep $$(( $$(date -d "tomorrow 02:00" +%s) - $$(date +%s) )); python manage.py backup; done'
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    command: caddy reverse-proxy --from ${ORC_DOMINIO} --to app:8000
+    volumes: [caddy:/data]
+    depends_on: [app]
+volumes: { pgdata: {}, dados: {}, caddy: {} }
